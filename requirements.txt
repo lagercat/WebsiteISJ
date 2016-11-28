@@ -1,0 +1,2 @@
+django==1.9
+django-widget-tweaks==1.4.1
