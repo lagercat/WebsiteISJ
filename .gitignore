@@ -87,3 +87,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+#JetBrains IDEs
+.idea/
+
+#Sebi's mac stuff
+.DS_store
