@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     # our apps
     'authentication',
     'homepages',
+    'school'
 ]
 
 MIDDLEWARE_CLASSES = [
