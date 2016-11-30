@@ -8,14 +8,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 INSTALLED_APPS = [
+    # django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # our apps
+    'authentication'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -49,18 +51,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 DATABASES = {
-               'default': {
-                    'ENGINE': 'django.db.backends.mysql',
-                    'NAME': 'isj',
-                    'USER': 'test_user',
-                    'PASSWORD': 'password',
-                    'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-                    'PORT': '', # Set to empty string for default.
-       }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'isj',
+        'USER': 'test_user',
+        'PASSWORD': 'password',
+        'HOST': '',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '',  # Set to empty string for default.
+    }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
