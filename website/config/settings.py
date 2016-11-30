@@ -51,10 +51,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+               'default': {
+                    'ENGINE': 'django.db.backends.mysql',
+                    'NAME': 'isj',
+                    'USER': 'test_user',
+                    'PASSWORD': 'password',
+                    'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+                    'PORT': '', # Set to empty string for default.
+       }
 }
 
 
