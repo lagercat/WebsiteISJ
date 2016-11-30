@@ -18,5 +18,5 @@ class Account(models.Model):
     def get_access_level(self):
         return self.__statut_dict.get(self.access_level, default="Unknown")
 
-    def validate_access_level(self):x
+    def validate_access_level(self):
         return self.get_access_level() != "Unknown"
