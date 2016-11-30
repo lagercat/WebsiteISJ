@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 
 class Account(models.Model):
     __access_level__dict = {
-        1 : "Inspector",
-        2 : "Director"
+        1: "Inspector",
+        2: "Director"
     }
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
