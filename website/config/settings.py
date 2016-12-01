@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     # our apps
     'authentication',
     'homepages',
+    'school'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -64,6 +65,10 @@ DATABASES = {
         'PASSWORD': 'password',
         'HOST': '',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',  # Set to empty string for default.
+        'OPTIONS': {
+            'sql_mode': 'traditional'
+        }
+
     }
 }
 
