@@ -15,11 +15,12 @@ class Account(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     school = models.ForeignKey(School, related_name='school', blank=False, null=True, default=1,
                                on_delete=models.PROTECT)
-    access_level = models.IntegerField(default=-1)
+    access_level_code = models.IntegerField(default=-1)
     # should make a subject model
 
-    def get_access_level(self):
-        return self.__statut_dict.get(self.access_level, default="Unknown")
+    @property
+    def access_level(self):
+        return self.__access_level__dict.get(self.access_level_code, "Unknown")
 
     def validate_access_level(self):
-        return self.get_access_level() != "Unknown"
+        return self.access_level != "Unknown"
