@@ -13,7 +13,7 @@ class Account(models.Model):
     }
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    school = models.ForeignKey(School, related_name='school', blank=False, null=True, default=1,
+    school = models.ForeignKey(School, related_name='accounts', blank=False, null=True, default=1,
                                on_delete=models.PROTECT)
     access_level_code = models.IntegerField(default=-1)
     # should make a subject model
