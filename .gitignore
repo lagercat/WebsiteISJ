@@ -93,3 +93,6 @@ ENV/
 
 #Sebi's mac stuff
 .DS_store
+
+#Sql lite
+*.sqlite3
