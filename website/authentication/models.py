@@ -24,6 +24,9 @@ class Account(models.Model):
     school_three = models.ForeignKey(Subject, related_name='thirds', blank=True, null=True, default=-1,
                                      on_delete=models.PROTECT)
 
+    def __unicode__(self):
+        return self.user.username + " account"
+
     @property
     def access_level(self):
         return self.__access_level__dict.get(self.access_level_code, "Unknown")
