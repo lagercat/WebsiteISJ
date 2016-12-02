@@ -10,18 +10,18 @@ from subject.models import Subject
 class Account(models.Model):
     __access_level__dict = {
         1: "Inspector",
-        2: "Director"
+        2: "Headmaster"
     }
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     school = models.ForeignKey(School, related_name='accounts', blank=False, null=True, default=-1,
                                on_delete=models.PROTECT)
-    access_level_code = models.IntegerField(default=-1)
+    access_level_code = models.IntegerField(blank=False, help_text="1 stands for Inspector and 2 stands for Headmaster")
     subject_one = models.ForeignKey(Subject, related_name='primers', blank=False, null=True, default=-1,
                                     on_delete=models.PROTECT)
-    subject_two = models.ForeignKey(Subject, related_name='seconds', blank=False, null=True, default=-1,
+    subject_two = models.ForeignKey(Subject, related_name='seconds', blank=True, null=True, default=-1,
                                     on_delete=models.PROTECT)
-    school_three = models.ForeignKey(Subject, related_name='thirds', blank=False, null=True, default=-1,
+    school_three = models.ForeignKey(Subject, related_name='thirds', blank=True, null=True, default=-1,
                                      on_delete=models.PROTECT)
 
     @property
