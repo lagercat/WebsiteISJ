@@ -16,3 +16,6 @@ class Post(models.Model):
 
     def __unicode__(self):
         return "File %s from %s" % (self.filename, self.author.username)
+
+    class Meta:
+        get_latest_by = 'date'
