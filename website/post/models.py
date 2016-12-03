@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class Post(models.Model):
     author = models.ForeignKey(User, related_name='posts', blank=False)
     file = models.FileField()
-    date = models.DateTimeField(Editable=False, auto_now_add=True, blank=False)
+    date = models.DateTimeField(editable=False, auto_now_add=True, blank=False, null=True)
 
     @property
     def filename(self):
