@@ -21,7 +21,8 @@ INSTALLED_APPS = [
     'authentication',
     'homepages',
     'school',
-    'subject'
+    'subject',
+    'post'
 ]
 
 MIDDLEWARE_CLASSES = [
