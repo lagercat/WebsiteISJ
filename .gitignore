@@ -96,3 +96,6 @@ ENV/
 
 #Sql lite
 *.sqlite3
+
+#Folder where documents are stored
+documents/
