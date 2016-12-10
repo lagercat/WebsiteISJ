@@ -4,7 +4,6 @@ from django.contrib.auth import logout, authenticate, login
 
 from forms import LoginForm
 
-
 @login_required
 def logout_view(request):
     logout(request)
