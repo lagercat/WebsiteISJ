@@ -4,6 +4,7 @@ from django.contrib.auth import logout, authenticate, login
 
 from forms import LoginForm
 
+
 @login_required
 def logout_view(request):
     logout(request)
@@ -17,9 +18,9 @@ def login_view(request):
     errors = []
     if request.method == "POST":
         if form.is_valid():
-            user = authenticate(user=form.cleaned_data['username'],
+            user = authenticate(username=form.cleaned_data['username'],
                                 password=form.cleaned_data['password'])
-            if user:
+            if user is not None:
                 login(request, user)
                 return redirect('/')
             else:
