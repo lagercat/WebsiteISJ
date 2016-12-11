@@ -1,0 +1,44 @@
+{% extends "base_admin.html" %}
+{% load staticfiles %}
+{% block content %}
+{% load widget_tweaks %}
+<!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+          	<h3><i class="fa fa-angle-right"></i> Responsive Table Examples</h3>
+		  		<div class="row mt">
+			  		<div class="col-lg-12">
+                      <div class="content-panel">
+                      <h4><i class="fa fa-angle-right"></i> Responsive Table</h4>
+                          <section id="unseen">
+                            <table class="table table-bordered table-striped table-condensed">
+                              <thead>
+                              <tr>
+                                  <th class="numeric">Nume fisier</th>
+                                  <th class="numeric">Incarcat de</th>
+                                  <th class="numeric">La data de</th>
+                                  <th class="numeric">Descarca</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              {% for file in files %}
+                              <tr>
+                                  <td>{{ file.filename }}</td>
+                                  <td>{{ file.author.username }}</td>
+                                  <td>{{ file.date }}</td>
+                                  <td><span class="glyphicon glyphicon-floppy-save"></span></td>
+                              </tr>
+                              {% endfor %}
+                              </tbody>
+                          </table>
+                          </section>
+                  </div><!-- /content-panel -->
+               </div><!-- /col-lg-4 -->			
+		  	</div><!-- /row -->
+
+
+		</section><! --/wrapper -->
+ {% endblock %}

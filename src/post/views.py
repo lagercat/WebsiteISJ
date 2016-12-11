@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
+from models import Post
 from forms import CreatePostForm
 
 
@@ -17,4 +18,12 @@ def upload_file_form(request):
     return render(request, "post/form.html", {
         "form": form,
         "confirm": confirm})
+
+
+@login_required
+def uploaded_files(request):
+    files = Post.objects.all().order_by('-date')
+    return render(request, "post/posts.html", {
+        "files": files
+    })
 
