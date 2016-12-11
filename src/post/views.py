@@ -1,8 +1,12 @@
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404
+from django.utils.encoding import smart_str
+from django.http import HttpResponse
 
-from models import Post
 from forms import CreatePostForm
+from models import Post
+
+import magic
 
 
 @login_required
@@ -26,4 +30,13 @@ def uploaded_files(request):
     return render(request, "post/posts.html", {
         "files": files
     })
+
+
+@login_required
+def download_file(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    mime = magic.Magic(mime=True)
+    response = HttpResponse(post.file, content_type=mime.from_file(post.file.path))
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(post.filename)
+    return response
 

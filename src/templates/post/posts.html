@@ -29,7 +29,7 @@
                                   <td>{{ file.filename }}</td>
                                   <td>{{ file.author.username }}</td>
                                   <td>{{ file.date }}</td>
-                                  <td><span class="glyphicon glyphicon-floppy-save"></span></td>
+                                  <td><a href="/downloadfile/{{ file.slug }}"><span class="glyphicon glyphicon-floppy-save"></span></a></td>
                               </tr>
                               {% endfor %}
                               </tbody>
