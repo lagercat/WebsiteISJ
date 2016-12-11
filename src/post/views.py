@@ -14,7 +14,6 @@ def upload_file_form(request):
             post.author = request.user
             post.save()
             confirm.append("Fisierul a fost incarcat")
-    print form.errors
     return render(request, "post/form.html", {
         "form": form,
         "confirm": confirm})

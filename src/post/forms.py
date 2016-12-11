@@ -10,6 +10,7 @@ class CreatePostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['name', 'file']
+        widgets = {'name': forms.TextInput(attrs={'required': 'required'})}
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)

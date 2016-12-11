@@ -20,13 +20,29 @@
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Titlu postare: </label>
                               <div class="col-sm-10">
-                                  {{ form.name|add_class:"form-control"|attr:"placeholder:Nume fisier" }}
+                                  {% if form.name.errors %}
+                                    {{ form.name|add_class:"form-control"|attr:"placeholder:Nume fisier"|attr:"id:focusedInput" }}
+                                  <span class="help-block">
+                                      {% for error in form.name.errors %}
+                                        {{ error }}
+                                      {% endfor %}
+                                  </span>
+                                  {% else %}
+                                    {{ form.name|add_class:"form-control"|attr:"placeholder:Nume fisier" }}
+                                  {% endif %}
                               </div>
                           </div>
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Alege fisierul: </label>
                               <div class="col-sm-10">
-                                  {{ form.file|add_class:"form-control" }}
+                                  {% if form.file.errors %}
+                                    {{ form.file|add_class:"form-control"|attr:"id:focusedInput" }}
+                                    {% for error in form.file.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                  {% else %}
+                                    {{ form.file|add_class:"form-control" }}
+                                  {% endif %}
                               </div>
                           </div>
                           <button type="submit" class="btn btn-theme">Trimite</button>
