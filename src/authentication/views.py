@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 
-from forms import LoginForm
+from forms import LoginForm, ResetPasswordForm
 
 
 @login_required
@@ -28,4 +28,24 @@ def login_view(request):
     return render(request, 'authentication/login.html', {
         'errors': errors,
         'form': form
+    })
+
+
+@login_required
+def reset_password_view(request):
+    form = ResetPasswordForm(request.POST or None, user=request.user)
+    confirms = []
+    if request.method == "POST":
+        if form.is_valid():
+            password_new = form.cleaned_data["new_password"]
+            request.user.set_password(password_new)
+            request.user.save()
+            user = authenticate(username=request.user.username,
+                                password=password_new)
+            login(request, user)
+            confirms.append("Parola a fost schimbata")
+    print form.errors
+    return render(request, "authentication/password_form.html", {
+        "form": form,
+        "confirms": confirms
     })
