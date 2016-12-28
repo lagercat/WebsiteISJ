@@ -24,7 +24,9 @@ INSTALLED_APPS = [
     'homepages',
     'school',
     'subject',
-    'post'
+    'post',
+    'headmaster',
+    'inspector'
 ]
 
 MIDDLEWARE_CLASSES = [

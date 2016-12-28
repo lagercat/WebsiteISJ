@@ -5,8 +5,6 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import post.models
-import uuid
 
 
 class Migration(migrations.Migration):
@@ -15,21 +13,16 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('school', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Post',
+            name='Headmaster',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, null=True)),
-                ('file', models.FileField(upload_to=post.models.user_directory_path)),
-                ('date', models.DateTimeField(auto_now_add=True, null=True)),
-                ('slug', models.SlugField(default=uuid.uuid1, unique=True)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='posts', to=settings.AUTH_USER_MODEL)),
+                ('school', models.ForeignKey(default=-1, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='headmasters', to='school.School')),
+                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
-            options={
-                'get_latest_by': 'date',
-            },
         ),
     ]
