@@ -38,3 +38,11 @@ def download_file(request, slug):
     response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(post.filename)
     return response
 
+
+@login_required
+def delete_file(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    if post.author == request.user:
+        post.delete()
+        return redirect("/files")
+

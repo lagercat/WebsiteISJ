@@ -30,6 +30,9 @@
                                   <td>{{ file.author.username }}</td>
                                   <td>{{ file.date }}</td>
                                   <td><a href="/downloadfile/{{ file.slug }}"><span class="glyphicon glyphicon-floppy-save"></span></a></td>
+                                  {% if file.author == request.user %}
+                                    <td><a href="/deletefile/{{ file.slug }}">Sterge</a></td>
+                                  {% endif %}
                               </tr>
                               {% endfor %}
                               </tbody>
