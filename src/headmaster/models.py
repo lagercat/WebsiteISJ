@@ -12,4 +12,4 @@ class Headmaster(models.Model):
                                on_delete=models.PROTECT)
 
     def __unicode__(self):
-        return self.user.username + " Inspector"
+        return self.user.username + " Headmaster"
