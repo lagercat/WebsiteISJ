@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.encoding import smart_str
 from django.http import HttpResponse
 
@@ -12,16 +12,14 @@ import magic
 @login_required
 def upload_file_form(request):
     form = CreatePostForm(request.POST or None, request.FILES or None, user=request.user)
-    confirm = []
     if request.method == 'POST':
         if form.is_valid():
             post = form.instance
             post.author = request.user
             post.save()
-            confirm.append("Fisierul a fost incarcat")
+            return redirect("/files")
     return render(request, "post/form.html", {
-        "form": form,
-        "confirm": confirm})
+        "form": form})
 
 
 @login_required
