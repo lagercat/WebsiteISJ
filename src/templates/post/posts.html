@@ -8,11 +8,11 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h3><i class="fa fa-angle-right"></i> Responsive Table Examples</h3>
+          	<h3><i class="fa fa-angle-right"></i>Fisiere</h3>
 		  		<div class="row mt">
 			  		<div class="col-lg-12">
                       <div class="content-panel">
-                      <h4><i class="fa fa-angle-right"></i> Responsive Table</h4>
+                      <h4><i class="fa fa-angle-right"></i>Fisiere incarcate</h4>
                           <section id="unseen">
                             <table class="table table-bordered table-striped table-condensed">
                               <thead>
@@ -26,7 +26,7 @@
                               <tbody>
                               {% for file in files %}
                               <tr>
-                                  <td>{{ file.filename }}</td>
+                                  <td>{{ file.name }}</td>
                                   <td>{{ file.author.username }}</td>
                                   <td>{{ file.date }}</td>
                                   <td><a href="/downloadfile/{{ file.slug }}"><span class="glyphicon glyphicon-floppy-save"></span></a></td>
