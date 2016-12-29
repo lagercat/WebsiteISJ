@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.encoding import smart_str
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 
 from forms import CreatePostForm
 from models import Post
@@ -19,7 +19,8 @@ def upload_file_form(request):
             post.save()
             return redirect("/files")
     return render(request, "post/form.html", {
-        "form": form})
+        "form": form
+    })
 
 
 @login_required
@@ -46,3 +47,18 @@ def delete_file(request, slug):
         post.delete()
         return redirect("/files")
 
+
+@login_required
+def edit_file(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    if post.author == request.user:
+        form = CreatePostForm(request.POST or None, request.FILES or None, instance=post, user=request.user)
+        if request.method == 'POST':
+            if form.is_valid():
+                form.save()
+                return redirect("/files")
+        return render(request, "post/edit.html", {
+            "form": form
+        })
+    else:
+        return HttpResponseForbidden()
