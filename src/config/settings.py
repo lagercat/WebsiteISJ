@@ -18,6 +18,7 @@ INSTALLED_APPS = [
 
     # django packages
     'widget_tweaks',
+    'haystack',
 
     # usual apps
     'authentication',
@@ -69,6 +70,15 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# Search engine config
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {

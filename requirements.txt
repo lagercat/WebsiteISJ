@@ -2,3 +2,4 @@ Django==1.10.3
 django-haystack==2.5.1
 django-widget-tweaks==1.4.1
 python-magic==0.4.12
+Whoosh==2.7.4
