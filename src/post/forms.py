@@ -18,7 +18,7 @@ class CreatePostForm(forms.ModelForm):
 
     def clean_file(self):
         uploaded_file = self.cleaned_data['file']
-        max_size = 1000000  # 10 MB
+        max_size = 10000000  # 10 MB
         filename, file_type = os.path.splitext(uploaded_file.name)
         allowed_file_types = [
             '.doc', '.docx', '.docm', '.xls', '.xlsx', '.ppt',
