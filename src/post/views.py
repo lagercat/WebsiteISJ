@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.encoding import smart_str
-from django.http import HttpResponse, HttpResponseForbidden
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import HttpResponse, HttpResponseForbidden, Http404
 
 from forms import CreatePostForm
 from models import Post
@@ -17,7 +18,7 @@ def upload_file_form(request):
             post = form.instance
             post.author = request.user
             post.save()
-            return redirect("/files")
+            return redirect("/files?page=1")
     return render(request, "post/form.html", {
         "form": form
     })
@@ -26,6 +27,14 @@ def upload_file_form(request):
 @login_required
 def uploaded_files(request):
     files = Post.objects.all().order_by('-date')
+    page_id = request.GET.get('page')
+    pages = Paginator(files, 10)
+    try:
+        files = pages.page(page_id)
+    except PageNotAnInteger:
+        files = pages.page(1)
+    except EmptyPage:
+        files = pages.page(pages.num_pages)
     return render(request, "post/posts.html", {
         "files": files
     })
@@ -45,7 +54,7 @@ def delete_file(request, slug):
     post = get_object_or_404(Post, slug=slug)
     if post.author == request.user:
         post.delete()
-        return redirect("/files")
+        return redirect("/files?page=1")
 
 
 @login_required
@@ -56,7 +65,7 @@ def edit_file(request, slug):
         if request.method == 'POST':
             if form.is_valid():
                 form.save()
-                return redirect("/files")
+                return redirect("/files?page=1")
         return render(request, "post/edit.html", {
             "form": form
         })
