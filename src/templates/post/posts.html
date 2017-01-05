@@ -38,6 +38,21 @@
                               </tbody>
                           </table>
                           </section>
+                          <div class="btn-group">
+                              {% if files.has_previous %}
+                              <a href="/files/?page={{ files.previous_page_number }}">
+						            <button type="button" class="btn btn-default">{{ files.previous_page_number }}</button>
+                              </a>
+                              {% endif %}
+                              <a>
+                                      <button type="button" class="btn btn-default"> {{ files.number }}</button>
+                              </a>
+                              {% if files.has_next %}
+                              <a href="/files/?page={{ files.next_page_number }}">
+                                        <button type="button" class="btn btn-default">{{ files.next_page_number }}</button>
+                              </a>
+                              {% endif %}
+						</div>
                   </div><!-- /content-panel -->
                </div><!-- /col-lg-4 -->			
 		  	</div><!-- /row -->
