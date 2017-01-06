@@ -1,7 +1,11 @@
 from django import forms
 
+from captcha.fields import ReCaptchaField
+
 
 class LoginForm(forms.Form):
+    re_captcha = ReCaptchaField()
+
     username = forms.CharField(max_length=30, label="Nume de utilizator",
                                widget=forms.TextInput(attrs={
                                    'required': 'required',
@@ -12,6 +16,7 @@ class LoginForm(forms.Form):
                                    'required': 'required',
                                    'placeholder': 'Parola'
                                }))
+
 
 
 class ResetPasswordForm(forms.Form):

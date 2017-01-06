@@ -53,6 +53,8 @@
 					{{ form.username|add_class:"form-control"|attr:"required:required"|attr:"placeholder:Nume de utilizator"|attr:"autofocus" }}
 		            <br>
 					{{ form.password|add_class:"form-control"|attr:"required:required"|attr:"placeholder:Parola" }}
+					<br>
+					{{ form.re_captcha|add_class:"form-control"|attr:"required:required" }}
 					{% endif %}
 		            <label class="checkbox">
 		                <span class="pull-right">
