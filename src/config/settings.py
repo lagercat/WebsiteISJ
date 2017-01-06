@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'captcha',
     'widget_tweaks',
     'haystack',
+    'django_cleanup',
 
     # usual apps
     'authentication',
@@ -31,7 +32,8 @@ INSTALLED_APPS = [
     'subject',
     'post',
     'headmaster',
-    'inspector'
+    'inspector',
+    'event',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -114,4 +116,6 @@ STATICFILES_DIRS = ( os.path.join(os.path.dirname(os.path.dirname(__file__)), "s
 
 NOCAPTCHA = True
 RECAPTCHA_USE_SSL = False
+
+
 
