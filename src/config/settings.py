@@ -4,6 +4,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'vl27lst+j0&n4ec$dh7qu^=i0f2@$#(dw-25#7$f##$w9s%8b5'
 
+RECAPTCHA_PUBLIC_KEY = '6Le23xAUAAAAALeZVS6-CFTIKbhD-2XGYDWV3JUY'
+RECAPTCHA_PRIVATE_KEY = '6Le23xAUAAAAADqwurHC-Cvm25zXqkvHuREZjiIo'
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -17,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # django packages
+    'captcha',
     'widget_tweaks',
     'haystack',
 
@@ -107,3 +111,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = ( os.path.join(os.path.dirname(os.path.dirname(__file__)), "static"), )
+
+NOCAPTCHA = True
+RECAPTCHA_USE_SSL = False
+
