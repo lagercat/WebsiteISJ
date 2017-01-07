@@ -43,8 +43,8 @@ class ExtendedUser(AbstractBaseUser):
   class Meta:
     verbose_name = 'User'
     verbose_name_plural = 'Users'
-  first_name = models.TextField(max_length=50)
-  last_name = models.TextField(max_length=50)
+  first_name = models.CharField(max_length=50)
+  last_name = models.CharField(max_length=50)
   email = models.EmailField(
     verbose_name='email address',
     max_length=255,
@@ -52,7 +52,7 @@ class ExtendedUser(AbstractBaseUser):
   )
   school = ForeignKey(School, blank=True, null=True)
   date_of_birth = models.DateField(blank=True, null=True)
-  phone_number = models.TextField(max_length=20, blank=True, null=True)
+  phone_number = models.CharField(max_length=20, blank=True, null=True)
   is_active = models.BooleanField(default=True)
   is_admin = models.BooleanField(default=False)
 

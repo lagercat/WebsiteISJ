@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'haystack',
     'django_cleanup',
-
+    
     # usual apps
     'authentication',
     'homepages',
