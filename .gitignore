@@ -88,14 +88,17 @@ ENV/
 # Rope project settings
 .ropeproject
 
-#JetBrains IDEs
+# JetBrains IDEs
 .idea/
 
-#Sebi's mac stuff
+# Sebi's mac stuff
 .DS_store
 
-#Sql lite
+# Sql lite
 *.sqlite3
 
-#Folder where documents are stored
+# Folder where documents are stored
 documents/
+
+# Search engine indexes
+config/whoosh_index/
