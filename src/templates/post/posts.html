@@ -18,7 +18,7 @@
                               <div class="input-group">
                 {% csrf_token %}
                 <input type="hidden" name="search_param" value="all" id="search_param">
-                <input type="text" class="form-control" name="q" placeholder="Search" type="search">
+                <input type="text" class="form-control" name="q" placeholder="Search" value="{{ form.q.value }}" type="search">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
                 </span>

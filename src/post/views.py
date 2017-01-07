@@ -1,10 +1,8 @@
-from pprint import pprint
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.encoding import smart_str
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponse, HttpResponseForbidden, Http404
+from django.core.paginator import Paginator, EmptyPage
+from django.http import HttpResponse, HttpResponseForbidden
 
 from haystack.forms import SearchForm
 
@@ -45,6 +43,7 @@ def uploaded_files(request, page_id):
     except EmptyPage:
         files = pages.page(pages.num_pages)
     return render(request, "post/posts.html", {
+        "form": form,
         "files": files,
         "query": query
     })
