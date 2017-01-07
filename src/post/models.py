@@ -4,14 +4,15 @@ import uuid
 
 from authentication.models import ExtendedUser
 from django.db import models
+import django
 
 
 def user_directory_path(instance, filename):
-    return 'documents/user_{0}/{1}'.format(instance.author.username, filename)
-
+    filename, file_extension = os.path.splitext(filename)
+    return './documents/{0}{1}'.format(instance.slug, file_extension)
 
 class Post(models.Model):
-    author = models.ForeignKey(ExtendedUser, related_name='posts', blank=False)
+    author = models.ForeignKey(ExtendedUser, blank=False)
     name = models.CharField(max_length=100, blank=False, null=True)
     file = models.FileField(upload_to=user_directory_path)
     date = models.DateTimeField(editable=False, auto_now_add=True, blank=False, null=True)
@@ -21,8 +22,18 @@ class Post(models.Model):
     def filename(self):
         return os.path.basename(self.file.url)
 
+    def fileLink(self):
+      if self.file:
+          return '<a href="' + str(self.file.url) + '">' + "See file" + '</a>'
+      else:
+          return '<a href="''"></a>'
+    fileLink.allow_tags = True
+    fileLink.short_description = "File Link"
+
     def __unicode__(self):
         return "File %s from %s" % (self.filename, self.author.username)
 
     class Meta:
         get_latest_by = 'date'
+        verbose_name = 'File'
+        verbose_name_plural = 'Files'
