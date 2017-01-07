@@ -12,6 +12,12 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    # admin theme
+    'material',
+    'material.frontend',
+    'material.admin',
+    
+    # standard packages
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -120,5 +126,6 @@ STATICFILES_DIRS = ( os.path.join(os.path.dirname(os.path.dirname(__file__)), "s
 NOCAPTCHA = True
 RECAPTCHA_USE_SSL = False
 
+AUTH_USER_MODEL = 'authentication.ExtendedUser'
 
 
