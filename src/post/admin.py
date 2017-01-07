@@ -1,13 +1,8 @@
 from django import forms
 from django.contrib import admin
-from django.contrib.auth.models import Group
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from models import Post
 import os
-from django.contrib.admin.widgets import AdminURLFieldWidget
-from django.utils.safestring import mark_safe
 from django.forms.fields import URLField
     
 
@@ -42,8 +37,6 @@ class PostCreationForm(forms.ModelForm):
 
 
 class PostChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField()
-    
     class Meta:
         model = Post
         fields = ('name', 'file')
@@ -65,14 +58,6 @@ class PostChangeForm(forms.ModelForm):
 
         return uploaded_file
 
-class URLFieldWidget(AdminURLFieldWidget):
-    def render(self, name, value, attrs=None):
-        widget = super(URLFieldWidget, self).render(name, value, attrs)
-        return mark_safe(u'%s&nbsp;&nbsp;<input type="button" '
-                         u'value="View Link" onclick="window.'
-                         u'open(document.getElementById(\'%s\')'
-                         u'.value)" />' % (widget, attrs['id']))
-
 
 class PostAdmin(admin.ModelAdmin):
     form = PostChangeForm
@@ -85,10 +70,6 @@ class PostAdmin(admin.ModelAdmin):
     fieldsets = (
         ('File', {'fields': ('name', 'file')}),
     )
-    
-    formfield_overrides = {
-        URLField: {'widget': URLFieldWidget},
-    }
     
     add_fieldsets = (
         ('File', {'fields': ('name', 'file')}),
