@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from django.contrib.auth.models import User
+from authentication.models import ExtendedUser
 from django.core.urlresolvers import reverse
 
 from django.db import models
@@ -11,7 +11,7 @@ def upload_location(instance, filename):
 
 # Create your models here.
 class Event(models.Model):
-    author = models.ForeignKey(User, related_name='event_post', blank='False')
+    author = models.ForeignKey(ExtendedUser, related_name='event_post', blank='False')
     title = models.CharField(max_length=100, blank=False, null=True)
     description = models.CharField(max_length=5000, blank=False, null=True)
     location = models.CharField(max_length=100, blank=False, null=True)

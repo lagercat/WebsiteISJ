@@ -1,8 +1,6 @@
 from django import forms
-
 from captcha.fields import ReCaptchaField
-
-
+        
 class LoginForm(forms.Form):
     re_captcha = ReCaptchaField(
         attrs={'lang': 'ro'}
