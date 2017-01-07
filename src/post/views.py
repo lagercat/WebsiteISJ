@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.encoding import smart_str
@@ -30,9 +32,11 @@ def upload_file_form(request):
 def uploaded_files(request, page_id):
     form = SearchForm(request.GET or None)
     query = ""
-    if "q" in form.data != "" and form.is_valid():
-        files = form.search()
+    if "q" in form.data and form.data['q'] and form.is_valid():
+        results = form.search()
         query += "?q=" + form.data['q']
+        files = [i.pk for i in results]
+        files = Post.objects.filter(pk__in=files).order_by('-date')
     else:
         files = Post.objects.all().order_by('-date')
     pages = Paginator(files, 10)

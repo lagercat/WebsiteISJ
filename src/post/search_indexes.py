@@ -14,4 +14,4 @@ class PostIndex(indexes.SearchIndex, indexes.Indexable):
         return Post
 
     def index_queryset(self, using=Post):
-        return self.get_model().objects.order_by('-date')
+        return self.get_model().objects.all()
