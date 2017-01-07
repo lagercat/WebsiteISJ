@@ -99,3 +99,6 @@ ENV/
 
 #Folder where documents are stored
 documents/
+
+.project
+.pydevproject
