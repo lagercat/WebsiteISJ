@@ -5,3 +5,4 @@ django-recaptcha==1.0.5
 django-cleanup==0.4.2
 python-magic==0.4.12
 Whoosh==2.7.4
+Pillow
