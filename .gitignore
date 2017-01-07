@@ -101,4 +101,4 @@ ENV/
 documents/
 
 # Search engine indexes
-gwhoosh_index/
+whoosh_index/
