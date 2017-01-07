@@ -8,7 +8,7 @@ class PostIndex(indexes.SearchIndex, indexes.Indexable):
     name = indexes.CharField(model_attr="name")
     author = indexes.CharField(model_attr="author")
     slug = indexes.CharField(model_attr="slug")
-    date = indexes.DateField(model_attr="date")
+    date = indexes.DateTimeField(model_attr="date")
 
     def get_model(self):
         return Post

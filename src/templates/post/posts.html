@@ -18,7 +18,11 @@
                               <div class="input-group">
                 {% csrf_token %}
                 <input type="hidden" name="search_param" value="all" id="search_param">
+                                  {%  if form.q.value %}
                 <input type="text" class="form-control" name="q" placeholder="Search" value="{{ form.q.value }}" type="search">
+                                  {%  else  %}
+                <input type="text" class="form-control" name="q" placeholder="Search" type="search">
+                                  {%  endif %}
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
                 </span>
