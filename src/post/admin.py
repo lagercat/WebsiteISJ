@@ -4,6 +4,7 @@ from django.contrib import admin
 from models import Post
 import os
 from django.forms.fields import URLField
+from view_permission.admin import AdminViewMixin
     
 
 class PostCreationForm(forms.ModelForm):
@@ -60,25 +61,25 @@ class PostChangeForm(forms.ModelForm):
         return uploaded_file
 
 
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(AdminViewMixin):
     change_form = PostChangeForm
     add_form = PostCreationForm
     
-    icon = '<i class="material-icons">file</i>'
+    icon = '<i class="material-icons">description</i>'
 
     list_display = ('name', 'author', 'fileLink', 'date', 'slug',)
-    readonly_fields = ['fileLink']
+    readonly_fields = ['fileLink', 'author']
 
     fieldsets = ()
     change_fieldsets = (
-        ('File', {'fields': ('name', 'file')}),
+        ('File', {'fields': ('name', 'author', 'file')}),
     )
     
     add_fieldsets = (
         ('File', {'fields': ('name', 'file')}),
     )
     
-    search_fields = ('author', 'name', 'file', 'date', 'slug',)
+    search_fields = ('author__first_name', 'author__last_name', 'name', 'date', 'slug',)
 
     ordering = ['date']
     filter_horizontal = ()
@@ -92,5 +93,7 @@ class PostAdmin(admin.ModelAdmin):
         else:
             self.fieldsets = self.change_fieldsets
             return self.change_form
+    
+    pass
     
 admin.site.register(Post, PostAdmin)
