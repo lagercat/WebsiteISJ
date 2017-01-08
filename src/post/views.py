@@ -1,12 +1,15 @@
+from datetime import datetime, timedelta
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.encoding import smart_str
 from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponse, HttpResponseForbidden
+from django.utils import timezone
 
 from haystack.forms import SearchForm
 
-from forms import CreatePostForm
+from forms import CreatePostForm, FilterPostForm
 from models import Post
 
 import magic
@@ -29,21 +32,34 @@ def upload_file_form(request):
 @login_required
 def uploaded_files(request, page_id):
     form = SearchForm(request.GET or None)
+    filters = FilterPostForm(request.POST or None)
     query = ""
+    selects = [None] * 33
     if "q" in form.data and form.data['q'] and form.is_valid():
         results = form.search()
         query += "?q=" + form.data['q']
         files = [i.pk for i in results]
-        files = Post.objects.filter(pk__in=files).order_by('-date')
+        files = Post.objects.filter(pk__in=files)
     else:
-        files = Post.objects.all().order_by('-date')
-    pages = Paginator(files, 10)
-    try:
-        files = pages.page(page_id)
-    except EmptyPage:
-        files = pages.page(pages.num_pages)
+        files = Post.objects.all()
+    if filters.is_valid():
+        number_days = int(filters.cleaned_data['time'])
+        selects[number_days] = "selected"
+        if number_days:
+            target = datetime.now() - timedelta(days=number_days)
+            target = timezone.make_aware(target, timezone.get_current_timezone())
+            files = files.filter(date__gt=target)
+
+    if files:
+        files.latest('date')
+        pages = Paginator(files, 10)
+        try:
+            files = pages.page(page_id)
+        except EmptyPage:
+            files = pages.page(pages.num_pages)
     return render(request, "post/posts.html", {
         "form": form,
+        "selects": selects,
         "files": files,
         "query": query
     })

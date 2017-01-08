@@ -32,3 +32,7 @@ class CreatePostForm(forms.ModelForm):
             raise forms.ValidationError("Fisierul trece de dimensiunea maxima de %d" % max_size)
 
         return uploaded_file
+
+
+class FilterPostForm(forms.Form):
+    time = forms.CharField(max_length=30)
