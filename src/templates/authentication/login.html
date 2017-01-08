@@ -41,7 +41,7 @@
 		        <h2 class="form-login-heading">sign in now</h2>
 		        <div class="login-wrap">
 					{% if errors %}
-					{{ form.username|add_class:"form-control"|attr:"required:required"|attr:"placeholder:Nume de utilizator"|attr:"autofocus"|attr:"id:focusedInput" }}
+					{{ form.username|add_class:"form-control"|attr:"required:required"|attr:"autofocus"|attr:"id:focusedInput" }}
 					<span class="help-block">
 						{% for error in errors %}
 							{{ error }}
@@ -50,7 +50,7 @@
 		            <br>
 					{{ form.password|add_class:"form-control"|attr:"required:required"|attr:"placeholder:Parola"|attr:"id:focusedInput" }}
 					{% else %}
-					{{ form.username|add_class:"form-control"|attr:"required:required"|attr:"placeholder:Nume de utilizator"|attr:"autofocus" }}
+					{{ form.username|add_class:"form-control"|attr:"required:required"|attr:"autofocus" }}
 		            <br>
 					{{ form.password|add_class:"form-control"|attr:"required:required"|attr:"placeholder:Parola" }}
 					<br>

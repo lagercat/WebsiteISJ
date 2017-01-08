@@ -1,17 +1,15 @@
 from django import forms
-
 from captcha.fields import ReCaptchaField
-
-
+        
 class LoginForm(forms.Form):
     re_captcha = ReCaptchaField(
         attrs={'lang': 'ro'}
     )
 
-    username = forms.CharField(max_length=30, label="Nume de utilizator",
+    username = forms.CharField(max_length=30, label="Email",
                                widget=forms.TextInput(attrs={
                                    'required': 'required',
-                                   'placeholder': 'Nume de utilizator'
+                                   'placeholder': 'Email'
                                }))
     password = forms.CharField(max_length=100, label="Parola",
                                widget=forms.PasswordInput(attrs={

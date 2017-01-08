@@ -24,7 +24,7 @@ def login_view(request):
                 login(request, user)
                 return redirect('/')
             else:
-                errors.append("Nume de utilizator sau parola invalida")
+                errors.append("Email sau parola invalida / Cont dezactivat")
     return render(request, 'authentication/login.html', {
         'errors': errors,
         'form': form

@@ -2,6 +2,9 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,os.pardir,'media')
+
 SECRET_KEY = 'vl27lst+j0&n4ec$dh7qu^=i0f2@$#(dw-25#7$f##$w9s%8b5'
 
 RECAPTCHA_PUBLIC_KEY = '6Le23xAUAAAAALeZVS6-CFTIKbhD-2XGYDWV3JUY'
@@ -12,6 +15,12 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    # admin theme
+    'material',
+    'material.frontend',
+    'material.admin',
+    
+    # standard packages
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -24,7 +33,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'haystack',
     'django_cleanup',
-
+    
     # usual apps
     'authentication',
     'homepages',
@@ -120,5 +129,6 @@ STATICFILES_DIRS = ( os.path.join(os.path.dirname(os.path.dirname(__file__)), "s
 NOCAPTCHA = True
 RECAPTCHA_USE_SSL = False
 
+AUTH_USER_MODEL = 'authentication.ExtendedUser'
 
 
