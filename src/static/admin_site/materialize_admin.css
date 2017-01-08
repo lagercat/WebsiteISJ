@@ -6365,7 +6365,6 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 nav .nav-wrapper i {
     height: 54px;
     line-height: 54px;
-    display: block;
 }
 
 .dropdown-admin .material-icons {
