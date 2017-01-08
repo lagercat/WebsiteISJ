@@ -100,8 +100,8 @@ ENV/
 # Folder where documents are stored
 documents/
 
-# Search engine indexes
-whoosh_index/
-
 .project
 .pydevproject
+
+# Search engine indexes
+whoosh_index/
