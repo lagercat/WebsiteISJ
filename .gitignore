@@ -100,5 +100,10 @@ ENV/
 # Folder where documents are stored
 documents/
 
+<<<<<<< e8f04c292ccf8e288d28fc59e0d050228d173a6d
 # Search engine indexes
 whoosh_index/
+=======
+.project
+.pydevproject
+>>>>>>> Modified .gitignore.
