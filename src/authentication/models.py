@@ -88,11 +88,29 @@ class ExtendedUser(AbstractBaseUser):
     return self.first_name + " " + self.last_name
 
   def has_perm(self, perm, obj=None):
-    return True
+    if self.status == 3:
+      return True
+    elif self.status == 0:
+      if perm == "post.add_post":
+        return True
+      if perm == "post.view_post":
+        return True
+      if perm == "post.change_post":
+        return True
+      if perm == "post.delete_post":
+        return True
+      if perm == "subject.change_subject":
+        return True
+      return False
+    elif self.status == 1:
+      return False
+    elif self.status == 2:
+      return False
+    return False
 
   def has_module_perms(self, app_label):
     return True
 
   @property
   def is_staff(self):
-    return self.is_admin
+    return True
