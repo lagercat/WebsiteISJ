@@ -60,14 +60,16 @@ class PostChangeForm(forms.ModelForm):
 
 
 class PostAdmin(admin.ModelAdmin):
-    form = PostChangeForm
+    change_form = PostChangeForm
     add_form = PostCreationForm
     
     icon = '<i class="material-icons">file</i>'
 
     list_display = ('name', 'author', 'fileLink', 'date', 'slug',)
     readonly_fields = ['fileLink']
-    fieldsets = (
+
+    fieldsets = ()
+    change_fieldsets = (
         ('File', {'fields': ('name', 'file')}),
     )
     
@@ -82,10 +84,12 @@ class PostAdmin(admin.ModelAdmin):
       
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
-            form = PostCreationForm
+            self.fieldsets = self.add_fieldsets
+            form = self.add_form
             form.current_user = request.user
             return form
         else:
-            return super(PostAdmin, self).get_form(request, **kwargs)
+            self.fieldsets = self.change_fieldsets
+            return self.change_form
     
 admin.site.register(Post, PostAdmin)

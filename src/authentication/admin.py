@@ -18,7 +18,7 @@ class ExtendedUserCreationForm(forms.ModelForm):
 
     class Meta:
         model = ExtendedUser
-        fields = ('first_name', 'last_name', 'email', 'phone_number', 'date_of_birth', 'school')
+        fields = ('first_name', 'last_name', 'email', 'phone_number', 'date_of_birth', 'school', 'subjects', 'status')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -32,6 +32,7 @@ class ExtendedUserCreationForm(forms.ModelForm):
         # Save the provided password in hashed format
         user = super(ExtendedUserCreationForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
+        user.is_admin = (user.status == 3)
         if commit:
             user.save()
         return user
@@ -42,10 +43,18 @@ class ExtendedUserChangeForm(forms.ModelForm):
     
     class Meta:
         model = ExtendedUser
-        fields = ('email', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'is_active', 'is_admin')
+        fields = ('email', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'is_active', 'subjects', 'status')
 
     def clean_password(self):
         return self.initial["password"]
+      
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super(ExtendedUserChangeForm, self).save(commit=False)
+        user.is_admin = user.status == 3
+        if commit:
+            user.save()
+        return user
 
 
 class ExtendedUserAdmin(BaseUserAdmin):
@@ -54,24 +63,34 @@ class ExtendedUserAdmin(BaseUserAdmin):
 
     icon = '<i class="material-icons">people</i>'
     
-    list_display = ('email', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'is_admin', 'is_active')
+    list_display = ('email', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'get_subjects', 'status', 'is_active')
     
     list_filter = ('is_admin',)
     fieldsets = (
         ('Login Information', {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': (('first_name', 'last_name'), 'date_of_birth', 'phone_number')}),
-        ('Permissions', {'fields': ('is_admin', 'is_active')}),
+        ('Personal info', {'fields': (('first_name', 'last_name'), 'date_of_birth', 'phone_number', 'subjects')}),
+        ('Permissions', {'fields': ('is_active', 'status')}),
     )
     
     add_fieldsets = (
         ('Login Information', {'fields': ('email', ('password1', 'password2'))}),
-        ('Personal info', {'fields': (('first_name', 'last_name'), 'date_of_birth', 'phone_number')}),
-        ('Permissions', {'fields': ('is_admin',)}),
+        ('Personal info', {'fields': (('first_name', 'last_name'), 'date_of_birth', 'phone_number', 'subjects')}),
+        ('Permissions', {'fields': ('status',)}),
     )
     
     search_fields = ('email', 'first_name', 'last_name', 'phone_number', 'school',)
     ordering = ('email', 'first_name', 'last_name', 'phone_number', 'school',)
     filter_horizontal = ()
+
+    def get_subjects(self, obj):
+        return "\n".join([p.name + "," for p in obj.subjects.all()])
+      
+    get_subjects.short_description = 'Subjects'
+    
+    def get_readonly_fields(self, request, obj=None):
+        if obj == request.user: # editing an existing object
+            return self.readonly_fields + ('status',)
+        return self.readonly_fields
 
 admin.site.register(ExtendedUser, ExtendedUserAdmin)
 

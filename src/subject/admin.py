@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 
 from models import Subject
-from subject.models import SubjectPost
+from models import SubjectPost
 
 
 class SubjectAdmin(admin.ModelAdmin):
@@ -32,7 +32,7 @@ class SubjectPostChangeForm(forms.ModelForm):
 
     
 class SubjectPostAdmin(admin.ModelAdmin):
-    form = SubjectPostChangeForm
+    change_form = SubjectPostChangeForm
     add_form = SubjectPostCreationForm
     list_display = ['name', 'subject', 'author', 'date']
     ordering = ['name', 'subject', 'author', 'date']
@@ -57,12 +57,12 @@ class SubjectPostAdmin(admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
             self.fieldsets = self.add_fieldsets
-            form = SubjectPostCreationForm
+            form = self.add_form
             form.current_user = request.user
             return form
         else:
             self.fieldsets = self.change_fieldsets
-            return super(SubjectPostAdmin, self).get_form(request, **kwargs)
+            return self.change_form
 
 admin.site.register(Subject, SubjectAdmin)
 admin.site.register(SubjectPost, SubjectPostAdmin)

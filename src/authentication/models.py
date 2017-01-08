@@ -7,6 +7,7 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db.models.fields.related import ForeignKey
 from school.models import School
+from subject.models import Subject
 
 class ExtendedUserManager(BaseUserManager):
   def create_user(self, email, first_name, last_name, password):
@@ -25,7 +26,8 @@ class ExtendedUserManager(BaseUserManager):
     user = self.model(
       first_name = first_name,
       last_name = last_name,
-      email=self.normalize_email(email),
+      email = self.normalize_email(email),
+      status = 0
     )
 
     user.set_password(password)
@@ -35,6 +37,7 @@ class ExtendedUserManager(BaseUserManager):
   def create_superuser(self, email, first_name, last_name, password):
     user = self.create_user(email, first_name, last_name, password)
     user.is_admin = True
+    user.status = 3
     user.save(using=self._db)
     return user
 
@@ -53,13 +56,23 @@ class ExtendedUser(AbstractBaseUser):
   school = ForeignKey(School, blank=True, null=True)
   date_of_birth = models.DateField(blank=True, null=True)
   phone_number = models.CharField(max_length=20, blank=True, null=True)
+  
+  STATUS_CHOICES = (
+      (0, "Personal"),
+      (1, "Director"),
+      (2, "Inspector"),
+      (3, "Admin"),
+  )
+  status = models.IntegerField(choices=STATUS_CHOICES)
+  subjects = models.ManyToManyField(Subject, blank=True)
+  
   is_active = models.BooleanField(default=True)
-  is_admin = models.BooleanField(default=False)
+  is_admin = models.BooleanField(default=(status == 3))
 
   objects = ExtendedUserManager()
 
   USERNAME_FIELD = 'email'
-  REQUIRED_FIELDS = ['first_name', 'last_name']
+  REQUIRED_FIELDS = ['first_name', 'last_name', 'status']
   
   @property
   def username(self):
