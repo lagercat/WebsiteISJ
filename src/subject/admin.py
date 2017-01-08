@@ -3,11 +3,13 @@ from django.contrib import admin
 
 from models import Subject
 from models import SubjectPost
+from view_permission.admin import AdminViewMixin
 
 
-class SubjectAdmin(admin.ModelAdmin):
+class SubjectAdmin(AdminViewMixin):
     list_display = ['name']
     ordering = ['name']
+    icon = '<i class="material-icons">list</i>'
     
 class SubjectPostCreationForm(forms.ModelForm):
     class Meta:
@@ -31,13 +33,13 @@ class SubjectPostChangeForm(forms.ModelForm):
         )
 
     
-class SubjectPostAdmin(admin.ModelAdmin):
+class SubjectPostAdmin(AdminViewMixin):
     change_form = SubjectPostChangeForm
     add_form = SubjectPostCreationForm
     list_display = ['name', 'subject', 'author', 'date']
     ordering = ['name', 'subject', 'author', 'date']
     
-    icon = '<i class="material-icons">file</i>'
+    icon = '<i class="material-icons">description</i>'
     
     fieldsets = ()
     

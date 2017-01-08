@@ -11,6 +11,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from models import ExtendedUser
+from material.frontend import models
 
 class ExtendedUserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -61,7 +62,7 @@ class ExtendedUserAdmin(BaseUserAdmin):
     form = ExtendedUserChangeForm
     add_form = ExtendedUserCreationForm
 
-    icon = '<i class="material-icons">people</i>'
+    icon = '<i class="material-icons">account_box</i>'
     
     list_display = ('email', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'get_subjects', 'status', 'is_active')
     
@@ -78,8 +79,8 @@ class ExtendedUserAdmin(BaseUserAdmin):
         ('Permissions', {'fields': ('status',)}),
     )
     
-    search_fields = ('email', 'first_name', 'last_name', 'phone_number', 'school',)
-    ordering = ('email', 'first_name', 'last_name', 'phone_number', 'school',)
+    search_fields = ('email', 'first_name', 'last_name', 'phone_number', 'school__name',)
+    ordering = ('email', 'first_name', 'last_name', 'phone_number', 'school__name',)
     filter_horizontal = ()
 
     def get_subjects(self, obj):
@@ -95,3 +96,4 @@ class ExtendedUserAdmin(BaseUserAdmin):
 admin.site.register(ExtendedUser, ExtendedUserAdmin)
 
 admin.site.unregister(Group)
+admin.site.unregister(models.Module)

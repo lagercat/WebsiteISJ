@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'headmaster',
     'inspector',
     'event',
+    'view_permission',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -62,7 +63,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR + '/templates/'
+            os.path.join(BASE_DIR, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -76,6 +77,12 @@ TEMPLATES = [
         },
     },
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
