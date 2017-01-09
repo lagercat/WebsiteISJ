@@ -12,6 +12,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from models import ExtendedUser
 
+
 class ExtendedUserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
@@ -63,7 +64,8 @@ class ExtendedUserAdmin(BaseUserAdmin):
 
     icon = '<i class="material-icons">people</i>'
     
-    list_display = ('email', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'get_subjects', 'status', 'is_active')
+    list_display = ('email', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'get_subjects',
+                    'status', 'is_active')
     
     list_filter = ('is_admin',)
     fieldsets = (
@@ -88,7 +90,7 @@ class ExtendedUserAdmin(BaseUserAdmin):
     get_subjects.short_description = 'Subjects'
     
     def get_readonly_fields(self, request, obj=None):
-        if obj == request.user: # editing an existing object
+        if obj == request.user:  # editing an existing object
             return self.readonly_fields + ('status',)
         return self.readonly_fields
 

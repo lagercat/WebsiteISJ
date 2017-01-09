@@ -22,6 +22,7 @@ def upload_file_form(request):
         if form.is_valid():
             post = form.instance
             post.author = request.user
+            post.author_status = request.user.status
             post.save()
             return redirect("/files/1")
     return render(request, "post/form.html", {
@@ -44,12 +45,15 @@ def uploaded_files(request, page_id):
         files = Post.objects.all()
     if filters.is_valid():
         number_days = int(filters.cleaned_data['time'])
+        permission = int(filters.cleaned_data['user_status'])
         selects[number_days] = "selected"
-        if number_days:
+        selects[permission + 20] = "selected"
+        if permission != -1:
+            files = files.filter(author_status=permission)
+        if number_days and files:
             target = datetime.now() - timedelta(days=number_days)
             target = timezone.make_aware(target, timezone.get_current_timezone())
             files = files.filter(date__gt=target)
-
     if files:
         files.latest('date')
         pages = Paginator(files, 10)

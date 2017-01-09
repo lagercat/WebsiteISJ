@@ -11,8 +11,10 @@ def user_directory_path(instance, filename):
     filename, file_extension = os.path.splitext(filename)
     return './documents/{0}{1}'.format(instance.slug, file_extension)
 
+
 class Post(models.Model):
     author = models.ForeignKey(ExtendedUser, blank=False)
+    author_status = models.IntegerField(default=-1)
     name = models.CharField(max_length=100, blank=False, null=True)
     file = models.FileField(upload_to=user_directory_path)
     date = models.DateTimeField(auto_now_add=True, editable=False, blank=False, null=True)

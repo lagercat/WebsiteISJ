@@ -31,6 +31,7 @@ class PostCreationForm(forms.ModelForm):
     def save(self, commit=True):
         uploaded_file = super(PostCreationForm, self).save(commit=False)
         uploaded_file.author = self.current_user
+        uploaded_file.author_status = self.current_user.status
         if commit:
             uploaded_file.save()
         return uploaded_file

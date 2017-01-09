@@ -15,11 +15,11 @@
              <div class="col-md-6">
 				<h4><i class="fa fa-angle-right"></i>Fisiere incarcate</h4>
              </div>
-             <div class="col-md-16 col-md-offset-4 row">
-				<div class="col-md-8 col-md-offset-16">
-                <form method="POST">
+				<div class="col-md-6 row">
+                        <div class="col-md-4">
+                            <form method="POST">
+
                     {%  csrf_token %}
-                        <div class="col-md-3">
                           <select name="time" id = "filter" onchange="this.form.submit()">
                             <option value="0" {{ selects.0 }}>Cele mai recente</option>
                             <option value="1" {{  selects.1 }}>Ultimele 24 de ore</option>
@@ -27,8 +27,15 @@
                             <option value="7" {{  selects.7 }}>Ultima saptamana</option>
                             <option value="31" {{  selects.31 }}>Ultima luna</option>
                           </select>
-                        </div>
+                          <select name="user_status" id = "filter" onchange="this.form.submit()">
+                            <option value="-1" {{ selects.19 }}>Oricare</option>
+                            <option value="0" {{ selects.20 }}>Personal</option>
+                            <option value="1" {{  selects.21 }}>Director</option>
+                            <option value="2" {{  selects.22 }}>Inspector</option>
+                            <option value="3" {{  selects.23 }}>Admin</option>
+                          </select>
                 </form>
+                        </div>
                         <style media="screen">
                           #filter{
                             height: 34px;
@@ -36,7 +43,7 @@
                           }
                         </style>
 					<form method="GET">
-						<div class="input-group col-md-9">
+						<div class="input-group col-md-6">
 							{% csrf_token %}
 							<input type="hidden" name="search_param" value="all" id="search_param">
 							{%  if form.q.value %}
@@ -50,7 +57,6 @@
 						</div>
 					</form>
 				</div>
-             </div>
             <br>
 				<section id="unseen">
 					<table class="table table-bordered table-striped table-condensed">
@@ -65,8 +71,12 @@
 						<tbody>
 							{% for file in files %}
 							<tr>
-								<td>{{ file.name }}</td>
-								<td>{{ file.author }}</td>
+								<td>{{ file.name }}</td>a>
+                                {%  for stat in file.author.STATUS_CHOICES %}
+                                    {% if stat.0 == file.author.status %}
+								    <td>{{ file.author }}({{ stat.1 }})</td>
+                                    {% endif %}
+                               {% endfor %}
 								<td>{{ file.date }}</td>
 								<td><a href="/downloadfile/{{ file.slug }}"><span class="glyphicon glyphicon-floppy-save"></span></a></td>
 								{% if file.author == request.user or file.object.author == request.user %}

@@ -36,3 +36,4 @@ class CreatePostForm(forms.ModelForm):
 
 class FilterPostForm(forms.Form):
     time = forms.CharField(max_length=30)
+    user_status = forms.IntegerField()
