@@ -2,7 +2,10 @@ from django.contrib import admin
 
 from models import Subject
 from models import SubjectPost
+<<<<<<< HEAD
 from forms import SubjectPostChangeForm, SubjectPostCreationForm
+=======
+>>>>>>> 089541b5438f643e3437573c541c32f03bca2782
 from view_permission.admin import AdminViewMixin
 
 
@@ -11,6 +14,31 @@ class SubjectAdmin(AdminViewMixin):
     ordering = ['name']
     icon = '<i class="material-icons">list</i>'
     
+<<<<<<< HEAD
+=======
+class SubjectPostCreationForm(forms.ModelForm):
+    class Meta:
+        model = SubjectPost
+        fields = ('name', 'text', 'subject')
+
+    def save(self, commit=True):
+        post = super(SubjectPostCreationForm, self).save(commit=False)
+        post.author = self.current_user
+        if commit:
+            post.save()
+        return post
+
+
+class SubjectPostChangeForm(forms.ModelForm):
+    class Meta:
+        model = SubjectPost
+        fields = ('name', 'text')
+        fieldsets = (
+          (None, {'fields': (('name', 'subject'), 'text')}),
+        )
+
+    
+>>>>>>> 089541b5438f643e3437573c541c32f03bca2782
 class SubjectPostAdmin(AdminViewMixin):
     change_form = SubjectPostChangeForm
     add_form = SubjectPostCreationForm

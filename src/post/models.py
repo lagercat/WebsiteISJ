@@ -14,11 +14,14 @@ def user_directory_path(self, filename):
 
 
 class Post(CustomPermissionsMixin):
+<<<<<<< HEAD
 
     @staticmethod
     def files_folder():
         return "exterior"
 
+=======
+>>>>>>> 089541b5438f643e3437573c541c32f03bca2782
     author = models.ForeignKey(ExtendedUser, blank=False)
     name = models.CharField(max_length=100, blank=False, null=True)
     file = models.FileField(upload_to=user_directory_path)
