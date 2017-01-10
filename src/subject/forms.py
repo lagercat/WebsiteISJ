@@ -13,7 +13,7 @@ class SubjectPostCreationForm(forms.ModelForm):
 
     class Meta:
         model = SubjectPost
-        fields = ('name', 'text', 'subject')
+        fields = ('name', 'text', 'subject', 'file')
 
     def save(self, commit=True):
         post = super(SubjectPostCreationForm, self).save(commit=False)
