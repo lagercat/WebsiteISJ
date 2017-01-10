@@ -11,7 +11,6 @@ from forms import ExtendedUserChangeFormAdmin, ExtendedUserCreationFormAdmin
 from models import ExtendedUser
 from material.frontend import models
 
-
 class ExtendedUserAdmin(BaseUserAdmin):
     form = ExtendedUserChangeFormAdmin
     add_form = ExtendedUserCreationFormAdmin

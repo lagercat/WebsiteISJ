@@ -5,6 +5,7 @@ from models import Post
 import os
 from django.forms.fields import URLField
 from view_permission.admin import AdminViewMixin
+
 from post.forms import PostChangeFormAdmin, PostCreationFormAdmin,\
   PageCreationFormAdmin, PageChangeFormAdmin
 from post.models import Page

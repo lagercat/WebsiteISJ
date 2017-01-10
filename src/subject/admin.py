@@ -3,6 +3,7 @@ from django.contrib import admin
 from models import Subject
 from models import SubjectPost
 from forms import SubjectPostChangeFormAdmin, SubjectPostCreationFormAdmin
+
 from view_permission.admin import AdminViewMixin
 
 
@@ -11,12 +12,12 @@ class SubjectAdmin(AdminViewMixin):
     ordering = ['name']
     icon = '<i class="material-icons">list</i>'
     
-
 class SubjectPostAdmin(AdminViewMixin):
     change_form = SubjectPostChangeFormAdmin
     add_form = SubjectPostCreationFormAdmin
     list_display = ['name', 'subject', 'author', 'fileLink', 'date', 'slug']
     readonly_fields = ['fileLink', 'author']
+
     ordering = ['name', 'subject', 'author', 'date']
     
     icon = '<i class="material-icons">description</i>'

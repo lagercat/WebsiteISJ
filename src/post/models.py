@@ -12,12 +12,11 @@ def user_directory_path(self, filename):
     return './documents/{0}/{1}{2}'.format(self.files_folder(),
                                            self.slug, file_extension)
 
-
 class File(CustomPermissionsMixin):
     @staticmethod
     def files_folder():
         return "abstract"
-      
+
     author = models.ForeignKey(ExtendedUser, blank=False)
     name = models.CharField(max_length=100, blank=False, null=True)
     file = models.FileField(upload_to=user_directory_path)
@@ -50,6 +49,8 @@ class Post(File):
     def files_folder():
         return "exterior"
       
+    REQUIRED = ['name', 'file']
+    
     class Meta(File.Meta):
         abstract = False
         get_latest_by = 'date'
