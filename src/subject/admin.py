@@ -1,8 +1,9 @@
-from django import forms
 from django.contrib import admin
 
 from models import Subject
 from models import SubjectPost
+from forms import SubjectPostChangeFormAdmin, SubjectPostCreationFormAdmin
+
 from view_permission.admin import AdminViewMixin
 
 
@@ -11,32 +12,12 @@ class SubjectAdmin(AdminViewMixin):
     ordering = ['name']
     icon = '<i class="material-icons">list</i>'
     
-class SubjectPostCreationForm(forms.ModelForm):
-    class Meta:
-        model = SubjectPost
-        fields = ('name', 'text', 'subject')
-
-    def save(self, commit=True):
-        post = super(SubjectPostCreationForm, self).save(commit=False)
-        post.author = self.current_user
-        if commit:
-            post.save()
-        return post
-
-
-class SubjectPostChangeForm(forms.ModelForm):
-    class Meta:
-        model = SubjectPost
-        fields = ('name', 'text')
-        fieldsets = (
-          (None, {'fields': (('name', 'subject'), 'text')}),
-        )
-
-    
 class SubjectPostAdmin(AdminViewMixin):
-    change_form = SubjectPostChangeForm
-    add_form = SubjectPostCreationForm
-    list_display = ['name', 'subject', 'author', 'date']
+    change_form = SubjectPostChangeFormAdmin
+    add_form = SubjectPostCreationFormAdmin
+    list_display = ['name', 'subject', 'author', 'fileLink', 'date', 'slug']
+    readonly_fields = ['fileLink', 'author']
+
     ordering = ['name', 'subject', 'author', 'date']
     
     icon = '<i class="material-icons">description</i>'
@@ -44,14 +25,14 @@ class SubjectPostAdmin(AdminViewMixin):
     fieldsets = ()
     
     change_fieldsets = (
-        (None, {'fields': ('name', 'text')}),
+        (None, {'fields': ('name', 'author', 'text', 'file')}),
     )
     
     add_fieldsets = (
-        (None, {'fields': (('name', 'subject'), 'text')}),
+        (None, {'fields': (('name', 'subject'), 'author', 'text', 'file')}),
     )
     
-    search_fields = ('name', 'subject', 'author', 'date')
+    search_fields = ('author__first_name', 'author__last_name', 'name', 'subject', 'author', 'date')
 
     ordering = ['date']
     filter_horizontal = ()

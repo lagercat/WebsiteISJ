@@ -1,6 +1,10 @@
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django import forms
+from models import ExtendedUser
+
 from captcha.fields import ReCaptchaField
-        
+
+
 class LoginForm(forms.Form):
     re_captcha = ReCaptchaField(
         attrs={'lang': 'ro'}
@@ -62,3 +66,51 @@ class ResetPasswordForm(forms.Form):
                     "Parola trebuie ca aiba cel putin 8 caractere si sa contina cel"
                     " putin: o litera mare, o litera mica, un numar si un caracter"
                     " special")
+
+
+class ExtendedUserCreationFormAdmin(forms.ModelForm):
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+
+    class Meta:
+        model = ExtendedUser
+        fields = ('first_name', 'last_name', 'email', 'phone_number', 'date_of_birth', 'school', 'subjects', 'status')
+
+    def clean_password2(self):
+        # Check that the two password entries match
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords don't match")
+        return password2
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super(ExtendedUserCreationFormAdmin, self).save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        user.is_admin = (user.status == 3)
+        if commit:
+            user.save()
+        return user
+
+
+class ExtendedUserChangeFormAdmin(forms.ModelForm):
+    password = ReadOnlyPasswordHashField()
+
+    class Meta:
+        model = ExtendedUser
+        fields = (
+        'email', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'is_active', 'subjects',
+        'status')
+
+    def clean_password(self):
+        return self.initial["password"]
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super(ExtendedUserChangeFormAdmin, self).save(commit=False)
+        user.is_admin = user.status == 3
+        if commit:
+            user.save()
+        return user
+

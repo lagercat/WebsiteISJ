@@ -7,7 +7,7 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db.models.fields.related import ForeignKey
 from school.models import School
-from subject.models import Subject
+
 
 class ExtendedUserManager(BaseUserManager):
   def create_user(self, email, first_name, last_name, password):
@@ -34,7 +34,7 @@ class ExtendedUserManager(BaseUserManager):
     user.save(using=self._db)
     return user
 
-  def create_superuser(self, email, first_name, last_name, password):
+  def create_superuser(self, email, first_name, last_name, status, password):
     user = self.create_user(email, first_name, last_name, password)
     user.is_admin = True
     user.status = 3
@@ -64,7 +64,7 @@ class ExtendedUser(AbstractBaseUser):
       (3, "Admin"),
   )
   status = models.IntegerField(choices=STATUS_CHOICES)
-  subjects = models.ManyToManyField(Subject, blank=True)
+  subjects = models.ManyToManyField("subject.Subject", blank=True)
   
   is_active = models.BooleanField(default=True)
   is_admin = models.BooleanField(default=(status == 3))

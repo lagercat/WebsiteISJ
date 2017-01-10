@@ -2,22 +2,13 @@ from django.contrib import admin
 from models import Event
 from view_permission.admin import AdminViewMixin
 from django import forms
+
+from event.forms import EventCreationFormAdmin
 # Register your models here.
 
-class EventCreationForm(forms.ModelForm):
-    class Meta:
-        model = Event
-        fields = ('title', 'description', 'image', 'time', 'location')
-
-    def save(self, commit=True):
-        event = super(EventCreationForm, self).save(commit=False)
-        event.author = self.current_user
-        if commit:
-            event.save()
-        return event
-
 class EventAdmin(AdminViewMixin):
-    add_form = EventCreationForm
+    add_form = EventCreationFormAdmin
+
     icon = '<i class="material-icons">room</i>'
 
     list_display = ('title', 'author', 'location', 'time',)
