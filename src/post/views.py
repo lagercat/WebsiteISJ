@@ -22,7 +22,6 @@ def upload_file_form(request):
         if form.is_valid():
             post = form.instance
             post.author = request.user
-            post.author_status = request.user.status
             post.save()
             return redirect("/files/1")
     return render(request, "post/form.html", {
@@ -49,7 +48,7 @@ def uploaded_files(request, page_id):
         selects[number_days] = "selected"
         selects[permission + 20] = "selected"
         if permission != -1:
-            files = files.filter(author_status=permission)
+            files = files.filter(author__status=permission)
         if number_days and files:
             target = datetime.now() - timedelta(days=number_days)
             target = timezone.make_aware(target, timezone.get_current_timezone())

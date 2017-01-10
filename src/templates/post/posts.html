@@ -71,7 +71,7 @@
 						<tbody>
 							{% for file in files %}
 							<tr>
-								<td>{{ file.name }}</td>a>
+								<td>{{ file.name }}</td>
                                 {%  for stat in file.author.STATUS_CHOICES %}
                                     {% if stat.0 == file.author.status %}
 								    <td>{{ file.author }}({{ stat.1 }})</td>
@@ -80,7 +80,7 @@
 								<td>{{ file.date }}</td>
 								<td><a href="/downloadfile/{{ file.slug }}"><span class="glyphicon glyphicon-floppy-save"></span></a></td>
 								{% if file.author == request.user or file.object.author == request.user %}
-								<td><a href="/deletefile/{{ file.slug }}">Sterge</a> | <a href="/edit/{{ file.slug }}">Editeaza</a></td>
+                                    <td><a href="/deletefile/{{ file.slug }}">Sterge</a> | <a href="/edit/{{ file.slug }}">Editeaza</a></td>
 								{% endif %}
 							</tr>
 							{% endfor %}

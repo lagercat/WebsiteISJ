@@ -14,7 +14,6 @@ def user_directory_path(instance, filename):
 
 class Post(models.Model):
     author = models.ForeignKey(ExtendedUser, blank=False)
-    author_status = models.IntegerField(default=-1)
     name = models.CharField(max_length=100, blank=False, null=True)
     file = models.FileField(upload_to=user_directory_path)
     date = models.DateTimeField(auto_now_add=True, editable=False, blank=False, null=True)
