@@ -1,34 +1,13 @@
-from django import forms
 from django.contrib import admin
 
 from models import Subject
 from models import SubjectPost
+from forms import SubjectPostChangeForm, SubjectPostCreationForm
 
 
 class SubjectAdmin(admin.ModelAdmin):
     list_display = ['name']
     ordering = ['name']
-    
-class SubjectPostCreationForm(forms.ModelForm):
-    class Meta:
-        model = SubjectPost
-        fields = ('name', 'text', 'subject')
-
-    def save(self, commit=True):
-        post = super(SubjectPostCreationForm, self).save(commit=False)
-        post.author = self.current_user
-        if commit:
-            post.save()
-        return post
-
-
-class SubjectPostChangeForm(forms.ModelForm):
-    class Meta:
-        model = SubjectPost
-        fields = ('name', 'text')
-        fieldsets = (
-          (None, {'fields': (('name', 'subject'), 'text')}),
-        )
 
     
 class SubjectPostAdmin(admin.ModelAdmin):
