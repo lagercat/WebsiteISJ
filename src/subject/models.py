@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 import os
 
 from django.db import models
-from post.models import Post
+from post.models import File
 
 
 def user_directory_path(self, filename):
@@ -22,7 +22,7 @@ class Subject(models.Model):
         return self.name
 
 
-class SubjectPost(Post):
+class SubjectPost(File):
     @staticmethod
     def files_folder():
         return "interior"
@@ -35,6 +35,6 @@ class SubjectPost(Post):
     def __unicode__(self):
         return self.name
 
-    class Meta:
+    class Meta(File.Meta):
         verbose_name = "post"
         verbose_name_plural = "posts"

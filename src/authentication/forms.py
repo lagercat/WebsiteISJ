@@ -68,7 +68,7 @@ class ResetPasswordForm(forms.Form):
                     " special")
 
 
-class ExtendedUserCreationForm(forms.ModelForm):
+class ExtendedUserCreationFormAdmin(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 
@@ -86,7 +86,7 @@ class ExtendedUserCreationForm(forms.ModelForm):
 
     def save(self, commit=True):
         # Save the provided password in hashed format
-        user = super(ExtendedUserCreationForm, self).save(commit=False)
+        user = super(ExtendedUserCreationFormAdmin, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         user.is_admin = (user.status == 3)
         if commit:
@@ -94,7 +94,7 @@ class ExtendedUserCreationForm(forms.ModelForm):
         return user
 
 
-class ExtendedUserChangeForm(forms.ModelForm):
+class ExtendedUserChangeFormAdmin(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
     class Meta:
@@ -108,7 +108,7 @@ class ExtendedUserChangeForm(forms.ModelForm):
 
     def save(self, commit=True):
         # Save the provided password in hashed format
-        user = super(ExtendedUserChangeForm, self).save(commit=False)
+        user = super(ExtendedUserChangeFormAdmin, self).save(commit=False)
         user.is_admin = user.status == 3
         if commit:
             user.save()

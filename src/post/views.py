@@ -10,6 +10,7 @@ from django.utils import timezone
 from haystack.forms import SearchForm
 
 from forms import CreatePostForm, FilterPostForm
+
 from models import Post
 
 import magic

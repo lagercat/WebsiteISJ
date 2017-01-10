@@ -4,6 +4,7 @@ import uuid
 
 from authentication.models import ExtendedUser
 from django.db import models
+from view_permission.models import CustomPermissionsMixin
 
 
 def user_directory_path(self, filename):
@@ -12,12 +13,11 @@ def user_directory_path(self, filename):
                                            self.slug, file_extension)
 
 
-class Post(models.Model):
-
+class File(CustomPermissionsMixin):
     @staticmethod
     def files_folder():
-        return "exterior"
-
+        return "abstract"
+      
     author = models.ForeignKey(ExtendedUser, blank=False)
     name = models.CharField(max_length=100, blank=False, null=True)
     file = models.FileField(upload_to=user_directory_path)
@@ -39,7 +39,35 @@ class Post(models.Model):
     def __unicode__(self):
         return "File %s from %s" % (self.filename, self.author.username)
 
-    class Meta:
+    class Meta(CustomPermissionsMixin.Meta):
+        abstract = True
         get_latest_by = 'date'
         verbose_name = 'File'
         verbose_name_plural = 'Files'
+        
+class Post(File):
+    @staticmethod
+    def files_folder():
+        return "exterior"
+      
+    class Meta(File.Meta):
+        abstract = False
+        get_latest_by = 'date'
+        verbose_name = 'File'
+        verbose_name_plural = 'Files'
+        
+class Page(File):
+    @staticmethod
+    def files_folder():
+        return "pages"
+      
+    text = models.TextField()
+
+    REQUIRED = ['name', 'text', 'file']
+  
+    class Meta(Post.Meta):
+        abstract = False
+        get_latest_by = 'date'
+        verbose_name = 'Page'
+        verbose_name_plural = 'Pages'
+        

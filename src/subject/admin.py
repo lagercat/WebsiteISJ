@@ -2,33 +2,36 @@ from django.contrib import admin
 
 from models import Subject
 from models import SubjectPost
-from forms import SubjectPostChangeForm, SubjectPostCreationForm
+from forms import SubjectPostChangeFormAdmin, SubjectPostCreationFormAdmin
+from view_permission.admin import AdminViewMixin
 
 
-class SubjectAdmin(admin.ModelAdmin):
+class SubjectAdmin(AdminViewMixin):
     list_display = ['name']
     ordering = ['name']
-
+    icon = '<i class="material-icons">list</i>'
     
-class SubjectPostAdmin(admin.ModelAdmin):
-    change_form = SubjectPostChangeForm
-    add_form = SubjectPostCreationForm
-    list_display = ['name', 'subject', 'author', 'date']
+
+class SubjectPostAdmin(AdminViewMixin):
+    change_form = SubjectPostChangeFormAdmin
+    add_form = SubjectPostCreationFormAdmin
+    list_display = ['name', 'subject', 'author', 'fileLink', 'date', 'slug']
+    readonly_fields = ['fileLink', 'author']
     ordering = ['name', 'subject', 'author', 'date']
     
-    icon = '<i class="material-icons">file</i>'
+    icon = '<i class="material-icons">description</i>'
     
     fieldsets = ()
     
     change_fieldsets = (
-        (None, {'fields': ('name', 'text')}),
+        (None, {'fields': ('name', 'author', 'text', 'file')}),
     )
     
     add_fieldsets = (
-        (None, {'fields': (('name', 'subject'), 'text')}),
+        (None, {'fields': (('name', 'subject'), 'author', 'text', 'file')}),
     )
     
-    search_fields = ('name', 'subject', 'author', 'date')
+    search_fields = ('author__first_name', 'author__last_name', 'name', 'subject', 'author', 'date')
 
     ordering = ['date']
     filter_horizontal = ()
