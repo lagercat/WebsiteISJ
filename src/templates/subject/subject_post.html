@@ -1,0 +1,99 @@
+{% extends "base_admin.html" %}
+{% load staticfiles %}
+{% block content %}
+{% load widget_tweaks %}
+      <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+          	<h3><i class="fa fa-angle-right"></i>Scrie o postare pentru materia ta</h3>
+
+          	<!-- BASIC FORM ELELEMNTS -->
+          	<div class="row mt">
+          		<div class="col-lg-12">
+                  <div class="form-panel">
+                  	  <h4 class="mb"><i class="fa fa-angle-right"></i>Postare</h4>
+                      <form class="form-horizontal style-form" method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Titlu postare: </label>
+                              <div class="col-sm-10">
+                                  {% if form.name.errors %}
+                                    {{ form.name|add_class:"form-control"|attr:"id:focusedInput"|attr:"placeholder:Nume" }}
+                                  <span class="help-block">
+                                      {% for error in form.name.errors %}
+                                        {{ error }}
+                                      {% endfor %}
+                                  </span>
+                                  {% else %}
+                                    {{ form.name|add_class:"form-control"|attr:"placeholder:Nume" }}
+                                  {% endif %}
+                              </div>
+                          </div>
+                      <div class="form-group">
+                          <label class="col-sm-2 col-sm-2 control-label">Materia: </label>
+                          <div class="col-sm-10">
+                           {% if form.subject.errors %}
+                               {{ form.subject|add_class:"form-control"|attr:"id:focusedInput" }}
+                              <span class="help-block">
+                                  {% for error in form.subject.errors %}
+                                      {{ error }}
+                                  {% endfor %}
+                              </span>
+                               {% else %}
+                               {{ form.subject|add_class:"form-control" }}
+						</select>
+                          {%  endif %}
+                        </div>
+                      </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Text: </label>
+                              <div class="col-sm-10">
+                                  {% if form.text.errors %}
+                                    {{ form.text|add_class:"form-control"|attr:"id:focusedInput"}}
+                                  <span class="help-block">
+                                      {% for error in form.text.errors %}
+                                        {{ error }}
+                                      {% endfor %}
+                                  </span>
+                                  {% else %}
+                                    {{ form.text|add_class:"form-control" }}
+                                  {% endif %}
+                              </div>
+                          </div>
+                        <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Alege fisierul: </label>
+                              <div class="col-sm-10">
+                                  {% if form.file.errors %}
+                                    {{ form.file|add_class:"form-control"|attr:"id:focusedInput" }}
+                                    {% for error in form.file.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                  {% else %}
+                                    {{ form.file|add_class:"form-control" }}
+                                  {% endif %}
+                              </div>
+                          </div>
+                          <button type="submit" class="btn btn-theme">Trimite</button>
+                      </form>
+                  </div>
+          		</div><!-- /col-lg-12 -->
+          	</div><!-- /row -->
+
+
+		</section><! --/wrapper -->
+
+
+
+  <script>
+      //custom select box
+
+      $(function(){
+          $('select.styled').customSelect();
+      });
+
+  </script>
+
+  {% endblock %}

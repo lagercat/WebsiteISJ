@@ -4,15 +4,20 @@ import uuid
 
 from authentication.models import ExtendedUser
 from django.db import models
-import django
 
 
-def user_directory_path(instance, filename):
+def user_directory_path(self, filename):
     filename, file_extension = os.path.splitext(filename)
-    return './documents/{0}{1}'.format(instance.slug, file_extension)
+    return './documents/{0}/{1}{2}'.format(self.files_folder(),
+                                           self.slug, file_extension)
 
 
 class Post(models.Model):
+
+    @staticmethod
+    def files_folder():
+        return "exterior"
+
     author = models.ForeignKey(ExtendedUser, blank=False)
     name = models.CharField(max_length=100, blank=False, null=True)
     file = models.FileField(upload_to=user_directory_path)
