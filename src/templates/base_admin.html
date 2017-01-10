@@ -81,6 +81,14 @@
                           <span>Schimba-ti parola</span>
                       </a>
                   </li>
+                  {%  if request.user.status == 2 %}
+                  <li class="sub-menu">
+                      <a  href="/subpost">
+                          <i class="glyphicon glyphicon-send"></i>
+                          <span>Adauga un comunicat</span>
+                      </a>
+                  </li>
+                  {%  endif %}
 
 
               </ul>

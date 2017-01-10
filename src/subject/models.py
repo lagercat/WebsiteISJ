@@ -8,7 +8,7 @@ class Subject(models.Model):
         verbose_name = "subject"
         verbose_name_plural = "subjects"
 
-    name = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=50, null=True, unique=True)
 
     def __unicode__(self):
         return self.name
