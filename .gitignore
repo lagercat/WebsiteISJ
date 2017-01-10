@@ -98,10 +98,12 @@ ENV/
 *.sqlite3
 
 # Folder where documents are stored
-documents/
+media/
 
 .project
 .pydevproject
 
 # Search engine indexes
 whoosh_index/
+
+migrations/
