@@ -43,7 +43,11 @@
                 {% block sidenav_header %}
                 <li>
                     <div class="userView">
-                        <img class="background" src="{% static 'material/imgs/sidenav.png' %}">
+                        {% if request.user.status is 3 %}
+                            <img class="background" src="{% static 'material/imgs/sidenav.png' %}">
+                        {% else %}
+                            <img class="background" style="height: 176px; width: 300px" src="{% static 'admin_site/img/sidenav.jpg' %}">
+                        {% endif %}
                         {% block userphoto %}
                         {% if user.photo.url %}
                         <a href="#"><img class="circle" src="{{ user.photo.url %}"></a>

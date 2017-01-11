@@ -99,9 +99,7 @@ class ExtendedUserChangeFormAdmin(forms.ModelForm):
 
     class Meta:
         model = ExtendedUser
-        fields = (
-        'email', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'is_active', 'subjects',
-        'status')
+        fields = ('email', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'is_active', 'subjects', 'status')
 
     def clean_password(self):
         return self.initial["password"]

@@ -138,4 +138,4 @@ RECAPTCHA_USE_SSL = False
 
 AUTH_USER_MODEL = 'authentication.ExtendedUser'
 
-
+LOGIN_REDIRECT_URL = '/admin/'

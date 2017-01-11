@@ -3,13 +3,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 
 from forms import LoginForm, ResetPasswordForm
+from captcha.client import request
 
 
 @login_required
 def logout_view(request):
     logout(request)
     return redirect('/')
-
+  
+@login_required
+def admin_logout_view(request):
+    logout(request)
+    return redirect('/admin/login')
 
 def login_view(request):
     if request.user.is_authenticated():
