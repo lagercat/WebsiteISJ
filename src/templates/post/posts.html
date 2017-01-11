@@ -93,9 +93,11 @@
 					<button type="button" class="btn btn-default">{{ files.previous_page_number }}</button>
 					</a>
 					{% endif %}
+                    {% if files %}
 					<a>
 					<button type="button" class="btn btn-default" style="background-color: #e6e6e6;"> {{ files.number }}</button>
 					</a>
+                    {% endif %}
 					{% if files.has_next %}
 					<a href="/files/{{ files.next_page_number }}{{ query }}">
 					<button type="button" class="btn btn-default">{{ files.next_page_number }}</button>
