@@ -5,6 +5,7 @@ import uuid
 from authentication.models import ExtendedUser
 from django.db import models
 from view_permission.models import CustomPermissionsMixin
+from tinymce.models import HTMLField
 
 
 def user_directory_path(self, filename):
@@ -62,7 +63,7 @@ class Page(File):
     def files_folder():
         return "pages"
       
-    text = models.TextField()
+    text = HTMLField()
 
     REQUIRED = ['name', 'text', 'file']
   

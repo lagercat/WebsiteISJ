@@ -56,11 +56,13 @@ class PageAdmin(AdminViewMixin):
 
     fieldsets = ()
     change_fieldsets = (
-        ('File', {'fields': ('name', 'author', 'text', 'file')}),
+        ('Page', {'fields': ('name', 'author')}),
+        ('Page content', {'fields': ('text', 'file')})
     )
     
     add_fieldsets = (
-        ('File', {'fields': ('name', 'text', 'file')}),
+        ('Page', {'fields': ('name',)}),
+        ('Page content', {'fields': ('text', 'file')})
     )
     
     search_fields = ('author__first_name', 'author__last_name', 'name', 'date', 'slug',)
@@ -76,7 +78,9 @@ class PageAdmin(AdminViewMixin):
             return form
         else:
             self.fieldsets = self.change_fieldsets
-            return self.change_form
+            form = self.change_form
+            form.text_initial = obj.text
+            return form
     
     pass
     

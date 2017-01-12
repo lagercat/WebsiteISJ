@@ -34,6 +34,8 @@
         {% endblock js %}
         {% block extrahead %}{% endblock %}
         {% endblock head %}
+        <script type="text/javascript" src="{% static 'tinymce/tinymce.min.js' %}"></script>
+        {% block tinymceinit %}{% endblock %}
     </head>
     <body class="{% if is_popup %}popup{% endif %}">
         <header>

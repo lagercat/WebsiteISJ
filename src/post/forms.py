@@ -4,6 +4,7 @@ from django import forms
 
 from models import Post
 from post.models import Page
+from tinymce.widgets import TinyMCE, AdminTinyMCE
 
 
 class CreatePostForm(forms.ModelForm):
@@ -92,9 +93,10 @@ class PostChangeFormAdmin(forms.ModelForm):
         return uploaded_file
       
 class PageCreationFormAdmin(forms.ModelForm):
+    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     class Meta:
         model = Page
-        fields = ('name', 'text', 'file',)
+        fields = ('name', 'file',)
         
     def clean_file(self):
         uploaded_file = self.cleaned_data['file']
@@ -116,14 +118,23 @@ class PageCreationFormAdmin(forms.ModelForm):
     def save(self, commit=True):
         uploaded_file = super(PageCreationFormAdmin, self).save(commit=False)
         uploaded_file.author = self.current_user
+        uploaded_file.text = self.cleaned_data['text']
         if commit:
             uploaded_file.save()
         return uploaded_file
 
 class PageChangeFormAdmin(forms.ModelForm):
+    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     class Meta:
         model = Page
-        fields = ('name', 'text', 'file')
+        fields = ('name', 'file')
+        
+    def __init__(self, *args, **kwargs):
+        initial = {
+          'text': self.text_initial
+        }
+        kwargs['initial'] = initial
+        super(PageChangeFormAdmin, self).__init__(*args, **kwargs)
         
     def clean_file(self):
         uploaded_file = self.cleaned_data['file']
@@ -140,4 +151,11 @@ class PageChangeFormAdmin(forms.ModelForm):
         if uploaded_file.size > max_size:
             raise forms.ValidationError("Fisierul trece de dimensiunea maxima de %d" % max_size)
 
+        return uploaded_file
+      
+    def save(self, commit=True):
+        uploaded_file = super(PageChangeFormAdmin, self).save(commit=False)
+        uploaded_file.text = self.cleaned_data['text']
+        if commit:
+            uploaded_file.save()
         return uploaded_file

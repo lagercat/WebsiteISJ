@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'haystack',
     'django_cleanup',
+    'tinymce',
     
     # usual apps
     'authentication',
@@ -143,3 +144,7 @@ RECAPTCHA_USE_SSL = False
 AUTH_USER_MODEL = 'authentication.ExtendedUser'
 
 LOGIN_REDIRECT_URL = '/admin/'
+
+TINYMCE_JS_URL = '/static/tinymce/tinymce.js'
+
+print TINYMCE_JS_URL
