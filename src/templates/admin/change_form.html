@@ -48,8 +48,8 @@
             </div>
         </form>
     </div>
-    {% if not is_popup and change %}
     <div class="col s12 m12 l3">
+        {% if not is_popup and change %}
         <div class="card actions-card">
             <div class="card-content">
                 <span class="card-title black-text">{% trans "Action" %}</span>
@@ -69,7 +69,8 @@
                 </div>
                 {% endblock %}
             </div>
-        </div>
+        </div>        
+        {% endif %}
         {% if adminform.form.show_files %}
         {% load view_extra %}
         {% load static %}
@@ -93,7 +94,10 @@
                         console.log(file_obj["author__last_name"]);
                         $('#files').append('\
                             <li>\
-                                <div class="collapsible-header truncate"><i class="material-icons">description</i>' + file_obj["name"] + '</div>\
+                                <div class="collapsible-header truncate">\
+                                    <div class="truncate"><i class="material-icons">description</i>' + file_obj["name"] + '</div>\
+                                    <div class="truncate"><i class="material-icons">account</i>by ' + file_obj["author__first_name"] + " " + file_obj["author__last_name"] + '</div>\
+                                </div>\
                                 <div class="collapsible-body card-action">\
                                     <a class="cpy accent-color-text" href="#" data-clipboard-text="' + file_obj["file"] + '">\
                                         Copy Link\
@@ -148,7 +152,6 @@
         </ul>
         {% endif %}
     </div>
-    {% endif %}
     {% if adminform and add %}
     <script type="text/javascript">
         $('form#{{ opts.model_name }}_form :input:visible:enabled:first').attr('autofocus', true);

@@ -94,6 +94,8 @@ class PostChangeFormAdmin(forms.ModelForm):
       
 class PageCreationFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
+    show_files = True
+    
     class Meta:
         model = Page
         fields = ('name', 'file',)
