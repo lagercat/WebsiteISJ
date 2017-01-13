@@ -6408,3 +6408,7 @@ nav .nav-wrapper i {
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating):hover {
     color: #e57373;
 }
+
+a:hover {
+    cursor:pointer;
+}

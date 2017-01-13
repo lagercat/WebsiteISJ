@@ -6,6 +6,7 @@ from authentication.models import ExtendedUser
 from django.db import models
 from view_permission.models import CustomPermissionsMixin
 from tinymce.models import HTMLField
+from django.template.defaultfilters import truncatechars
 
 
 def user_directory_path(self, filename):
@@ -38,6 +39,10 @@ class File(CustomPermissionsMixin):
 
     def __unicode__(self):
         return "File %s from %s" % (self.filename, self.author.username)
+      
+    @property
+    def short_name(self):
+        return truncatechars(self.name, 40)
 
     class Meta(CustomPermissionsMixin.Meta):
         abstract = True

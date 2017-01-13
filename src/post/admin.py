@@ -16,7 +16,7 @@ class PostAdmin(AdminViewMixin):
     
     icon = '<i class="material-icons">description</i>'
 
-    list_display = ('name', 'author', 'fileLink', 'date', 'slug',)
+    list_display = ('short_name', 'author', 'fileLink', 'date', 'slug',)
     readonly_fields = ['fileLink', 'author']
 
     fieldsets = ()
@@ -51,7 +51,7 @@ class PageAdmin(AdminViewMixin):
     
     icon = '<i class="material-icons">description</i>'
 
-    list_display = ('name', 'author', 'fileLink', 'date', 'slug',)
+    list_display = ('short_name', 'author', 'fileLink', 'date', 'slug',)
     readonly_fields = ['fileLink', 'author']
 
     fieldsets = ()

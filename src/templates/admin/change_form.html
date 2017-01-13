@@ -71,13 +71,70 @@
             </div>
         </div>
         {% if adminform.form.show_files %}
-        <ul class="object-tools col s12 collapsible card actions-card" style="padding: 20px;" data-collapsible="accordion">
+        {% load view_extra %}
+        {% load static %}
+        {% get_files as files %}
+        <script type="text/javascript">
+            var file_list = {{ files|jsonify }}["results"];
+            var static_url = {% get_media_prefix %};
+            
+            $( document ).ready(function() {
+                console.log( file_list );
+            });
+            
+            function search(key) {
+                var filtered_list = [];
+                $('#files > li').remove();
+                for (file in file_list){
+                    var file_obj = file_list[file];
+                    if (file_obj["name"].toLowerCase().indexOf(key) >= 0 ||
+                        file_obj["author__first_name"].toLowerCase().indexOf(key) >= 0 ||
+                        file_obj["author__last_name"].toLowerCase().indexOf(key) >= 0){
+                        console.log(file_obj["author__last_name"]);
+                        $('#files').append('\
+                            <li>\
+                                <div class="collapsible-header truncate"><i class="material-icons">description</i>' + file_obj["name"] + '</div>\
+                                <div class="collapsible-body card-action">\
+                                    <a class="cpy accent-color-text" href="#" data-clipboard-text="' + file_obj["file"] + '">\
+                                        Copy Link\
+                                    </a>\
+                                    <a class="accent-color-text" href="' + static_url + file_obj["file"] + '" target="_blank">\
+                                        See File\
+                                    </a>\
+                                </div>\
+                            </li>');
+                    }
+                }
+            }
+            
+            function enter_press(e){
+                if(e.keyCode == 13){
+                    console.log("Hello");
+                    search($('#searchbar').val());
+                }
+            }
+            
+            $(document).ready(function() {
+                $("#changelist-search-button").click(function(){
+                    search($('#searchbar').val());
+                }); 
+            });
+        </script>
+        <ul id="files" class="object-tools col s12 collapsible card filters-card" style="padding: 20px;" data-collapsible="accordion">
             <span class="card-title black-text">{% trans "Files" %}</span>
-            {% load view_extra %}
-            {% get_files as files %}
+            <div class="row" style="margin-top:-10px">
+                <div class="input-field col s12">
+                    <input type="text" data-name="{{ search_var }}" value="{{ cl.query }}" id="searchbar" onkeypress="enter_press(event)"/>
+                    <label for="searchbar" class="{% if cl.query %}active{% endif %}">Search files</label>
+                    <a id="changelist-search-button" style=""><i class="material-icons">search</i></a>
+                </div>
+            </div>
             {% for f in files %}
             <li>
-                <div class="collapsible-header"><i class="material-icons">description</i>{{ f.name }}</div>
+                <div class="collapsible-header">
+                    <div class="truncate"><i class="material-icons">description</i>{{ f.name }}</div>
+                    <div class="truncate"><i class="material-icons">account</i>by {{ f.author.get_full_name }}</div>
+                </div>
                 <div class="collapsible-body card-action">
                     <a class="cpy accent-color-text" href="#" data-clipboard-text="{{ f.file.url }}">
                         Copy Link
