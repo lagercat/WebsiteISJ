@@ -1,7 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
-
 class AdminViewMixin(admin.ModelAdmin): 
 
     def has_perm(self, user, permission):

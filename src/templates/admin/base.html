@@ -36,6 +36,9 @@
         {% endblock head %}
         <script type="text/javascript" src="{% static 'tinymce/tinymce.min.js' %}"></script>
         {% block tinymceinit %}{% endblock %}
+        <script type="text/javascript" src="{% static 'clipboard-js/clipboard.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'prism/prism.css' %}">
+        <script src="{% static 'prism/prism.js' %}"></script>
     </head>
     <body class="{% if is_popup %}popup{% endif %}">
         <header>

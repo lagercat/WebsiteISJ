@@ -14,6 +14,9 @@ from forms import CreatePostForm, FilterPostForm
 from models import Post
 
 import magic
+from post.models import Page
+from django.template import Template
+from django.template.context import Context
 
 
 @login_required
@@ -100,3 +103,7 @@ def edit_file(request, slug):
         })
     else:
         return HttpResponseForbidden()
+      
+def show_page(request, slug):
+    page = get_object_or_404(Page, slug=slug)
+    return HttpResponse("<head><title>" + page.name + '</title><link rel="stylesheet" type="text/css" href="/static/prism/prism.css"><script src="/static/prism/prism.js"></script></head><body>' + page.text + "</body>")
