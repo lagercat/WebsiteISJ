@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^downloadfile/(?P<slug>[^\.]+)/$', views.download_file, name="download_file"),
     url(r'^deletefile/(?P<slug>[^\.]+)/$', views.delete_file, name="delete_file"),
     url(r'^edit/(?P<slug>[^\.]+)/$', views.edit_file, name="edit_file"),
-    url(r'^page/(?P<slug>[^\.]+)/$', views.show_page, name="show_page") #temp
+    url(r'^page/(?P<slug>[^\.]+)/$', views.show_page, name="show_page"), #temp
+    url(r'^files_filter/', views.files_filter, name="filter_files")
 ]

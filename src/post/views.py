@@ -17,6 +17,9 @@ import magic
 from post.models import Page
 from django.template import Template
 from django.template.context import Context
+from django.http.response import JsonResponse
+import json
+from django.utils.safestring import mark_safe
 
 
 @login_required
@@ -107,3 +110,8 @@ def edit_file(request, slug):
 def show_page(request, slug):
     page = get_object_or_404(Page, slug=slug)
     return HttpResponse("<head><title>" + page.name + '</title><link rel="stylesheet" type="text/css" href="/static/prism/prism.css"><script src="/static/prism/prism.js"></script></head><body>' + page.text + "</body>")
+
+
+def files_filter(request):
+    return JsonResponse({'results': list(Post.objects.values('name', 'author__first_name', 'author__last_name', 'file'))})
+  

@@ -76,39 +76,43 @@
         {% load static %}
         {% get_files as files %}
         <script type="text/javascript">
-            var file_list = {{ files|jsonify }}["results"];
             var static_url = {% get_media_prefix %};
-            
-            $( document ).ready(function() {
-                console.log( file_list );
-            });
-            
             function search(key) {
-                var filtered_list = [];
-                $('#files > li').remove();
-                for (file in file_list){
-                    var file_obj = file_list[file];
-                    if (file_obj["name"].toLowerCase().indexOf(key) >= 0 ||
-                        file_obj["author__first_name"].toLowerCase().indexOf(key) >= 0 ||
-                        file_obj["author__last_name"].toLowerCase().indexOf(key) >= 0){
-                        console.log(file_obj["author__last_name"]);
-                        $('#files').append('\
-                            <li>\
-                                <div class="collapsible-header truncate">\
-                                    <div class="truncate"><i class="material-icons">description</i>' + file_obj["name"] + '</div>\
-                                    <div class="truncate"><i class="material-icons">account</i>by ' + file_obj["author__first_name"] + " " + file_obj["author__last_name"] + '</div>\
-                                </div>\
-                                <div class="collapsible-body card-action">\
-                                    <a class="cpy accent-color-text" href="#" data-clipboard-text="' + file_obj["file"] + '">\
-                                        Copy Link\
-                                    </a>\
-                                    <a class="accent-color-text" href="' + static_url + file_obj["file"] + '" target="_blank">\
-                                        See File\
-                                    </a>\
-                                </div>\
-                            </li>');
+                $.ajax({
+                url: '/files_filter/',
+                type: 'get', // This is the default though, you don't actually need to always mention it
+                success: function(data) {
+                    d = data["results"];
+                    $('#files > li').remove();
+                    for (file in d){
+                        var file_obj = d[file];
+                        if (file_obj["name"].toLowerCase().indexOf(key) >= 0 ||
+                            file_obj["author__first_name"].toLowerCase().indexOf(key) >= 0 ||
+                            file_obj["author__last_name"].toLowerCase().indexOf(key) >= 0){
+                            console.log(file_obj["author__last_name"]);
+                            $('#files').append('\
+                                <li>\
+                                    <div class="collapsible-header truncate">\
+                                        <div class="truncate"><i class="material-icons">description</i>' + file_obj["name"] + '</div>\
+                                        <div class="truncate"><i class="material-icons">account</i>by ' + file_obj["author__first_name"] + " " + file_obj["author__last_name"] + '</div>\
+                                    </div>\
+                                    <div class="collapsible-body card-action">\
+                                        <a class="cpy accent-color-text" data-clipboard-text="' + file_obj["file"] + '">\
+                                            Copy Link\
+                                        </a>\
+                                        <a class="accent-color-text" href="' + static_url + file_obj["file"] + '" target="_blank">\
+                                            See File\
+                                        </a>\
+                                    </div>\
+                                </li>');
+                        }
                     }
+                },
+                failure: function(data) { 
+                    alert('Got an error dude');
                 }
+}); 
+                
             }
             
             function enter_press(e){
@@ -140,7 +144,7 @@
                     <div class="truncate"><i class="material-icons">account</i>by {{ f.author.get_full_name }}</div>
                 </div>
                 <div class="collapsible-body card-action">
-                    <a class="cpy accent-color-text" href="#" data-clipboard-text="{{ f.file.url }}">
+                    <a class="cpy accent-color-text" data-clipboard-text="{{ f.file.url }}">
                         Copy Link
                     </a>
                     <a class="accent-color-text" href="{{ f.file.url }}" target="_blank">
