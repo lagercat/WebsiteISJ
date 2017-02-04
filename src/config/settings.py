@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'inspector',
     'event',
     'view_permission',
+    'news',
 ]
 
 MIDDLEWARE_CLASSES = [

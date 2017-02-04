@@ -11,5 +11,6 @@ urlpatterns = [
   url(r'^', include('homepages.urls')),
   url(r'^', include('authentication.urls')),
   url(r'^', include('post.urls')),
+  url(r'^', include('news.urls')),
   url(r'^', include('subject.urls'))
 ]
