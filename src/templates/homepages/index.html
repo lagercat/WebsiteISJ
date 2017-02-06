@@ -405,15 +405,15 @@
                 <div class="col-md-4 col-sm-4">
                   <article class="mu-blog-single-item">
                     <figure class="mu-blog-single-img">
-                      <a href="#"><img src= 'static/{{ news.image.url }}' alt="img"></a>
+                      <a href="#"><img style="max-width: 70%" src= 'static/{{ news.image.url }}' alt="img"></a>
                       <figcaption class="mu-blog-caption">
                         <h3><a href="#">{{ news.title }}</a></h3>
                       </figcaption>
                     </figure>
                     <div class="mu-blog-meta">
                       <a href="#">By Admin</a>
-                      <a href="#">02 June 2016</a>
-                      <span><i class="fa fa-comments-o"></i>87</span>
+                      <a href="#">{{ news.date_creation }}</a>
+
                     </div>
 
                   </article>
