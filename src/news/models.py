@@ -22,6 +22,7 @@ class News(CustomPermissionsMixin):
     description = models.CharField(max_length=5000, blank=False, null=True)
     image = models.ImageField(upload_to=user_directory_path, null=True,
                               blank=False)
+    date_creation = models.DateTimeField(null=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True)
 
     def __unicode__(self):
