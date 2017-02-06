@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 
 
 import os
+import uuid
 
 
 # Create your models here.
@@ -21,9 +22,15 @@ class News(CustomPermissionsMixin):
     description = models.CharField(max_length=5000, blank=False, null=True)
     image = models.ImageField(upload_to=user_directory_path, null=True,
                               blank=False)
+    slug = models.SlugField(default=uuid.uuid1, unique=True)
 
     def __unicode__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('news_post', args=[self.slug])
+
+    class Meta(CustomPermissionsMixin.Meta):
+        abstract = False
+        verbose_name = 'News'
+        verbose_name_plural = 'News'

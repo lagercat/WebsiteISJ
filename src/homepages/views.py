@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from news.models import News
 
 
 def home(request):
@@ -6,4 +7,7 @@ def home(request):
         template = 'homepages/home.html'
     else:
         template = 'homepages/index.html'
-    return render(request, template)
+    noutati = News.objects.all()
+    return render(request, template,{
+        'noutati':noutati,
+    })

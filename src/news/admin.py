@@ -9,6 +9,4 @@ class NewsAdmin(AdminViewMixin):
     ordering = ['title']
 
 
-
 admin.site.register(News, NewsAdmin)
-
