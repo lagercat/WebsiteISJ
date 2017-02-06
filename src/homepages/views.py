@@ -7,7 +7,7 @@ def home(request):
         template = 'homepages/home.html'
     else:
         template = 'homepages/index.html'
-    noutati = News.objects.all()
+    noutati = News.objects.all()[:3]
     return render(request, template,{
         'noutati':noutati,
     })
