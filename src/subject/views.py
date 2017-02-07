@@ -33,8 +33,8 @@ def subject(request, name):
 
 
 def subject_news(request, name, slug):
-    materia = get_object_or_404(Subject, name=name)
-    articol = SubjectPost.objects.all().filter(subject=materia, slug=slug)
-    return render(request, 'subject/subject_news', {
-        'articol': articol,
+    articol = SubjectPost.objects.all().filter(subject__name=name, slug=slug)
+    print articol
+    return render(request, 'subject/subject_news.html', {
+        'news': articol,
     })
