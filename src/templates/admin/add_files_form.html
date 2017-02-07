@@ -14,61 +14,8 @@
 <div class="row change-form">
     <div class="col s12 m12 l9">
         <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form">
-            <div class="card">
-                <div class="card-content">
-                    {% csrf_token %}
-                    {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1" />{% endif %}
-                    {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}" />{% endif %}
-                    <div class="row">
-                        <div class="col s12">
-                            <h4 class="form-title black-text">{% if add %}{% trans 'New' %} {{ opts.verbose_name }}{% else %}{{ adminform.form.instance|title }}{% endif %}</h4>
-                        </div>
-                    </div>
-                    {% if errors %}
-                    <div class="row">
-                        <div class="col s12">
-                            <small class="errornote">
-                                {% if errors|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
-                                <br/><br/>
-                            </small>
-                        </div>
-                    </div>
-                    {% endif %}
-
-                        {% fieldset_layout adminform inline_admin_formsets as layout %}
-                        {% form form=adminform.form layout=layout %}{% endform %}
-                        {% prepopulated_fields_js %}
-                </div>
-            </div>
-        </form>
-        <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form_1">
-            <div class="card">
-                <div class="card-content">
-                    {% csrf_token %}
-                    {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1" />{% endif %}
-                    {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}" />{% endif %}
-                    <div class="row">
-                        <div class="col s12">
-                            <h4 class="form-title black-text">{% if add %}{% trans 'New' %} {{ opts.verbose_name }}{% else %}{{ adminform.form.instance|title }}{% endif %}</h4>
-                        </div>
-                    </div>
-                    {% if errors %}
-                    <div class="row">
-                        <div class="col s12">
-                            <small class="errornote">
-                                {% if errors|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
-                                <br/><br/>
-                            </small>
-                        </div>
-                    </div>
-                    {% endif %}
-
-                    {% fieldset_layout adminform inline_admin_formsets as layout %}
-                    {% form form=adminform.form layout=layout %}{% endform %}
-                    {% prepopulated_fields_js %}
-                </div>
-                
-            </div>
+            {% csrf_token %}
+            
         </form>
         <div class="card">
             <link rel="stylesheet" type="text/css" href="{% static 'admin_site/drag_n_drop.css' %}">
@@ -78,7 +25,7 @@
                     <div class="box__input">
                         <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
                         <label for="file"><strong>Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
-                        <button class="box__button" type="submit">Upload</button>
+                        <button class="box__button" type="submit" name="drag_n_drop">Upload</button>
                     </div>
                     <div class="box__uploading">Uploading&hellip;</div>
                     <div class="box__success">Done!</div>

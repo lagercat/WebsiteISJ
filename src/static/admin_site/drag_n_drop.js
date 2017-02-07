@@ -44,9 +44,78 @@ if (isAdvancedUpload) {
   $form.addClass('has-advanced-upload');   
 }
 
+if (!String.prototype.format) {
+  String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) { 
+      return typeof args[number] != 'undefined'
+        ? args[number]
+        : match
+      ;
+    });
+  };
+}
+var template = '\
+<div class="card small_form">\
+    <div class="card-content">\
+        <div class="row">\
+            <div class="col s12">\
+                <h4 class="form-title black-text">New File {4}#</h4>\
+            </div>\
+        </div>\
+        <div class="section row">\
+            <div class="col s12">\
+                <h5>File</h5>\
+                <div class="row">\
+                    <div class="input-field col s12 required" id="id_name_container">\
+                        <input id="id_form-{0}-name" maxlength="100" name="name" autofocus="autofocus" type="text" value="{1}">\
+                        <label for="id_form-{0}-name" class="{2}">Name</label>\
+                    </div>\
+                </div>\
+                <div class="row">\
+                    <div class="input-field file-field col s12 required" id="id_file_container">\
+                        <div class="btn">\
+                            <span>File</span>\
+                            <input name="file" type="file">\
+                        </div>\
+                        <div class="file-path-wrapper">\
+                            <input class="file-path" id="id_form-{0}-file" value="{3}" type="text">\
+                        </div>\
+                    </div>\
+                </div>\
+            </div>\
+        </div>\
+     </div>\
+</div>\
+';
+
+
+var $big_form = $("#post_form");
+
+function rewrite_form(){
+    $(".small_form").remove();
+    if (totalFiles) {
+        $.each( totalFiles, function(i, file) {
+            $big_form.append(template.format(i, totalNames[i] !== undefined ? totalNames[i] : "", totalNames[i] !== undefined ? "active" : "", totalFiles[i].name, i+1));
+        });
+    }
+}
+
+function delete_entry(i){
+    for(var j = 0; j < totalFiles.length; j++){
+        totalNames[j] = $("#id_form-{0}-name".format(j)).val();
+    }
+    totalFiles.splice(i,1);
+    totalNames.splice(i,1);
+    rewrite_form();
+}
+
+var totalFiles = [];
+var totalNames = [];
+var droppedFiles = false;
+
 if (isAdvancedUpload) {
 
-  var droppedFiles = false;
 
   $form.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
     e.preventDefault();
@@ -62,7 +131,18 @@ if (isAdvancedUpload) {
   })
   .on('drop', function(e) {
     droppedFiles = e.originalEvent.dataTransfer.files;
-    $form.trigger('submit');
+    if (droppedFiles) {
+        $.each( droppedFiles, function(i, file) {
+            totalFiles.push(file);
+        });
+        
+        for(var j = 0; j < totalFiles.length; j++){
+            totalNames[j] = $("#id_form-{0}-name".format(j)).val();
+        }
+        rewrite_form();
+    }
+    
+//     $form.trigger('submit');
   });
 
 }
@@ -82,6 +162,7 @@ $form.on('submit', function(e) {
                 ajaxData.append( $input.attr('name'), file );
             });
         }
+        ajaxData.append("new_files", 1);
         
         $.ajax({
             url: $form.attr('action'),
@@ -123,7 +204,8 @@ $form.on('submit', function(e) {
 });
 
 $input.on('change', function(e) { // when drag & drop is NOT supported
-  $form.trigger('submit');
+    droppedFiles = this.files
+    console.log(droppedFiles);
 });
 
 $form.hover(

@@ -11,7 +11,7 @@ class EventAdmin(AdminViewMixin):
 
     icon = '<i class="material-icons">room</i>'
 
-    list_display = ('title', 'author', 'location', 'time',)
+    list_display = ('title', 'author', 'location', 'time', 'slug',)
     readonly_fields = ['author']
     
     search_fields = ('title', 'author__first_name', 'author__last_name', 'location', 'time',)

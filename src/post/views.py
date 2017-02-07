@@ -114,6 +114,11 @@ def show_page(request, slug):
 
 def files_filter(request):
     return JsonResponse({'results': list(Post.objects.values('name', 'author__first_name', 'author__last_name', 'file'))})
-  
+
+@login_required
 def add_multiple_files(request):
-    pass
+    if request.method == 'POST':
+        request.session["old_stuff"] = request.POST
+        return redirect("/admin/post/post/add/multiple/")
+    elif request.method == "GET":
+        return HttpResponse("<head></head><body>" + str(request.session["old_stuff"]) + "</body>")

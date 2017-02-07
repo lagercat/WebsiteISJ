@@ -9,6 +9,9 @@ from view_permission.admin import AdminViewMixin
 from post.forms import PostChangeFormAdmin, PostCreationFormAdmin,\
   PageCreationFormAdmin, PageChangeFormAdmin
 from post.models import Page
+from django.http.response import HttpResponseRedirect, HttpResponse
+from django.conf.urls import url
+from post import views
 
 class PostAdmin(AdminViewMixin):
     change_form = PostChangeFormAdmin
@@ -44,9 +47,8 @@ class PostAdmin(AdminViewMixin):
         else:
             self.fieldsets = self.change_fieldsets
             return self.change_form
-    
-    pass
-  
+          
+
 class PageAdmin(AdminViewMixin):
     change_form = PageChangeFormAdmin
     add_form = PageCreationFormAdmin
