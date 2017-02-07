@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from news.models import News
+from event.models import Event
 
 
 def home(request):
@@ -8,6 +9,9 @@ def home(request):
     else:
         template = 'homepages/index.html'
     noutati = News.objects.all()[:3]
+    events = Event.objects.all()[:9]
+
     return render(request, template, {
         'noutati': noutati,
+        'events': events,
     })
