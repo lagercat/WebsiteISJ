@@ -17,9 +17,11 @@ import magic
 from post.models import Page
 from django.template import Template
 from django.template.context import Context
-from django.http.response import JsonResponse
+from django.http.response import JsonResponse, HttpResponseRedirect
 import json
 from django.utils.safestring import mark_safe
+from post.forms import PostFormSet
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 @login_required
@@ -115,10 +117,19 @@ def show_page(request, slug):
 def files_filter(request):
     return JsonResponse({'results': list(Post.objects.values('name', 'author__first_name', 'author__last_name', 'file'))})
 
-@login_required
+@staff_member_required
 def add_multiple_files(request):
-    if request.method == 'POST':
-        request.session["old_stuff"] = request.POST
-        return redirect("/admin/post/post/add/multiple/")
-    elif request.method == "GET":
-        return HttpResponse("<head></head><body>" + str(request.session["old_stuff"]) + "</body>")
+    if request.method == "POST":
+        formset = PostFormSet(data=request.POST or None, files=request.FILES or None)
+        print formset.is_valid()
+#         if formset.is_valid():
+        instances = formset.save(commit=False)
+        for instance in instances:
+            instance.author = request.user
+            print instance
+            instance.save()
+        formset.save_m2m()
+            
+        return redirect("/admin/post/post/")
+    else:
+        return HttpResponseForbidden()

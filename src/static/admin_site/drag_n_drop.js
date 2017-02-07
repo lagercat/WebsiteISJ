@@ -68,7 +68,7 @@ var template = '\
                 <h5>File</h5>\
                 <div class="row">\
                     <div class="input-field col s12 required" id="id_name_container">\
-                        <input id="id_form-{0}-name" maxlength="100" name="name" autofocus="autofocus" type="text" value="{1}">\
+                        <input id="id_form-{0}-name" maxlength="100" name="form-{0}-name" autofocus="autofocus" type="text" value="{1}">\
                         <label for="id_form-{0}-name" class="{2}">Name</label>\
                     </div>\
                 </div>\
@@ -76,7 +76,7 @@ var template = '\
                     <div class="input-field file-field col s12 required" id="id_file_container">\
                         <div class="btn">\
                             <span>File</span>\
-                            <input name="file" type="file">\
+                            <input id="file-{0}" name="form-{0}-file" type="file" onchange="change_file({0});">\
                         </div>\
                         <div class="file-path-wrapper">\
                             <input class="file-path" id="id_form-{0}-file" value="{3}" type="text">\
@@ -99,6 +99,7 @@ var $big_form = $("#post_form");
 
 function rewrite_form(){
     $(".small_form").remove();
+    $('#id_form-TOTAL_FORMS').val(totalFiles.length);
     if (totalFiles) {
         $.each( totalFiles, function(i, file) {
             $big_form.append(template.format(i, totalNames[i] !== undefined ? totalNames[i] : "", totalNames[i] !== undefined ? "active" : "", totalFiles[i].name, i+1));
@@ -113,6 +114,33 @@ function delete_entry(i){
     totalFiles.splice(i,1);
     totalNames.splice(i,1);
     rewrite_form();
+}
+
+function change_file(i){
+    totalFiles[i] = $("#file-{0}".format(i))[0].files[0];
+    console.log(totalFiles[i]);
+}
+
+function post(){
+    for(var j = 0; j < totalFiles.length; j++){
+        totalNames[j] = $("#id_form-{0}-name".format(j)).val();
+    }
+    var ajaxData = new FormData();
+    ajaxData.append( "form-TOTAL_FORMS", $('#id_form-TOTAL_FORMS').val() );
+    ajaxData.append( "form-INITIAL_FORMS", $('#id_form-INITIAL_FORMS').val() );
+    ajaxData.append( "form-MAX_NUM_FORMS", $('#id_form-MAX_NUM_FORMS').val() );
+    ajaxData.append( "csrfmiddlewaretoken", $('input[name=csrfmiddlewaretoken]').val() );
+    $.each( totalFiles, function(i, file) {
+        ajaxData.append( "form-{0}-file".format(i), file );
+        ajaxData.append( "form-{0}-name".format(i), totalNames[i] );
+    });
+    $.ajax({
+            url: "/add_files/",
+            type: "POST",
+            data: ajaxData,    
+            processData: false,
+            contentType: false,
+    });
 }
 
 var totalFiles = [];

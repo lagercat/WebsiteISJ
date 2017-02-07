@@ -1,9 +1,9 @@
 import os
 
 from django import forms
+from django.forms import modelformset_factory
 
-from models import Post
-from post.models import Page
+from models import Post, Page
 from tinymce.widgets import TinyMCE, AdminTinyMCE
 
 
@@ -64,7 +64,6 @@ class PostCreationFormAdmin(forms.ModelForm):
 
     def save(self, commit=True):
         uploaded_file = super(PostCreationFormAdmin, self).save(commit=False)
-        uploaded_file.author = self.current_user
         if commit:
             uploaded_file.save()
         return uploaded_file
@@ -162,3 +161,5 @@ class PageChangeFormAdmin(forms.ModelForm):
         if commit:
             uploaded_file.save()
         return uploaded_file
+
+PostFormSet = modelformset_factory(Post, form=PostCreationFormAdmin)
