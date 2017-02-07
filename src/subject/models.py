@@ -5,6 +5,7 @@ from django.db import models
 from post.models import File
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
+from tinymce.models import HTMLField
 
 
 def user_directory_path(self, filename):
@@ -29,7 +30,7 @@ class SubjectPost(File):
     def files_folder():
         return "interior"
 
-    text = models.TextField()
+    text = HTMLField()
     subject = models.ForeignKey(Subject, blank=False, null=False)
 
     REQUIRED = ['subject', 'name', 'text', 'file']

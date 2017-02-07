@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 
 from forms import SubjectPostCreationFormAdmin
 from models import Subject, SubjectPost
+from django.http.response import HttpResponse
 
 
 @login_required
@@ -42,3 +43,9 @@ def subject_news(request, name, slug):
         'text': articol[0].get('text'),
 
     })
+    
+def show_subject_page(request, slug):
+    page = get_object_or_404(SubjectPost, slug=slug)
+    return HttpResponse("<head><title>" + page.name + " " + page.subject + '</title><link rel="stylesheet" type="text/css" href="/static/prism/prism.css"><script src="/static/prism/prism.js"></script></head><body>' + page.text + "</body>")
+
+

@@ -16,7 +16,8 @@ class SubjectPostAdmin(AdminViewMixin):
     change_form = SubjectPostChangeFormAdmin
     add_form = SubjectPostCreationFormAdmin
     list_display = ['name', 'subject', 'author', 'fileLink', 'date', 'slug']
-    readonly_fields = ['fileLink', 'author']
+    change_readonly_fields = ['author', 'subject']
+    add_readonly_fields = ['subject', ]
 
     ordering = ['name', 'subject', 'author', 'date']
     
@@ -25,13 +26,15 @@ class SubjectPostAdmin(AdminViewMixin):
     fieldsets = ()
     
     change_fieldsets = (
-        (None, {'fields': ('name', 'author', 'text', 'file')}),
+        ('Page', {'fields': (('name', 'subject'), 'author')}),
+        ('Page content', {'fields': ('text', 'file')})
     )
     
     add_fieldsets = (
-        (None, {'fields': (('name', 'subject'), 'author', 'text', 'file')}),
+        ('Page', {'fields': (('name', 'subject'),)}),
+        ('Page content', {'fields': ('text', 'file')})
     )
-    
+      
     search_fields = ('author__first_name', 'author__last_name', 'name', 'subject', 'author', 'date')
 
     ordering = ['date']
@@ -40,12 +43,16 @@ class SubjectPostAdmin(AdminViewMixin):
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
             self.fieldsets = self.add_fieldsets
+            self.readonly_fields = self.add_readonly_fields
             form = self.add_form
             form.current_user = request.user
             return form
         else:
             self.fieldsets = self.change_fieldsets
-            return self.change_form
+            self.readonly_fields = self.change_readonly_fields
+            form = self.change_form
+            form.text_initial = obj.text
+            return form
 
 admin.site.register(Subject, SubjectAdmin)
 admin.site.register(SubjectPost, SubjectPostAdmin)
