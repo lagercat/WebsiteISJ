@@ -3,6 +3,8 @@ import os
 
 from django.db import models
 from post.models import File
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
 
 
 def user_directory_path(self, filename):
@@ -38,3 +40,9 @@ class SubjectPost(File):
     class Meta(File.Meta):
         verbose_name = "post"
         verbose_name_plural = "posts"
+
+    
+@receiver(pre_delete, sender=SubjectPost)
+def file_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.file.delete(False)

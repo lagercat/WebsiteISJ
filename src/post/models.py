@@ -7,7 +7,8 @@ from django.db import models
 from view_permission.models import CustomPermissionsMixin
 from tinymce.models import HTMLField
 from django.template.defaultfilters import truncatechars
-
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
 
 def user_directory_path(self, filename):
     filename, file_extension = os.path.splitext(filename)
@@ -77,4 +78,10 @@ class Page(File):
         get_latest_by = 'date'
         verbose_name = 'Page'
         verbose_name_plural = 'Pages'
+
+@receiver(pre_delete, sender=Page)       
+@receiver(pre_delete, sender=Post)
+def file_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.file.delete(False)
         

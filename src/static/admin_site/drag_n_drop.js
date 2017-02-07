@@ -56,9 +56,9 @@ if (!String.prototype.format) {
   };
 }
 var template = '\
-<div class="card small_form">\
+<div class="card small_form" >\
     <div class="card-content">\
-        <div class="row">\
+        <div class="row" id="title-{0}">\
             <div class="col s12">\
                 <h4 class="form-title black-text">New File #{4}</h4>\
             </div>\
@@ -67,13 +67,13 @@ var template = '\
             <div class="col s12">\
                 <h5>File</h5>\
                 <div class="row">\
-                    <div class="input-field col s12 required" id="id_name_container">\
+                    <div class="input-field col s12 required" id="id_name_container-{0}">\
                         <input id="id_form-{0}-name" maxlength="100" name="form-{0}-name" autofocus="autofocus" type="text" value="{1}">\
                         <label for="id_form-{0}-name" class="{2}">Name</label>\
                     </div>\
                 </div>\
                 <div class="row">\
-                    <div class="input-field file-field col s12 required" id="id_file_container">\
+                    <div class="input-field file-field col s12 required" id="id_file_container-{0}">\
                         <div class="btn">\
                             <span>File</span>\
                             <input id="file-{0}" name="form-{0}-file" type="file" onchange="change_file({0});">\
@@ -121,6 +121,40 @@ function change_file(i){
     console.log(totalFiles[i]);
 }
 
+var error_header = '\
+<div class="row errors">\
+    <div class="col s12">\
+        <small class="errornote">\
+            Please correct the errors below.\
+            <br/><br/>\
+        </small>\
+    </div>\
+</div>\
+';
+
+var error_msg = '\
+<div class="errors">\
+    <small class="errornote">\
+        {0}\
+    </small>\
+</div>\
+';
+
+function show_errors(errors){
+    console.log(errors);
+    $(".errors").remove();
+    $.each( errors["errors"], function(i, obj) {
+        if(!$.isEmptyObject(obj)){
+            $("#title-{0}".format(i)).after(error_header);
+            console.log(obj);
+            $.each( obj, function(atr, err) {
+                
+                $("#id_{0}_container-{1}".format(atr, i)).append(error_msg.format(err));
+            });
+        }
+    });
+}
+
 function post(){
     for(var j = 0; j < totalFiles.length; j++){
         totalNames[j] = $("#id_form-{0}-name".format(j)).val();
@@ -140,6 +174,12 @@ function post(){
             data: ajaxData,    
             processData: false,
             contentType: false,
+            success: (function(e){
+                window.location.replace("/admin/post/post/");
+            }),
+            error: (function(XMLHttpRequest, textStatus, errorThrown) { 
+                show_errors(JSON.parse(XMLHttpRequest.responseText));
+            }),
     });
 }
 

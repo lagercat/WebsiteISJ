@@ -122,14 +122,18 @@ def add_multiple_files(request):
     if request.method == "POST":
         formset = PostFormSet(data=request.POST or None, files=request.FILES or None)
         print formset.is_valid()
-#         if formset.is_valid():
-        instances = formset.save(commit=False)
-        for instance in instances:
-            instance.author = request.user
-            print instance
-            instance.save()
-        formset.save_m2m()
-            
-        return redirect("/admin/post/post/")
+        if formset.is_valid():
+            instances = formset.save(commit=False)
+            for instance in instances:
+                instance.author = request.user
+                print instance
+                instance.save()
+            formset.save_m2m()
+            return redirect("/admin/post/post/")
+        else:
+            response = HttpResponse(json.dumps({"errors" : formset.errors}), 
+                content_type='application/json')
+            response.status_code = 400
+            return response
     else:
         return HttpResponseForbidden()
