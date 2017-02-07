@@ -12,5 +12,6 @@ urlpatterns = [
   url(r'^', include('authentication.urls')),
   url(r'^', include('post.urls')),
   url(r'^', include('news.urls')),
-  url(r'^', include('subject.urls'))
+  url(r'^', include('subject.urls')),
+  url(r'^', include('event.urls'))
 ]
