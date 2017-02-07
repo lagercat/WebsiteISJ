@@ -60,7 +60,7 @@ var template = '\
     <div class="card-content">\
         <div class="row">\
             <div class="col s12">\
-                <h4 class="form-title black-text">New File {4}#</h4>\
+                <h4 class="form-title black-text">New File #{4}</h4>\
             </div>\
         </div>\
         <div class="section row">\
@@ -85,7 +85,12 @@ var template = '\
                 </div>\
             </div>\
         </div>\
-     </div>\
+    </div>\
+    <div class="card-action">\
+        <div class="right-align">\
+            <button type="button" onclick="delete_entry({0});" class="waves-effect waves-light btn white-text">Delete</button>\
+        </div>\
+    </div>\
 </div>\
 ';
 
