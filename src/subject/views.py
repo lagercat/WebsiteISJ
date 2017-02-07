@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 
 from forms import SubjectPostCreationFormAdmin
-from models import Subject,SubjectPost
+from models import Subject, SubjectPost
 
 
 @login_required
@@ -24,8 +24,17 @@ def create_subject_post(request):
 
 def subject(request, name):
     materia = get_object_or_404(Subject, name=name)
-    articole =SubjectPost.objects.all().filter(subject=materia)
+    articole = SubjectPost.objects.all().filter(subject=materia)
     return render(request, 'subject/subject_all.html',
                   {
                       'articole': articole,
+                      'materia':materia,
                   })
+
+
+def subject_news(request, name, slug):
+    materia = get_object_or_404(Subject, name=name)
+    articol = SubjectPost.objects.all().filter(subject=materia, slug=slug)
+    return render(request, 'subject/subject_news', {
+        'articol': articol,
+    })
