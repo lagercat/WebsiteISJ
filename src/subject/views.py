@@ -28,13 +28,16 @@ def subject(request, name):
     return render(request, 'subject/subject_all.html',
                   {
                       'articole': articole,
-                      'materia':materia,
+                      'materia': materia,
                   })
 
 
 def subject_news(request, name, slug):
-    articol = SubjectPost.objects.all().filter(subject__name=name, slug=slug)
+    articol = SubjectPost.objects.values('name', 'text', 'subject', 'slug').filter(slug=slug, subject__name=name)
     print articol
+    print type(articol)
     return render(request, 'subject/subject_news.html', {
-        'news': articol,
+
+        'news':articol,
+
     })

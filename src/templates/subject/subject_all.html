@@ -35,9 +35,9 @@
                     <div class="col-md-6 col-sm-6">
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
-                          <a href="#"><img src= '/static{{ news.file.url }}'alt="img"></a>
+                          <a href="{{news.slug}}"><img src= '/static{{ news.file.url }}'alt="img"></a>
                           <figcaption class="mu-blog-caption">
-                            <h3><a href="/{{materia}}/{{news.slug}}">{{ news.name }}</a></h3>
+                            <h3><a href="{{news.slug}}">{{ news.name }}</a></h3>
                           </figcaption>                      
                         </figure>
 
