@@ -98,7 +98,7 @@ ENV/
 *.sqlite3
 
 # Folder where documents are stored
-media/
+/media/
 
 .project
 .pydevproject
