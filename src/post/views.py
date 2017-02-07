@@ -115,3 +115,5 @@ def show_page(request, slug):
 def files_filter(request):
     return JsonResponse({'results': list(Post.objects.values('name', 'author__first_name', 'author__last_name', 'file'))})
   
+def add_multiple_files(request):
+    pass

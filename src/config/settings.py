@@ -147,5 +147,3 @@ AUTH_USER_MODEL = 'authentication.ExtendedUser'
 LOGIN_REDIRECT_URL = '/admin/'
 
 TINYMCE_JS_URL = '/static/tinymce/tinymce.js'
-
-print TINYMCE_JS_URL

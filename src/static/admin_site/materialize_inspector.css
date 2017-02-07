@@ -6413,3 +6413,7 @@ nav .nav-wrapper i {
 a:hover {
     cursor:pointer;
 }
+
+.accent-color{
+    color: #26a69a !important;
+}

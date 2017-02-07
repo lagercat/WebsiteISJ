@@ -14,6 +14,8 @@ class PostAdmin(AdminViewMixin):
     change_form = PostChangeFormAdmin
     add_form = PostCreationFormAdmin
     
+    add_form_template = "admin/add_files_form.html"
+    
     icon = '<i class="material-icons">description</i>'
 
     list_display = ('short_name', 'author', 'fileLink', 'date', 'slug',)

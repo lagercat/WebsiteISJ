@@ -6412,3 +6412,7 @@ nav .nav-wrapper i {
 a:hover {
     cursor:pointer;
 }
+
+.accent-color{
+    color: #EF5350 !important; 
+}
