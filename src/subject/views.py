@@ -35,17 +35,20 @@ def subject(request, name):
 
 def subject_news(request, name, slug):
     articol = list(SubjectPost.objects.values('name', 'text', 'subject',
-                                         'slug').filter(slug=slug,
-                                                        subject__name=name))
+                                              'slug').filter(slug=slug,
+                                                             subject__name=name))
     return render(request, 'subject/subject_news.html', {
 
         'name': articol[0].get('name'),
         'text': articol[0].get('text'),
 
     })
-    
+
+
 def show_subject_page(request, slug):
     page = get_object_or_404(SubjectPost, slug=slug)
-    return HttpResponse("<head><title>" + page.name + " " + page.subject + '</title><link rel="stylesheet" type="text/css" href="/static/prism/prism.css"><script src="/static/prism/prism.js"></script></head><body>' + page.text + "</body>")
-
-
+    return HttpResponse(
+        "<head><title>" + page.name + " " + page.subject +
+        '</title><link rel="stylesheet" type="text/css" '
+        'href="/static/prism/prism.css"><script src="/static/prism/prism.js">'
+        '</script></head><body>' + page.text + "</body>")
