@@ -10,9 +10,9 @@ SECRET_KEY = 'vl27lst+j0&n4ec$dh7qu^=i0f2@$#(dw-25#7$f##$w9s%8b5'
 RECAPTCHA_PUBLIC_KEY = '6Le23xAUAAAAALeZVS6-CFTIKbhD-2XGYDWV3JUY'
 RECAPTCHA_PRIVATE_KEY = '6Le23xAUAAAAADqwurHC-Cvm25zXqkvHuREZjiIo'
 
-DEBUG = False
+DEBUG = True  # True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = []  # '127.0.0.1'
 
 INSTALLED_APPS = [
     # admin theme
