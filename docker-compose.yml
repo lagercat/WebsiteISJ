@@ -5,17 +5,11 @@ services:
       env_file: docker-compose.env
     web:
       build: .
+      command: ./docker-web-entrypoint
       env_file: docker-compose.env
       volumes:
         - .:/WebsiteISJ
       ports:
         - "8000:8000"
-      links:
-        - db:db
-    worker:
-      build: .
-      env_file: docker-compose.env
-      volumes:
-        - .:/WebsiteISJ
       links:
         - db:db

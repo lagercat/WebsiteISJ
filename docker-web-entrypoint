@@ -2,6 +2,5 @@
 
 cd src/
 
-echo "from django.contrib.auth.models import User;from authentication.models import ExtendedUserManager; ExtendedUserManager.objects.create_superuser('admin@admin.ro','admin','admin','123456789a','3')" | python manage.py shell
 python manage.py migrate
 python manage.py runserver 0.0.0.0:8000
