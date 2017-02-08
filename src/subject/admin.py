@@ -17,7 +17,7 @@ class SubjectPostAdmin(AdminViewMixin):
     add_form = SubjectPostCreationFormAdmin
     list_display = ['name', 'subject', 'author', 'fileLink', 'date', 'slug']
     change_readonly_fields = ['author', 'subject']
-    add_readonly_fields = ['subject', ]
+    add_readonly_fields = []
 
     ordering = ['name', 'subject', 'author', 'date']
     
