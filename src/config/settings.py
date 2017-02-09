@@ -12,7 +12,7 @@ RECAPTCHA_PRIVATE_KEY = '6Le23xAUAAAAADqwurHC-Cvm25zXqkvHuREZjiIo'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["192.168.99.100"]
 
 INSTALLED_APPS = [
     # admin theme
@@ -91,11 +91,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'isj',
-        'USER': 'isjuser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'mysecretpassword',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 

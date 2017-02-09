@@ -1,15 +1,14 @@
 version: '2'
 services:
     db:
-      image: postgres:latest
-      env_file: docker-compose.env
+      image: postgres
     web:
       build: .
-      command: ./docker-web-entrypoint
       env_file: docker-compose.env
+      command: ./docker-web-entrypoint
       volumes:
         - .:/WebsiteISJ
       ports:
         - "8000:8000"
-      links:
-        - db:db
+      depends_on:
+        - db
