@@ -35,7 +35,7 @@ def subject(request, name):
 
 
 def subject_news(request, name, slug):
-    articol = list(SubjectPost.objects.values('name', 'text', 'subject',
+    articol = list(SubjectPost.objects.values('name', 'text', 'subject', 'file',
                                               'slug').filter(slug=slug,
                                                              subject__name=name))
 
@@ -43,6 +43,7 @@ def subject_news(request, name, slug):
 
         'name': articol[0].get('name'),
         'text': articol[0].get('text'),
+        'thumbnail': "/media/" + articol[0].get('file'),
 
     })
 
@@ -50,9 +51,9 @@ def subject_news(request, name, slug):
 def subject_news_preview(request):
     if request.method == "GET":
         return render(request, 'subject/subject_news.html', {
-
             'name': "{0}",
             'text': "{1}",
+            'thumbnail': "{2}",
         })
     else:
         return HttpResponseForbidden()

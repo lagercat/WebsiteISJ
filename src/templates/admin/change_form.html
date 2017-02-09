@@ -272,13 +272,16 @@
                     doc = document.getElementById("preview").contentDocument;
                 else if (document.getElementById("preview").contentWindow)
                     doc = document.getElementById("preview").contentWindow.document;
+                    
+                console.log($('input[name="file"]')[0].files[0]);
+                var img_src = $('input[name="file"]')[0].files ? ($('input[name="file"]')[0].files[0] ? window.URL.createObjectURL($('input[name="file"]')[0].files[0]) : "/static/assets/img/news.png") : "/static/assets/img/news.png";
                 doc.open();
-                doc.write(template.format($('#id_name').val(), tinyMCE.activeEditor.getContent()));
+                doc.write(template.format($('#id_name').val(), tinyMCE.activeEditor.getContent(), img_src));
                 doc.close();
                 resize_preview(); 
             }
             
-            $(document).on('change', $("#id_text", "id_name"),function(e){
+            $(document).on('change', $("#id_text", "#id_name", "input[file]"),function(e){
                 editor_on_change()            
             });
             $(document).on('load', function(){
@@ -303,8 +306,10 @@
                           clone.contentDocument :
                           (clone.contentWindow ? clone.contentWindow.document : clone.document);
                     
+                var img_src = $('input[name="file"]')[0].files ? ($('input[name="file"]')[0].files[0] ? window.URL.createObjectURL($('input[name="file"]')[0].files[0]) : "/static/assets/img/news.png") : "/static/assets/img/news.png";
+                    
                 doc.open();
-                doc.write(template.format($('#id_name').val(), tinyMCE.activeEditor.getContent()));
+                doc.write(template.format($('#id_name').val(), tinyMCE.activeEditor.getContent(), img_src));
                 doc.close();
                     
                 overlay = $('#preview-overlay').clone();
