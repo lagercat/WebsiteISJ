@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from forms import SubjectPostCreationFormAdmin
 from models import Subject, SubjectPost
 from django.http.response import HttpResponse
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 @login_required
@@ -37,6 +38,7 @@ def subject_news(request, name, slug):
     articol = list(SubjectPost.objects.values('name', 'text', 'subject',
                                               'slug').filter(slug=slug,
                                                              subject__name=name))
+
     return render(request, 'subject/subject_news.html', {
 
         'name': articol[0].get('name'),
@@ -44,11 +46,13 @@ def subject_news(request, name, slug):
 
     })
 
+@staff_member_required   
+def subject_news_preview(request):
+    if request.method == "GET":
+        return render(request, 'subject/subject_news.html', {
 
-def show_subject_page(request, slug):
-    page = get_object_or_404(SubjectPost, slug=slug)
-    return HttpResponse(
-        "<head><title>" + page.name + " " + page.subject +
-        '</title><link rel="stylesheet" type="text/css" '
-        'href="/static/prism/prism.css"><script src="/static/prism/prism.js">'
-        '</script></head><body>' + page.text + "</body>")
+            'name': "{0}",
+            'text': "{1}",
+        })
+    else:
+        return HttpResponseForbidden()

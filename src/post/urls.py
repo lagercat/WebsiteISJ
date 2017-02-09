@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^edit/(?P<slug>[^\.]+)/$', views.edit_file, name="edit_file"),
     url(r'^page/(?P<slug>[^\.]+)/$', views.show_page, name="show_page"), #temp
     url(r'^files_filter/', views.files_filter, name="filter_files"),
-    url(r'^add_files/', views.add_multiple_files, name="add_multiple_files")
+    url(r'^add_files/', views.add_multiple_files, name="add_multiple_files"),
+    url(r'^preview_page/', views.page_preview, name="preview_page")
 ]

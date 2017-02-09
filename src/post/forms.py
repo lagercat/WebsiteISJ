@@ -94,6 +94,8 @@ class PostChangeFormAdmin(forms.ModelForm):
 class PageCreationFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     show_files = True
+    show_preview = True
+    preview_url = "/preview_page/"
     
     class Meta:
         model = Page
@@ -127,6 +129,9 @@ class PageCreationFormAdmin(forms.ModelForm):
 class PageChangeFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     show_files = True
+    show_preview = True
+    preview_url = "/preview_page/"
+    
     class Meta:
         model = Page
         fields = ('name', 'file')

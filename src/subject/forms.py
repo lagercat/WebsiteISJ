@@ -9,6 +9,8 @@ from tinymce.widgets import AdminTinyMCE
 class SubjectPostCreationFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     show_files = True
+    show_preview = True
+    preview_url = "/preview_subjectpost/"
     
     class Meta:
         model = SubjectPost
@@ -43,6 +45,8 @@ class SubjectPostCreationFormAdmin(forms.ModelForm):
 class SubjectPostChangeFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     show_files = True
+    show_preview = True
+    preview_url = "/preview_subjectpost/"
     
     class Meta:
         model = SubjectPost

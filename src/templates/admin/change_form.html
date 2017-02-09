@@ -83,20 +83,20 @@
                 type: 'get', // This is the default though, you don't actually need to always mention it
                 success: function(data) {
                     d = data["results"];
-                    $('#files > li').remove();
+                    $('#file-list > li').remove();
                     for (file in d){
                         var file_obj = d[file];
                         if (file_obj["name"].toLowerCase().indexOf(key) >= 0 ||
                             file_obj["author__first_name"].toLowerCase().indexOf(key) >= 0 ||
                             file_obj["author__last_name"].toLowerCase().indexOf(key) >= 0){
                             console.log(file_obj["author__last_name"]);
-                            $('#files').append('\
+                            $('#file-list').append('\
                                 <li>\
                                     <div class="collapsible-header truncate">\
                                         <div class="truncate"><i class="material-icons">description</i>' + file_obj["name"] + '</div>\
                                         <div class="truncate"><i class="material-icons">account</i>by ' + file_obj["author__first_name"] + " " + file_obj["author__last_name"] + '</div>\
                                     </div>\
-                                    <div class="collapsible-body card-action">\
+                                    <div class="collapsible-body card-action" style="border-top: none;">\
                                         <a class="cpy accent-color-text" data-clipboard-text="' + file_obj["file"] + '">\
                                             Copy Link\
                                         </a>\
@@ -128,32 +128,205 @@
                 }); 
             });
         </script>
-        <ul id="files" class="object-tools col s12 collapsible card filters-card" style="padding: 20px;" data-collapsible="accordion">
-            <span class="card-title black-text">{% trans "Files" %}</span>
-            <div class="row" style="margin-top:-10px">
-                <div class="input-field col s12">
-                    <input type="text" data-name="{{ search_var }}" value="{{ cl.query }}" id="searchbar" onkeypress="enter_press(event)"/>
-                    <label for="searchbar" class="{% if cl.query %}active{% endif %}">Search files</label>
-                    <a id="changelist-search-button" style=""><i class="material-icons">search</i></a>
+        <div class="card filters-card">
+            <div class="card-content">
+                <span class="card-title black-text">{% trans "Files" %}</span>
+                <div class="row" style="margin-top:-10px">
+                    <div class="input-field col s12">
+                        <input type="text" id="searchbar" onkeypress="enter_press(event)"/>
+                        <label for="searchbar">Search files</label>
+                        <a id="changelist-search-button" style=""><i class="material-icons">search</i></a>
+                    </div>
                 </div>
             </div>
-            {% for f in files %}
-            <li>
-                <div class="collapsible-header">
-                    <div class="truncate"><i class="material-icons">description</i>{{ f.name }}</div>
-                    <div class="truncate"><i class="material-icons">account</i>by {{ f.author.get_full_name }}</div>
+            <div class="card-actions">
+                <ul id="file-list" class="collapsible" style="width: 100%; height: 300px; overflow: auto; border-left: none; border-right: none; border-bottom: none;">
+                    {% for f in files %}
+                    <li>
+                        <div class="collapsible-header">
+                            <div class="truncate"><i class="material-icons">description</i>{{ f.name }}</div>
+                            <div class="truncate"><i class="material-icons">account</i>by {{ f.author.get_full_name }}</div>
+                        </div>
+                        <div class="collapsible-body card-action" style="border-top: none;">
+                            <div class="right-align">
+                                <a class="cpy accent-color-text" data-clipboard-text="{{ f.file.url }}">
+                                    Copy Link
+                                </a>
+                                <a class="accent-color-text" href="{{ f.file.url }}" target="_blank">
+                                    See File
+                                </a>    
+                            </div>                        
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        {% if adminform.form.show_preview %}
+        <div class="card actions-card">
+            <div class="card-content">
+                <span class="card-title black-text">{% trans "Page Preview" %}</span>
+                <div id="preview-wrap" style="overflow: hidden;">
+                    <iframe class="card frame" id="preview" frameborder="0">
+                    </iframe>
+                    <div id="preview-overlay" onclick="preview()" style="top:0; left:0;">
+                    </div>
                 </div>
-                <div class="collapsible-body card-action">
-                    <a class="cpy accent-color-text" data-clipboard-text="{{ f.file.url }}">
-                        Copy Link
-                    </a>
-                    <a class="accent-color-text" href="{{ f.file.url }}" target="_blank">
-                        See File
-                    </a>                            
+            </div>
+            <div class="card-action">
+                <div class="right-align">
+                    <a class="accent-color-text" onclick="preview()">Preview</a>
                 </div>
-            </li>
-            {% endfor %}
-        </ul>
+            </div>
+        </div>
+        <div id="preview-big" class="blur-everything" onclick="close_preview()">
+        </div>
+        <style>
+            .frame {
+                overflow: hidden;
+                pointer-events : scroll;
+            }
+            
+            .blur-everything {
+                position: fixed;
+                top:0; left:0; 
+                width:100%; height:100%; 
+                background-color: rgba(0,0,0,0.5);
+                z-index: 1001;
+                display: none;
+                overflow-y: scroll;
+            }
+        </style>
+        <script type="text/javascript">
+            if (!String.prototype.format) {
+                String.prototype.format = function() {
+                    var args = arguments;
+                    return this.replace(/{(\d+)}/g, function(match, number) { 
+                        return typeof args[number] != 'undefined'
+                        ? args[number]
+                        : match;
+                    });
+                };
+            }
+
+            function set_ratio(element, ratio){
+                element.css({
+                    "-ms-zoom": ratio,
+                    "-ms-transform-origin": "0 0",
+                    "-moz-transform": "scale(" + ratio + ")",
+                    "-moz-transform-origin": "0px 50px",
+                    "-o-transform": "scale(" + ratio + ")",
+                    "-o-transform-origin": "0px 50px",
+                    "-webkit-transform": "scale(" + ratio + ")",
+                    "-webkit-transform-origin": "0 0"
+                });
+            }
+            
+            function resize_preview(){
+                ratio = $('#preview-wrap').width() * 1.0 / $(window).width();
+                set_ratio($('#preview'), ratio);
+                set_ratio($('#preview-overlay'), ratio);
+                $('#preview-wrap').height($(window).width() / 16.0 * 9 * ratio);
+                $('#preview').width($(window).width());
+                $('#preview').height($(window).width() / 16.0 * 9);
+                $('#preview-overlay').width($(window).width());
+                $('#preview-overlay').height($(window).width() / 16.0 * 9);
+                $('#preview-overlay').css({"margin-top": -$(window).width() / 16.0 * 9 - 22 + "px"});
+            }
+            
+            
+            $('#preview').load(function() { 
+                resize_preview();
+            });
+            
+            $(window).on('resize', function(){
+                resize_preview();
+            });
+            
+            
+            var template;
+            
+            function get_template(){
+                $.ajax({
+                    url: {{ adminform.form.preview_url }},
+                    type: "GET",
+                    async: false,
+                    success: (function(f){
+                        template = f;
+                    }),
+                });
+            }
+            
+            $(window).load(function(){
+                get_template();
+                editor_on_change();
+            });
+            
+            var $iframe = $("#preview");
+            
+            
+            editor_on_change = function(){
+                var doc;
+                if (document.getElementById("preview").contentDocument)
+                    doc = document.getElementById("preview").contentDocument;
+                else if (document.getElementById("preview").contentWindow)
+                    doc = document.getElementById("preview").contentWindow.document;
+                doc.open();
+                doc.write(template.format($('#id_name').val(), tinyMCE.activeEditor.getContent()));
+                doc.close();
+                resize_preview(); 
+            }
+            
+            $(document).on('change', $("#id_text", "id_name"),function(e){
+                editor_on_change()            
+            });
+            $(document).on('load', function(){
+                tinyMCE.activeEditor.onChange.add(function (ed, e) {
+                    editor_on_change()
+                });
+            });
+            
+            function preview(){
+                editor_on_change();
+                var clone = document.createElement("iframe");
+                
+                $(clone).width($(window).width());
+                    
+                set_ratio($(clone), 0.75);
+                $(clone).css({"margin-left": "12.5%", "margin-top": "6.25%",  "z-index": "1000"});
+                $(clone).attr("frameborder", 0);
+                $(clone).attr("id", "iframe-preview");
+                $("#preview-big").append(clone);
+                
+                var doc = clone.contentDocument ?
+                          clone.contentDocument :
+                          (clone.contentWindow ? clone.contentWindow.document : clone.document);
+                    
+                doc.open();
+                doc.write(template.format($('#id_name').val(), tinyMCE.activeEditor.getContent()));
+                doc.close();
+                    
+                overlay = $('#preview-overlay').clone();
+                overlay.removeAttr("id");
+                set_ratio($(overlay), 0.75);
+                $("#preview-big").css({"display": "inline"});
+                
+                clone.onload = function() {
+                    console.log(doc.body.scrollHeight);
+                    clone.height = doc.body.scrollHeight;
+                    overlay.height(doc.body.scrollHeight);
+                    overlay.css({"margin-left": "12.5%", "margin-top": -doc.body.scrollHeight,  "z-index": "1000"});
+                    $("#preview-big").append(overlay); 
+                };
+                
+            }
+            
+            function close_preview(){
+                $("#preview-big").css("display", "none");
+                $("#preview-big > *").remove();
+            }
+        </script>
         {% endif %}
     </div>
     {% if adminform and add %}

@@ -22,6 +22,7 @@ import json
 from django.utils.safestring import mark_safe
 from post.forms import PostFormSet
 from django.contrib.admin.views.decorators import staff_member_required
+from captcha.client import request
 
 
 @login_required
@@ -137,3 +138,12 @@ def add_multiple_files(request):
             return response
     else:
         return HttpResponseForbidden()
+
+@staff_member_required      
+def page_preview(request):
+    if request.method == "GET":
+        return HttpResponse("<head><title>" + "{0}" + '</title><link rel="stylesheet" type="text/css" href="/static/prism/prism.css"><script src="/static/prism/prism.js"></script></head><body>' + "{0}<br>" + request.user.get_full_name() + "<br>{1}" + "</body>")
+    else:
+        return HttpResponseForbidden()
+    
+  

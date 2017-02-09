@@ -18,10 +18,6 @@
             else
                 fileName = e.target.value.split( '\\' ).pop();
 
-            if( fileName )
-                label.querySelector( 'span' ).innerHTML = fileName;
-            else
-                label.innerHTML = labelVal;
         });
 
         // Firefox bug fix
@@ -220,65 +216,18 @@ if (isAdvancedUpload) {
 
 }
 
-$form.on('submit', function(e) {
-    if ($form.hasClass('is-uploading')) return false;
-    
-    $form.addClass('is-uploading').removeClass('is-error');
-    
-    if (isAdvancedUpload) {
-        e.preventDefault();
-
-        var ajaxData = new FormData($form.get(0));
-        
-        if (droppedFiles) {
-            $.each( droppedFiles, function(i, file) {
-                ajaxData.append( $input.attr('name'), file );
-            });
-        }
-        ajaxData.append("new_files", 1);
-        
-        $.ajax({
-            url: $form.attr('action'),
-            type: $form.attr('method'),
-            data: ajaxData,
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            complete: function() {
-              $form.removeClass('is-uploading');
-            },
-            success: function(data) {
-              $form.addClass( data.success == true ? 'is-success' : 'is-error' );
-              if (!data.success) $errorMsg.text(data.error);
-            },
-            error: function() {
-              // Log the error, show an alert, whatever works for you
-            }
-        });
-    } else {
-        var iframeName  = 'uploadiframe' + new Date().getTime();
-        $iframe   = $('<iframe name="' + iframeName + '" style="display: none;"></iframe>');
-    
-        $('body').append($iframe);
-        $form.attr('target', iframeName);
-    
-        $iframe.one('load', function() {
-            var data = JSON.parse($iframe.contents().find('body' ).text());
-            $form
-                .removeClass('is-uploading')
-                .addClass(data.success == true ? 'is-success' : 'is-error')
-                .removeAttr('target');
-            if (!data.success) $errorMsg.text(data.error);
-            $form.removeAttr('target');
-            $iframe.remove();
-        });
-    }
-});
-
 $input.on('change', function(e) { // when drag & drop is NOT supported
     droppedFiles = this.files
-    console.log(droppedFiles);
+    if (droppedFiles) {
+        $.each( droppedFiles, function(i, file) {
+            totalFiles.push(file);
+        });
+        
+        for(var j = 0; j < totalFiles.length; j++){
+            totalNames[j] = $("#id_form-{0}-name".format(j)).val();
+        }
+        rewrite_form();
+    }
 });
 
 $form.hover(

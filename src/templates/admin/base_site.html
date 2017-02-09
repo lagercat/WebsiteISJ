@@ -1,26 +1,61 @@
 {% extends "admin/base.html" %}
 {% block tinymceinit %}
 <script type="text/javascript">
+
+function editor_on_change(){
+
+}
+
 tinyMCE.init({
-selector: '.vLargeTextField',
-  height: 500,
-  theme: 'modern',
-  plugins: [
-    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-    'searchreplace wordcount visualblocks visualchars code fullscreen',
-    'insertdatetime media nonbreaking save table contextmenu directionality',
-    'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
-  ],
-  toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-  toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
-  image_advtab: true,
-  templates: [
-    { title: 'Test template 1', content: 'Test 1' },
-    { title: 'Test template 2', content: 'Test 2' }
-  ],
-  content_css: [
-    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-    '//www.tinymce.com/css/codepen.min.css'
-  ]
+    selector: '.vLargeTextField',
+    height: 500,
+    theme: 'modern',
+    plugins: [
+        'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        'searchreplace wordcount visualblocks visualchars code fullscreen',
+        'insertdatetime media nonbreaking save table contextmenu directionality',
+        'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc tabfocus'
+    ],
+    toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
+    image_advtab: true,
+    templates: [
+        { title: 'Test template 1', content: 'Test 1' },
+        { title: 'Test template 2', content: 'Test 2' }
+    ],
+    content_css: [
+        '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+        '//www.tinymce.com/css/codepen.min.css'
+    ],
+    tinyMCEKeyUp : function(e) {
+        var ctrlDown = false;
+        var ctrlKey = 17, vKey = 86, xKey = 88;
+
+
+        if ((e.ctrlKey) && (e.keyCode === vKey)) {
+            console.log(1);
+            editor_on_change();
+            return;
+        } else if ((e.ctrlKey) && (e.keyCode === xKey)) {
+            editor_on_change();
+            return;
+        }
+
+
+    },
+    setup: function(editor) {
+        editor.on('focus', function(e) {
+        });
+    
+        editor.on('blur', function(e) {
+            editor_on_change();
+        });
+        editor.on('paste', function(e) {
+            editor_on_change();
+        });
+        editor.on('cut', function(e) {
+            editor_on_change();
+        });
+    }
 });
 </script>{% endblock %}

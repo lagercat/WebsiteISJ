@@ -20,6 +20,7 @@
         {% endblock css %}
         {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
         {% block js %}
+        
         <script src="{% static 'material/js/jquery-2.2.0.js' %}"></script>
         <script>
             // Use same django for material and django admin
@@ -27,6 +28,7 @@
             django.jQuery = jQuery.noConflict(true);
             window.jQuery = window.$ = django.jQuery
         </script>
+        
         <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
         <script type="text/javascript">window.__admin_utc_offset__ = "{% filter escapejs %}{% now "Z" %}{% endfilter %}";</script>
         {% if user.is_authenticated %}<script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>{% endif %}
@@ -38,7 +40,7 @@
         {% block tinymceinit %}{% endblock %}
         <script type="text/javascript" src="{% static 'clipboard-js/clipboard.js' %}"></script>
         <link rel="stylesheet" type="text/css" href="{% static 'prism/prism.css' %}">
-        <script src="{% static 'prism/prism.js' %}"></script>
+        <script type="text/javascript" src="{% static 'prism/prism.js' %}"></script>
     </head>
     <body class="{% if is_popup %}popup{% endif %}">
         <header>
