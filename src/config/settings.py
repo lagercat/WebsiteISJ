@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'event',
     'view_permission',
     'news',
+    'gallery'
 ]
 
 MIDDLEWARE_CLASSES = [

@@ -4,7 +4,6 @@ from view_permission.models import CustomPermissionsMixin
 from django.db import models
 from django.core.urlresolvers import reverse
 
-
 import os
 import uuid
 
@@ -23,7 +22,7 @@ class News(CustomPermissionsMixin):
     image = models.ImageField(upload_to=user_directory_path, null=True,
                               blank=False)
     date_creation = models.DateTimeField(null=True)
-    slug = models.SlugField(default=uuid.uuid1, unique=True)
+    slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
 
     def __unicode__(self):
         return self.title

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+ <!-- Page breadcrumb -->
+ <section id="mu-page-breadcrumb">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-page-breadcrumb-area">
+           <h2>Gallery</h2>
+           <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">Gallery</li>
+          </ol>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+ <!-- End breadcrumb -->
+ <!-- Start gallery  -->
+<section id="mu-gallery">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-gallery-area">
+          <!-- start title -->
+          <div class="mu-title">
+
+            <p>„O minte educată îți permite să susții un gând fără a-l accepta.” — Aristotel</p>
+          <!-- end title -->
+          <!-- start gallery content -->
+          <div class="mu-gallery-content">
+            <div class="mu-gallery-body">
+              <ul class="row">
+                  {% if gallery %}
+                  {% for image in gallery %}
+                <li class="col-md-4 col-sm-6 col-xs-12">
+                 	<div class="mu-single-gallery">                  
+                    	<div class="mu-single-gallery-item">
+		                    <div class="mu-single-gallery-img">
+		                        <a href="#"><img alt="img" src="{{ image.image.url }}"></a>
+		                    </div>
+							<div class="mu-single-gallery-info">
+                        		<div class="mu-single-gallery-info-inner">
+		                          	<h4>{{ image.name }}</h4>
+
+		                          	<a href="#" class="mu-view-btn"><span class="fa fa-search"></span></a>
+
+								  	<!-- Iteam detail view -->
+								  	<div class="portfolio-detail">
+					                    <a href="#" class="modal-close-btn"><span class="fa fa-times"></span></a>
+					                    <img src="{{ image.image.url }}" alt="img-9"/>
+					                    <h2>{{ image.name }}</h2>
+					                    <p>	{{ image.description }}</p>
+
+				                	</div>
+								</div>
+							</div> 
+						</div>
+					</div>
+                </li>
+                  {% endfor %}
+                  {% endif %}
+              </ul>            
+            </div>
+          </div>
+          <!-- end gallery content -->
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+
+ {% endblock %}

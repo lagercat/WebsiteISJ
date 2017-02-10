@@ -5,10 +5,7 @@ from subject.models import Subject
 
 
 def home(request):
-    if request.user.is_authenticated():
-        template = 'homepages/home.html'
-    else:
-        template = 'homepages/index.html'
+    template = 'homepages/index.html'
     noutati = News.objects.all()[:3]
     events = Event.objects.all()[:9]
     subjects = Subject.objects.all()
