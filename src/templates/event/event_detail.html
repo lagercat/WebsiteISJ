@@ -32,7 +32,7 @@
                     <div class="col-md-12">
                       <div class="mu-latest-course-single">
                         <figure class="mu-latest-course-img">
-                          <a href="#"><img src= '/static{{ event.image.url }}' alt="img"></a>
+                          <a href="#"><img src= '{{ event.image.url }}' alt="img"></a>
                           <figcaption class="mu-latest-course-imgcaption">
 
                             <span><i class="fa fa-clock-o"></i>{{ event.time}}</span>
@@ -68,7 +68,7 @@
                       <div class="col-md-6">
                         <div class="mu-latest-course-single">
                           <figure class="mu-latest-course-img">
-                            <a href="/event/{{ event.slug }}"><img alt="img" src= '/static{{ event.image.url }}'></a>
+                            <a href="/event/{{ event.slug }}"><img alt="img" src= '{{ event.image.url }}'></a>
                             <figcaption class="mu-latest-course-imgcaption">
                               <a href="/event/{{ event.slug }}">{{ event.title }}</a>
                               <span><i class="fa fa-clock-o"></i>{{ event.time}}</span>

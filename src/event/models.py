@@ -8,7 +8,7 @@ import uuid
 
 def user_directory_path(instance, filename):
     filename, file_extension = os.path.splitext(filename)
-    return './events/{0}{1}'.format(instance.slug, file_extension)
+    return './documents/events/{0}{1}'.format(instance.slug, file_extension)
 
 # Create your models here.
 class Event(CustomPermissionsMixin):       
