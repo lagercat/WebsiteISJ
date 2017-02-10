@@ -9,8 +9,8 @@ import uuid
 
 def user_directory_path(instance, filename):
     filename, file_extension = os.path.splitext(filename)
-    return './gallery/{0}/{1}{2}'.format(filename, instance.slug,
-                                         file_extension)
+    return './documents/gallery/{0}/{1}{2}'.format(filename, instance.slug,
+                                                   file_extension)
 
 
 # Create your models here.
