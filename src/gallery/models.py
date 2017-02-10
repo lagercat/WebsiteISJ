@@ -21,7 +21,7 @@ class Gallery(CustomPermissionsMixin):
                                 null=True)
     image = models.ImageField(upload_to=user_directory_path, null=True,
                               blank=False)
-    slug = models.SlugField(default=uuid.uuid1, unique=True)
+    slug = models.SlugField(default=uuid.uuid1, unique=True,editable=False)
 
     def get_absolute_url(self):
         return reverse('news_post', args=[self.slug])
