@@ -9,7 +9,7 @@ from tinymce.models import HTMLField
 from django.template.defaultfilters import truncatechars
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
-from docutils.nodes import author
+
 
 def user_directory_path(self, filename):
     filename, file_extension = os.path.splitext(filename)
