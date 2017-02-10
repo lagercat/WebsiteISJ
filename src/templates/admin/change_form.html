@@ -343,6 +343,44 @@
     </div>
     {% if adminform and add %}
     <script type="text/javascript">
+        $(".material_icons").addClass("material-icons prefix").removeClass("material_icons");
+        if($("#id_time_container")){
+            console.log($("#id_time_container .input-field"));
+            var dt = $("#id_time_container .input-field");
+            var x = $('<div class="input-field input-group" style="padding-left:10px; padding-right:10px;"></div>').append(dt.attr("class", "required")[0])
+                .append(dt[1]).append('\
+            <span class="suffix">\
+                <a id="time_shortcut" href="#" data-form-control="date-today-shortcut">Today</a>\
+            </span>');
+            $("#id_time_container").empty().append(x);
+
+//            console.log($("#id_time_container .input-field"));
+
+//            var time = $("#id_time_container .input-field")[1];
+//            $($("#id_time_container > .input-field")[0]).append(time.innerHTML);
+//            $(time).remove();
+//            $($("#id_time_container > .input-field")[0]).removeClass("s6").addClass("input-group").removeClass("col");
+//            .append('\
+//            <span class="suffix">\
+//                <a href="#" data-form-control="date-today-shortcut">Today</a>\
+//            </span>');
+        }
+
+        $("#time_shortcut").on("click", function(){
+            var t = new Date($.now());
+            var day = ("0" + t.getDate()).slice(-2);
+            var month = ("0" + (t.getMonth() + 1)).slice(-2);
+
+            var today = t.getFullYear()+"-"+(month)+"-"+(day) ;
+
+            var hour = ("0" + t.getHours()).slice(-2);
+            var minute = ("0" + t.getMinutes()).slice(-2);
+
+            var sec = ("0" + t.getSeconds()).slice(-2);
+            $("input[name='time_0']").val(today);
+            $("input[name='time_1']").val(hour + ":" + minute + ":" + sec);
+        });
+
         $('form#{{ opts.model_name }}_form :input:visible:enabled:first').attr('autofocus', true);
         $('form#{{ opts.model_name }}_form :input:visible:enabled:first').focus(); 
     </script>
