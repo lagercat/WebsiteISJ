@@ -23,7 +23,7 @@ class File(CustomPermissionsMixin):
     file = models.FileField(upload_to=user_directory_path)
     date = models.DateTimeField(auto_now_add=True, editable=False, blank=False, null=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True)
-    location = models.CharField(max_length=20, default="abstract")
+    location = models.CharField(max_length=50, default="abstract")
 
     @property
     def filename(self):

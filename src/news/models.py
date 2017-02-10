@@ -13,7 +13,7 @@ import uuid
 
 def user_directory_path(instance, filename):
     filename, file_extension = os.path.splitext(filename)
-    return './news/{0}{1}'.format(instance.slug, file_extension)
+    return './documents/news/{0}{1}'.format(instance.slug, file_extension)
 
 
 class News(CustomPermissionsMixin):

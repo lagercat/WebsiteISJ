@@ -25,6 +25,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 from captcha.client import request
 
 from django.db.models import Q
+import os
+from django.views.static import serve
+import config.settings
 
 @login_required
 def upload_file_form(request):
@@ -128,9 +131,7 @@ def add_multiple_files(request):
     if request.method == "POST":
         visibility = request.POST["visibility"]
         request.POST.pop("visibility", None)
-        print request.POST
         formset = PostFormSet(data=request.POST or None, files=request.FILES or None)
-        print formset.is_valid()
         if formset.is_valid():
             instances = formset.save(commit=False)
             for instance in instances:
@@ -155,4 +156,8 @@ def page_preview(request):
     else:
         return HttpResponseForbidden()
     
+def exterior_files(request, location, path):
+    if location is not "interior":
+        print location
+        return serve(request, os.path.join("documents", location, path), document_root=config.settings.MEDIA_ROOT)
   
