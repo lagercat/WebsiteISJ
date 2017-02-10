@@ -5,5 +5,5 @@ from material.frontend.apps import ModuleMixin
 
 
 class PostConfig(ModuleMixin, AppConfig):
-    name = 'post'
+    name = 'Files'
     icon = '<i class="material-icons">description</i>'
