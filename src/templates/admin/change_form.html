@@ -79,33 +79,28 @@
             var static_url = {% get_media_prefix %};
             function search(key) {
                 $.ajax({
-                url: '/files_filter/',
+                url: '/files_filter/?query=' + key,
                 type: 'get', // This is the default though, you don't actually need to always mention it
                 success: function(data) {
                     d = data["results"];
                     $('#file-list > li').remove();
                     for (file in d){
                         var file_obj = d[file];
-                        if (file_obj["name"].toLowerCase().indexOf(key) >= 0 ||
-                            file_obj["author__first_name"].toLowerCase().indexOf(key) >= 0 ||
-                            file_obj["author__last_name"].toLowerCase().indexOf(key) >= 0){
-                            console.log(file_obj["author__last_name"]);
-                            $('#file-list').append('\
-                                <li>\
-                                    <div class="collapsible-header truncate">\
-                                        <div class="truncate"><i class="material-icons">description</i>' + file_obj["name"] + '</div>\
-                                        <div class="truncate"><i class="material-icons">account</i>by ' + file_obj["author__first_name"] + " " + file_obj["author__last_name"] + '</div>\
-                                    </div>\
-                                    <div class="collapsible-body card-action" style="border-top: none;">\
-                                        <a class="cpy accent-color-text" data-clipboard-text="' + file_obj["file"] + '">\
-                                            Copy Link\
-                                        </a>\
-                                        <a class="accent-color-text" href="' + static_url + file_obj["file"] + '" target="_blank">\
-                                            See File\
-                                        </a>\
-                                    </div>\
-                                </li>');
-                        }
+                        $('#file-list').append('\
+                            <li>\
+                                <div class="collapsible-header truncate">\
+                                    <div class="truncate"><i class="material-icons">description</i>' + file_obj["name"] + '</div>\
+                                    <div class="truncate"><i class="material-icons">account</i>by ' + file_obj["author__first_name"] + " " + file_obj["author__last_name"] + '</div>\
+                                </div>\
+                                <div class="collapsible-body card-action" style="border-top: none;">\
+                                    <a class="cpy accent-color-text" data-clipboard-text="' + file_obj["file"] + '">\
+                                        Copy Link\
+                                    </a>\
+                                    <a class="accent-color-text" href="' + static_url + file_obj["file"] + '" target="_blank">\
+                                        See File\
+                                    </a>\
+                                </div>\
+                            </li>');
                     }
                 },
                 failure: function(data) { 
@@ -127,6 +122,14 @@
                     search($('#searchbar').val());
                 }); 
             });
+            
+            function create_file(){
+                var popup = window.open('/admin/post/post/add/?_to_field=id&_popup=1&_exterior=1', 'Add file', 'width=800,height=600');
+                popup.onbeforeunload = function(){
+                    popup.close();
+                    search("");
+                };
+            }
         </script>
         <div class="card filters-card">
             <div class="card-content">
@@ -139,11 +142,11 @@
                     </div>
                 </div>
             </div>
-            <div class="card-actions">
+            <div class="card-actions" >
                 <ul id="file-list" class="collapsible" style="width: 100%; height: 300px; overflow: auto; border-left: none; border-right: none; border-bottom: none;">
                     {% for f in files %}
                     <li>
-                        <div class="collapsible-header">
+                        <div class="collapsible-header" >
                             <div class="truncate"><i class="material-icons">description</i>{{ f.name }}</div>
                             <div class="truncate"><i class="material-icons">account</i>by {{ f.author.get_full_name }}</div>
                         </div>
@@ -160,8 +163,12 @@
                     </li>
                     {% endfor %}
                 </ul>
+            <a class="btn-floating btn-large waves-effect waves-light z-depth-2 halfway-fab" onclick="create_file()">
+                <i class="large material-icons">add</i>
+            </a>
             </div>
         </div>
+        <br>
         {% endif %}
         {% if adminform.form.show_preview %}
         <div class="card actions-card">
@@ -337,7 +344,7 @@
     {% if adminform and add %}
     <script type="text/javascript">
         $('form#{{ opts.model_name }}_form :input:visible:enabled:first').attr('autofocus', true);
-        $('form#{{ opts.model_name }}_form :input:visible:enabled:first').focus();  
+        $('form#{{ opts.model_name }}_form :input:visible:enabled:first').focus(); 
     </script>
     {% endif %}
     {% if adminform.form.show_files %}

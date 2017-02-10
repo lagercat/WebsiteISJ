@@ -9,22 +9,21 @@ from tinymce.models import HTMLField
 from django.template.defaultfilters import truncatechars
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
+from docutils.nodes import author
 
 def user_directory_path(self, filename):
     filename, file_extension = os.path.splitext(filename)
-    return './documents/{0}/{1}{2}'.format(self.files_folder(),
+    return './documents/{0}/{1}{2}'.format(self.location,
                                            self.slug, file_extension)
 
 class File(CustomPermissionsMixin):
-    @staticmethod
-    def files_folder():
-        return "abstract"
 
     author = models.ForeignKey(ExtendedUser, blank=False)
     name = models.CharField(max_length=100, blank=False, null=True)
     file = models.FileField(upload_to=user_directory_path)
     date = models.DateTimeField(auto_now_add=True, editable=False, blank=False, null=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True)
+    location = models.CharField(max_length=20, default="abstract")
 
     @property
     def filename(self):
@@ -52,9 +51,9 @@ class File(CustomPermissionsMixin):
         verbose_name_plural = 'Files'
         
 class Post(File):
-    @staticmethod
-    def files_folder():
-        return "exterior"
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('location').default = "interior"
+        super(Post, self).__init__(*args, **kwargs)
       
     REQUIRED = ['name', 'file']
     
@@ -65,9 +64,9 @@ class Post(File):
         verbose_name_plural = 'Files'
         
 class Page(File):
-    @staticmethod
-    def files_folder():
-        return "pages"
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('location').default = "thumbails/pages"
+        super(Page, self).__init__(*args, **kwargs)
       
     text = HTMLField()
 

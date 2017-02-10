@@ -11,4 +11,4 @@ register = template.Library()
 
 @register.assignment_tag
 def get_files():
-    return Post.objects.all()
+    return Post.objects.filter(location="exterior")

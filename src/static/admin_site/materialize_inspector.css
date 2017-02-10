@@ -6417,3 +6417,10 @@ a:hover {
 .accent-color{
     color: #26a69a !important;
 }
+
+.btn-floating.halfway-fab {
+    bottom: 0;
+    position: absolute;
+    right: 24px;
+    transform: translateY(50%);
+}

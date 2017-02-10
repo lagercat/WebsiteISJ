@@ -26,9 +26,9 @@ class Subject(models.Model):
 
 
 class SubjectPost(File):
-    @staticmethod
-    def files_folder():
-        return "interior"
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('location').default = "thumbnails/subjectpage"
+        super(SubjectPost, self).__init__(*args, **kwargs)
 
     text = HTMLField()
     subject = models.ForeignKey(Subject, blank=False, null=False)

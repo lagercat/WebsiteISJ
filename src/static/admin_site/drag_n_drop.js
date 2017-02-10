@@ -51,6 +51,20 @@ if (!String.prototype.format) {
     });
   };
 }
+
+function $_GET(parameterName) {
+    var result = null,
+        tmp = [];
+    location.search
+    .substr(1)
+        .split("&")
+        .forEach(function (item) {
+        tmp = item.split("=");
+        if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+    });
+    return result;
+}
+
 var template = '\
 <div class="card small_form" >\
     <div class="card-content">\
@@ -160,6 +174,13 @@ function post(){
     ajaxData.append( "form-INITIAL_FORMS", $('#id_form-INITIAL_FORMS').val() );
     ajaxData.append( "form-MAX_NUM_FORMS", $('#id_form-MAX_NUM_FORMS').val() );
     ajaxData.append( "csrfmiddlewaretoken", $('input[name=csrfmiddlewaretoken]').val() );
+    console.log($_GET('_exterior')); 
+    if($_GET('_exterior') == 1){
+        ajaxData.append( "visibility", "exterior" );
+    }
+    else{
+        ajaxData.append( "visibility", "interior" );
+    }
     $.each( totalFiles, function(i, file) {
         ajaxData.append( "form-{0}-file".format(i), file );
         ajaxData.append( "form-{0}-name".format(i), totalNames[i] );
@@ -234,3 +255,5 @@ $form.hover(
        function(){ $('.box__file + label').addClass('accent-color'); },
        function(){ $('.box__file + label').removeClass('accent-color'); }
 );
+
+

@@ -24,6 +24,7 @@ from post.forms import PostFormSet
 from django.contrib.admin.views.decorators import staff_member_required
 from captcha.client import request
 
+from django.db.models import Q
 
 @login_required
 def upload_file_form(request):
@@ -116,17 +117,25 @@ def show_page(request, slug):
 
 
 def files_filter(request):
-    return JsonResponse({'results': list(Post.objects.values('name', 'author__first_name', 'author__last_name', 'file'))})
+    return JsonResponse({'results': list(Post.objects.filter(Q(name__contains=request.GET["query"]) |
+                                                             Q(author__first_name__contains=request.GET["query"]) |
+                                                             Q(author__last_name__contains=request.GET["query"]),
+                                                            location="exterior")
+                                                     .values('name', 'author__first_name', 'author__last_name', 'file'))})
 
 @staff_member_required
 def add_multiple_files(request):
     if request.method == "POST":
+        visibility = request.POST["visibility"]
+        request.POST.pop("visibility", None)
+        print request.POST
         formset = PostFormSet(data=request.POST or None, files=request.FILES or None)
         print formset.is_valid()
         if formset.is_valid():
             instances = formset.save(commit=False)
             for instance in instances:
                 instance.author = request.user
+                instance.location = visibility;
                 print instance
                 instance.save()
             formset.save_m2m()

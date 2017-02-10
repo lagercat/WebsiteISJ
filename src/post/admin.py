@@ -21,12 +21,12 @@ class PostAdmin(AdminViewMixin):
     
     icon = '<i class="material-icons">description</i>'
 
-    list_display = ('short_name', 'author', 'fileLink', 'date', 'slug',)
-    readonly_fields = ['fileLink', 'author']
+    list_display = ('short_name', 'author', 'fileLink', 'location', 'date', 'slug',)
+    readonly_fields = ['fileLink', 'author', 'location']
 
     fieldsets = ()
     change_fieldsets = (
-        ('File', {'fields': ('name', 'author', 'file')}),
+        ('File', {'fields': ('name', 'author', ('file', 'location'))}),
     )
     
     add_fieldsets = (
