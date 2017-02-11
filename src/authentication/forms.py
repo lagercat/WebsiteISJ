@@ -9,7 +9,6 @@ class LoginForm(forms.Form):
     re_captcha = ReCaptchaField(
         attrs={'lang': 'ro'}
     )
-
     username = forms.CharField(max_length=30, label="Email",
                                widget=forms.TextInput(attrs={
                                    'required': 'required',

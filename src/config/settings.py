@@ -13,7 +13,7 @@ RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = [""]
+ALLOWED_HOSTS = ["192.168.99.100"]
 
 INSTALLED_APPS = [
     # admin theme
