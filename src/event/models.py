@@ -35,3 +35,4 @@ class Event(CustomPermissionsMixin):
         get_latest_by = 'time'
         verbose_name = 'Event'
         verbose_name_plural = 'Events'
+        index_text = "Organize Events"

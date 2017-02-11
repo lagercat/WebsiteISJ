@@ -62,6 +62,7 @@ class Post(File):
         get_latest_by = 'date'
         verbose_name = 'File'
         verbose_name_plural = 'Files'
+        index_text = "Manage Files"
         
 class Page(File):
     def __init__(self, *args, **kwargs):
@@ -77,6 +78,7 @@ class Page(File):
         get_latest_by = 'date'
         verbose_name = 'Page'
         verbose_name_plural = 'Pages'
+        index_text = "Manage Pages"
 
 @receiver(pre_delete, sender=Page)       
 @receiver(pre_delete, sender=Post)

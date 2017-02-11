@@ -44,6 +44,7 @@ class ExtendedUserManager(BaseUserManager):
 
 class ExtendedUser(AbstractBaseUser):
   class Meta:
+    index_text = "Manage Users"
     verbose_name = 'User'
     verbose_name_plural = 'Users'
   first_name = models.CharField(max_length=50)

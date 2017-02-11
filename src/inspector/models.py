@@ -15,3 +15,6 @@ class Inspector(models.Model):
 
     def __unicode__(self):
         return self.user.username + " Inspector"
+      
+    class Meta():
+        index_text = "Manage Inspectors"

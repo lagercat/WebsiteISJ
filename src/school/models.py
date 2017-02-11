@@ -8,3 +8,6 @@ class School(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta():
+        index_text = "Manage Users"

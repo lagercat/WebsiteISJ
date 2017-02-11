@@ -34,3 +34,4 @@ class News(CustomPermissionsMixin):
         abstract = False
         verbose_name = 'News'
         verbose_name_plural = 'News'
+        index_text = "Manage News"

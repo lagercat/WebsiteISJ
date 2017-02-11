@@ -18,6 +18,7 @@ class Subject(models.Model):
     class Meta:
         verbose_name = "subject"
         verbose_name_plural = "subjects"
+        index_text = "Create Subjects"
 
     name = models.CharField(max_length=50, null=True, unique=True)
 
@@ -41,7 +42,7 @@ class SubjectPost(File):
     class Meta(File.Meta):
         verbose_name = "post"
         verbose_name_plural = "posts"
-
+        index_text = "Manage Subject Pages"
     
 @receiver(pre_delete, sender=SubjectPost)
 def file_delete(sender, instance, **kwargs):

@@ -13,3 +13,6 @@ class Headmaster(models.Model):
 
     def __unicode__(self):
         return self.user.username + " Headmaster"
+
+    class Meta():
+        index_text = "Manage Headmasters"
