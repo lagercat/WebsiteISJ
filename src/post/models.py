@@ -9,6 +9,7 @@ from tinymce.models import HTMLField
 from django.template.defaultfilters import truncatechars
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
+from django.utils.datetime_safe import datetime
 
 
 def user_directory_path(self, filename):
@@ -17,12 +18,11 @@ def user_directory_path(self, filename):
                                            self.slug, file_extension)
 
 class File(CustomPermissionsMixin):
-
     author = models.ForeignKey(ExtendedUser, blank=False)
     name = models.CharField(max_length=100, blank=False, null=True)
-    file = models.FileField(upload_to=user_directory_path)
-    date = models.DateTimeField(auto_now_add=True, editable=False, blank=False, null=True)
-    slug = models.SlugField(default=uuid.uuid1, unique=True,editable=False)
+    file = models.FileField(upload_to=user_directory_path, null=True)
+    date = models.DateTimeField(default=datetime.now, blank=False, null=True, editable=True)
+    slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
     location = models.CharField(max_length=50, default="abstract")
 
     @property
@@ -67,6 +67,7 @@ class Post(File):
 class Page(File):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "thumbails/pages"
+        self._meta.get_field('file').label = "Thumbnail"
         super(Page, self).__init__(*args, **kwargs)
       
     text = HTMLField()

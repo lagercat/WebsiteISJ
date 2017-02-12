@@ -1,11 +1,10 @@
 from __future__ import unicode_literals
-from authentication.models import ExtendedUser
-from view_permission.models import CustomPermissionsMixin
-from django.db import models
-from django.core.urlresolvers import reverse
 
 import os
-import uuid
+from post.models import File
+from tinymce.models import HTMLField
+from django.dispatch.dispatcher import receiver
+from django.db.models.signals import pre_delete
 
 
 # Create your models here.
@@ -15,23 +14,26 @@ def user_directory_path(instance, filename):
     return './documents/news/{0}{1}'.format(instance.slug, file_extension)
 
 
-class News(CustomPermissionsMixin):
-    author = models.ForeignKey(ExtendedUser, related_name='news', blank=False)
-    title = models.CharField(max_length=100, blank=False, null=True)
-    description = models.CharField(max_length=5000, blank=False, null=True)
-    image = models.ImageField(upload_to=user_directory_path, null=True,
-                              blank=False)
-    date_creation = models.DateTimeField(null=True)
-    slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
+class News(File):
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('location').default = "thumbnails/news"
+        self._meta.get_field('file').label = "Thumbnail"
+        super(News, self).__init__(*args, **kwargs)
+
+    text = HTMLField()
+
+    REQUIRED = ['name', 'text', 'file', 'date']
 
     def __unicode__(self):
-        return self.title
+        return self.name
 
-    def get_absolute_url(self):
-        return reverse('news_post', args=[self.slug])
-
-    class Meta(CustomPermissionsMixin.Meta):
+    class Meta(File.Meta):
         abstract = False
-        verbose_name = 'News'
-        verbose_name_plural = 'News'
+        verbose_name = "News"
+        verbose_name_plural = "News"
         index_text = "Manage News"
+
+@receiver(pre_delete, sender=News)
+def file_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.file.delete(False)

@@ -3,30 +3,33 @@ from models import Event
 from view_permission.admin import AdminViewMixin
 from django import forms
 
-from event.forms import EventCreationFormAdmin
+from event.forms import EventCreationFormAdmin, EventChangeFormAdmin
 # Register your models here.
 
 class EventAdmin(AdminViewMixin):
     add_form = EventCreationFormAdmin
+    change_form = EventChangeFormAdmin
 
     icon = '<i class="material-icons">room</i>'
 
-    list_display = ('title', 'author', 'location', 'time', 'slug',)
+    list_display = ('name', 'author', 'event_location', 'date', 'slug',)
     readonly_fields = ['author']
     
-    search_fields = ('title', 'author__first_name', 'author__last_name', 'location', 'time',)
+    search_fields = ('name', 'author__first_name', 'author__last_name', 'event_location', 'date',)
 
-    ordering = ['time']
+    ordering = ['date']
     filter_horizontal = ()
     
     change_fieldsets = (
-        ('Event Info', {'fields': ('title', 'author', 'description', 'image')}),
-        ('Location and Time', {'fields': ('time', 'location')}),
+        ('Event Info', {'fields': ('name', 'author')}),
+        ('Event Description', {'fields': ('text', 'file')}),
+        ('Location and Time', {'fields': ('date', 'event_location')}),
     )
     
     add_fieldsets = (
-        ('Event Info', {'fields': ('title', 'description', 'image')}),
-        ('Location and Time', {'fields': ('time', 'location')}),
+        ('Event Info', {'fields': ('name', )}),
+        ('Event Description', {'fields': ('text', 'file')}),
+        ('Location and Time', {'fields': ('date', 'event_location')}),
     )
       
     def get_form(self, request, obj=None, **kwargs):
@@ -37,7 +40,8 @@ class EventAdmin(AdminViewMixin):
             return form
         else:
             self.fieldsets = self.change_fieldsets
-            return super(EventAdmin, self).get_form(request, obj)
+            form = self.change_form
+            return form
     
     pass
     

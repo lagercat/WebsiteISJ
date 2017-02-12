@@ -29,6 +29,7 @@ class Subject(models.Model):
 class SubjectPost(File):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "thumbnails/subjectpage"
+        self._meta.get_field('file').label = "Thumbnail"
         super(SubjectPost, self).__init__(*args, **kwargs)
 
     text = HTMLField()
@@ -40,6 +41,7 @@ class SubjectPost(File):
         return self.name
 
     class Meta(File.Meta):
+        abstract = False
         verbose_name = "post"
         verbose_name_plural = "posts"
         index_text = "Manage Subject Pages"

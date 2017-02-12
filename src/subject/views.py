@@ -7,6 +7,7 @@ from forms import SubjectPostCreationFormAdmin
 from models import Subject, SubjectPost
 from django.http.response import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
+from news.models import News
 
 
 @login_required
@@ -27,10 +28,12 @@ def create_subject_post(request):
 def subject(request, name):
     materia = get_object_or_404(Subject, name=name)
     articole = SubjectPost.objects.all().filter(subject=materia)
+    other_news = News.objects.all()[:4]
     return render(request, 'subject/subject_all.html',
                   {
                       'articole': articole,
                       'materia': materia,
+                      'news_all': other_news,
                   })
 
 
@@ -38,11 +41,12 @@ def subject_news(request, name, slug):
     articol = list(SubjectPost.objects.values('name', 'text', 'subject', 'file',
                                               'slug').filter(slug=slug,
                                                              subject__name=name))
-
+    other_news = News.objects.all()[:4]
     return render(request, 'subject/subject_news.html', {
 
         'name': articol[0].get('name'),
         'text': articol[0].get('text'),
+        'other_news': other_news,
         'thumbnail': "/media/" + articol[0].get('file'),
 
     })

@@ -31,18 +31,17 @@
                     <div class="col-md-12">
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
-                          <a ><img alt="img" src= '{{ news.image.url }}'></a>
+                          <a ><img alt="img" src= '{{ thumbnail }}'></a>
                           <figcaption class="mu-blog-caption">
-                            <h3><a href="#">{{ news.title }}</a></h3>
+                            <h3><a href="#">{{ name }}</a></h3>
                           </figcaption>
                         </figure>
                         <div class="mu-blog-meta">
-                          <a href="#">By Admin</a>
-                          <a href="#">{{ news.date_creation }}</a>
-
+                          <a href="#">By {{ author }}</a><br/>
+                          <a href="#"><i class="fa fa-clock-o"></i> {{ date }}</a>
                         </div>
                         <div class="mu-blog-description">
-                            <p>{{ news.description }}</p>
+                            <p>{{ text|safe }}</p>
                           <!--<blockquote>-->
                             <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas numquam quis obcaecati, a sed ad aut totam fugiat, cumque quasi!</p>-->
                           <!--</blockquote>-->
@@ -78,14 +77,14 @@
                           <div class="col-md-6">
                             <article class="mu-blog-single-item">
                               <figure class="mu-blog-single-img">
-                                <a href="/news/{{ news.slug }}"><img style=" max-width: 70%" alt="img" src= '/static{{ news.image.url }}'></a>
+                                <a href="/news/{{ news.slug }}"><img style=" max-width: 70%" alt="img" src='{{ news.file.url }}'></a>
                                 <figcaption class="mu-blog-caption">
-                                  <h3><a href="/news/{{ news.slug }}">{{ news.title}}</a></h3>
+                                  <h3><a href="/news/{{ news.slug }}">{{ news.name }}</a></h3>
                                 </figcaption>                      
                               </figure>
                               <div class="mu-blog-meta">
-                                <a >By Admin</a>
-                                <a >{{ news.date_creation}}</a>
+                                <a >{{ news.author.get_full_name }}</a>
+                                <a >{{ news.date }}</a>
 
                               </div>
                               <div class="mu-blog-description">
@@ -132,12 +131,12 @@
                       <div class="media">
                         <div class="media-left">
                           <a href="/news/{{ news.slug }}">
-                            <img class="media-object" src= '/static{{ news.image.url }}' alt="img">
+                            <img class="media-object" src= '{{ news.file.url }}' alt="img">
                           </a>
                         </div>
                         <div class="media-body">
-                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.title}}</a></h4>
-                          <span class="popular-course-price">{{ news.date_creation }}</span>
+                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.name }}</a></h4>
+                          <span class="popular-course-price">{{ news.date }}</span>
                         </div>
                       </div>
                     </div>

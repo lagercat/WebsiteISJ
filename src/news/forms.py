@@ -1,24 +1,18 @@
-'''
-Created on Jan 10, 2017
-
-@author: roadd
-'''
-from django.forms import SplitDateTimeWidget
-from event.models import Event
 from django import forms
+from news.models import News
 from tinymce.widgets import AdminTinyMCE
 import os
-      
-class EventCreationFormAdmin(forms.ModelForm):
+
+class NewsCreationFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     date = forms.SplitDateTimeField()
     show_files = True
     show_preview = True
-    preview_url = "/preview_event/"
+    preview_url = "/preview_news/"
     
     class Meta:
-        model = Event
-        fields = ('name', 'file', 'event_location')
+        model = News
+        fields = ('name', 'file')
         
     def clean_file(self):
         uploaded_file = self.cleaned_data['file']
@@ -38,7 +32,7 @@ class EventCreationFormAdmin(forms.ModelForm):
         return uploaded_file
 
     def save(self, commit=True):
-        uploaded_file = super(EventCreationFormAdmin, self).save(commit=False)
+        uploaded_file = super(NewsCreationFormAdmin, self).save(commit=False)
         uploaded_file.author = self.current_user
         uploaded_file.text = self.cleaned_data['text']
         uploaded_file.date = self.cleaned_data['date']
@@ -47,23 +41,23 @@ class EventCreationFormAdmin(forms.ModelForm):
         return uploaded_file
 
 
-class EventChangeFormAdmin(forms.ModelForm):
+class NewsChangeFormAdmin(forms.ModelForm):
     date = forms.SplitDateTimeField()
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     show_files = True
     show_preview = True
-    preview_url = "/preview_event/"
+    preview_url = "/preview_news/"
     
     class Meta:
-        model = Event
-        fields = ('name', 'file',  'event_location')
+        model = News
+        fields = ('name', 'file')
         
     def __init__(self, *args, **kwargs):
         initial = {
           'text': self.text_initial
         }
         kwargs['initial'] = initial
-        super(EventChangeFormAdmin, self).__init__(*args, **kwargs)
+        super(NewsChangeFormAdmin, self).__init__(*args, **kwargs)
         
     def clean_file(self):
         uploaded_file = self.cleaned_data['file']
@@ -83,7 +77,7 @@ class EventChangeFormAdmin(forms.ModelForm):
         return uploaded_file
       
     def save(self, commit=True):
-        uploaded_file = super(EventChangeFormAdmin, self).save(commit=False)
+        uploaded_file = super(NewsChangeFormAdmin, self).save(commit=False)
         uploaded_file.text = self.cleaned_data['text']
         uploaded_file.date = self.cleaned_data['date']
         if commit:

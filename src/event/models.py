@@ -5,6 +5,10 @@ from view_permission.models import CustomPermissionsMixin
 from django.db import models
 import os
 import uuid
+from post.models import File
+from tinymce.models import HTMLField
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
 
 
 def user_directory_path(instance, filename):
@@ -13,26 +17,28 @@ def user_directory_path(instance, filename):
 
 
 # Create your models here.
-class Event(CustomPermissionsMixin):
-    author = models.ForeignKey(ExtendedUser, related_name='event_post',
-                               blank='False')
-    title = models.CharField(max_length=100, blank=False, null=True)
-    description = models.CharField(max_length=5000, blank=False, null=True)
-    location = models.CharField(max_length=100, blank=False, null=True)
-    time = models.DateTimeField(null=True)
-    image = models.ImageField(upload_to=user_directory_path, null=True,
-                              blank=True)
-    slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
+class Event(File):
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('location').default = "thumbnails/events"
+        self._meta.get_field('file').label = "Thumbnail"
+        super(Event, self).__init__(*args, **kwargs)
+
+    text = HTMLField()
+    event_location = models.CharField(max_length=100, blank=False, null=True)
+
+    REQUIRED = ['name', 'text', 'file', 'date', 'event_location']
 
     def __unicode__(self):
-        return self.title
+        return self.name
 
-    def get_absolute_url(self):
-        return reverse('event_post', args=[self.slug])
-
-    class Meta(CustomPermissionsMixin.Meta):
+    class Meta(File.Meta):
         abstract = False
-        get_latest_by = 'time'
-        verbose_name = 'Event'
-        verbose_name_plural = 'Events'
-        index_text = "Organize Events"
+        verbose_name = "Event"
+        verbose_name_plural = "Events"
+        index_text = "Manage Events"
+        
+@receiver(pre_delete, sender=Event)
+def file_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.file.delete(False)
+        

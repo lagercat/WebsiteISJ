@@ -280,10 +280,11 @@
                 else if (document.getElementById("preview").contentWindow)
                     doc = document.getElementById("preview").contentWindow.document;
                     
-                console.log($('input[name="file"]')[0].files[0]);
                 var img_src = $('input[name="file"]')[0].files ? ($('input[name="file"]')[0].files[0] ? window.URL.createObjectURL($('input[name="file"]')[0].files[0]) : "/static/assets/img/news.png") : "/static/assets/img/news.png";
+                var location = $('input[name="event_location"]').val() != "" ? $('input[name="event_location"]').val() : "Location here";
+                var date = $('input[name="date_0"]').val() ? ($('input[name="date_0"]').val() + " " + $('input[name="date_1"]').val()) : "Date & Time here";
                 doc.open();
-                doc.write(template.format($('#id_name').val(), tinyMCE.activeEditor.getContent(), img_src));
+                doc.write(template.format($('#id_name').val(), tinyMCE.activeEditor.getContent(), img_src, location,  date));
                 doc.close();
                 resize_preview(); 
             }
@@ -314,9 +315,10 @@
                           (clone.contentWindow ? clone.contentWindow.document : clone.document);
                     
                 var img_src = $('input[name="file"]')[0].files ? ($('input[name="file"]')[0].files[0] ? window.URL.createObjectURL($('input[name="file"]')[0].files[0]) : "/static/assets/img/news.png") : "/static/assets/img/news.png";
-                    
+                var location = $('input[name="event_location"]').val() != "" ? $('input[name="event_location"]').val() : "Location here";
+                var date = $('input[name="date_0"]').val() ? ($('input[name="date_0"]').val() + " " + $('input[name="date_1"]').val()) : "Date & Time here";
                 doc.open();
-                doc.write(template.format($('#id_name').val(), tinyMCE.activeEditor.getContent(), img_src));
+                doc.write(template.format($('#id_name').val(), tinyMCE.activeEditor.getContent(), img_src, location, date));
                 doc.close();
                     
                 overlay = $('#preview-overlay').clone();
@@ -344,15 +346,15 @@
     {% if adminform and add %}
     <script type="text/javascript">
         $(".material_icons").addClass("material-icons prefix").removeClass("material_icons");
-        if($("#id_time_container")){
-            console.log($("#id_time_container .input-field"));
-            var dt = $("#id_time_container .input-field");
+        if($("#id_date_container")){
+            var dt = $("#id_date_container .input-field");
             var x = $('<div class="input-field input-group" style="padding-left:10px; padding-right:10px;"></div>').append(dt.attr("class", "required")[0])
                 .append(dt[1]).append('\
             <span class="suffix">\
                 <a id="time_shortcut" href="#" data-form-control="date-today-shortcut">Today</a>\
             </span>');
-            $("#id_time_container").empty().append(x);
+            var y = $("#id_date_container .col.s12")[0];
+            $("#id_date_container").empty().append(y).append(x);
 
 //            console.log($("#id_time_container .input-field"));
 
@@ -362,7 +364,7 @@
 //            $($("#id_time_container > .input-field")[0]).removeClass("s6").addClass("input-group").removeClass("col");
 //            .append('\
 //            <span class="suffix">\
-//                <a href="#" data-form-control="date-today-shortcut">Today</a>\
+//                <a data-form-control="date-today-shortcut">Today</a>\
 //            </span>');
         }
 
@@ -377,8 +379,8 @@
             var minute = ("0" + t.getMinutes()).slice(-2);
 
             var sec = ("0" + t.getSeconds()).slice(-2);
-            $("input[name='time_0']").val(today);
-            $("input[name='time_1']").val(hour + ":" + minute + ":" + sec);
+            $("input[name='date_0']").val(today);
+            $("input[name='date_1']").val(hour + ":" + minute + ":" + sec);
         });
 
         $('form#{{ opts.model_name }}_form :input:visible:enabled:first').attr('autofocus', true);

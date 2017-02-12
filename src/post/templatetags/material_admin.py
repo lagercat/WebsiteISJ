@@ -67,8 +67,6 @@ def get_app_list(request):
                 if hasattr(model._meta, 'index_text'):
                     name = model._meta.index_text
                 
-                print name
-                
                 model_dict = {
                     'name': capfirst( name ),
                     'object_name': model._meta.object_name,

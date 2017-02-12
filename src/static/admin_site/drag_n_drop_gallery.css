@@ -1,0 +1,140 @@
+.box__dragndrop,
+.box__uploading,
+.box__success,
+.box__error {
+  display: none;
+}
+.js .box__file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.box__input{
+    height: 100%;
+}
+
+.box__file + label {
+    max-width: 80%;
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 700;
+    word-wrap: break-word;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    vertical-align: middle;
+    /* 10px 20px */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.no-js .box__file + label {
+    display: none;
+}
+
+.box__file:focus + label,
+.box__file.has-focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+.box__file + label * {
+    /* pointer-events: none; */
+    /* in case of FastClick lib use */
+}
+
+.box__file + label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    /* 4px */
+    margin-right: 0.25em;
+    /* 4px */
+}
+
+.box__file + label {
+    color: rgb(158,158,158);
+}
+
+/* .box__file:focus + label,
+.box__file.has-focus + label,
+.box__file + label:hover {
+    color: #722040;
+} */
+
+.box.has-advanced-upload {
+  background-color: white;
+  outline: 2px dashed black;
+  outline-offset: -10px;
+  padding: 100px 20px;
+  text-align: center;
+}
+.box.has-advanced-upload .box__dragndrop {
+  display: inline;
+}
+
+@media only screen and (max-width : 767px) {
+  .column-height-match {
+    height: auto !important;
+  } 
+}
+
+.box.is-dragover {
+  background-color: #eeeeee !important;
+}
+
+.box.is-uploading .box__input {
+  visibility: none;
+}
+.box.is-uploading .box__uploading {
+  display: block;
+}
+
+.box__button {
+  display: none;
+}
+.no-js .box__button {
+  display: block;
+}
+
+.gallery_photo{
+    margin-top: 28px !important;
+    height: 200px;
+    display: inline-block;
+    margin-right: 30px !important;
+}
+.gallery_photo img {
+    height: 160px;
+    display: inline-block;
+}
+
+.box{
+    margin-top: 28px !important;
+    margin-right: 10px !important;
+    white-space: normal;
+}
+
+#gallery{
+    height: 260px;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.delete{
+    position: relative;
+    top: -200px;
+    float: right;
+    transform: translate(50%, -50%);
+}

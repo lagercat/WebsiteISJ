@@ -4,7 +4,11 @@ from django.core.urlresolvers import reverse
 
 from django.db import models
 import os
-import uuid
+from post.models import File
+from django.db.models.fields.related import ForeignKey
+from django.db.models.fields import IntegerField
+from django.dispatch.dispatcher import receiver
+from django.db.models.signals import pre_delete
 
 
 def user_directory_path(instance, filename):
@@ -14,14 +18,35 @@ def user_directory_path(instance, filename):
 
 
 # Create your models here.
-class Gallery(CustomPermissionsMixin):
-    name = models.CharField(max_length=30, blank=False, null=True)
-    description = models.CharField(max_length=1000, blank=False, null=True)
-    date = models.DateTimeField(auto_now_add=True, editable=False, blank=True,
-                                null=True)
-    image = models.ImageField(upload_to=user_directory_path, null=True,
-                              blank=False)
-    slug = models.SlugField(default=uuid.uuid1, unique=True,editable=False)
 
-    def get_absolute_url(self):
-        return reverse('news_post', args=[self.slug])
+
+class Gallery(CustomPermissionsMixin):
+    name = models.CharField(max_length=100, blank=False, null=True)
+    
+    class Meta(File.Meta):
+        verbose_name = "gallery"
+        verbose_name_plural = "galleries"
+        index_text = "Manage Galleries"
+
+class GalleryPhoto(File):
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('location').default = "gallery/placeholder"
+        super(GalleryPhoto, self).__init__(*args, **kwargs)
+
+    gallery = ForeignKey(Gallery, null=False, blank=False, on_delete=models.CASCADE)
+
+    REQUIRED = ['gallery', 'name', 'file']
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta(File.Meta):
+        abstract = False
+        verbose_name = "Gallery Photo"
+        verbose_name_plural = "Gallery Photos"
+        index_text = "Manage Gallery Photos"
+        
+@receiver(pre_delete, sender=GalleryPhoto)
+def file_delete(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    instance.file.delete(False)

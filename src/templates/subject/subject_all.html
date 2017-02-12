@@ -104,12 +104,12 @@
                       <div class="media">
                         <div class="media-left">
                           <a href="/news/{{ news.slug }}">
-                            <img class="media-object" src= '/static{{ news.image.url }}' alt="img">
+                            <img class="media-object" src= '{{ news.file.url }}' alt="img">
                           </a>
                         </div>
                         <div class="media-body">
-                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.title}}</a></h4>
-                          <span class="popular-course-price">{{ news.date_creation }}</span>
+                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.name }}</a></h4>
+                          <span class="popular-course-price">{{ news.date }}</span>
                         </div>
                       </div>
                     </div>
