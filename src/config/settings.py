@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'haystack',
     'django_cleanup',
     'tinymce',
+    'django_extensions',
     
     # usual apps
     'authentication',

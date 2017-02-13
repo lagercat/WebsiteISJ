@@ -8,6 +8,13 @@ class GalleryCreationFormAdmin(forms.ModelForm):
         model = Gallery
         fields = ('name', 'file')
         
+    def save(self, commit=True):
+        uploaded_file = super(GalleryPhotoCreationForm, self).save(commit=False)
+        uploaded_file.author= self.current_author
+        if commit:
+            uploaded_file.save()
+        return uploaded_file
+        
 
 class GalleryChangeFormAdmin(forms.ModelForm):
     gallery_photos = forms.CharField(label='',  widget=forms.TextInput(attrs={"type": "hidden"}))

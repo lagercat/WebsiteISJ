@@ -6,6 +6,7 @@ django-cleanup==0.4.2
 django-material
 python-magic==0.4.12
 django-tinymce
+django-extensions
 pysolr
 Pillow
 psycopg2
