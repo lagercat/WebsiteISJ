@@ -34,13 +34,13 @@
           <div class="mu-gallery-content">
             <div class="mu-gallery-body">
               <ul class="row">
-                  {% if gallery %}
-                  {% for image in gallery %}
+                  {% if photos %}
+                  {% for image in photos %}
                 <li class="col-md-4 col-sm-6 col-xs-12">
                  	<div class="mu-single-gallery">                  
                     	<div class="mu-single-gallery-item">
 		                    <div class="mu-single-gallery-img">
-		                        <a href="#"><img alt="img" src="{{ image.image.url }}"></a>
+		                        <a href="#"><img alt="img" src="{{ image.file.url }}"></a>
 		                    </div>
 							<div class="mu-single-gallery-info">
                         		<div class="mu-single-gallery-info-inner">
@@ -51,9 +51,9 @@
 								  	<!-- Iteam detail view -->
 								  	<div class="portfolio-detail">
 					                    <a href="#" class="modal-close-btn"><span class="fa fa-times"></span></a>
-					                    <img src="{{ image.image.url }}" alt="img-9"/>
+					                    <img src="{{ image.file.url }}" alt="img-9"/>
 					                    <h2>{{ image.name }}</h2>
-					                    <p>	{{ image.description }}</p>
+
 
 				                	</div>
 								</div>

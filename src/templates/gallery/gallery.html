@@ -40,26 +40,35 @@
                  	<div class="mu-single-gallery">                  
                     	<div class="mu-single-gallery-item">
 		                    <div class="mu-single-gallery-img">
-		                        <a href="#"><img alt="img" src="{{ image.image.url }}"></a>
+		                        <a href="#"><img alt="img" src="{{ image.file.url }}"></a>
 		                    </div>
 							<div class="mu-single-gallery-info">
-                        		<div class="mu-single-gallery-info-inner">
+                        		<div  class="mu-single-gallery-info-inner">
+
 		                          	<h4>{{ image.name }}</h4>
 
+
 		                          	<a href="#" class="mu-view-btn"><span class="fa fa-search"></span></a>
+
+
 
 								  	<!-- Iteam detail view -->
 								  	<div class="portfolio-detail">
 					                    <a href="#" class="modal-close-btn"><span class="fa fa-times"></span></a>
-					                    <img src="{{ image.image.url }}" alt="img-9"/>
+					                    <img src="{{ image.file.url }}" alt="img-9"/>
 					                    <h2>{{ image.name }}</h2>
 					                    <p>	{{ image.description }}</p>
 
 				                	</div>
+
 								</div>
 							</div> 
 						</div>
+
 					</div>
+                    <div class="mu-latest-course-single-contbottom">
+                      <a class="mu-course-details" href="gallery_img/{{image.slug}}" style="color: #00acc1">Vizualizati albumul</a>
+                    </div>
                 </li>
                   {% endfor %}
                   {% endif %}
