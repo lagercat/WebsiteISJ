@@ -46,4 +46,3 @@ class GalleryAdmin(AdminViewMixin):
     pass
 
 admin.site.register(Gallery, GalleryAdmin)
-admin.site.register(GalleryPhoto)

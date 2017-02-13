@@ -93,12 +93,14 @@
                                     <div class="truncate"><i class="material-icons">account</i>by ' + file_obj["author__first_name"] + " " + file_obj["author__last_name"] + '</div>\
                                 </div>\
                                 <div class="collapsible-body card-action" style="border-top: none;">\
-                                    <a class="cpy accent-color-text" data-clipboard-text="' + file_obj["file"] + '">\
-                                        Copy Link\
-                                    </a>\
-                                    <a class="accent-color-text" href="' + static_url + file_obj["file"] + '" target="_blank">\
-                                        See File\
-                                    </a>\
+                                    <div class="right-align">\
+                                       <a class="cpy accent-color-text" data-clipboard-text="' + file_obj["file"] + '">\
+                                            Copy Link\
+                                        </a>\
+                                        <a class="accent-color-text" href="' + static_url + file_obj["file"] + '" target="_blank">\
+                                            See File\
+                                        </a>\  
+                                    </div>\
                                 </div>\
                             </li>');
                     }

@@ -44,8 +44,8 @@ def add_gallery(request):
             obj.save()
             
             for i in range(0, int(request.POST["delete_nr"])):
-                id = request.POST["delete-" + str(i) + "-id"]
-                print id
+                print request.POST["delete-" + str(i) + "-id"]
+                id = int(request.POST["delete-" + str(i) + "-id"])
                 photo = GalleryPhoto.objects.get(pk=id)
                 photo.delete()
         else:

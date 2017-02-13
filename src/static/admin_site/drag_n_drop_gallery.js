@@ -126,6 +126,7 @@ var deleteFiles = [];
 
 function delete_entry(i){
     if(totalIds[i] !== undefined){
+        console.log(totalIds[i]);
         deleteIds.push(totalIds[i]);
         deleteFiles.push(totalFiles[i]);
         totalIds.splice(i,1);
@@ -190,7 +191,7 @@ function post(){
         ajaxData.append( "id", id );
     
     $.each( deleteIds, function(i, id) {
-        ajaxData.append( "delete-{0}-id".format(i), totalIds[i] );
+        ajaxData.append( "delete-{0}-id".format(i), id );
     });        
 
     $.each( totalFiles, function(i, file) {
