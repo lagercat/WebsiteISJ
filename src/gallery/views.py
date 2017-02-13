@@ -5,6 +5,8 @@ from gallery.models import GalleryPhoto
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.html import escape
 import json
+import os
+from view_permission.utility import clean_file
 
 
 # Create your views here.
@@ -30,11 +32,31 @@ def remove_gallery_photo(request):
 def add_gallery(request):
     if request.method == "POST":
         obj = None
-        print request.POST
-        print request.FILES
-        if (request.POST["name"] == ""):
-            response = HttpResponse(
-                json.dumps({"error": "This field is required."}),
+        json_dict = {}
+        if(request.POST["name"] == ""):
+            json_dict["name"] = "This field is required."
+            
+        file = None
+        if request.FILES.get("file"):
+            file = request.FILES["file"]
+        
+        if not file:
+            json_dict["file"] = "This field is required. Please select a file."
+            
+        elif clean_file(file, image=True) != "":
+            json_dict["file"] = clean_file(file, image=True)
+            
+        for i in range(0, int(request.POST["nr"])):
+            file = None
+            if request.FILES.get("form-" + str(i) + "-file"):
+                file = request.FILES["form-" + str(i) + "-file"]
+              
+            error = clean_file(file, image=True)
+            if error != "":
+                json_dict[i] = error
+            
+        if json_dict != {}:
+            response = HttpResponse(json.dumps(json_dict), 
                 content_type='application/json')
             response.status_code = 400
             return response
@@ -66,10 +88,8 @@ def add_gallery(request):
                 file = request.FILES["form-" + str(i) + "-file"]
 
             name = request.POST["form-" + str(i) + "-name"]
-            if not id:
-                photo = GalleryPhoto(gallery=obj, name=name, file=file,
-                                     author=request.user,
-                                     location="gallery/" + str(obj.id))
+            if not id: 
+                photo = GalleryPhoto(gallery=obj, name=name, file=file, author=request.user, location="gallery/" + obj.slug)
                 photo.save()
             else:
                 photo = GalleryPhoto.objects.get(pk=id)

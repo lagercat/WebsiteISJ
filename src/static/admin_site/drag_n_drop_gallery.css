@@ -136,5 +136,11 @@
     position: relative;
     top: -200px;
     float: right;
-    transform: translate(50%, -50%);
+    transform: translate(50%, -75%);
+}
+
+.error{
+    position: relative;
+    float: right;
+    transform: translate(150%, -75%);
 }

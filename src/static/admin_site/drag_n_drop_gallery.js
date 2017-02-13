@@ -75,6 +75,9 @@ var template = '\
     <a class="btn-floating waves-effect waves-light z-depth-2 delete" onclick="delete_entry({1})">\
         <i class="material-icons">delete</i>\
     </a>\
+    <a class="btn-floating waves-effect waves-light z-depth-2 error tooltipped" data-position="top" data-delay="50" id="error-tooltip-{1}" style="display: none;">\
+        <i class="material-icons">error</i>\
+    </a>\
 </div>\
 ';
 
@@ -147,11 +150,10 @@ function restore_deleted(){
 
 
 var error_header = '\
-<div class="row errors">\
+<div class="row errors" style="margin-bottom: 0px;">\
     <div class="col s12">\
         <small class="errornote">\
             Please correct the errors below.\
-            <br/><br/>\
         </small>\
     </div>\
 </div>\
@@ -167,15 +169,20 @@ var error_msg = '\
 
 function show_errors(errors){
     console.log(errors);
+    rewrite_form();
     $(".errors").remove();
-    $.each( errors["errors"], function(i, obj) {
-        if(!$.isEmptyObject(obj)){
-            $(".form-title").after(error_header);
-            $.each( obj, function(atr, err) {
-                
-                $("#id_{0}_container-{1}".format(atr, i)).append(error_msg.format(err));
-            });
+    if(!$.isEmptyObject(errors))
+        $(".form-title").after(error_header);
+    $.each( errors, function(i, error) {
+        if(!isNaN(i)){
+            $("#error-tooltip-{0}".format(i)).attr('data-tooltip', error);
+            $("#error-tooltip-{0}".format(i)).css('display', "inline-block");
         }
+        else
+            $("#id_{0}_container".format(i)).append(error_msg.format(error));
+    });
+    $(document).ready(function(){
+        $('.tooltipped').tooltip({delay: 50});
     });
 }
 
