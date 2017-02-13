@@ -23,12 +23,12 @@ class GalleryAdmin(AdminViewMixin):
     search_fields = ('name',)
     
     change_fieldsets = (
-        ('Gallery', {'fields': ('name',)}),
+        ('Gallery', {'fields': ('name', 'file')}),
         ('Gallery Photos', {'fields': ('gallery_photos', 'gallery_photos_urls', 'id')}),
     )
     
     add_fieldsets = (
-        ('Gallery', {'fields': ('name',)}),
+        ('Gallery', {'fields': ('name', 'file')}),
         ('Gallery Photos', {'fields': ()}),
     )
       

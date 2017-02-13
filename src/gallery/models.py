@@ -10,19 +10,16 @@ from django.db.models.fields import IntegerField
 from django.dispatch.dispatcher import receiver
 from django.db.models.signals import pre_delete
 
-
-def user_directory_path(instance, filename):
-    filename, file_extension = os.path.splitext(filename)
-    return './documents/gallery/{0}/{1}{2}'.format(filename, instance.slug,
-                                                   file_extension)
-
-
 # Create your models here.
 
 
-class Gallery(CustomPermissionsMixin):
-    name = models.CharField(max_length=100, blank=False, null=True)
-    
+class Gallery(File):
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('location').default = "gallery/thumbnails"
+        super(Gallery, self).__init__(*args, **kwargs)
+
+    REQUIRED = ['name', 'file']
+
     class Meta(File.Meta):
         verbose_name = "gallery"
         verbose_name_plural = "galleries"
@@ -45,7 +42,8 @@ class GalleryPhoto(File):
         verbose_name = "Gallery Photo"
         verbose_name_plural = "Gallery Photos"
         index_text = "Manage Gallery Photos"
-        
+
+@receiver(pre_delete, sender=Gallery)
 @receiver(pre_delete, sender=GalleryPhoto)
 def file_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.

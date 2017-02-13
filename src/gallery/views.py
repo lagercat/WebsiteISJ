@@ -29,6 +29,7 @@ def add_gallery(request):
     if request.method == "POST":
         obj = None
         print request.POST
+        print request.FILES
         if(request.POST["name"] == ""):
             response = HttpResponse(json.dumps({"error" : "This field is required."}), 
                 content_type='application/json')
@@ -38,6 +39,8 @@ def add_gallery(request):
         if(request.POST["change"] == "1"):
             obj = get_object_or_404(Gallery, id=request.POST["id"])
             obj.name = escape(request.POST["name"])
+            if request.FILES.get("file"):
+                obj.file = request.FILES["file"]
             obj.save()
             
             for i in range(0, int(request.POST["delete_nr"])):
@@ -46,7 +49,7 @@ def add_gallery(request):
                 photo = GalleryPhoto.objects.get(pk=id)
                 photo.delete()
         else:
-            obj = Gallery(name=escape(request.POST["name"]))
+            obj = Gallery(name=escape(request.POST["name"]), file=request.FILES["file"], author=request.user)
             obj.save()
             
         for i in range(0, int(request.POST["nr"])):
@@ -70,3 +73,7 @@ def add_gallery(request):
           
     else:
         return HttpResponseForbidden()
+
+
+def gallery_img(request):
+    return render(request,'gallery/imagini.html')

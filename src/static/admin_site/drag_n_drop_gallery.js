@@ -181,6 +181,7 @@ function show_errors(errors){
 function post(){
     var ajaxData = new FormData();
     ajaxData.append( "name", $('#id_name').val() );
+    ajaxData.append( "file", $('input[name=file]')[0].files[0]);
     ajaxData.append( "nr", totalFiles.length );
     ajaxData.append( "delete_nr", deleteIds.length );
     ajaxData.append( "csrfmiddlewaretoken", $('input[name=csrfmiddlewaretoken]').val() );
@@ -223,6 +224,7 @@ $(window).on("load", function(){
         id = $("#id_id").val();
         totalIds = $("#id_gallery_photos").val().split(" ");
         totalFiles = $("#id_gallery_photos_urls").val().split(" ");
+        console.log(totalIds);
         $(".row #id_gallery_photos_container").parent().remove();
         $(".row #id_gallery_photos_urls_container").parent().remove();
         $(".row #id_id_container").parent().remove();

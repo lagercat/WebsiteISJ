@@ -6,7 +6,7 @@ import os
 class GalleryCreationFormAdmin(forms.ModelForm):
     class Meta:
         model = Gallery
-        fields = ('name',)
+        fields = ('name', 'file')
         
 
 class GalleryChangeFormAdmin(forms.ModelForm):
@@ -16,7 +16,7 @@ class GalleryChangeFormAdmin(forms.ModelForm):
     
     class Meta:
         model = Gallery
-        fields = ('name', )
+        fields = ('name', 'file')
         
     def __init__(self, *args, **kwargs):
         q = GalleryPhoto.objects.filter(gallery=kwargs["instance"]).extra(
