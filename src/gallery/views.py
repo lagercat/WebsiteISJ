@@ -35,15 +35,15 @@ def add_gallery(request):
         json_dict = {}
         if(request.POST["name"] == ""):
             json_dict["name"] = "This field is required."
-            
+        print request.POST
         file = None
         if request.FILES.get("file"):
             file = request.FILES["file"]
         
-        if not file:
+        if request.POST["change"] == "0" and not file:
             json_dict["file"] = "This field is required. Please select a file."
             
-        elif clean_file(file, image=True) != "":
+        elif request.POST["change"] == "0" and clean_file(file, image=True) != "":
             json_dict["file"] = clean_file(file, image=True)
             
         for i in range(0, int(request.POST["nr"])):
@@ -51,9 +51,10 @@ def add_gallery(request):
             if request.FILES.get("form-" + str(i) + "-file"):
                 file = request.FILES["form-" + str(i) + "-file"]
               
-            error = clean_file(file, image=True)
-            if error != "":
-                json_dict[i] = error
+            if file:
+                error = clean_file(file, image=True)
+                if error != "":
+                    json_dict[i] = error
             
         if json_dict != {}:
             response = HttpResponse(json.dumps(json_dict), 
@@ -89,7 +90,7 @@ def add_gallery(request):
 
             name = request.POST["form-" + str(i) + "-name"]
             if not id: 
-                photo = GalleryPhoto(gallery=obj, name=name, file=file, author=request.user, location="gallery/" + obj.slug)
+                photo = GalleryPhoto(gallery=obj, name=name, file=file, author=request.user, location="gallery/" + str(obj.slug))
                 photo.save()
             else:
                 photo = GalleryPhoto.objects.get(pk=id)
