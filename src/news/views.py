@@ -17,7 +17,7 @@ def news_all(request):
 
 
 def news(request, slug):
-    articol = list(News.objects.values('name', 'text', 'author__first_name', 'author__last_name', 'file', 'date'
+    articol = list(News.objects.values('name', 'text', 'author__first_name', 'author__last_name', 'file', 'date',
                                               'slug').filter(slug=slug))
     other_news = News.objects.all()[:4]
     return render(request, 'news/news.html', {
