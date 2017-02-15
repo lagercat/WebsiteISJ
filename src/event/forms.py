@@ -49,7 +49,7 @@ class EventCreationFormAdmin(forms.ModelForm):
 
 class EventChangeFormAdmin(forms.ModelForm):
     date = forms.SplitDateTimeField()
-    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
+    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}),label='')
     show_files = True
     show_preview = True
     preview_url = "/preview_event/"

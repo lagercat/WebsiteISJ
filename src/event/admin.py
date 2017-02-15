@@ -31,7 +31,7 @@ class EventAdmin(AdminViewMixin):
         ('Event Description', {'fields': ('text', 'file')}),
         ('Location and Time', {'fields': ('date', 'event_location')}),
     )
-      
+
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
             self.fieldsets = self.add_fieldsets
@@ -41,6 +41,7 @@ class EventAdmin(AdminViewMixin):
         else:
             self.fieldsets = self.change_fieldsets
             form = self.change_form
+            form.text_initial = obj.text
             return form
     
     pass
