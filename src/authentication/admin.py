@@ -22,7 +22,7 @@ class ExtendedUserAdmin(BaseUserAdmin):
     
     list_filter = ('is_admin',)
     fieldsets = (
-        ('Login Information', {'fields': ('email', 'password')}),
+        ('Login Information', {'fields': ('email', ('password1', 'password2'))}),
         ('Personal info', {'fields': (('first_name', 'last_name'), 'date_of_birth', 'phone_number', ('subjects', 'school'))}),
         ('Permissions', {'fields': ('is_active', 'status')}),
     )
