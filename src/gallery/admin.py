@@ -5,13 +5,12 @@ from utility.admin import AdminChangeMixin
 from gallery.forms import GalleryChangeFormAdmin, GalleryCreationFormAdmin
 from gallery.models import GalleryPhoto
 from gallery.views import gallery
+from django.contrib.admin.filters import DateFieldListFilter
 
 
 # Register your models here.
 
 class GalleryAdmin(AdminChangeMixin):
-    list_display = ['name']
-    ordering = ['name']
     icon = '<i class="material-icons">photo</i>'
     
     add_form = GalleryCreationFormAdmin
@@ -20,7 +19,15 @@ class GalleryAdmin(AdminChangeMixin):
     add_form_template = "admin/gallery_form.html"
     change_form_template = "admin/gallery_form.html"
     
-    search_fields = ('name',)
+    list_display = ('name', 'author', 'date', 'slug',)
+    list_filter = (
+        ('date', DateFieldListFilter),
+    )
+    readonly_fields = ['author']
+    
+    search_fields = ('name', 'author__first_name', 'author__last_name', 'date',)
+
+    ordering = ['date']
     
     change_fieldsets = (
         ('Gallery', {'fields': ('name', 'file')}),

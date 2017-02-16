@@ -5,6 +5,7 @@ from models import SubjectPost
 from forms import SubjectPostChangeFormAdmin, SubjectPostCreationFormAdmin
 
 from utility.admin import AdminChangeMixin
+from django.contrib.admin.filters import DateFieldListFilter
 
 
 class SubjectAdmin(AdminChangeMixin):
@@ -16,6 +17,9 @@ class SubjectPostAdmin(AdminChangeMixin):
     change_form = SubjectPostChangeFormAdmin
     add_form = SubjectPostCreationFormAdmin
     list_display = ['name', 'subject', 'author', 'fileLink', 'date', 'slug']
+    list_filter = (
+        ('date', DateFieldListFilter),
+    )
     change_readonly_fields = ['author', 'subject']
     add_readonly_fields = []
 

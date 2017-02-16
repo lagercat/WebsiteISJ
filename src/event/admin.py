@@ -4,6 +4,7 @@ from utility.admin import AdminChangeMixin
 from django import forms
 
 from event.forms import EventCreationFormAdmin, EventChangeFormAdmin
+from django.contrib.admin.filters import DateFieldListFilter
 # Register your models here.
 
 class EventAdmin(AdminChangeMixin):
@@ -13,6 +14,9 @@ class EventAdmin(AdminChangeMixin):
     icon = '<i class="material-icons">room</i>'
 
     list_display = ('name', 'author', 'event_location', 'date', 'slug',)
+    list_filter = (
+        ('date', DateFieldListFilter),
+    )
     readonly_fields = ['author']
     
     search_fields = ('name', 'author__first_name', 'author__last_name', 'event_location', 'date',)

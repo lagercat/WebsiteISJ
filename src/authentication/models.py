@@ -91,10 +91,6 @@ class ExtendedUser(AbstractBaseUser):
 
   def has_perm(self, perm, obj=None):
     if self.status == 3:
-      if perm == "post.change_post":
-        return True
-      if perm == "post.change_own_post":
-        return False
       return True
     elif self.status == 0:
       if perm == "post.add_post":

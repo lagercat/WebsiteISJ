@@ -3,6 +3,7 @@ from django.contrib import admin
 from .models import News
 from utility.admin import AdminChangeMixin
 from news.forms import NewsCreationFormAdmin, NewsChangeFormAdmin
+from django.contrib.admin.filters import DateFieldListFilter
 
 
 class NewsAdmin(AdminChangeMixin):    
@@ -12,6 +13,9 @@ class NewsAdmin(AdminChangeMixin):
     icon = '<i class="material-icons">rss_feed</i>'
 
     list_display = ('short_name', 'author', 'fileLink', 'date', 'slug',)
+    list_filter = (
+        ('date', DateFieldListFilter),
+    )
     readonly_fields = ['fileLink', 'author']
 
     fieldsets = ()

@@ -60,6 +60,9 @@ class PageAdmin(AdminChangeMixin):
     icon = '<i class="material-icons">description</i>'
 
     list_display = ('name', 'author', 'fileLink', 'date', 'slug',)
+    list_filter = (
+        ('date', DateFieldListFilter),
+    )
     readonly_fields = ['fileLink', 'author']
 
     fieldsets = ()
