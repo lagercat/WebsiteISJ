@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Gallery
 
-from view_permission.admin import AdminViewMixin
+from utility.admin import AdminChangeMixin
 from gallery.forms import GalleryChangeFormAdmin, GalleryCreationFormAdmin
 from gallery.models import GalleryPhoto
 from gallery.views import gallery
@@ -9,7 +9,7 @@ from gallery.views import gallery
 
 # Register your models here.
 
-class GalleryAdmin(AdminViewMixin):
+class GalleryAdmin(AdminChangeMixin):
     list_display = ['name']
     ordering = ['name']
     icon = '<i class="material-icons">photo</i>'

@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from view_permission.models import CustomPermissionsMixin
+from utility.models import CustomPermissionsMixin
 from django.core.urlresolvers import reverse
 
 from django.db import models
@@ -21,9 +21,9 @@ class Gallery(File):
     REQUIRED = ['name', 'file']
 
     class Meta(File.Meta):
-        verbose_name = "gallery"
-        verbose_name_plural = "galleries"
-        index_text = "Manage Galleries"
+        verbose_name = "Gallery"
+        verbose_name_plural = "Galleries"
+        index_text = "Manage"
 
 class GalleryPhoto(File):
     def __init__(self, *args, **kwargs):
@@ -41,7 +41,7 @@ class GalleryPhoto(File):
         abstract = False
         verbose_name = "Gallery Photo"
         verbose_name_plural = "Gallery Photos"
-        index_text = "Manage Gallery Photos"
+        index_text = "Manage"
 
 @receiver(pre_delete, sender=Gallery)
 @receiver(pre_delete, sender=GalleryPhoto)

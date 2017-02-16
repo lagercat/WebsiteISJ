@@ -7,6 +7,7 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db.models.fields.related import ForeignKey
 from school.models import School
+from material.frontend.templatetags.material_frontend import verbose_name
 
 
 class ExtendedUserManager(BaseUserManager):
@@ -44,7 +45,7 @@ class ExtendedUserManager(BaseUserManager):
 
 class ExtendedUser(AbstractBaseUser):
   class Meta:
-    index_text = "Manage Users"
+    index_text = "Manage"
     verbose_name = 'User'
     verbose_name_plural = 'Users'
   first_name = models.CharField(max_length=50)
@@ -64,7 +65,7 @@ class ExtendedUser(AbstractBaseUser):
       (2, "Inspector"),
       (3, "Admin"),
   )
-  status = models.IntegerField(choices=STATUS_CHOICES)
+  status = models.IntegerField(choices=STATUS_CHOICES, verbose_name="author status")
   subjects = models.ManyToManyField("subject.Subject", blank=True)
   
   is_active = models.BooleanField(default=True)
@@ -90,6 +91,10 @@ class ExtendedUser(AbstractBaseUser):
 
   def has_perm(self, perm, obj=None):
     if self.status == 3:
+      if perm == "post.change_post":
+        return True
+      if perm == "post.change_own_post":
+        return False
       return True
     elif self.status == 0:
       if perm == "post.add_post":

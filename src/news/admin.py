@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 from .models import News
-from view_permission.admin import AdminViewMixin
+from utility.admin import AdminChangeMixin
 from news.forms import NewsCreationFormAdmin, NewsChangeFormAdmin
 
 
-class NewsAdmin(AdminViewMixin):    
+class NewsAdmin(AdminChangeMixin):    
     change_form = NewsChangeFormAdmin
     add_form = NewsCreationFormAdmin
     

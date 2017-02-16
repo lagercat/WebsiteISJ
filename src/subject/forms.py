@@ -4,7 +4,7 @@ from models import SubjectPost
 from models import Subject
 import os
 from tinymce.widgets import AdminTinyMCE
-from view_permission.utility import clean_file
+from utility.utility import clean_file
 
 
 class SubjectPostCreationFormAdmin(forms.ModelForm):

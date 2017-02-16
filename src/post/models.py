@@ -4,7 +4,7 @@ import uuid
 
 from authentication.models import ExtendedUser
 from django.db import models
-from view_permission.models import CustomPermissionsMixin
+from utility.models import CustomPermissionsMixin
 from tinymce.models import HTMLField
 from django.template.defaultfilters import truncatechars
 from django.db.models.signals import pre_delete
@@ -62,7 +62,7 @@ class Post(File):
         get_latest_by = 'date'
         verbose_name = 'File'
         verbose_name_plural = 'Files'
-        index_text = "Manage Files"
+        index_text = "Manage"
         
 class Page(File):
     def __init__(self, *args, **kwargs):
@@ -79,7 +79,7 @@ class Page(File):
         get_latest_by = 'date'
         verbose_name = 'Page'
         verbose_name_plural = 'Pages'
-        index_text = "Manage Pages"
+        index_text = "Manage"
 
 @receiver(pre_delete, sender=Page)       
 @receiver(pre_delete, sender=Post)

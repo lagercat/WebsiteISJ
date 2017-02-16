@@ -4,13 +4,16 @@ from django.contrib import admin
 from models import Post
 import os
 from django.forms.fields import URLField
-from view_permission.admin import AdminViewMixin
+from utility.admin import AdminChangeMixin, AdminViewMixin
 
 from post.forms import PostChangeFormAdmin, PostCreationFormAdmin,\
   PageCreationFormAdmin, PageChangeFormAdmin
 from post.models import Page
+from django.contrib.admin.filters import DateFieldListFilter,\
+  ChoicesFieldListFilter
+from daterange_filter.filter import DateRangeFilter
 
-class PostAdmin(AdminViewMixin):
+class PostAdmin(AdminChangeMixin):
     change_form = PostChangeFormAdmin
     add_form = PostCreationFormAdmin
     
@@ -19,6 +22,10 @@ class PostAdmin(AdminViewMixin):
     icon = '<i class="material-icons">description</i>'
 
     list_display = ('short_name', 'author', 'fileLink', 'location', 'date', 'slug',)
+    list_filter = (
+        ('date', DateFieldListFilter),
+        ('author__status', ChoicesFieldListFilter)
+    )
     readonly_fields = ['fileLink', 'author', 'location']
 
     fieldsets = ()
@@ -46,13 +53,13 @@ class PostAdmin(AdminViewMixin):
             return self.change_form
           
 
-class PageAdmin(AdminViewMixin):
+class PageAdmin(AdminChangeMixin):
     change_form = PageChangeFormAdmin
     add_form = PageCreationFormAdmin
     
     icon = '<i class="material-icons">description</i>'
 
-    list_display = ('short_name', 'author', 'fileLink', 'date', 'slug',)
+    list_display = ('name', 'author', 'fileLink', 'date', 'slug',)
     readonly_fields = ['fileLink', 'author']
 
     fieldsets = ()
@@ -85,5 +92,14 @@ class PageAdmin(AdminViewMixin):
     
     pass
     
+class PostView(Post):
+    class Meta(Post.Meta):
+        proxy = True
+        index_text = "View all"
+  
+class PostViewAdmin(AdminViewMixin, PostAdmin):
+    pass
+    
 admin.site.register(Page, PageAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(PostView, PostViewAdmin)

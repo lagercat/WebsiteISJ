@@ -10,4 +10,6 @@ class School(models.Model):
         return self.name
 
     class Meta():
-        index_text = "Manage Users"
+        verbose_name = "School"
+        verbose_name_plural = "Schools"
+        index_text = "Manage"

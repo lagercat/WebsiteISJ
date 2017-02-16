@@ -2,7 +2,7 @@ from django import forms
 from django.db.models.fields import CharField
 from gallery.models import Gallery, GalleryPhoto
 import os
-from view_permission.utility import clean_file
+from utility.utility import clean_file
 
 class GalleryCreationFormAdmin(forms.ModelForm):
     class Meta:

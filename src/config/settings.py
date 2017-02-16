@@ -43,10 +43,8 @@ INSTALLED_APPS = [
     'school',
     'subject',
     'post',
-    'headmaster',
-    'inspector',
     'event',
-    'view_permission',
+    'utility',
     'news',
     'gallery'
 ]

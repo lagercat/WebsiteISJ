@@ -5,7 +5,7 @@ from django.forms import modelformset_factory
 
 from models import Post, Page
 from tinymce.widgets import TinyMCE, AdminTinyMCE
-from view_permission.utility import clean_file
+from utility.utility import clean_file
 
 
 class CreatePostForm(forms.ModelForm):

@@ -4,4 +4,4 @@ from django.apps import AppConfig
 
 
 class ViewPermissionConfig(AppConfig):
-    name = 'view_permission'
+    name = 'utility'

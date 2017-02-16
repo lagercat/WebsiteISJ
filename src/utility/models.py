@@ -10,4 +10,4 @@ class CustomPermissionsMixin(models.Model):
     """
     class Meta:
         abstract = True
-        default_permissions = ('add', 'change', 'delete', 'view', 'change_own')
+        default_permissions = ('change', 'view', 'change_own')

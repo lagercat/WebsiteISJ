@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from authentication.models import ExtendedUser
 from django.core.urlresolvers import reverse
-from view_permission.models import CustomPermissionsMixin
+from utility.models import CustomPermissionsMixin
 from django.db import models
 import os
 import uuid
@@ -35,7 +35,7 @@ class Event(File):
         abstract = False
         verbose_name = "Event"
         verbose_name_plural = "Events"
-        index_text = "Manage Events"
+        index_text = "Manage"
         
 @receiver(pre_delete, sender=Event)
 def file_delete(sender, instance, **kwargs):

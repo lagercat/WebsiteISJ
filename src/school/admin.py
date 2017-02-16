@@ -1,10 +1,10 @@
 from django.contrib import admin
 
 from models import School
-from view_permission.admin import AdminViewMixin
+from utility.admin import AdminChangeMixin
 
 
-class SchoolAdmin(AdminViewMixin):
+class SchoolAdmin(AdminChangeMixin):
     list_display = ['name']
     list_order = ['name']
     icon = '<i class="material-icons">location_city</i>'

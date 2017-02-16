@@ -1,12 +1,12 @@
 from django.contrib import admin
 from models import Event
-from view_permission.admin import AdminViewMixin
+from utility.admin import AdminChangeMixin
 from django import forms
 
 from event.forms import EventCreationFormAdmin, EventChangeFormAdmin
 # Register your models here.
 
-class EventAdmin(AdminViewMixin):
+class EventAdmin(AdminChangeMixin):
     add_form = EventCreationFormAdmin
     change_form = EventChangeFormAdmin
 

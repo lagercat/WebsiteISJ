@@ -31,7 +31,7 @@ class News(File):
         abstract = False
         verbose_name = "News"
         verbose_name_plural = "News"
-        index_text = "Manage News"
+        index_text = "Manage"
 
 @receiver(pre_delete, sender=News)
 def file_delete(sender, instance, **kwargs):

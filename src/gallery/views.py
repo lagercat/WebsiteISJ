@@ -6,7 +6,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.html import escape
 import json
 import os
-from view_permission.utility import clean_file
+from utility.utility import clean_file
 
 
 # Create your views here.

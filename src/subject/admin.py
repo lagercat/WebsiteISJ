@@ -4,15 +4,15 @@ from models import Subject
 from models import SubjectPost
 from forms import SubjectPostChangeFormAdmin, SubjectPostCreationFormAdmin
 
-from view_permission.admin import AdminViewMixin
+from utility.admin import AdminChangeMixin
 
 
-class SubjectAdmin(AdminViewMixin):
+class SubjectAdmin(AdminChangeMixin):
     list_display = ['name']
     ordering = ['name']
     icon = '<i class="material-icons">list</i>'
     
-class SubjectPostAdmin(AdminViewMixin):
+class SubjectPostAdmin(AdminChangeMixin):
     change_form = SubjectPostChangeFormAdmin
     add_form = SubjectPostCreationFormAdmin
     list_display = ['name', 'subject', 'author', 'fileLink', 'date', 'slug']
