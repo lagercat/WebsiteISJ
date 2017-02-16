@@ -1,4 +1,5 @@
 from django.contrib import admin
+from config import settings
 
 class AdminChangeMixin(admin.ModelAdmin): 
     def get_model_perms(self, request):
@@ -56,6 +57,8 @@ class AdminChangeMixin(admin.ModelAdmin):
         """
             Disable buttons for `viewers` in `change_view`
         """
+        extra_context = extra_context or {}
+        extra_context['google_maps_api_key'] = settings.GOOGLE_MAPS_API_KEY
         return super(AdminChangeMixin, self).change_view(request, object_id, extra_context=extra_context)
       
     def get_actions(self, request):
@@ -127,6 +130,7 @@ class AdminViewMixin(admin.ModelAdmin):
         extra_context['show_save_and_continue'] = False
         extra_context['show_save_and_add_another'] = False
         extra_context['show_delete_link'] = False
+        extra_context['google_maps_api_key'] = settings.GOOGLE_MAPS_API_KEY
         return super(AdminViewMixin, self).change_view(request, object_id, extra_context=extra_context)
       
     def get_actions(self, request):

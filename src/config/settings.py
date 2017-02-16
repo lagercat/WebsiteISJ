@@ -11,6 +11,8 @@ SECRET_KEY = 'vl27lst+j0&n4ec$dh7qu^=i0f2@$#(dw-25#7$f##$w9s%8b5'
 RECAPTCHA_PUBLIC_KEY = '6Le23xAUAAAAALeZVS6-CFTIKbhD-2XGYDWV3JUY'
 RECAPTCHA_PRIVATE_KEY = '6Le23xAUAAAAADqwurHC-Cvm25zXqkvHuREZjiIo'
 
+GOOGLE_MAPS_API_KEY = 'AIzaSyAaQMDSvMtqNgJCK9b9TwywchYETHCo_4g'
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -36,6 +38,7 @@ INSTALLED_APPS = [
     'django_cleanup',
     'tinymce',
     'django_extensions',
+    'django_google_maps',
     
     # usual apps
     'authentication',

@@ -13,13 +13,13 @@ class EventAdmin(AdminChangeMixin):
 
     icon = '<i class="material-icons">room</i>'
 
-    list_display = ('name', 'author', 'event_location', 'date', 'slug',)
+    list_display = ('name', 'author', 'address', 'date', 'slug',)
     list_filter = (
         ('date', DateFieldListFilter),
     )
     readonly_fields = ['author']
     
-    search_fields = ('name', 'author__first_name', 'author__last_name', 'event_location', 'date',)
+    search_fields = ('name', 'author__first_name', 'author__last_name', 'address', 'date',)
 
     ordering = ['date']
     filter_horizontal = ()
@@ -27,13 +27,13 @@ class EventAdmin(AdminChangeMixin):
     change_fieldsets = (
         ('Event Info', {'fields': ('name', 'author')}),
         ('Event Description', {'fields': ('text', 'file')}),
-        ('Location and Time', {'fields': ('date', 'event_location')}),
+        ('Location and Time', {'fields': ('date', 'address', 'geolocation')}),
     )
     
     add_fieldsets = (
         ('Event Info', {'fields': ('name', )}),
         ('Event Description', {'fields': ('text', 'file')}),
-        ('Location and Time', {'fields': ('date', 'event_location')}),
+        ('Location and Time', {'fields': ('date', 'address', 'geolocation')}),
     )
 
     def get_form(self, request, obj=None, **kwargs):
@@ -46,6 +46,9 @@ class EventAdmin(AdminChangeMixin):
             self.fieldsets = self.change_fieldsets
             form = self.change_form
             form.text_initial = obj.text
+            form.date_initial = obj.date
+            form.address_initial = obj.address
+            form.geolocation_initial = obj.geolocation
             return form
     
     pass

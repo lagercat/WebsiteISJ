@@ -9,7 +9,7 @@ from post.models import File
 from tinymce.models import HTMLField
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
-
+from django_google_maps import fields as map_fields
 
 def user_directory_path(instance, filename):
     filename, file_extension = os.path.splitext(filename)
@@ -24,9 +24,10 @@ class Event(File):
         super(Event, self).__init__(*args, **kwargs)
 
     text = HTMLField()
-    event_location = models.CharField(max_length=100, blank=False, null=True)
+    address = map_fields.AddressField(max_length=200)
+    geolocation = map_fields.GeoLocationField(max_length=100)
 
-    REQUIRED = ['name', 'text', 'file', 'date', 'event_location']
+    REQUIRED = ['name', 'text', 'file', 'date', 'address', 'geolocation']
 
     def __unicode__(self):
         return self.name
