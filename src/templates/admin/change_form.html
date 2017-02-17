@@ -245,7 +245,7 @@
             }
             
             
-            $('#preview').load(function() { 
+            $('#preview').on("load", function() { 
                 resize_preview();
             });
             
@@ -262,12 +262,13 @@
                     type: "GET",
                     async: false,
                     success: (function(f){
+                        console.log(f);
                         template = f;
                     }),
                 });
             }
             
-            $(window).load(function(){
+            $(window).on("load", function(){
                 get_template();
                 editor_on_change();
             });
@@ -301,6 +302,7 @@
             });
             
             function preview(){
+                get_template();
                 editor_on_change();
                 var clone = document.createElement("iframe");
                 
@@ -317,7 +319,7 @@
                           (clone.contentWindow ? clone.contentWindow.document : clone.document);
                     
                 var img_src = $('input[name="file"]')[0].files ? ($('input[name="file"]')[0].files[0] ? window.URL.createObjectURL($('input[name="file"]')[0].files[0]) : "/static/assets/img/news.png") : "/static/assets/img/news.png";
-                var location = $('input[name="event_location"]').val() != "" ? $('input[name="event_location"]').val() : "Location here";
+                var location = $('input[name="address"]').val() != "" ? $('input[name="address"]').val() : "Location here";
                 var date = $('input[name="date_0"]').val() ? ($('input[name="date_0"]').val() + " " + $('input[name="date_1"]').val()) : "Date & Time here";
                 doc.open();
                 doc.write(template.format($('#id_name').val(), tinyMCE.activeEditor.getContent(), img_src, location, date));

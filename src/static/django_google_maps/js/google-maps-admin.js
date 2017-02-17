@@ -76,7 +76,8 @@ function googleMapAdmin() {
                     self.updateGeolocation(latlng);
                     self.updateAddress(address);
                 } else {
-                    alert("Geocode was not successful for the following reason: " + status);
+                    $("#id_geolocation")
+                        .val("Invalid address or no results");
                 }
             });
         },
@@ -139,7 +140,8 @@ function googleMapAdmin() {
                     self.updateGeolocation(latlng);
                     self.updateAddress(address);
                 } else {
-                    alert("Geocode was not successful for the following reason: " + status);
+                    $("#id_address")
+                        .val("Invalid geolocation");
                 }
             });
         }

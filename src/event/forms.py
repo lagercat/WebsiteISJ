@@ -10,6 +10,7 @@ from tinymce.widgets import AdminTinyMCE
 import os
 from django_google_maps import fields as map_fields
 from django_google_maps import widgets as map_widgets
+from utility.utility import clean_file
       
 class EventCreationFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
@@ -24,21 +25,21 @@ class EventCreationFormAdmin(forms.ModelForm):
         model = Event
         fields = ('name', 'file',)
         
-    def clean_file(self):
+    def clean(self):
+        cleaned_data = super(EventChangeFormAdmin, self).clean()
+        geoloc = cleaned_data['geolocation']
+        addr = cleaned_data['address']
+        if geoloc == "Invalid address or no results":
+            self.add_error("address", forms.ValidationError("The address is invalid"))
+        if addr == "Invalid geolocation":
+            self.add_error("geolocation", forms.ValidationError("The geolocation is invalid"))
+        return cleaned_data
+        
+    def clean_file(self):        
         uploaded_file = self.cleaned_data['file']
-        max_size = 10000000  # 10 MB
-        filename, file_type = os.path.splitext(uploaded_file.name)
-        allowed_file_types = [
-            '.doc', '.docx', '.docm', '.xls', '.xlsx', '.ppt',
-            '.ppt', '.pps', '.zip', '.rar', '.jpg', '.jpeg'
-            '.png', '.gif', '.bmp', '.txt', '.tif', '.rtf', '.pdf',
-            '.odt', '.ace', '.ods', '.odg'
-        ]
-        if not(any(file_type in type for type in allowed_file_types)):
-            raise forms.ValidationError("Fisierul nu se incadreaza in extensile permise")
-        if uploaded_file.size > max_size:
-            raise forms.ValidationError("Fisierul trece de dimensiunea maxima de %d" % max_size)
-
+        error = clean_file(uploaded_file, image=True)
+        if error:
+            raise forms.ValidationError(error)
         return uploaded_file
 
     def save(self, commit=True):
@@ -77,21 +78,22 @@ class EventChangeFormAdmin(forms.ModelForm):
         kwargs['initial'] = initial
         super(EventChangeFormAdmin, self).__init__(*args, **kwargs)
         
+    def clean(self):
+        cleaned_data = super(EventChangeFormAdmin, self).clean()
+        geoloc = cleaned_data['geolocation']
+        addr = cleaned_data['address']
+        if geoloc == "Invalid address or no results":
+            self.add_error("address", forms.ValidationError("The address is invalid"))
+        if addr == "Invalid geolocation":
+            self.add_error("geolocation", forms.ValidationError("The geolocation is invalid"))
+        return cleaned_data
+        
     def clean_file(self):
+        
         uploaded_file = self.cleaned_data['file']
-        max_size = 10000000  # 10 MB
-        filename, file_type = os.path.splitext(uploaded_file.name)
-        allowed_file_types = [
-            '.doc', '.docx', '.docm', '.xls', '.xlsx', '.ppt',
-            '.ppt', '.pps', '.zip', '.rar', '.jpg', '.jpeg'
-            '.png', '.gif', '.bmp', '.txt', '.tif', '.rtf', '.pdf',
-            '.odt', '.ace', '.ods', '.odg'
-        ]
-        if not(any(file_type in type for type in allowed_file_types)):
-            raise forms.ValidationError("Fisierul nu se incadreaza in extensile permise")
-        if uploaded_file.size > max_size:
-            raise forms.ValidationError("Fisierul trece de dimensiunea maxima de %d" % max_size)
-
+        error = clean_file(uploaded_file, image=True)
+        if error:
+            raise forms.ValidationError(error)
         return uploaded_file
       
     def save(self, commit=True):
