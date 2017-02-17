@@ -26,7 +26,7 @@ class EventCreationFormAdmin(forms.ModelForm):
         fields = ('name', 'file',)
         
     def clean(self):
-        cleaned_data = super(EventChangeFormAdmin, self).clean()
+        cleaned_data = super(EventCreationFormAdmin, self).clean()
         geoloc = cleaned_data['geolocation']
         addr = cleaned_data['address']
         if geoloc == "Invalid address or no results":
@@ -79,7 +79,6 @@ class EventChangeFormAdmin(forms.ModelForm):
         super(EventChangeFormAdmin, self).__init__(*args, **kwargs)
         
     def clean(self):
-        cleaned_data = super(EventChangeFormAdmin, self).clean()
         geoloc = cleaned_data['geolocation']
         addr = cleaned_data['address']
         if geoloc == "Invalid address or no results":
