@@ -39,12 +39,6 @@
     <![endif]-->
     <link rel="stylesheet" type="text/css" href="/static/prism/prism.css">
     <script src="/static/prism/prism.js"></script>
-
-    <!--Google Maps-->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ google_maps_key_api }}"></script>
-    <script type="text/javascript" src="/static/django_google_maps/js/google-maps-admin.js"></script>
-
   </head>
   <body>
 
@@ -135,50 +129,20 @@
 
               </ul>
             </li>
-
+            {% for name,subcategories in header%}
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Elevi <span class="fa fa-angle-down"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ name }}<span class="fa fa-angle-down"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a >Consiliere</a></li>
-                <li><a >Interactiuni</a></li>
-                <li><a >Transferuri</a></li>
-                <li><a >Manuale scolare</a></li>
-                <li><a>Diferite tipuri de invatamant</a>
-                </li>
+                {% for subcategory in subcategories%}
+                <li><a >{{ subcategory.name}}</a></li>
+                {% endfor %}
+
+
               </ul>
             </li>
+            {% endfor %}
 
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatii cu publicul <span class="fa fa-angle-down"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a >Achizitii & licitatii</a></li>
-                <li><a >Promovare proiecte</a></li>
-                <li><a >Mediatizare proiecte</a></li>
-                <li><a >Comunicari cu presa</a></li>
-                <li><a>Galerie Foto</a>
-                </li>
-              </ul>
-            </li>
 
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Legislatie<span class="fa fa-angle-down"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a >Legea 544</a></li>
-                <li><a >necompetat</a></li>
-
-                </li>
-              </ul>
-            </li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Echipa de conducere <span class="fa fa-angle-down"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a >Declaratii de avere</a></li>
-                <li><a >Venit angajati</a></li>
-
-                </li>
-              </ul>
-            </li>
 
 
 
@@ -289,7 +253,7 @@
   <!-- End footer -->
 
   <!-- jQuery library -->
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+  <script src="{% static "assets/js/jquery.min.js" %}"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="{% static "assets/js/bootstrap.js" %}"></script>
   <!-- Slick slider -->
