@@ -4,7 +4,7 @@ from django.contrib import admin
 from models import Post
 import os
 from django.forms.fields import URLField
-from utility.admin import AdminChangeMixin, AdminViewMixin
+from utility.admin import AdminChangeMixin, AdminViewMixin, register_model_admin
 
 from post.forms import PostChangeFormAdmin, PostCreationFormAdmin,\
   PageCreationFormAdmin, PageChangeFormAdmin
@@ -12,7 +12,6 @@ from post.models import Page
 from django.contrib.admin.filters import DateFieldListFilter,\
   ChoicesFieldListFilter
 from daterange_filter.filter import DateRangeFilter
-
 class PostAdmin(AdminChangeMixin):
     change_form = PostChangeFormAdmin
     add_form = PostCreationFormAdmin
@@ -95,14 +94,5 @@ class PageAdmin(AdminChangeMixin):
     
     pass
     
-class PostView(Post):
-    class Meta(Post.Meta):
-        proxy = True
-        index_text = "View all"
-  
-class PostViewAdmin(AdminViewMixin, PostAdmin):
-    pass
-    
-admin.site.register(Page, PageAdmin)
-admin.site.register(Post, PostAdmin)
-admin.site.register(PostView, PostViewAdmin)
+register_model_admin(Post, PostAdmin)
+register_model_admin(Page, PageAdmin)

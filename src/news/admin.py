@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import News
-from utility.admin import AdminChangeMixin
+from utility.admin import AdminChangeMixin, register_model_admin
 from news.forms import NewsCreationFormAdmin, NewsChangeFormAdmin
 from django.contrib.admin.filters import DateFieldListFilter
 
@@ -48,4 +48,4 @@ class NewsAdmin(AdminChangeMixin):
     
     pass
 
-admin.site.register(News, NewsAdmin)
+register_model_admin(News, NewsAdmin)

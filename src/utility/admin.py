@@ -1,5 +1,6 @@
 from django.contrib import admin
 from config import settings
+from .models import make_view_proxy
 
 class AdminChangeMixin(admin.ModelAdmin): 
     def get_model_perms(self, request):
@@ -76,6 +77,7 @@ class AdminViewMixin(admin.ModelAdmin):
         """
         Return empty perms dict thus hiding the model from admin index.
         """
+        print self.has_perm(request.user, "change")
         return {
             "view" : self.has_perm(request.user, "view") and not self.has_perm(request.user, "change"), 
         }
@@ -137,3 +139,13 @@ class AdminViewMixin(admin.ModelAdmin):
         actions = super(AdminViewMixin, self).get_actions(request)
         del actions['delete_selected']
         return actions
+      
+def make_view_admin(admin):   
+    class ViewAdmin(AdminViewMixin, admin):
+        pass
+    ViewAdmin.__name__ = admin.__name__
+    return ViewAdmin
+  
+def register_model_admin(model, model_admin):
+    admin.site.register(model, model_admin)
+    admin.site.register(make_view_proxy(model), make_view_admin(model_admin))

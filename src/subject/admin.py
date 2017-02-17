@@ -4,7 +4,7 @@ from models import Subject
 from models import SubjectPost
 from forms import SubjectPostChangeFormAdmin, SubjectPostCreationFormAdmin
 
-from utility.admin import AdminChangeMixin
+from utility.admin import AdminChangeMixin, register_model_admin
 from django.contrib.admin.filters import DateFieldListFilter
 
 
@@ -58,5 +58,5 @@ class SubjectPostAdmin(AdminChangeMixin):
             form.text_initial = obj.text
             return form
 
-admin.site.register(Subject, SubjectAdmin)
-admin.site.register(SubjectPost, SubjectPostAdmin)
+register_model_admin(Subject, SubjectAdmin)
+register_model_admin(SubjectPost, SubjectPostAdmin)

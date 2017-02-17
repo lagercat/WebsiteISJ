@@ -6,6 +6,8 @@ from post.models import File
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from tinymce.models import HTMLField
+from utility.models import CustomPermissionsMixin
+from bokeh.core.properties import abstract
 
 
 def user_directory_path(self, filename):
@@ -14,8 +16,9 @@ def user_directory_path(self, filename):
                                            self.files_folder())
 
 
-class Subject(models.Model):
-    class Meta:
+class Subject(CustomPermissionsMixin):
+    class Meta(CustomPermissionsMixin.Meta):
+        abstract = False
         verbose_name = "Subject"
         verbose_name_plural = "Subjects"
         index_text = "Create"

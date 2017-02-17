@@ -1,6 +1,6 @@
 from django.contrib import admin
 from models import Event
-from utility.admin import AdminChangeMixin
+from utility.admin import AdminChangeMixin, register_model_admin
 from django import forms
 
 from event.forms import EventCreationFormAdmin, EventChangeFormAdmin
@@ -53,4 +53,4 @@ class EventAdmin(AdminChangeMixin):
     
     pass
     
-admin.site.register(Event, EventAdmin)
+register_model_admin(Event, EventAdmin)
