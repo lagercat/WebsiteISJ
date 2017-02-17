@@ -39,6 +39,12 @@
     <![endif]-->
     <link rel="stylesheet" type="text/css" href="/static/prism/prism.css">
     <script src="/static/prism/prism.js"></script>
+
+    <!--Google Maps-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ google_maps_key_api }}"></script>
+    <script type="text/javascript" src="/static/django_google_maps/js/google-maps-admin.js"></script>
+
   </head>
   <body>
 
@@ -283,7 +289,7 @@
   <!-- End footer -->
 
   <!-- jQuery library -->
-  <script src="{% static "assets/js/jquery.min.js" %}"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="{% static "assets/js/bootstrap.js" %}"></script>
   <!-- Slick slider -->
