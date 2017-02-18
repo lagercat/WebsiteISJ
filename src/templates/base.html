@@ -134,9 +134,9 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ name }}<span class="fa fa-angle-down"></span></a>
               <ul class="dropdown-menu" role="menu">
                 {% for subcategory in subcategories%}
-                <li><a href="{{subcategory.name}}">{{ subcategory.name}}</a></li>
+                <li><a href="/{{subcategory.name}}">{{ subcategory.name}}</a></li>
                 {% endfor %}
-                <li><a href="category/{{ name }}" style="color: #ac2925" >Accesati restul informatiilor </a></li>
+                <li><a href="/{{ name }}" style="color: #ac2925" >Accesati restul informatiilor </a></li>
               </ul>
             </li>
             {% endfor %}
