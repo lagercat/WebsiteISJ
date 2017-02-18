@@ -14,5 +14,6 @@ urlpatterns = [
   url(r'^', include('news.urls')),
   url(r'^', include('subject.urls')),
   url(r'^', include('event.urls')),
-  url(r'^', include('gallery.urls'))
+  url(r'^', include('gallery.urls')),
+  url(r'^', include('page.urls'))
 ]

@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+ <!-- Page breadcrumb -->
+ <section id="mu-page-breadcrumb">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-page-breadcrumb-area">
+           <h2>{{ name }}</h2>
+           <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">{{ name }}</li>
+          </ol>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+ <!-- End breadcrumb -->
+ <section id="mu-course-content">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-course-content-area">
+            <div class="row">
+              <div class="col-md-9">
+                <!-- start course content container -->
+                <div class="mu-course-container mu-blog-archive">
+                  <div class="row">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active">{{ name }}</a>
+                      {% if subcategories %}
+                      {% for subcategory in subcategories %}
+                        <a href="/{{ subcategory.name }}" class="list-group-item act">{{ subcategory.name }}</a>
+
+                      {% endfor %}
+                      {% else %}
+                      <a  class="list-group-item list-group-item-danger">Nu sunt informatii de afisat </a>
+                      {%endif%}
+
+
+                      </div>
+                  </div>
+                </div>
+                <!-- end course content container -->
+                <!-- start course pagination -->
+                <div class="mu-pagination">
+                  <nav>
+                    <ul class="pagination">
+                      <li>
+                        <a href="#" aria-label="Previous">
+                          <span class="fa fa-angle-left"></span> Prev
+                        </a>
+                      </li>
+                      <li class="active"><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">5</a></li>
+                      <li>
+                        <a href="#" aria-label="Next">
+                         Next <span class="fa fa-angle-right"></span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+                <!-- end course pagination -->
+              </div>
+              <div class="col-md-3">
+                <!-- start sidebar -->
+                <aside class="mu-sidebar">
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3>Categories</h3>
+                    <ul class="mu-sidebar-catg">
+                      <li><a href="#">Web Design</a></li>
+                      <li><a href="">Web Development</a></li>
+                      <li><a href="">Math</a></li>
+                      <li><a href="">Physics</a></li>
+                      <li><a href="">Camestry</a></li>
+                      <li><a href="">English</a></li>
+                    </ul>
+                  </div>
+                  <!-- end single sidebar -->
+                </aside>
+                <!-- / end sidebar -->
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+
+{% endblock %}

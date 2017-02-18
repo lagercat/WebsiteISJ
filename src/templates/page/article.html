@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+ <!-- Page breadcrumb -->
+ <section id="mu-page-breadcrumb">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-page-breadcrumb-area">
+           <h2>Article</h2>
+           <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">{{ name }}</li>
+          </ol>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+ <!-- End breadcrumb -->
+ <section id="mu-course-content">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-course-content-area">
+            <div class="row">
+              <div class="col-md-9">
+                <!-- start course content container -->
+                <div class="mu-course-container mu-blog-single">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <article class="mu-blog-single-item">
+                        <figure class="mu-blog-single-img">
+                          <a ><img alt="img" src= '{{thumbnail}}'></a>
+                          <figcaption class="mu-blog-caption">
+                            <h3><a href="#">{{ name }}</a></h3>
+                          </figcaption>
+                        </figure>
+                        <div class="mu-blog-meta">
+                          <a >By admin,</a>
+                          <a>{{ date }}</a>
+
+
+                        </div>
+                        <div class="mu-blog-description">
+                            <p>{{ text|safe }}</p>
+                          <!--<blockquote>-->
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas numquam quis obcaecati, a sed ad aut totam fugiat, cumque quasi!</p>-->
+                          <!--</blockquote>-->
+                          <!--<h1>Lorem ipsum dolor sit amet.</h1>-->
+                          <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam distinctio voluptatibus sequi sint, in. Soluta alias sunt, voluptates necessitatibus neque, perspiciatis, quos doloribus quae non tempore ut qui facere nulla.</p>-->
+                          <!--<h2>Lorem ipsum dolor sit amet, consectetur.</h2>-->
+                          <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus dolor totam architecto voluptatum, unde non ipsum officia adipisci, eos error, expedita corporis laudantium esse. Mollitia minus, molestias doloremque! Earum, fuga!</p>-->
+                          <!--<h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3>-->
+                          <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus omnis laudantium magni ut voluptatum, asperiores consequatur ducimus tempore enim possimus aliquid eius aliquam nam quasi itaque officiis debitis ad minima.</p>-->
+                          <!---->
+
+                        </div>
+
+
+                      </article>
+                    </div>
+                  </div>
+                </div>
+                <!-- end course content container -->
+                <!-- start blog navigation -->
+
+                <!-- end blog navigation -->
+
+
+              </div>
+              <div class="col-md-3">
+                <!-- start sidebar -->
+                <aside class="mu-sidebar">
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3>Categories</h3>
+                    <ul class="mu-sidebar-catg">
+                      <li><a href="#">Web Design</a></li>
+                      <li><a href="">Web Development</a></li>
+                      <li><a href="">Math</a></li>
+                      <li><a href="">Physics</a></li>
+                      <li><a href="">Camestry</a></li>
+                      <li><a href="">English</a></li>
+                    </ul>
+                  </div>
+                  <!-- end single sidebar -->
+                  <!-- start single sidebar -->
+                  {% if other_news %}
+                  <div class="mu-single-sidebar">
+                    <h3>Popular News</h3>
+                    {% for news in other_news %}
+                    <div class="mu-sidebar-popular-courses">
+                      <div class="media">
+                        <div class="media-left">
+                          <a href="/news/{{ news.slug }}">
+                            <img class="media-object" src= '{{ news.file.url }}' alt="img">
+                          </a>
+                        </div>
+                        <div class="media-body">
+                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.name }}</a></h4>
+                          <span class="popular-course-price">{{ news.date }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                  <!-- end single sidebar -->
+
+                </aside>
+                <!-- / end sidebar -->
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+
+  {% endblock %}
