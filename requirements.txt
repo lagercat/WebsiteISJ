@@ -11,4 +11,5 @@ django-google-maps
 pysolr
 Pillow
 psycopg2
+bokeh
 
