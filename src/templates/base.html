@@ -167,6 +167,7 @@
   </div>
   <!-- End search box -->
 
+
   {% block content %}
   {% endblock %}
 
@@ -177,41 +178,27 @@
       <div class="container">
         <div class="mu-footer-top-area">
           <div class="row">
+
+
+
+            {% for category in categories %}
             <div class="col-lg-3 col-md-3 col-sm-3">
               <div class="mu-footer-widget">
-                <h4>Elevi</h4>
+                <h4>{{ category.title }}</h4>
                 <ul>
-                  <li><a >Consiliere</a></li>
-                  <li><a >Interactiuni</a></li>
-                  <li><a >Transferuri</a></li>
-                  <li><a >Manuale scolare</a></li>
-                  <li><a>Diferite tipuri de invatamant</a>
+
+                  {% for subcategory in category.subcategories.all %}
+                  <li><a href="/{{subcategory.name}}">{{ subcategory.name}}</a></li>
+                  {% endfor %}
+                  {% for simple_page in category.simplepages.all %}
+                   <li><a href="/simple/{{ simple_page.name }}/{{simple_page.slug}}">{{ simple_page.name}}</a></li>
+                  {% endfor %}
+
 
                 </ul>
               </div>
             </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-3">
-              <div class="mu-footer-widget">
-                <h4>Relatii cu publicul</h4>
-                <ul>
-                  <li><a >Achizitii & licitatii</a></li>
-                  <li><a >Promovare proiecte</a></li>
-                  <li><a >Mediatizare proiecte</a></li>
-                  <li><a >Comunicari cu presa</a></li>
-                  <li><a>Galerie Foto</a>
-                </ul>
-              </div>
-            </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-3">
-              <div class="mu-footer-widget">
-                <h4>Legislatie</h4>
-                <ul>
-                  <li><a >Legea 544</a></li>
-                </ul>
-              </div>
-            </div>
+            {% endfor %}
 
 
 
