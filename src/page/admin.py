@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Article,Category,Subcategory
+from .models import Article, Category, Subcategory
 from utility.admin import AdminChangeMixin
 from page.forms import ArticleCreationFormAdmin, ArticleChangeFormAdmin
 from django.contrib.admin.filters import DateFieldListFilter
@@ -11,7 +11,7 @@ class ArticleAdmin(AdminChangeMixin):
     add_form = ArticleCreationFormAdmin
 
     icon = '<i class="material-icons">assignment</i>'
-    list_display = ['subcategory', 'short_name', 'author', 'fileLink', 'date',
+    list_display = ['short_name', 'subcategory', 'author', 'fileLink', 'date',
                     'slug']
     list_filter = (
         ('date', DateFieldListFilter),
@@ -25,7 +25,7 @@ class ArticleAdmin(AdminChangeMixin):
     )
 
     add_fieldsets = (
-        ('Page', {'fields': ('name','subcategory', 'date')}),
+        ('Page', {'fields': ('name', 'subcategory', 'date')}),
         ('Article content', {'fields': ('text', 'file')})
     )
 
@@ -49,6 +49,7 @@ class ArticleAdmin(AdminChangeMixin):
 
     pass
 
+
 class PageAdmin(admin.ModelAdmin):
     icon = '<i class="material-icons">chrome_reader_mode</i>'
     list_display = ['title']
@@ -61,6 +62,5 @@ class SubcategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, PageAdmin)
 admin.site.register(Subcategory, SubcategoryAdmin)
-
 
 admin.site.register(Article, ArticleAdmin)
