@@ -32,7 +32,7 @@
                     <div class="list-group">
                         <a href="#" class="list-group-item active">{{ name }}</a>
                       {% for subcategory in subcategories %}
-                        <a href="{{ subcategory.slug_sub}}" class="list-group-item act">{{ subcategory.name }}</a>
+                        <a href="/{{ subcategory.name }}" class="list-group-item act">{{ subcategory.name }}</a>
 
                       {% endfor %}
 
