@@ -7,11 +7,14 @@ from models import Category, Subcategory, Article, SimplePage
 def category(request, name):
     category_name = get_object_or_404(Category, title=name)
     subcategory = Subcategory.objects.all().filter(category=category_name)
+    simple_page = SimplePage.objects.all().filter(category=category_name)
+    print simple_page
     print subcategory
     return render(request, 'page/category.html',
                   {
                       'name': category_name,
                       'subcategories': subcategory,
+                      'simple_pages':simple_page,
                   })
 
 

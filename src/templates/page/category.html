@@ -31,11 +31,22 @@
                   <div class="row">
                     <div class="list-group">
                         <a href="#" class="list-group-item active">{{ name }}</a>
-                      {% if subcategories %}
+                      {% if subcategories or simple_pages  %}
+
+
                       {% for subcategory in subcategories %}
                         <a href="/{{ subcategory.name }}" class="list-group-item act">{{ subcategory.name }}</a>
 
                       {% endfor %}
+
+                      {% for page in simple_pages %}
+                        <a href="/simple/{{ page.name }}/{{ page.slug }}" class="list-group-item act">{{ page.name }}</a>
+
+                      <!--<li><a href="/simple/{{ simple_page.name }}/{{simple_page.slug}}">{{ simple_page.name}}</a></li>-->
+
+                      {% endfor %}
+
+
                       {% else %}
                       <a  class="list-group-item list-group-item-danger">Nu sunt informatii de afisat </a>
                       {%endif%}
