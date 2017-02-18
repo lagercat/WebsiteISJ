@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from news.models import News
 from event.models import Event
 from subject.models import Subject
@@ -14,7 +14,5 @@ def home(request):
     return render(request, template, {
         'noutati': noutati,
         'events': events,
-        'subjects':subjects,
-    },
-     context_instance=RequestContext(request))
-
+        'subjects': subjects,
+    })
