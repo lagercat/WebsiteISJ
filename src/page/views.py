@@ -46,6 +46,7 @@ def article_post(request,name, slug):
 
         'name': article[0].get('name'),
         'text': article[0].get('text'),
+        'date': article[0].get('date'),
         'thumbnail': "/media/" + article[0].get('file'),
 
     })
