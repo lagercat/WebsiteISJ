@@ -137,8 +137,9 @@
                 <li><a href="/{{subcategory.name}}">{{ subcategory.name}}</a></li>
                 {% endfor %}
                 {% for simple_page in category.simplepages.all %}
-                <li><a href="/{{subcategory.name}}">{{ simple_page.name}}</a></li>
+                <li><a href="/simple/{{ simple_page.name }}/{{simple_page.slug}}">{{ simple_page.name}}</a></li>
                 {% endfor %}
+                 <li><a href="/category/{{ category.title }}" style="color: #ac2925" >Accesati restul informatiilor </a></li>
               </ul>
             </li>
             {% endfor %}
