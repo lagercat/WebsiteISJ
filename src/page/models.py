@@ -34,7 +34,8 @@ class Category(models.Model):
 
 
 class Subcategory(models.Model):
-    category = models.ForeignKey(Category, null=True)
+    category = models.ForeignKey(Category, related_name='subcategories',
+                                 null=True)
     name = models.CharField(max_length=25, blank=False, null=True, unique=True)
     slug_sub = models.SlugField(default=uuid.uuid1, unique=True,
                                 editable=False)
@@ -78,7 +79,8 @@ class SimplePage(File):
         super(SimplePage, self).__init__(*args, **kwargs)
 
     text = HTMLField()
-    category = models.ForeignKey(Category, blank=False, null=False)
+    category = models.ForeignKey(Category, related_name='simplepages',
+                                 blank=False, null=False)
 
     REQUIRED = ['category', 'name', 'text', 'file', 'date']
 
