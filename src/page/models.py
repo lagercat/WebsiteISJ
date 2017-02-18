@@ -71,6 +71,28 @@ class Article(File):
         index_text = "Manage"
 
 
+class SimplePage(File):
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('location').default = "thumbnails/Article"
+        self._meta.get_field('file').label = "Thumbnail"
+        super(SimplePage, self).__init__(*args, **kwargs)
+
+    text = HTMLField()
+    category = models.ForeignKey(Category, blank=False, null=False)
+
+    REQUIRED = ['category', 'name', 'text', 'file', 'date']
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta(File.Meta):
+        abstract = False
+        verbose_name = "Simple page"
+        verbose_name_plural = "Simple pages"
+        index_text = "Manage"
+
+
+@receiver(pre_delete, sender=SimplePage)
 @receiver(pre_delete, sender=Article)
 def file_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
