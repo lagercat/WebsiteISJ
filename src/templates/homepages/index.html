@@ -232,7 +232,7 @@
               <div class="col-lg-4 col-md-4 col-xs-12">
                 <div class="mu-latest-course-single">
                   <figure class="mu-latest-course-img">
-                    <a ><img src= '{{ event.file.url }}' alt="img"></a>
+                    <a ><img style="max-width: 400px;max-height: 180px" src= '{{ event.file.url }}' alt="img"></a>
                     <figcaption class="mu-latest-course-imgcaption">
                       <a href="/event/{{ event.slug }}" >{{ event.name }}</a>
                       <span><i class="fa fa-clock-o"></i>{{ event.date }}</span>
@@ -297,7 +297,7 @@
                 <div class="col-md-4 col-sm-4">
                   <article class="mu-blog-single-item">
                     <figure class="mu-blog-single-img">
-                      <a href="#"><img style="max-width: 70%" src= '{{ news.file.url }}' alt="img"></a>
+                      <a href="#"><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
                       <figcaption class="mu-blog-caption">
                         <h3><a href="#">{{ news.name }}</a></h3>
                       </figcaption>
