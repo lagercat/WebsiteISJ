@@ -178,9 +178,54 @@
   <!-- Start footer -->
   <footer id="mu-footer">
     <!-- start footer top -->
-    <section id="contact" class="map">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2784.011725417368!2d21.225896215567108!3d45.75091087910542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47455d819bdae2db%3A0xa19c4c02eafe567b!2sInspectoratul+%C8%98colar+Jude%C8%9Bean+Timi%C8%99!5e0!3m2!1sro!2sro!4v1487627644596" width="1500" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
-    </section>
+    <div class="mu-footer-top">
+      <div class="container">
+        <div class="mu-footer-top-area">
+          <div class="row">
+
+
+
+            {% for category in categories %}
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="mu-footer-widget">
+                <h4>{{ category.title }}</h4>
+                <ul>
+
+                  {% for subcategory in category.subcategories.all %}
+                  <li><a href="/{{subcategory.name}}">{{ subcategory.name}}</a></li>
+                  {% endfor %}
+                  {% for simple_page in category.simplepages.all %}
+                   <li><a href="/simple/{{ simple_page.name }}/{{simple_page.slug}}">{{ simple_page.name}}</a></li>
+                  {% endfor %}
+
+
+                </ul>
+              </div>
+            </div>
+            {% endfor %}
+
+
+
+
+
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="mu-footer-widget">
+                <h4>Contact</h4>
+                <address>
+                  <p>Bulevardul C. D. Loga nr. 3, Timisoara, 300020</p>
+                  <p>Phone: 0256-305799 </p>
+                  <p>Website: www.isj.tm.edu.ro</p>
+                  <p>Email:mail.isj.timis@gmail.com </p>
+                </address>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- end footer top -->
     <!-- start footer bottom -->
     <div class="mu-footer-bottom">
