@@ -86,12 +86,11 @@
                   <div class="mu-single-sidebar">
                     <h3>Categories</h3>
                     <ul class="mu-sidebar-catg">
-                      <li><a href="#">Web Design</a></li>
-                      <li><a href="">Web Development</a></li>
-                      <li><a href="">Math</a></li>
-                      <li><a href="">Physics</a></li>
-                      <li><a href="">Camestry</a></li>
-                      <li><a href="">English</a></li>
+                       <li><a href="/">Acasa</a></li>
+                      <li><a href="/album">Galerie</a></li>
+                      {% for category in categories %}
+                      <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
+                      {% endfor %}
                     </ul>
                   </div>
                   <!-- end single sidebar -->

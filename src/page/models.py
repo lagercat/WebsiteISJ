@@ -34,7 +34,8 @@ class Category(models.Model):
 
 
 class Subcategory(models.Model):
-    category = models.ForeignKey(Category, null=True)
+    category = models.ForeignKey(Category, related_name='subcategories',
+                                 null=True)
     name = models.CharField(max_length=25, blank=False, null=True, unique=True)
     slug_sub = models.SlugField(default=uuid.uuid1, unique=True,
                                 editable=False)
@@ -71,6 +72,29 @@ class Article(File):
         index_text = "Manage"
 
 
+class SimplePage(File):
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('location').default = "thumbnails/Article"
+        self._meta.get_field('file').label = "Thumbnail"
+        super(SimplePage, self).__init__(*args, **kwargs)
+
+    text = HTMLField()
+    category = models.ForeignKey(Category, related_name='simplepages',
+                                 blank=False, null=False)
+
+    REQUIRED = ['category', 'name', 'text', 'file', 'date']
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta(File.Meta):
+        abstract = False
+        verbose_name = "Simple page"
+        verbose_name_plural = "Simple pages"
+        index_text = "Manage"
+
+
+@receiver(pre_delete, sender=SimplePage)
 @receiver(pre_delete, sender=Article)
 def file_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
