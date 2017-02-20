@@ -185,31 +185,24 @@
 
 
 
-            {% for category in categories %}
-            <div class="col-lg-3 col-md-3 col-sm-3">
-              <div class="mu-footer-widget">
-                <h4>{{ category.title }}</h4>
-                <ul>
 
-                  {% for subcategory in category.subcategories.all %}
-                  <li><a href="/{{subcategory.name}}">{{ subcategory.name}}</a></li>
-                  {% endfor %}
-                  {% for simple_page in category.simplepages.all %}
-                   <li><a href="/simple/{{ simple_page.name }}/{{simple_page.slug}}">{{ simple_page.name}}</a></li>
-                  {% endfor %}
-
-
-                </ul>
+              <div class="col-md-4 col-sm-4">
+                               <input id="id_address" name="address" type="hidden" value="Bulevardul Constantin Diaconovici Loga 3, Timișoara 300020, România">
+                                          <input id="id_geolocation" name="geolocation" type="hidden" value="45.7509109,21.2280849">
+                                          <div id='map_container' class='row ' style="width: 100% ">
+                                                  <div class='col s12' >
+                                                      <div id='map_canvas' style='padding-top: 56.25%; width: 100%'></div>
+                                                  </div>
+                                              </div>
               </div>
-            </div>
-            {% endfor %}
 
+<div class="col-md-3 col-sm-3" >
+  <img src="{% static "assets/img/logo.png" %}" alt="logo" style="width:120px; padding: 2px;"/>
 
-
-
-
+</div>
 
             <div class="col-lg-3 col-md-3 col-sm-3">
+
               <div class="mu-footer-widget">
                 <h4>Contact</h4>
                 <address>
