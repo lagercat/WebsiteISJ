@@ -7,7 +7,8 @@ from .models import Contact
 
 class CreateContactForm(forms.ModelForm):
 
-    captcha = ReCaptchaField()
+    captcha = ReCaptchaField(attrs={
+  'lang' : 'ro'})
 
     class Meta:
         model = Contact
