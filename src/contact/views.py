@@ -9,7 +9,7 @@ from .forms import CreateContactForm
 
 
 @login_required
-def contact_us(request):
+def contact(request):
     confirm = []
     form = CreateContactForm(request.POST or None)
     if request.method == 'POST':
