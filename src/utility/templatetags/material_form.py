@@ -186,7 +186,6 @@ class FormPartNode(Node):
     def render(self, context):  # noqa D102
         part = self.resolve_part(context)
         parts = context['form_parts']
-        print parts
         if self.section in parts[part]:
             # already rendered
             if self.varname is not None:

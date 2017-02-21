@@ -9,7 +9,8 @@ class AdminChangeMixin(admin.ModelAdmin):
         """
         return {
             "change" : self.has_perm(request.user, "change"), 
-            "change_own" : self.has_perm(request.user, "change_own")
+            "change_own" : self.has_perm(request.user, "change_own"),
+            "delete" : self.has_perm(request.user, "change"), 
         }
       
     def has_perm(self, user, permission):
@@ -24,10 +25,10 @@ class AdminChangeMixin(admin.ModelAdmin):
         return True
 
     def has_add_permission(self, request, obj=None):
-        return True
+        return self.has_perm(request.user, "change") or self.has_perm(request.user, "change_own")
 
     def has_delete_permission(self, request, obj=None):
-        return True
+        return self.has_perm(request.user, "change") or self.has_perm(request.user, "change_own")
 
     def has_change_permission(self, request, obj=None):
         """
@@ -77,7 +78,6 @@ class AdminViewMixin(admin.ModelAdmin):
         """
         Return empty perms dict thus hiding the model from admin index.
         """
-        print self.has_perm(request.user, "change")
         return {
             "view" : self.has_perm(request.user, "view") and not self.has_perm(request.user, "change"), 
         }

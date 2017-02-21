@@ -10,7 +10,7 @@ class CustomPermissionsMixin(models.Model):
     """
     class Meta:
         abstract = True
-        default_permissions = ('change', 'view', 'change_own')
+        default_permissions = ('change', 'view', 'change_own', 'delete')
         
 def make_view_proxy(model):
     class Meta(model.Meta):
