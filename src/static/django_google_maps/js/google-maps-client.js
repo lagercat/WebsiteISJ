@@ -70,8 +70,6 @@ function googleMapAdmin() {
                     map.setZoom(18);
 
                     self.setMarker(latlng);
-                    self.updateGeolocation(latlng);
-                    self.updateAddress(address);
                 } else {
                     $("#id_geolocation")
                         .val("Invalid address or no results");
@@ -92,33 +90,10 @@ function googleMapAdmin() {
                 map: map,
                 position: Options.latlng
             });
-
-            var draggable = Options.draggable || false;
-            if (draggable) {
-                self.addMarkerDrag(marker);
-            }
-        },
-
-        addMarkerDrag: function() {
-            marker.setDraggable(true);
-            google.maps.event.addListener(marker, 'dragend', function(new_location) {
-                self.updateGeolocation(new_location.latLng);
-                $("#id_geolocation").trigger("change");
-            });
-        },
-
-        updateMarker: function(latlng) {
-            marker.setPosition(latlng);
-        },
-
-        updateGeolocation: function(latlng) {
-            $("#id_geolocation")
-                .val(latlng.lat() + "," + latlng.lng());
         },
         
-        updateAddress: function(address) {
-            $("#id_address")
-                .val(address);
+        updateMarker: function(latlng) {
+            marker.setPosition(latlng);
         },
         
         decodeAdress: function() {
@@ -134,9 +109,9 @@ function googleMapAdmin() {
                     map.setZoom(18);
 
                     self.setMarker(latlng);
-                    self.updateGeolocation(latlng);
-                    self.updateAddress(address);
                 } else {
+                    $("#id_address")
+                        .val("Invalid geolocation");
                 }
             });
         }
