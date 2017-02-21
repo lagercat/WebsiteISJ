@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load widget_tweaks %}
 {% block content %}
 
  <!-- Page breadcrumb -->
@@ -37,26 +38,141 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="mu-contact-left">
-                  <form class="contactform">                  
-                    <p class="comment-form-author">
-                      <label for="author">Name <span class="required">*</span></label>
-                      <input type="text" required="required" size="30" value="" name="author">
-                    </p>
-                    <p class="comment-form-email">
-                      <label for="email">Email <span class="required">*</span></label>
-                      <input type="email" required="required" aria-required="true" value="" name="email">
-                    </p>
-                    <p class="comment-form-url">
-                      <label for="subject">Subject</label>
-                      <input type="text" name="subject">  
-                    </p>
-                    <p class="comment-form-comment">
-                      <label for="comment">Message</label>
-                      <textarea required="required" aria-required="true" rows="8" cols="45" name="comment"></textarea>
-                    </p>                
-                    <p class="form-submit">
-                      <input type="submit" value="Send Message" class="mu-post-btn" name="submit">
-                    </p>        
+                  <form class="contactform" method="POST">
+                    {% csrf_token %}
+
+                                         {% if confirm %}
+				                           <div  class="alert alert-success fade in" id="input-alert">
+                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        <strong >
+                                                            {% for message in confirm %}
+		                                                {{ message }}
+				                                        {% endfor %} !
+                                                        </strong>
+
+                                                            </div>
+                                         {% endif %}
+
+
+
+
+                     {% for field in form %}
+
+                                        {% if  field.label == 'First name' %}
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">First Name</label>
+                                            {{ field|add_class:"form-control"|add_class:"comment-form-author"|attr:"placeholder:Enter your first name"|attr:"required:required"|attr:"id=exampleInputEmail1"}}
+                                        </div>
+                                        {% if field.errors %}
+                                                        <div class="alert alert-danger fade in" id="input-alert">
+                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        <strong>Warning!</strong>
+				                                        {% for error in field.errors %}
+				                                                {{ error }}
+				                                        {% endfor %}
+                                                            </div>
+                                                            {% endif %}
+
+                                       {% elif  field.label == 'Last name' %}
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Last Name</label>
+                                            {{ field|add_class:"form-control"|add_class:"comment-form-author"|attr:"placeholder:Enter your last name"|attr:"required:required"|attr:"id=exampleInputEmail1"}}
+                                        </div>
+
+                                        {% if field.errors %}
+                                                        <div class="alert alert-danger fade in" id="input-alert">
+                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        <strong>Warning!</strong>
+				                                        {% for error in field.errors %}
+				                                                {{ error }}
+				                                        {% endfor %}
+                                                            </div>
+                                                            {% endif %}
+
+                                        {% elif  field.label == 'Email' %}
+
+
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">E-mail</label>
+                                            {{ field|add_class:"form-control"|add_class:"comment-form-email"|attr:"placeholder:Enter  your e-mail "|attr:"required:required"}}
+                                        </div>
+
+                                        {% if field.errors %}
+                                                        <div class="alert alert-danger fade in" id="input-alert">
+                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        <strong>Warning!</strong>
+				                                        {% for error in field.errors %}
+				                                                {{ error }}
+				                                        {% endfor %}
+                                                            </div>
+                                                            {% endif %}
+
+                    {% elif  field.label == 'Subject' %}
+
+
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Subject</label>
+                                            {{ field|add_class:"form-control"|add_class:"comment-form-email"|attr:"placeholder:Enter a subject "|attr:"required:required"}}
+                                        </div>
+
+                                        {% if field.errors %}
+                                                        <div class="alert alert-danger fade in" id="input-alert">
+                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        <strong>Warning!</strong>
+				                                        {% for error in field.errors %}
+				                                                {{ error }}
+				                                        {% endfor %}
+                                                            </div>
+                                                            {% endif %}
+
+                                    {% elif  field.label == 'Message' %}
+
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Message</label>
+                                            <div>
+
+                                                 {{ field|add_class:"form-control"|add_class:"comment-form-comment"|attr:"placeholder:Enter your message "|attr:"required:required"}}
+                                            </div>
+                                        </div>
+
+                                        {% if field.errors %}
+                                                        <div class="alert alert-danger fade in" id="input-alert">
+                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        <strong>Warning!</strong>
+				                                        {% for error in field.errors %}
+				                                                {{ error }}
+				                                        {% endfor %}
+                                                            </div>
+                                                            {% endif %}
+                                        {% else %}
+
+
+                                        {{ field.label }}
+
+                                         {{ field|add_class:"form-control "|attr:"placeholder"|attr:"required:required"}}
+                                           {% if field.errors %}
+                                                        <div class="alert alert-danger fade in" id="input-alert">
+                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        <strong>Warning!</strong>
+				                                        {% for error in field.errors %}
+				                                                {{ error }}
+				                                        {% endfor %}
+                                                            </div>
+                                                            {% endif %}
+
+
+
+                                     {% endif %}
+                                     {% endfor %}
+
+                    <button type="submit" class="btn btn-default">Submit</button>
+
+
+
+
                   </form>
                 </div>
               </div>
