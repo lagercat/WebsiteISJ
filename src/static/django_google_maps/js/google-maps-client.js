@@ -45,7 +45,7 @@ function googleMapAdmin() {
             var myOptions = {
               zoom: zoom,
               center: latlng,
-              mapTypeId: google.maps.MapTypeId.HYBRID
+              mapTypeId: google.maps.MapTypeId.MAP
             };
             map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
             if (existinglocation) {

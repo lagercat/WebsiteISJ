@@ -35,7 +35,6 @@ def add_gallery(request):
         json_dict = {}
         if(request.POST["name"] == ""):
             json_dict["name"] = "This field is required."
-        print request.POST
         file = None
         if request.FILES.get("file"):
             file = request.FILES["file"]
