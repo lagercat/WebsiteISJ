@@ -15,5 +15,6 @@ urlpatterns = [
   url(r'^', include('subject.urls')),
   url(r'^', include('event.urls')),
   url(r'^', include('gallery.urls')),
+  url(r'^', include('contact.urls')),
   url(r'^', include('page.urls'))
 ]

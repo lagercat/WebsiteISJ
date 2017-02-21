@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'utility',
     'news',
     'gallery',
+    'contact',
     'page'
 ]
 
