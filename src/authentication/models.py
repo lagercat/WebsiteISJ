@@ -84,6 +84,10 @@ class ExtendedUser(AbstractBaseUser):
     return self.first_name + " " + self.last_name
 
   def has_perm(self, perm, obj=None):
+    if perm == "frontend.view_module":
+      return True
+    if perm == "frontend.change_module":
+      return False
     if self.status == 3:
       return True
     elif self.status == 0:

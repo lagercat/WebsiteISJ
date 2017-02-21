@@ -56,7 +56,7 @@
 </script>
 {% endblock %}
 
-{% block brand-logo %}{{ cl.opts.verbose_name_plural|title }}{% endblock %}
+{% block brand-logo %}{% if title %}{{ title }}{% else %}{{ cl.opts.verbose_name_plural|title }}{% endif %}{% endblock %}
 
 {% block breadcrumbs_items %}
 <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>

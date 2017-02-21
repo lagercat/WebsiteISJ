@@ -10,6 +10,8 @@ from forms import ExtendedUserChangeFormAdmin, ExtendedUserCreationFormAdmin
 
 from models import ExtendedUser
 from material.frontend import models
+from utility.admin import register_module_admin, register_module_admin
+from material.frontend.admin import ModuleAdmin
 
 class ExtendedUserAdmin(BaseUserAdmin):
     form = ExtendedUserChangeFormAdmin
@@ -51,3 +53,4 @@ admin.site.register(ExtendedUser, ExtendedUserAdmin)
 
 admin.site.unregister(Group)
 admin.site.unregister(models.Module)
+register_module_admin()

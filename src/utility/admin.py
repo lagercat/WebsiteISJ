@@ -1,6 +1,7 @@
 from django.contrib import admin
 from config import settings
-from .models import make_view_proxy
+from .models import make_view_proxy, ModuleProxy
+from material.frontend.admin import ModuleAdmin
 
 class AdminChangeMixin(admin.ModelAdmin): 
     def get_model_perms(self, request):
@@ -60,8 +61,16 @@ class AdminChangeMixin(admin.ModelAdmin):
             Disable buttons for `viewers` in `change_view`
         """
         extra_context = extra_context or {}
+        extra_context['change'] = True
         extra_context['google_maps_api_key'] = settings.GOOGLE_MAPS_API_KEY
         return super(AdminChangeMixin, self).change_view(request, object_id, extra_context=extra_context)
+      
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['title'] = self.get_form(request, None).Meta.model._meta.verbose_name_plural
+        if self.has_perm(request.user, 'change_own') and not self.has_perm(request.user, 'change'):
+            extra_context['title'] = "Owned " + self.get_form(request, None).Meta.model._meta.verbose_name_plural
+        return super(AdminChangeMixin, self).changelist_view(request, extra_context=extra_context)
       
     def get_actions(self, request):
         actions = super(AdminChangeMixin, self).get_actions(request)
@@ -122,22 +131,30 @@ class AdminViewMixin(admin.ModelAdmin):
         
         return all_model_fields
 
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['title'] = self.get_form(request, None).Meta.model._meta.verbose_name_plural
+        return super(AdminViewMixin, self).changelist_view(request, extra_context=extra_context)
 
     def change_view(self, request, object_id, extra_context=None):
         """
             Disable buttons for `viewers` in `change_view`
         """
         extra_context = extra_context or {}
+        extra_context['change'] = False
+        extra_context['view'] = True
         extra_context['show_save'] = False
         extra_context['show_save_and_continue'] = False
         extra_context['show_save_and_add_another'] = False
         extra_context['show_delete_link'] = False
+        extra_context['title'] = "View " + self.get_form(request, object_id).Meta.model._meta.verbose_name
         extra_context['google_maps_api_key'] = settings.GOOGLE_MAPS_API_KEY
         return super(AdminViewMixin, self).change_view(request, object_id, extra_context=extra_context)
-      
+    
     def get_actions(self, request):
         actions = super(AdminViewMixin, self).get_actions(request)
-        del actions['delete_selected']
+        if actions.get('delete_selected', False):
+            del actions['delete_selected']
         return actions
       
 def make_view_admin(admin):   
@@ -149,3 +166,7 @@ def make_view_admin(admin):
 def register_model_admin(model, model_admin):
     admin.site.register(model, model_admin)
     admin.site.register(make_view_proxy(model), make_view_admin(model_admin))
+    
+def register_module_admin():
+    print ModuleProxy.__name__
+    admin.site.register(ModuleProxy, make_view_admin(ModuleAdmin))

@@ -9,8 +9,7 @@ from post.models import File
 from tinymce.models import HTMLField
 
 from django.db import models
-from django.core.urlresolvers import reverse
-
+from utility.models import CustomPermissionsMixin
 
 def user_directory_path(instance, filename):
     filename, file_extension = os.path.splitext(filename)
@@ -18,7 +17,14 @@ def user_directory_path(instance, filename):
 
 
 # Create your models here.
-class Category(models.Model):
+class Category(CustomPermissionsMixin):
+    class Meta(CustomPermissionsMixin.Meta):
+        get_latest_by = 'title'
+        abstract = False
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+        index_text = "Manage"
+        
     title = models.CharField(max_length=20, blank=False, null=True,
                              unique=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
@@ -26,14 +32,10 @@ class Category(models.Model):
     def __unicode__(self):
         return self.title
 
-    class Meta():
-        get_latest_by = 'tile'
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
-        index_text = "Manage"
+    
 
 
-class Subcategory(models.Model):
+class Subcategory(CustomPermissionsMixin):
     category = models.ForeignKey(Category, related_name='subcategories',
                                  null=True)
     name = models.CharField(max_length=25, blank=False, null=True, unique=True)
@@ -43,10 +45,11 @@ class Subcategory(models.Model):
     def __unicode__(self):
         return self.name
 
-    class Meta():
-        get_latest_by = 'name'
-        verbose_name = 'Subcategory'
-        verbose_name_plural = 'Subcategories'
+    class Meta(CustomPermissionsMixin.Meta):
+        get_latest_by = 'title'
+        abstract = False
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
         index_text = "Manage"
 
 
