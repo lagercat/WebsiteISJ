@@ -75,17 +75,23 @@
                 <div class="mu-header-top-right">
                   <nav>
                     <ul class="mu-top-social-nav">
-                      {% if  request.user.is_authenticated %}
-                      <li><a href="/logout"><span class="btn btn-sm btn-primary">Sign out</span></a></li>
-                      {% else %}
-                       <li><a href="/login"><span class="btn btn-sm btn-primary">Login </span></a></li>
-                      {% endif %}
+                      <a href="/contact">
+                      <button type="button" class="btn btn-info">Contact</button>
+                      </a>
+
                       <li><a href="#"><span class="fa fa-facebook"></span></a></li>
                       <li><a href="#"><span class="fa fa-twitter"></span></a></li>
                       <li><a href="#"><span class="fa fa-google-plus"></span></a></li>
                       <li><a href="#"><span class="fa fa-linkedin"></span></a></li>
                       <li><a href="#"><span class="fa fa-youtube"></span></a></li>
+                      {% if  request.user.is_authenticated %}
+                      <li><a href="/logout"><span class="btn btn-danger">Sign out</span></a></li>
+                      {% else %}
+                       <li><a href="/login"><span class="btn btn-success">Login </span></a></li>
+                      {% endif %}
                     </ul>
+
+
                   </nav>
                 </div>
               </div>
