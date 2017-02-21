@@ -42,9 +42,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'prism/prism.css' %}">
         <script type="text/javascript" src="{% static 'prism/prism.js' %}"></script>
         
-        <!-- <link rel="stylesheet" type="text/css" href="{% static 'django_google_maps/css/google-maps-admin.css' %}">
-        <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ google_maps_api_key }}"></script>
-        <script type="text/javascript" src="{% static 'django_google_maps/js/google-maps-admin.js' %}"></script> -->
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ google_maps_api_key }}&libraries=places"></script>
     </head>
     <body class="{% if is_popup %}popup{% endif %}">
         <header>

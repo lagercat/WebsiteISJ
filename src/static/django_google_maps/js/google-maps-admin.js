@@ -21,6 +21,55 @@ This script expects:
 
 */
 
+function enter_press(e){
+                if(e.keyCode == 13){
+                    console.log("Hello");
+                    search($('#searchbar').val());
+                }
+            }
+
+function initAutocomplete() {
+  // Create the autocomplete object, restricting the search to geographical
+  // location types.
+  autocomplete = new google.maps.places.Autocomplete(
+      (document.getElementById('id_address')),
+      {types: ['geocode']});
+
+  // When the user selects an address from the dropdown, populate the address
+  // fields in the form.
+  $("#id_address").attr({"placeholder": ""});
+  autocomplete.addListener('place_changed', fillInAddress);
+  $("#address-search-button").on("click", function(){
+      fillInAddress();
+  });
+}
+
+function fillInAddress() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+    document.getElementById("id_address").value = place.formatted_address;
+    googlemap.updateGeolocation(place.geometry.location);
+    googlemap.centerMarker(place.geometry.location);
+}
+
+function geolocate() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var geolocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      var circle = new google.maps.Circle({
+        center: geolocation,
+        radius: position.coords.accuracy
+      });
+      autocomplete.setBounds(circle.getBounds());
+    });
+  }
+}
+
+
+
 function googleMapAdmin() {
 
     var geocoder = new google.maps.Geocoder();
@@ -51,6 +100,11 @@ function googleMapAdmin() {
             if (existinglocation) {
                 self.setMarker(latlng);
             }
+            
+            $("#id_address").on("change", function(){
+                  self.codeAddress();
+            });
+            $("#id_geolocation").change(function() {self.decodeAdress();});
         },
 
         getExistingLocation: function() {
@@ -77,6 +131,13 @@ function googleMapAdmin() {
                         .val("Invalid address or no results");
                 }
             });
+        },
+        
+        centerMarker: function(latlng){
+            map.setCenter(latlng);
+            map.setZoom(18);
+
+            self.setMarker(latlng);
         },
 
         setMarker: function(latlng) {
@@ -145,8 +206,13 @@ function googleMapAdmin() {
 
     return self;
 }
-
+var googlemap;
 $(document).ready(function() {
-    var googlemap = googleMapAdmin();
+    initAutocomplete();
+    googlemap = googleMapAdmin();
+    $("#id_address").after('\
+        <a id="address-search-button" style="z-index: 1000;position: absolute;right: 15px;top: 15px;"><i class="material-icons" style="font-size: 18px;">search</i></a>\
+    ');
     googlemap.initialize();
+    
 });
