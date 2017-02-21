@@ -63,14 +63,14 @@ class AdminChangeMixin(admin.ModelAdmin):
         extra_context = extra_context or {}
         extra_context['change'] = True
         extra_context['google_maps_api_key'] = settings.GOOGLE_MAPS_API_KEY
-        return super(AdminChangeMixin, self).change_view(request, object_id, extra_context=extra_context)
+        return admin.ModelAdmin.change_view(self, request, object_id, extra_context=extra_context)
       
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
         extra_context['title'] = self.get_form(request, None).Meta.model._meta.verbose_name_plural
         if self.has_perm(request.user, 'change_own') and not self.has_perm(request.user, 'change'):
             extra_context['title'] = "Owned " + self.get_form(request, None).Meta.model._meta.verbose_name_plural
-        return super(AdminChangeMixin, self).changelist_view(request, extra_context=extra_context)
+        return admin.ModelAdmin.changelist_view(self, request, extra_context=extra_context)
       
     def get_actions(self, request):
         actions = super(AdminChangeMixin, self).get_actions(request)
@@ -134,7 +134,7 @@ class AdminViewMixin(admin.ModelAdmin):
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
         extra_context['title'] = self.get_form(request, None).Meta.model._meta.verbose_name_plural
-        return super(AdminViewMixin, self).changelist_view(request, extra_context=extra_context)
+        return admin.ModelAdmin.changelist_view(self, request, extra_context=extra_context)
 
     def change_view(self, request, object_id, extra_context=None):
         """
@@ -149,7 +149,7 @@ class AdminViewMixin(admin.ModelAdmin):
         extra_context['show_delete_link'] = False
         extra_context['title'] = "View " + self.get_form(request, object_id).Meta.model._meta.verbose_name
         extra_context['google_maps_api_key'] = settings.GOOGLE_MAPS_API_KEY
-        return super(AdminViewMixin, self).change_view(request, object_id, extra_context=extra_context)
+        return admin.ModelAdmin.change_view(self, request, object_id, extra_context=extra_context)
     
     def get_actions(self, request):
         actions = super(AdminViewMixin, self).get_actions(request)

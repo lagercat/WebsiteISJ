@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
         {% block favicon %}<link href="{% static 'material/imgs/favicon.png' %}" rel="shortcut icon">{% endblock %}
-        <title>{% block title %}{% endblock %}</title>
+        <title>{% block title %}{{ title }}{% endblock %}</title>
         {% block css %}
         {% include 'admin/includes/material_css.html' %}
         {% block extrastyle %}
