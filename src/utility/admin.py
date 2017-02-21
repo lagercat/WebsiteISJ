@@ -10,7 +10,7 @@ class AdminChangeMixin(admin.ModelAdmin):
         return {
             "change" : self.has_perm(request.user, "change"), 
             "change_own" : self.has_perm(request.user, "change_own"),
-            "delete" : self.has_perm(request.user, "change"), 
+            "delete" : self.has_perm(request.user, "delete"), 
         }
       
     def has_perm(self, user, permission):
@@ -28,7 +28,7 @@ class AdminChangeMixin(admin.ModelAdmin):
         return self.has_perm(request.user, "change") or self.has_perm(request.user, "change_own")
 
     def has_delete_permission(self, request, obj=None):
-        return self.has_perm(request.user, "change") or self.has_perm(request.user, "change_own")
+        return self.has_perm(request.user, "delete")
 
     def has_change_permission(self, request, obj=None):
         """

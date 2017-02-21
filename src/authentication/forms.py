@@ -3,6 +3,7 @@ from django import forms
 from models import ExtendedUser
 
 from captcha.fields import ReCaptchaField
+from subject.models import Subject
 
 
 class LoginForm(forms.Form):
@@ -10,10 +11,10 @@ class LoginForm(forms.Form):
         attrs={'lang': 'ro'}
     )
 
-    username = forms.CharField(max_length=30, label="Email",
+    username = forms.CharField(max_length=30, label="username",
                                widget=forms.TextInput(attrs={
                                    'required': 'required',
-                                   'placeholder': 'Email'
+                                   'placeholder': 'username'
                                }))
     password = forms.CharField(max_length=100, label="Parola",
                                widget=forms.PasswordInput(attrs={
@@ -71,10 +72,11 @@ class ResetPasswordForm(forms.Form):
 class ExtendedUserCreationFormAdmin(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    subjects = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple(attrs={"multiple": "multiple"}), queryset=Subject.objects.all(), required=False)
 
     class Meta:
         model = ExtendedUser
-        fields = ('first_name', 'last_name', 'email', 'phone_number', 'date_of_birth', 'school', 'subjects', 'status')
+        fields = ('first_name', 'last_name', 'username', 'phone_number', 'date_of_birth', 'school', 'status')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -89,18 +91,20 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
         user = super(ExtendedUserCreationFormAdmin, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         user.is_admin = (user.status == 3)
+        user.subjects = self.cleaned_data["subjects"]
         if commit:
             user.save()
         return user
 
 
 class ExtendedUserChangeFormAdmin(forms.ModelForm):
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput, required = False)
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput, required = False)
+    subjects = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple(attrs={"multiple": "multiple"}), queryset=Subject.objects.all(), required= False)
 
     class Meta:
         model = ExtendedUser
-        fields = ('email', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'is_active', 'subjects', 'status')
+        fields = ('username', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'is_active', 'status')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -113,8 +117,10 @@ class ExtendedUserChangeFormAdmin(forms.ModelForm):
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super(ExtendedUserChangeFormAdmin, self).save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
+        if self.cleaned_data["password1"]:
+            user.set_password(self.cleaned_data["password1"])
         user.is_admin = user.status == 3
+        user.subjects = self.cleaned_data["subjects"]
         if commit:
             user.save()
         return user
