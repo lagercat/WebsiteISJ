@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+ <!-- Page breadcrumb -->
+ <section id="mu-page-breadcrumb">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-page-breadcrumb-area">
+           <h2>Scolile din Judetul Timis</h2>
+           <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">Scolile</li>
+          </ol>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+ <!-- End breadcrumb -->
+ <section id="mu-course-content">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-course-content-area">
+            <div class="row">
+              <div class="col-md-9">
+                <!-- start course content container -->
+                <div class="mu-course-container mu-blog-archive">
+                  <div class="row">
+
+                    {% if news_all %}
+                    {% for news in news_all %}
+                    <div class="col-md-6 col-sm-6">
+                      <article class="mu-blog-single-item">
+                        <figure class="mu-blog-single-img">
+                          <a href="#"><img style="width: 400px;height: 200px" src= '{{ news.file.url }}'alt="img"></a>
+                          <figcaption class="mu-blog-caption">
+                            <h3><a href="/news/{{ news.slug }}">{{ news.name }}</a></h3>
+                          </figcaption>                      
+                        </figure>
+                        <div class="mu-blog-description">
+
+                          <a class="mu-read-more-btn" href="/news/{{ news.slug }}">Read More</a>
+                        </div>
+                      </article>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <h3>Nu sunt informatii de afisat ! </h3>
+                    {% endif %}
+                  </div>
+                </div>
+                <!-- end course content container -->
+                <!-- start course pagination -->
+                <div class="mu-pagination">
+                  <nav>
+                    <ul class="pagination">
+                      <li>
+                        <a href="#" aria-label="Previous">
+                          <span class="fa fa-angle-left"></span> Prev 
+                        </a>
+                      </li>
+                      <li class="active"><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">5</a></li>
+                      <li>
+                        <a href="#" aria-label="Next">
+                         Next <span class="fa fa-angle-right"></span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+                <!-- end course pagination -->
+              </div>
+              <div class="col-md-3">
+                <!-- start sidebar -->
+                <aside class="mu-sidebar">
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3>Categories</h3>
+                    <ul class="mu-sidebar-catg">
+                       <li><a href="/">Acasa</a></li>
+                      <li><a href="/album">Galerie</a></li>
+                      {% for category in categories %}
+                      <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  <!-- end single sidebar -->
+                  <!-- start single sidebar -->
+                   {% if news_all %}
+                  <div class="mu-single-sidebar">
+                    <h3>Popular News</h3>
+                    {% for news in news_all %}
+                    <div class="mu-sidebar-popular-courses">
+                      <div class="media">
+                        <div class="media-left">
+                          <a href="/news/{{ news.slug }}">
+                            <img class="media-object" src= '{{ news.file.url }}' alt="img">
+                          </a>
+                        </div>
+                        <div class="media-body">
+                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.name }}</a></h4>
+                          <span class="popular-course-price">{{ news.date }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                  <!-- end single sidebar -->
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3>Archives</h3>
+                    <ul class="mu-sidebar-catg mu-sidebar-archives">
+                      <li><a href="#">May <span>(25)</span></a></li>
+                      <li><a href="">June <span>(35)</span></a></li>
+                      <li><a href="">July <span>(20)</span></a></li>
+                      <li><a href="">August <span>(125)</span></a></li>
+                      <li><a href="">September <span>(45)</span></a></li>
+                      <li><a href="">October <span>(85)</span></a></li>
+                    </ul>
+                  </div>
+                  <!-- end single sidebar -->
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3>Tags Cloud</h3>
+                    <div class="tag-cloud">
+                      <a href="#">Health</a>
+                      <a href="#">Science</a>
+                      <a href="#">Sports</a>
+                      <a href="#">Mathematics</a>
+                      <a href="#">Web Design</a>
+                      <a href="#">Admission</a>
+                      <a href="#">History</a>
+                      <a href="#">Environment</a>
+                    </div>
+                  </div>
+                  <!-- end single sidebar -->
+                </aside>
+                <!-- / end sidebar -->
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+
+{% endblock %}
