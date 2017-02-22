@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from models import Subject
-from models import SubjectPost
+from models import SubjectPost, Subcategory
 from forms import SubjectPostChangeFormAdmin, SubjectPostCreationFormAdmin
 
 from utility.admin import AdminChangeMixin, register_model_admin
@@ -11,39 +11,49 @@ from django.contrib.admin.filters import DateFieldListFilter
 class SubjectAdmin(AdminChangeMixin):
     list_display = ['name']
     ordering = ['name']
-    icon = '<i class="material-icons">list</i>'
-    
+    icon = '<i class="material-icons">import_contacts</i>'
+
+
+class SubcategoryAdmin(AdminChangeMixin):
+    list_display = ['name']
+    ordering = ['name']
+    icon = '<i class="material-icons">create_new_folder</i>'
+
+
 class SubjectPostAdmin(AdminChangeMixin):
     change_form = SubjectPostChangeFormAdmin
     add_form = SubjectPostCreationFormAdmin
-    list_display = ['name', 'subject', 'author', 'fileLink', 'date', 'slug']
+    list_display = ['name', 'subject', 'subcategory', 'author', 'fileLink',
+                    'date', 'slug']
     list_filter = (
         ('date', DateFieldListFilter),
     )
-    change_readonly_fields = ['author', 'subject']
+    change_readonly_fields = ['author']
     add_readonly_fields = []
 
-    ordering = ['name', 'subject', 'author', 'date']
-    
+    ordering = ['name', 'subcategory', 'subject','author', 'date']
+
     icon = '<i class="material-icons">description</i>'
-    
+
     fieldsets = ()
-    
+
     change_fieldsets = (
-        ('Page', {'fields': (('name', 'subject'), 'author')}),
+        ('Page', {'fields': (('name', 'subcategory', 'subject'), 'author')}),
         ('Page content', {'fields': ('text', 'file')})
     )
-    
+
     add_fieldsets = (
-        ('Page', {'fields': (('name', 'subject'),)}),
+        ('Page', {'fields': (('name', 'subcategory', 'subject'),)}),
         ('Page content', {'fields': ('text', 'file')})
     )
-      
-    search_fields = ('author__first_name', 'author__last_name', 'name', 'subject', 'author', 'date')
+
+    search_fields = (
+    'author__first_name', 'author__last_name', 'name', 'subcategory','subject', 'author',
+    'date')
 
     ordering = ['date']
     filter_horizontal = ()
-      
+
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
             self.fieldsets = self.add_fieldsets
@@ -58,5 +68,7 @@ class SubjectPostAdmin(AdminChangeMixin):
             form.text_initial = obj.text
             return form
 
+
 register_model_admin(Subject, SubjectAdmin)
 register_model_admin(SubjectPost, SubjectPostAdmin)
+register_model_admin(Subcategory, SubcategoryAdmin)

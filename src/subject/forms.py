@@ -12,10 +12,10 @@ class SubjectPostCreationFormAdmin(forms.ModelForm):
     show_files = True
     show_preview = True
     preview_url = "/preview_subjectpost/"
-    
+
     class Meta:
         model = SubjectPost
-        fields = ('name', 'subject', 'file')
+        fields = ('name', 'subcategory','subject', 'file')
 
     def clean_file(self):
         uploaded_file = self.cleaned_data['file']
@@ -41,7 +41,7 @@ class SubjectPostChangeFormAdmin(forms.ModelForm):
     
     class Meta:
         model = SubjectPost
-        fields = ('name', 'file')
+        fields = ('name', 'file','subject','subcategory')
     
     def __init__(self, *args, **kwargs):
         initial = {

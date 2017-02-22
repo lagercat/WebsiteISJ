@@ -29,6 +29,20 @@ class Subject(CustomPermissionsMixin):
         return self.name
 
 
+class Subcategory(CustomPermissionsMixin):
+    name = models.CharField(max_length=50, null=False, unique=True)
+    subject = models.ForeignKey(Subject, blank=False, null=False)
+
+    class Meta(File.Meta):
+        abstract = False
+        verbose_name = "Subcategory"
+        verbose_name_plural = "Subcategories"
+        index_text = "Manage"
+
+    def __unicode__(self):
+        return self.name
+
+
 class SubjectPost(File):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "thumbnails/subjectpage"
@@ -36,9 +50,10 @@ class SubjectPost(File):
         super(SubjectPost, self).__init__(*args, **kwargs)
 
     text = HTMLField()
-    subject = models.ForeignKey(Subject, blank=False, null=False)
+    subcategory = models.ForeignKey(Subcategory, blank=True, null=True)
+    subject = models.ForeignKey(Subject, blank=True, null=True)
 
-    REQUIRED = ['subject', 'name', 'text', 'file']
+    REQUIRED = ['subject','subcategory', 'name', 'text', 'file']
 
     def __unicode__(self):
         return self.name
@@ -48,7 +63,8 @@ class SubjectPost(File):
         verbose_name = "Subject Page"
         verbose_name_plural = "Subject Pages"
         index_text = "Manage"
-    
+
+
 @receiver(pre_delete, sender=SubjectPost)
 def file_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
