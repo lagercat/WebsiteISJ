@@ -28,6 +28,28 @@ class Subject(CustomPermissionsMixin):
     def __unicode__(self):
         return self.name
 
+    def get_subject(self):
+        try:
+            subcategory_posts = Subcategory.objects.filter(subject=self)
+            print subcategory_posts
+            return subcategory_posts.get_subpost()
+        except:
+            pass
+
+    def get_subcategory(self):
+        subcategory = Subcategory.objects.filter(subject=self).all()
+        if subcategory is not None:
+            return subcategory
+        else:
+            return None
+
+    def get_subject_post(self):
+        subject_post = SubjectPost.objects.filter(subject=self).all()
+        if subject_post is not None:
+            return subject_post
+        else:
+            return None
+
 
 class Subcategory(CustomPermissionsMixin):
     name = models.CharField(max_length=50, null=False, unique=True)
@@ -42,6 +64,13 @@ class Subcategory(CustomPermissionsMixin):
     def __unicode__(self):
         return self.name
 
+    def get_subpost(self):
+        try:
+            subpost = SubjectPost.objects.filter(subcategory=self).all()
+            return subpost
+        except:
+            pass
+
 
 class SubjectPost(File):
     def __init__(self, *args, **kwargs):
@@ -53,7 +82,7 @@ class SubjectPost(File):
     subcategory = models.ForeignKey(Subcategory, blank=True, null=True)
     subject = models.ForeignKey(Subject, blank=True, null=True)
 
-    REQUIRED = ['subject','subcategory', 'name', 'text', 'file']
+    REQUIRED = ['subject', 'subcategory', 'name', 'text', 'file']
 
     def __unicode__(self):
         return self.name

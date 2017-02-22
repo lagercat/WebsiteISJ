@@ -26,14 +26,13 @@ def create_subject_post(request):
 
 
 def subject(request, name):
-    materia = get_object_or_404(Subject, name=name)
-    articole = SubjectPost.objects.all().filter(subject=materia)
-    other_news = News.objects.all()[:4]
+    subject = get_object_or_404(Subject, name=name)
     return render(request, 'subject/subject_all.html',
                   {
-                      'articole': articole,
-                      'materia': materia,
-                      'news_all': other_news,
+
+                      'materia': subject.get_subcategory(),
+                      'simples':subject.get_subject_post(),
+
                   })
 
 
