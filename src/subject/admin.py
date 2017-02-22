@@ -15,9 +15,11 @@ class SubjectAdmin(AdminChangeMixin):
 
 
 class SubcategoryAdmin(AdminChangeMixin):
-    list_display = ['name']
+    list_display = ['name','subject']
     ordering = ['name']
     icon = '<i class="material-icons">create_new_folder</i>'
+
+
 
 
 class SubjectPostAdmin(AdminChangeMixin):
@@ -31,7 +33,7 @@ class SubjectPostAdmin(AdminChangeMixin):
     change_readonly_fields = ['author']
     add_readonly_fields = []
 
-    ordering = ['name', 'subcategory', 'subject','author', 'date']
+    ordering = ['name', 'subcategory', 'subject', 'author', 'date']
 
     icon = '<i class="material-icons">description</i>'
 
@@ -48,8 +50,9 @@ class SubjectPostAdmin(AdminChangeMixin):
     )
 
     search_fields = (
-    'author__first_name', 'author__last_name', 'name', 'subcategory','subject', 'author',
-    'date')
+        'author__first_name', 'author__last_name', 'name', 'subcategory',
+        'subject', 'author',
+        'date')
 
     ordering = ['date']
     filter_horizontal = ()
