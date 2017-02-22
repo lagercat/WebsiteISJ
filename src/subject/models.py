@@ -51,9 +51,16 @@ class Subject(CustomPermissionsMixin):
             return None
 
 
-class Subcategory(CustomPermissionsMixin):
+class Subcategory(File):
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('location').default = "thumbnails/subjectpage"
+        self._meta.get_field('file').label = "Thumbnail"
+        super(Subcategory, self).__init__(*args, **kwargs)
+
     name = models.CharField(max_length=50, null=False, unique=True)
     subject = models.ForeignKey(Subject, blank=False, null=False)
+
+    REQUIRED = ['subject', 'name', 'file']
 
     class Meta(File.Meta):
         abstract = False
@@ -94,6 +101,7 @@ class SubjectPost(File):
         index_text = "Manage"
 
 
+@receiver(pre_delete, sender=Subcategory)
 @receiver(pre_delete, sender=SubjectPost)
 def file_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
