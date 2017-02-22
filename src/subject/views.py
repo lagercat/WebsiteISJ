@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 
 from forms import SubjectPostCreationFormAdmin
-from models import Subject, SubjectPost
+from models import Subject, SubjectPost, Subcategory
 from django.http.response import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from news.models import News
@@ -31,15 +31,43 @@ def subject(request, name):
                   {
 
                       'materia': subject.get_subcategory(),
-                      'simples':subject.get_subject_post(),
+                      'simples': subject.get_subject_post(),
+                      'name':name
 
                   })
 
 
+def subcategory_subject(request, name, kind):
+    sub = get_object_or_404(Subcategory, name=kind)
+    print sub.get_subpost()
+    return render(request, 'subject/subcategory_post.html',
+                  {
+                      'subcategory_article': sub.get_subpost,
+
+                  })
+
+
+def subcategory_subject_news(request,name,kind,slug):
+    articol = list(
+        SubjectPost.objects.values('name', 'text', 'subject', 'file',
+                                   'slug').filter(slug=slug,
+                                                  subcategory=kind))
+    other_news = News.objects.all()[:4]
+    print articol
+    return render(request, 'subject/subject_news.html', {
+
+        'subcategory':articol,
+        'other_news': other_news,
+
+
+    })
+
+
 def subject_news(request, name, slug):
-    articol = list(SubjectPost.objects.values('name', 'text', 'subject', 'file',
-                                              'slug').filter(slug=slug,
-                                                             subject__name=name))
+    articol = list(
+        SubjectPost.objects.values('name', 'text', 'subject', 'file',
+                                   'slug').filter(slug=slug,
+                                                  subject__name=name))
     other_news = News.objects.all()[:4]
     return render(request, 'subject/subject_news.html', {
 
@@ -50,7 +78,8 @@ def subject_news(request, name, slug):
 
     })
 
-@staff_member_required   
+
+@staff_member_required
 def subject_news_preview(request):
     if request.method == "GET":
         return render(request, 'subject/subject_news.html', {

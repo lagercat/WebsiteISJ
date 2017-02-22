@@ -78,6 +78,9 @@ class Subcategory(File):
         except:
             pass
 
+    def get_name(self):
+        return self.name
+
 
 class SubjectPost(File):
     def __init__(self, *args, **kwargs):
