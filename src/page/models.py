@@ -48,8 +48,8 @@ class Subcategory(CustomPermissionsMixin):
     class Meta(CustomPermissionsMixin.Meta):
         get_latest_by = 'title'
         abstract = False
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
+        verbose_name = 'Subcategory'
+        verbose_name_plural = 'Subcategories'
         index_text = "Manage"
 
 
