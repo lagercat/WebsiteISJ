@@ -51,13 +51,16 @@ def subcategory_subject_news(request,name,kind,slug):
     articol = list(
         SubjectPost.objects.values('name', 'text', 'subject', 'file',
                                    'slug').filter(slug=slug,
-                                                  subcategory=kind))
+                                                  subcategory__name=kind))
     other_news = News.objects.all()[:4]
     print articol
     return render(request, 'subject/subject_news.html', {
 
-        'subcategory':articol,
+
+        'name': articol[0].get('name'),
+        'text': articol[0].get('text'),
         'other_news': other_news,
+        'thumbnail': "/media/" + articol[0].get('file'),
 
 
     })
