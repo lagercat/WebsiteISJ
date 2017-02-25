@@ -1,21 +1,22 @@
 from django import forms
 
 from models import SubjectPost
-from models import Subject
+from models import Subject, Subcategory
 import os
 from tinymce.widgets import AdminTinyMCE
 from utility.utility import clean_file
 
 
 class SubjectPostCreationFormAdmin(forms.ModelForm):
-    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
+    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}),
+                           label='')
     show_files = True
     show_preview = True
     preview_url = "/preview_subjectpost/"
-    
+
     class Meta:
         model = SubjectPost
-        fields = ('name', 'subject', 'file')
+        fields = ('name', 'subcategory', 'subject', 'file')
 
     def clean_file(self):
         uploaded_file = self.cleaned_data['file']
@@ -34,32 +35,72 @@ class SubjectPostCreationFormAdmin(forms.ModelForm):
 
 
 class SubjectPostChangeFormAdmin(forms.ModelForm):
-    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
+    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}),
+                           label='')
     show_files = True
     show_preview = True
     preview_url = "/preview_subjectpost/"
-    
+
     class Meta:
         model = SubjectPost
-        fields = ('name', 'file')
-    
+        fields = ('name', 'file', 'subject', 'subcategory')
+
     def __init__(self, *args, **kwargs):
         initial = {
-          'text': self.text_initial
+            'text': self.text_initial
         }
         kwargs['initial'] = initial
         super(SubjectPostChangeFormAdmin, self).__init__(*args, **kwargs)
-    
+
     def clean_file(self):
         uploaded_file = self.cleaned_data['file']
         error = clean_file(uploaded_file, image=True)
         if error:
             raise forms.ValidationError(error)
         return uploaded_file
-      
+
     def save(self, commit=True):
         post = super(SubjectPostChangeFormAdmin, self).save(commit=False)
         post.text = self.cleaned_data['text']
         if commit:
             post.save()
         return post
+
+
+class SubcategoryCreationFormAdmin(forms.ModelForm):
+    class Meta:
+        model = Subcategory
+        fields = ('name', 'file','subject',)
+
+    def clean_file(self):
+        uploaded_file = self.cleaned_data['file']
+        error = clean_file(uploaded_file, image=True)
+        if error:
+            raise forms.ValidationError(error)
+        return uploaded_file
+
+    def save(self, commit=True):
+        uploaded_file = super(SubcategoryCreationFormAdmin, self).save(commit=False)
+        uploaded_file.author = self.current_user
+        if commit:
+            uploaded_file.save()
+        return uploaded_file
+
+
+class SubcategoryChangeFormAdmin(forms.ModelForm):
+    class Meta:
+        model = Subcategory
+        fields = ('name', 'file','subject')
+
+    def clean_file(self):
+        uploaded_file = self.cleaned_data['file']
+        error = clean_file(uploaded_file, image=True)
+        if error:
+            raise forms.ValidationError(error)
+        return uploaded_file
+
+    def save(self, commit=True):
+        uploaded_file = super(SubcategoryChangeFormAdmin, self).save(commit=False)
+        if commit:
+            uploaded_file.save()
+        return uploaded_file

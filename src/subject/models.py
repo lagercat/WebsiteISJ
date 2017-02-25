@@ -28,6 +28,59 @@ class Subject(CustomPermissionsMixin):
     def __unicode__(self):
         return self.name
 
+    def get_subject(self):
+        try:
+            subcategory_posts = Subcategory.objects.filter(subject=self)
+            print subcategory_posts
+            return subcategory_posts.get_subpost()
+        except:
+            pass
+
+    def get_subcategory(self):
+        subcategory = Subcategory.objects.filter(subject=self).all()
+        if subcategory is not None:
+            return subcategory
+        else:
+            return None
+
+    def get_subject_post(self):
+        subject_post = SubjectPost.objects.filter(subject=self).all()
+        if subject_post is not None:
+            return subject_post
+        else:
+            return None
+
+
+class Subcategory(File):
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('location').default = "thumbnails/subjectpage"
+        self._meta.get_field('file').label = "Thumbnail"
+        super(Subcategory, self).__init__(*args, **kwargs)
+
+    name = models.CharField(max_length=50, null=False, unique=True)
+    subject = models.ForeignKey(Subject, blank=False, null=False)
+
+    REQUIRED = ['subject', 'name', 'file']
+
+    class Meta(File.Meta):
+        abstract = False
+        verbose_name = "Subcategory"
+        verbose_name_plural = "Subcategories"
+        index_text = "Manage"
+
+    def __unicode__(self):
+        return self.name
+
+    def get_subpost(self):
+        try:
+            subpost = SubjectPost.objects.filter(subcategory=self).all()
+            return subpost
+        except:
+            pass
+
+    def get_name(self):
+        return self.name
+
 
 class SubjectPost(File):
     def __init__(self, *args, **kwargs):
@@ -36,9 +89,10 @@ class SubjectPost(File):
         super(SubjectPost, self).__init__(*args, **kwargs)
 
     text = HTMLField()
-    subject = models.ForeignKey(Subject, blank=False, null=False)
+    subcategory = models.ForeignKey(Subcategory, blank=True, null=True)
+    subject = models.ForeignKey(Subject, blank=True, null=True)
 
-    REQUIRED = ['subject', 'name', 'text', 'file']
+    REQUIRED = ['subject', 'subcategory', 'name', 'text', 'file']
 
     def __unicode__(self):
         return self.name
@@ -48,7 +102,9 @@ class SubjectPost(File):
         verbose_name = "Subject Page"
         verbose_name_plural = "Subject Pages"
         index_text = "Manage"
-    
+
+
+@receiver(pre_delete, sender=Subcategory)
 @receiver(pre_delete, sender=SubjectPost)
 def file_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.

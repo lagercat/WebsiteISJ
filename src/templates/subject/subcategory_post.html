@@ -30,48 +30,25 @@
                 <div class="mu-course-container mu-blog-archive">
                   <div class="row">
 
-                    {% if materia %}
-                    {% for news in materia %}
+                    {% if subcategory_article %}
+                    {% for news in subcategory_article %}
                     <div class="col-md-6 col-sm-6">
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
-                          <a href="{{news.name}}"><img style="width: 400px;height: 200px" src= '{{ news.file.url }}'alt="img"></a>
+                          <a href="{{news.slug}}"><img style="width: 400px;height: 200px" src= '{{ news.file.url }}'alt="img"></a>
                           <figcaption class="mu-blog-caption">
-                            <h3><a href="{{news.name}}">{{ news.name }}</a></h3>
+                            <h3><a href="{{news.slug}}">{{ news.name }}</a></h3>
                           </figcaption>                      
                         </figure>
 
 
                         <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="{{news.name}}">Read More</a>
+                          <a class="mu-read-more-btn" href="{{news.slug}}">Read More</a>
                         </div>
                       </article>
                     </div>
                     {% endfor %}
-
-
-                    {% if simples %}
-                    {% for news in simples %}
-                    <div class="col-md-6 col-sm-6">
-                      <article class="mu-blog-single-item">
-                        <figure class="mu-blog-single-img">
-                          <a href="/simple/{{ name }}/{{news.slug}}" ><img style="width: 400px;height: 200px" src= '{{ news.file.url }}'alt="img"></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/simple/{{ name }}/{{news.slug}}">{{ news.name }}</a></h3>
-                          </figcaption>
-                        </figure>
-
-
-                        <div class="mu-blog-description">
-
-                          <a class="mu-read-more-btn" href="/simple/{{ name }}/{{news.slug}}">Read More</a>
-                        </div>
-                      </article>
-                    </div>
-                    {% endfor %}
-                    {% endif %}
-
 
                     {% else %}
                     <h3>Nu sunt informatii <d></d>e afisat </h3>
