@@ -66,3 +66,41 @@ class SubjectPostChangeFormAdmin(forms.ModelForm):
             post.save()
         return post
 
+
+class SubcategoryCreationFormAdmin(forms.ModelForm):
+    class Meta:
+        model = Subcategory
+        fields = ('name', 'file','subject',)
+
+    def clean_file(self):
+        uploaded_file = self.cleaned_data['file']
+        error = clean_file(uploaded_file, image=True)
+        if error:
+            raise forms.ValidationError(error)
+        return uploaded_file
+
+    def save(self, commit=True):
+        uploaded_file = super(SubcategoryCreationFormAdmin, self).save(commit=False)
+        uploaded_file.author = self.current_user
+        if commit:
+            uploaded_file.save()
+        return uploaded_file
+
+
+class SubcategoryChangeFormAdmin(forms.ModelForm):
+    class Meta:
+        model = Subcategory
+        fields = ('name', 'file','subject')
+
+    def clean_file(self):
+        uploaded_file = self.cleaned_data['file']
+        error = clean_file(uploaded_file, image=True)
+        if error:
+            raise forms.ValidationError(error)
+        return uploaded_file
+
+    def save(self, commit=True):
+        uploaded_file = super(SubcategoryChangeFormAdmin, self).save(commit=False)
+        if commit:
+            uploaded_file.save()
+        return uploaded_file

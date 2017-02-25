@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from models import Subject
 from models import SubjectPost, Subcategory
-from forms import SubjectPostChangeFormAdmin, SubjectPostCreationFormAdmin
+from forms import SubjectPostChangeFormAdmin, SubjectPostCreationFormAdmin,SubcategoryCreationFormAdmin,SubcategoryChangeFormAdmin
 
 from utility.admin import AdminChangeMixin, register_model_admin
 from django.contrib.admin.filters import DateFieldListFilter
@@ -15,9 +15,46 @@ class SubjectAdmin(AdminChangeMixin):
 
 
 class SubcategoryAdmin(AdminChangeMixin):
-    list_display = ['name','subject']
-    ordering = ['name']
-    icon = '<i class="material-icons">create_new_folder</i>'
+    change_form = SubcategoryChangeFormAdmin
+    add_form = SubcategoryCreationFormAdmin
+
+    icon = '<i class="material-icons">queue</i>'
+
+    list_display = ('name', 'author', 'fileLink', 'date', 'slug',)
+    list_filter = (
+        ('date', DateFieldListFilter),
+    )
+    readonly_fields = ['fileLink', 'author']
+
+    fieldsets = ()
+    change_fieldsets = (
+        ('Page', {'fields': ('name', 'author')}),
+        ('Page content', {'fields': ('subject', 'file',)})
+    )
+
+    add_fieldsets = (
+        ('Page', {'fields': ('name','subject',)}),
+        ('Page content', {'fields': ('file',)})
+    )
+
+    search_fields = (
+    'author__first_name', 'author__last_name', 'name', 'date', 'slug',)
+
+    ordering = ['date']
+    filter_horizontal = ()
+
+    def get_form(self, request, obj=None, **kwargs):
+        if obj is None:
+            self.fieldsets = self.add_fieldsets
+            form = self.add_form
+            form.current_user = request.user
+            return form
+        else:
+            self.fieldsets = self.change_fieldsets
+            form = self.change_form
+            return form
+
+    pass
 
 
 
