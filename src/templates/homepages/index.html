@@ -325,6 +325,59 @@
   </section>
   <!-- End from blog -->
 
+
+<section id="mu-from-blog">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-from-blog-area">
+            <!-- start title -->
+            <div class="mu-title">
+              <a href="/album">
+              <h2 >Galerie de imagini</h2>
+
+              <p>„O minte educată îți permite să susții un gând fără a-l accepta.” — Aristotel</p>
+
+                  <a href="/album" class="mu-read-more-btn " style="color: #0f0f0f">Toate albumele</a>
+              </a>
+            </div>
+            <!-- end title -->
+            <!-- start from blog content   -->
+            <div class="mu-from-blog-content">
+              <div class="row">
+
+                {% if noutati %}
+                {% for news in album %}
+                <div class="col-md-4 col-sm-4">
+                  <article class="mu-blog-single-item">
+                    <figure class="mu-blog-single-img">
+                      <a href="/gallery_img/{{ news.slug }}" ><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
+                      <figcaption class="mu-blog-caption">
+                        <h3><a href="/gallery_img/{{ news.slug }}"  >{{ news.name }}</a></h3>
+                      </figcaption>
+                    </figure>
+                   
+                    <div class="mu-blog-description">
+                            <a href="/gallery_img/{{ news.slug }}" class="mu-read-more-btn">Read More</a>
+                    </div>
+
+                  </article>
+                </div>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <!-- end from blog content   -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End from blog -->
+
+
+
+
  {% endblock %}
 
 
