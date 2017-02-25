@@ -37,12 +37,12 @@
                         <figure class="mu-blog-single-img">
                           <a href="#"><img style="width: 400px;height: 200px" src= '{{ news.file.url }}'alt="img"></a>
                           <figcaption class="mu-blog-caption">
-                            <h3><a href="/schools_detail/{{ news.slug }}">{{ news.name }}</a></h3>
+                            <h3><a href="/schools/{{ news.slug }}">{{ news.name }}</a></h3>
                           </figcaption>                      
                         </figure>
                         <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/schools_detail/{{ news.slug }}">Read More</a>
+                          <a class="mu-read-more-btn" href="/schools/{{ news.slug }}">Read More</a>
                         </div>
                       </article>
                     </div>
@@ -95,18 +95,17 @@
                   <!-- start single sidebar -->
                    {% if news_all %}
                   <div class="mu-single-sidebar">
-                    <h3>Popular News</h3>
+                    <h3>Other Schools</h3>
                     {% for news in news_all %}
                     <div class="mu-sidebar-popular-courses">
                       <div class="media">
                         <div class="media-left">
-                          <a href="/news/{{ news.slug }}">
+                          <a href="/schools/{{ news.slug }}">
                             <img class="media-object" src= '{{ news.file.url }}' alt="img">
                           </a>
                         </div>
                         <div class="media-body">
-                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.name }}</a></h4>
-                          <span class="popular-course-price">{{ news.date }}</span>
+                          <h4 class="media-heading"><a href="/schools/{{ news.slug }}">{{ news.name }}</a></h4>
                         </div>
                       </div>
                     </div>

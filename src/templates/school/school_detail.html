@@ -70,7 +70,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="mu-related-item">
-                  <h3>Other Events </h3>
+                  <h3>Other Schools </h3>
                   <div class="mu-related-item-area">
                     <div id="mu-related-item-slide">
                       {% if other_news %}
@@ -78,15 +78,15 @@
                       <div class="col-md-6">
                         <div class="mu-latest-course-single">
                           <figure class="mu-latest-course-img">
-                            <a href="/schools_detail/{{ event.slug }}"><img alt="img" src= '{{ event.file.url }}'></a>
+                            <a href="/schools/{{ event.slug }}"><img alt="img" src= '{{ event.file.url }}'></a>
                             <figcaption class="mu-latest-course-imgcaption">
-                              <a href="/schools_detail/{{ event.slug }}">{{ event.name }}</a>
+                              <a href="/schools/{{ event.slug }}">{{ event.name }}</a>
                               <span><i class="fa fa-clock-o"></i>{{ event.date }}</span>
                             </figcaption>
                           </figure>
                           <div class="mu-latest-course-single-content">
                               <div class="mu-latest-course-single-contbottom">
-                              <a href="/schools_detail/{{ event.slug }}" class="mu-course-details">Details</a>
+                              <a href="/schools/{{ event.slug }}" class="mu-course-details">Details</a>
 
                             </div>
                           </div>
@@ -119,18 +119,17 @@
                   <!-- start single sidebar -->
                   {% if other_news %}
                   <div class="mu-single-sidebar">
-                    <h3>Popular News</h3>
+                    <h3>Other Schools </h3>
                     {% for news in other_news %}
                     <div class="mu-sidebar-popular-courses">
                       <div class="media">
                         <div class="media-left">
-                          <a href="/news/{{ news.slug }}">
+                          <a href="/schools/{{ news.slug }}">
                             <img class="media-object" src= '{{ news.file.url }}' alt="img">
                           </a>
                         </div>
                         <div class="media-body">
-                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.name }}</a></h4>
-                          <span class="popular-course-price">{{ news.date }}</span>
+                          <h4 class="media-heading"><a href="/schools/{{ news.slug }}">{{ news.name }}</a></h4>
                         </div>
                       </div>
                     </div>

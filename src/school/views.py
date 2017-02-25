@@ -20,7 +20,7 @@ def schools(request, slug):
         School.objects.values('name', 'telephone', 'fax', 'email', 'website',
                               'address',
                               'geolocation', 'file').filter(slug=slug))
-    other_news = School.objects.all()[:4]
+    other_schools = School.objects.all()[:4]
     return render(request, 'school/school_detail.html', {
         'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY,
         'name': articol[0].get('name'),
@@ -30,7 +30,7 @@ def schools(request, slug):
         'website': articol[0].get('website'),
         'location': articol[0].get('address'),
         'geolocation': articol[0].get('geolocation'),
-        'other_news': other_news,
+        'other_news': other_schools,
         'thumbnail': "/media/" + articol[0].get('file'),
 
     })
