@@ -8,10 +8,10 @@
      <div class="row">
        <div class="col-md-12">
          <div class="mu-page-breadcrumb-area">
-           <h2>Scolile din Judetul Timis</h2>
+           <h2>School Detail</h2>
            <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
-            <li class="active">Scolile</li>
+            <li class="active">School Detail</li>
           </ol>
          </div>
        </div>
@@ -27,55 +27,79 @@
             <div class="row">
               <div class="col-md-9">
                 <!-- start course content container -->
-                <div class="mu-course-container mu-blog-archive">
+                <div class="mu-course-container mu-course-details">
                   <div class="row">
+                    <div class="col-md-12">
+                      <div class="mu-latest-course-single">
+                        <figure class="mu-latest-course-img">
+                          <a href="#"><img src= '{{ thumbnail }}' alt="img"></a>
+                          <figcaption class="mu-latest-course-imgcaption">
 
-                    {% if news_all %}
-                    {% for news in news_all %}
-                    <div class="col-md-6 col-sm-6">
-                      <article class="mu-blog-single-item">
-                        <figure class="mu-blog-single-img">
-                          <a href="#"><img style="width: 400px;height: 200px" src= '{{ news.file.url }}'alt="img"></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/schools_detail/{{ news.slug }}">{{ news.name }}</a></h3>
-                          </figcaption>                      
+                            <span><i class="fa fa-clock-o"></i>{{ date }}</span>
+                          </figcaption>
                         </figure>
-                        <div class="mu-blog-description">
+                        <div class="mu-latest-course-single-content">
+                          <h2><a >{{ name }}</a></h2>
+                          <h4>School  Information</h4>
+                          <ul>
+                            <li> <span>Telephone</span> <span> {{ telephone }}</span></li>
+                            <li> <span>Fax</span> <span>{{ fax}}</span></li>
+                            <li> <span>Email</span> <span> {{ email }}</span></li>
+                            <li> <span>Website</span> <span> {{ website }}</span></li>
+                            <li> <span>Location</span> <span>{{ location }}</span></li>
+                            <input id="id_address" name="address" type="hidden" value="{{ location }}">
+                            <input id="id_geolocation" name="geolocation" type="hidden" value="{{ geolocation }}">
+                            <div id='map_container' class='row ' style="width: 70% ">
+                                    <div class='col s12' >
+                                        <div id='map_canvas' style='padding-top: 56.25%; width: 100%'></div>
+                                    </div>
+                                </div>
+                          </ul>
+                          <h4></h4>
 
-                          <a class="mu-read-more-btn" href="/schools_detail/{{ news.slug }}">Read More</a>
+
+
+
                         </div>
-                      </article>
+                      </div>
                     </div>
-                    {% endfor %}
-                    {% else %}
-                    <h3>Nu sunt informatii de afisat ! </h3>
-                    {% endif %}
                   </div>
                 </div>
                 <!-- end course content container -->
-                <!-- start course pagination -->
-                <div class="mu-pagination">
-                  <nav>
-                    <ul class="pagination">
-                      <li>
-                        <a href="#" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Prev 
-                        </a>
-                      </li>
-                      <li class="active"><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                      <li>
-                        <a href="#" aria-label="Next">
-                         Next <span class="fa fa-angle-right"></span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
+                <!-- start related course item -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mu-related-item">
+                  <h3>Other Events </h3>
+                  <div class="mu-related-item-area">
+                    <div id="mu-related-item-slide">
+                      {% if other_news %}
+                      {% for event in other_news %}
+                      <div class="col-md-6">
+                        <div class="mu-latest-course-single">
+                          <figure class="mu-latest-course-img">
+                            <a href="/schools_detail/{{ event.slug }}"><img alt="img" src= '{{ event.file.url }}'></a>
+                            <figcaption class="mu-latest-course-imgcaption">
+                              <a href="/schools_detail/{{ event.slug }}">{{ event.name }}</a>
+                              <span><i class="fa fa-clock-o"></i>{{ event.date }}</span>
+                            </figcaption>
+                          </figure>
+                          <div class="mu-latest-course-single-content">
+                              <div class="mu-latest-course-single-contbottom">
+                              <a href="/schools_detail/{{ event.slug }}" class="mu-course-details">Details</a>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      {% endif %}
+                    </div>
+                  </div>
                 </div>
-                <!-- end course pagination -->
+                  </div>
+                </div>
+                <!-- end start related course item -->
               </div>
               <div class="col-md-3">
                 <!-- start sidebar -->
@@ -93,10 +117,10 @@
                   </div>
                   <!-- end single sidebar -->
                   <!-- start single sidebar -->
-                   {% if news_all %}
+                  {% if other_news %}
                   <div class="mu-single-sidebar">
                     <h3>Popular News</h3>
-                    {% for news in news_all %}
+                    {% for news in other_news %}
                     <div class="mu-sidebar-popular-courses">
                       <div class="media">
                         <div class="media-left">
