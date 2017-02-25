@@ -326,6 +326,68 @@
   <!-- End from blog -->
 
 
+
+  <!-- Start latest course section -->
+  <section id="mu-latest-courses">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <div class="mu-latest-courses-area">
+            <!-- Start Title -->
+            <a href="events_all">
+            <div class="mu-title">
+              <h2>Scolile din jutetul Timis </h2>
+
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio ipsa ea maxime mollitia, vitae voluptates, quod at, saepe reprehenderit totam aliquam architecto fugiat sunt animi!</p>
+            <a href="school_all" class="mu-read-more-btn">Toate scolile</a>
+            </div>
+            </a>
+            <!-- End Title -->
+            <!-- Start latest course content -->
+            <div id="mu-latest-course-slide" class="mu-latest-courses-content">
+              {% if schools %}
+              {% for school in schools %}
+              <div class="col-lg-4 col-md-4 col-xs-12">
+                <div class="mu-latest-course-single">
+                  <figure class="mu-latest-course-img">
+                    <a ><img style="max-width: 400px;max-height: 180px" src= '{{ school.file.url }}' alt="img"></a>
+                    <figcaption class="mu-latest-course-imgcaption">
+                      <a href="/schools/{{ school.slug }}" >{{ school.name }}</a>
+                    </figcaption>
+                  </figure>
+                  <div class="mu-latest-course-single-content">
+                    <div class="mu-latest-course-single-contbottom">
+                      <a class="mu-course-details" href="/schools/{{ school.slug }}">Mail mult</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+              {% endif %}
+            </div>
+
+            <!-- End latest course content -->
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- End latest course section -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End our teacher -->
+
+
 <section id="mu-from-blog">
     <div class="container">
       <div class="row">
