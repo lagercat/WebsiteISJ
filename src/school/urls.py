@@ -3,8 +3,8 @@ from . import views
 
 urlpatterns = [
 
-    url(r'^schools_detail/(?P<slug>[^\.]+)/$', views.school_detail, name='school_detail'),
-    url(r'^schools', views.school_all, name='schools'),
+    url(r'^schools/(?P<slug>[^\.]+)/$', views.schools, name='schools'),
+    url(r'^school_all', views.schools_all, name='schools_all'),
 
 
     ]

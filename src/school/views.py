@@ -7,14 +7,15 @@ from config import settings
 
 # Create your views here.
 
-def school_all(request):
+def schools_all(request):
     school = School.objects.all()
     return render(request, 'school/school_all.html', {
         'news_all': school,
     })
 
 
-def school_detail(request, slug):
+def schools(request, slug):
+    print "Am ajuns aici"
     articol = list(
         School.objects.values('name', 'telephone', 'fax', 'email', 'website',
                               'address',
