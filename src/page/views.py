@@ -55,7 +55,7 @@ def article_post(request, name, slug):
     })
 
 
-def simple_page_article(request,name, slug):
+def simple_page_article(request, slug):
     article = list(
         SimplePage.objects.values('category', 'name', 'text', 'file',
                                   'date').filter(slug=slug))
