@@ -140,7 +140,7 @@
                 {% for subcategory in category.subcategories.all|slice:"4" %}
                 <li><a href="/{{subcategory.name}}">{{ subcategory.name}}</a></li>
                 {% endfor %}
-                {% for simple_page in category.simplepages.all %}
+                {% for simple_page in category.simplepages.all|slice:"3" %}
                 <li><a href="/simple/{{ simple_page.name }}/{{simple_page.slug}}">{{ simple_page.name}}</a></li>
                 {% endfor %}
                  <li><a href="/category/{{ category.title }}" style="color: #ac2925" >Accesati restul informatiilor </a></li>
