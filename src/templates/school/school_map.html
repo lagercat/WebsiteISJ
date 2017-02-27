@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <style type="text/css">
+          html { height: 100% }
+          body { height: 100%; margin: 0; padding: 0 }
+          #map_canvas { height: 100% }
+          .wrap-text {
+                word-wrap: normal;
+                width: 300px;
+                text-decoration: none ;
+                font-size: 20px;
+          }
+        </style>
+        {% include 'admin/includes/material_css.html' %}
+        <link href="{% static 'admin_site/materialize_admin.css' %}"  rel="stylesheet">
+        <!--Google Maps-->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ google_maps_api_key }}&libraries=places"></script>
+        <script type="text/javascript">
+        var locations = [
+            {% for school in schools %}
+                ["{{school.name}}", {{school.geolocation}}, "{{school.address}}", "{{school.telephone}}", 
+                 "{{school.fax}}", "{{school.email}}", "{{school.website}}", "{{school.file.url}}"],
+            {% endfor %}
+        ];
+        
+        var markerList = [];
+        
+        var bounds = new google.maps.LatLngBounds();
+        function initialize() {
+            var minZoomLevel = 8;
+            var myOptions = {
+              center: new google.maps.LatLng(45.7489, 21.2087),
+              zoom: 8,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+        
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas"),
+                myOptions);
+                
+            setMarkers(map,locations);
+            
+            google.maps.event.addListener(map, 'dragend', function() {
+                 if (bounds.contains(map.getCenter())) return;
+                 // We're out of bounds - Move the map back within the bounds
+            
+                 var c = map.getCenter(),
+                     x = c.lng(),
+                     y = c.lat(),
+                     maxX = bounds.getNorthEast().lng(),
+                     maxY = bounds.getNorthEast().lat(),
+                     minX = bounds.getSouthWest().lng(),
+                     minY = bounds.getSouthWest().lat();
+            
+                if (x < minX) x = minX;
+                if (x > maxX) x = maxX;
+                if (y < minY) y = minY;
+                if (y > maxY) y = maxY;
+            
+                map.setCenter(new google.maps.LatLng(y, x));
+            });
+            
+               // Limit the zoom level
+            google.maps.event.addListener(map, 'zoom_changed', function() {
+                if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
+            });
+            map.fitBounds(bounds);
+            console.log(markerList);
+            $.each(markerList, function(i, marker){
+                var liObj = $.parseHTML("\
+                    <li>\
+                        <a class='collapsible-header'><i class='accent-color material-icons'>room</i>" + marker[0] + "</a>\
+                        <input type='hidden' value='" + i + "'>\
+                    </li>\
+                ");
+                $("#list").append($(liObj));
+                $(liObj).on("click", (function(m){ 
+                    return function(e) {
+                        map.setCenter(markerList[$(this).find("input").val()][1].position);
+                    };
+                })(marker[1]));
+            });
+        }
+        
+        
+        
+        function setMarkers(map,locations){
+            var i;
+        
+            for (i = 0; i < locations.length; i++){  
+                var name = locations[i][0];
+                var lat = locations[i][1];
+                var long = locations[i][2];
+                var address = locations[i][3];
+                var phone = locations[i][4];
+                var fax = locations[i][5];
+                var email = locations[i][6];
+                var website = locations[i][7];
+                var photo = locations[i][8];
+        
+                var latlngset = new google.maps.LatLng(lat, long);
+        
+                var icon = {
+                    url: "{% static 'django_google_maps/img/marker2.svg'%}", // url
+                    scaledSize: new google.maps.Size(50, 50), // scaled size
+                    origin: new google.maps.Point(0,0), // origin
+                    anchor: new google.maps.Point(0, 0) // anchor
+                };
+        
+                var marker = new google.maps.Marker({  
+                    map: map, title: name , position: latlngset,
+                    icon: icon,
+                });
+                bounds.extend(marker.position);
+                
+                var content = "<img src='" + photo + "' style='width: 300px; padding-bottom:56.25;'>"
+                content += "<div class='wrap-text'><b>Nume:</b> " + name +  '</div>'
+                content += "<div class='wrap-text'><b>Adresa:</b> " + address +  '</div>'
+                content += "<div class='wrap-text'><b>Telefon:</b> " + phone +  '</div>'
+                content += "<div class='wrap-text'><b>Fax:</b> " + fax +  '</div>'
+                content += "<div class='wrap-text'><b>Email:</b> " + email +  '</div>'
+                content += "<div class='wrap-text'><b>Website:</b> " + website +  '</div>'
+        
+                var infowindow = new google.maps.InfoWindow()
+        
+                google.maps.event.addListener(marker, 'mouseover', (function(marker, content){ 
+                    return function() {
+                        infowindow.setContent(content);
+                        infowindow.open(map,marker);
+                    };
+                })(marker, content));  
+                markerList[i] = [name, marker];
+            }
+        }
+        </script>
+    </head>
+    <body onload="initialize()">
+        <header>
+            <ul id="slide-out" class="side-nav fixed">
+                <li>
+                    <ul id='list' class="collapsible collapsible-accordion">
+                        
+                    </ul>
+                </li>
+            </ul>
+        </header>
+        <main style="height:100%; margin-left: 300px;">
+            <div id="map_canvas" class="content" style="width:100%; height:100%"></div>
+        </main>
+    </body>
+</html>

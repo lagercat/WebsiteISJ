@@ -13,6 +13,15 @@ def schools_all(request):
         'news_all': school,
     })
 
+def schools_map(request):
+    school = School.objects.all().order_by('name')
+    return render(request, 'school/school_map.html', {
+        'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY,
+        'schools': school,
+    })
+
+
+
 
 def schools(request, slug):
     print "Am ajuns aici"
