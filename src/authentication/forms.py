@@ -91,7 +91,9 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
         user = super(ExtendedUserCreationFormAdmin, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         user.is_admin = (user.status == 3)
-        user.subjects = self.cleaned_data["subjects"]
+        user.save()
+        for item in self.cleaned_data["subjects"]:
+            user.subjects.add(item)
         if commit:
             user.save()
         return user
@@ -120,7 +122,10 @@ class ExtendedUserChangeFormAdmin(forms.ModelForm):
         if self.cleaned_data["password1"]:
             user.set_password(self.cleaned_data["password1"])
         user.is_admin = user.status == 3
-        user.subjects = self.cleaned_data["subjects"]
+        if commit:
+            user.save()
+        for item in self.cleaned_data["subjects"]:
+            user.subjects.add(item)
         if commit:
             user.save()
         return user
