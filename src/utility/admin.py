@@ -78,8 +78,8 @@ class AdminChangeMixin(admin.ModelAdmin):
       
     def get_queryset(self, request):
       queryset = admin.ModelAdmin.get_queryset(self, request)
-      # if self.has_perm(request.user,'change_own') and not self.has_perm(request.user,'change'):
-      #     return queryset.filter(author=request.user)
+      if self.has_perm(request.user,'change_own') and not self.has_perm(request.user,'change'):
+          return queryset.filter(author=request.user)
       return queryset
       
 class AdminViewMixin(admin.ModelAdmin): 
