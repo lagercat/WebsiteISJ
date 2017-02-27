@@ -42,10 +42,22 @@
                           <h2><a >{{ name }}</a></h2>
                           <h4>School  Information</h4>
                           <ul>
+                            {% if telephone %}
                             <li> <span>Telephone</span> <span> {{ telephone }}</span></li>
+                            {% endif %}
+
+                            {% if fax %}
                             <li> <span>Fax</span> <span>{{ fax}}</span></li>
+                            {% endif %}
+
+                            {% if email %}
                             <li> <span>Email</span> <span> {{ email }}</span></li>
+                            {% endif %}
+
+                            {% if website %}
                             <li> <span>Website</span> <span> {{ website }}</span></li>
+                            {% endif %}
+                            
                             <li> <span>Location</span> <span>{{ location }}</span></li>
                             <input id="id_address" name="address" type="hidden" value="{{ location }}">
                             <input id="id_geolocation" name="geolocation" type="hidden" value="{{ geolocation }}">
