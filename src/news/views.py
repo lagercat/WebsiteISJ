@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import Http404
 
 from models import News
@@ -7,10 +8,18 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.http.response import HttpResponseForbidden
 
 
-# Create your views here.
 
 def news_all(request):
     news = News.objects.all()
+    paginator = Paginator(news, 4)
+
+    page = request.GET.get('page')
+    try:
+        news = paginator.page(page)
+    except PageNotAnInteger:
+        news = paginator.page(1)
+    except EmptyPage:
+        news = paginator.page(paginator.num_pages)
     return render(request, 'news/news_all.html', {
         'news_all': news,
     })
@@ -31,7 +40,7 @@ def news(request, slug):
 
     })
 
-@staff_member_required   
+@staff_member_required
 def news_preview(request):
     if request.method == "GET":
         return render(request, 'news/news.html', {
@@ -43,4 +52,3 @@ def news_preview(request):
         })
     else:
         return HttpResponseForbidden()
-          
