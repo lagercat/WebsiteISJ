@@ -60,21 +60,27 @@
                 <div class="mu-pagination">
                   <nav>
                     <ul class="pagination">
+                      {% if events.has_previous %}
                       <li>
-                        <a href="#" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Prev 
+                        <a href="?page={{ events.previous_page_number }}" aria-label="Previous">
+                          <span class="fa fa-angle-left"></span> Prev
                         </a>
                       </li>
-                      <li class="active"><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
+                      {% endif %}
+                      {% for num in events.paginator.page_range %}
+                        {% if num == events.number %}
+                          <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% else %}
+                          <li><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if events.has_next %}
                       <li>
-                        <a href="#" aria-label="Next">
+                        <a href="?page={{ events.next_page_number }}" aria-label="Next">
                          Next <span class="fa fa-angle-right"></span>
                         </a>
                       </li>
+                      {% endif %}
                     </ul>
                   </nav>
                 </div>

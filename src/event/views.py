@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from models import Event
 from news.models import News
@@ -7,10 +8,18 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.http.response import HttpResponseForbidden
 from config import settings
 
-# Create your views here.
 
 def event_all(request):
     events = Event.objects.all()
+    paginator = Paginator(events, 4)
+
+    page = request.GET.get('page')
+    try:
+        events = paginator.page(page)
+    except PageNotAnInteger:
+        events = paginator.page(1)
+    except EmptyPage:
+        events = paginator.page(paginator.num_pages)
     return render(request, 'event/events.html', {
         'events': events,
     })
