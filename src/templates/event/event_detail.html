@@ -32,14 +32,10 @@
                     <div class="col-md-12">
                       <div class="mu-latest-course-single">
                         <figure class="mu-latest-course-img">
-                          <a href="#"><img src= '{{ thumbnail }}' alt="img"></a>
-                          <figcaption class="mu-latest-course-imgcaption">
-
-                            <span><i class="fa fa-clock-o"></i>{{ date }}</span>
-                          </figcaption>
+                          <a href="#"><img style=" max-height: 500px" src= '{{ thumbnail }}' alt="img"></a>
                         </figure>
                         <div class="mu-latest-course-single-content">
-                          <h2><a >{{ name }}</a></h2>
+                          <h2><a >{{ name|truncatechars:90 }}</a></h2>
                           <h4>Event  Information</h4>
                           <ul>
                             <li> <span>Time</span> <span> {{ date }}</span></li>
@@ -75,9 +71,9 @@
                       <div class="col-md-6">
                         <div class="mu-latest-course-single">
                           <figure class="mu-latest-course-img">
-                            <a href="/event/{{ event.slug }}"><img alt="img" src= '{{ event.file.url }}'></a>
+                            <a href="/event/{{ event.slug }}"><img style=" max-height: 160px" alt="img" src= '{{ event.file.url }}'></a>
                             <figcaption class="mu-latest-course-imgcaption">
-                              <a href="/event/{{ event.slug }}">{{ event.name }}</a>
+                              <a href="/event/{{ event.slug }}">{{ event.name|truncatechars:10 }}</a>
                               <span><i class="fa fa-clock-o"></i>{{ event.date }}</span>
                             </figcaption>
                           </figure>

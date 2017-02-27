@@ -32,7 +32,7 @@ def event_detail(request, slug):
                                         'geolocation',
                                         'location',
                                         'slug').filter(slug=slug))
-    other_news = News.objects.all()[:4]
+    other_event = Event.objects.all()[:4]
     return render(request, 'event/event_detail.html', {
         'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY,
         'name': articol[0].get('name'),
@@ -42,7 +42,7 @@ def event_detail(request, slug):
         'author': articol[0].get('author__first_name') + " " + articol[0].get(
             'author__last_name'),
         'date': articol[0].get('date'),
-        'other_news': other_news,
+        'other_event': other_event,
         'thumbnail': "/media/" + articol[0].get('file'),
 
     })
