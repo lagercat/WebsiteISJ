@@ -234,7 +234,7 @@
                   <figure class="mu-latest-course-img">
                     <a ><img style="max-width: 400px;max-height: 180px" src= '{{ event.file.url }}' alt="img"></a>
                     <figcaption class="mu-latest-course-imgcaption">
-                      <a href="/event/{{ event.slug }}" >{{ event.name }}</a>
+                      <a href="/event/{{ event.slug }}" >{{ event.name|truncatechars:15 }}</a>
                       <span><i class="fa fa-clock-o"></i>{{ event.date }}</span>
                     </figcaption>
                   </figure>
@@ -299,7 +299,7 @@
                     <figure class="mu-blog-single-img">
                       <a href="#"><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
                       <figcaption class="mu-blog-caption">
-                        <h3><a href="#">{{ news.name }}</a></h3>
+                        <h3><a href="#">{{ news.name|truncatechars:20 }}</a></h3>
                       </figcaption>
                     </figure>
                     <div class="mu-blog-meta">
@@ -352,7 +352,7 @@
                   <figure class="mu-latest-course-img">
                     <a ><img style="max-width: 400px;max-height: 180px" src= '{{ school.file.url }}' alt="img"></a>
                     <figcaption class="mu-latest-course-imgcaption">
-                      <a href="/schools/{{ school.slug }}" >{{ school.name }}</a>
+                      <a href="/schools/{{ school.slug }}" >{{ school.name|truncatechars:33 }}</a>
                     </figcaption>
                   </figure>
                   <div class="mu-latest-course-single-content">
@@ -415,7 +415,7 @@
                     <figure class="mu-blog-single-img">
                       <a href="/gallery_img/{{ news.slug }}" ><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
                       <figcaption class="mu-blog-caption">
-                        <h3><a href="/gallery_img/{{ news.slug }}"  >{{ news.name }}</a></h3>
+                        <h3><a href="/gallery_img/{{ news.slug }}"  >{{ news.name|truncatechars:16 }}</a></h3>
                       </figcaption>
                     </figure>
                     <div class="mu-blog-description">
