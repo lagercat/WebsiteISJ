@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from models import Gallery
 from django.http.response import HttpResponseForbidden, HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from gallery.models import GalleryPhoto
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.html import escape
@@ -9,12 +10,20 @@ import os
 from utility.utility import clean_file
 
 
-# Create your views here.
 
 def gallery(request):
-    image = Gallery.objects.all()
+    images = Gallery.objects.all()
+    paginator = Paginator(images, 6)
+
+    page = request.GET.get('page')
+    try:
+        images = paginator.page(page)
+    except PageNotAnInteger:
+        images = paginator.page(1)
+    except EmptyPage:
+        images = paginator.page(paginator.num_pages)
     return render(request, 'gallery/gallery.html', {
-        'gallery': image,
+        'gallery': images,
     })
 
 
@@ -38,25 +47,25 @@ def add_gallery(request):
         file = None
         if request.FILES.get("file"):
             file = request.FILES["file"]
-        
+
         if request.POST["change"] == "0" and not file:
             json_dict["file"] = "This field is required. Please select a file."
-            
+
         elif request.POST["change"] == "0" and clean_file(file, image=True) != "":
             json_dict["file"] = clean_file(file, image=True)
-            
+
         for i in range(0, int(request.POST["nr"])):
             file = None
             if request.FILES.get("form-" + str(i) + "-file"):
                 file = request.FILES["form-" + str(i) + "-file"]
-              
+
             if file:
                 error = clean_file(file, image=True)
                 if error != "":
                     json_dict[i] = error
-            
+
         if json_dict != {}:
-            response = HttpResponse(json.dumps(json_dict), 
+            response = HttpResponse(json.dumps(json_dict),
                 content_type='application/json')
             response.status_code = 400
             return response
@@ -88,7 +97,7 @@ def add_gallery(request):
                 file = request.FILES["form-" + str(i) + "-file"]
 
             name = request.POST["form-" + str(i) + "-name"]
-            if not id: 
+            if not id:
                 photo = GalleryPhoto(gallery=obj, name=name, file=file, author=request.user, location="gallery/" + str(obj.slug))
                 photo.save()
             else:

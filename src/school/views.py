@@ -1,16 +1,25 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from models import School
 from news.models import News
 from config import settings
 
 
-# Create your views here.
 
 def schools_all(request):
-    school = School.objects.all()
+    schools = School.objects.all()
+    paginator = Paginator(schools, 4)
+
+    page = request.GET.get('page')
+    try:
+        schools = paginator.page(page)
+    except PageNotAnInteger:
+        schools = paginator.page(1)
+    except EmptyPage:
+        schools = paginator.page(paginator.num_pages)
     return render(request, 'school/school_all.html', {
-        'news_all': school,
+        'schools': schools,
     })
 
 def schools_map(request):
@@ -24,7 +33,6 @@ def schools_map(request):
 
 
 def schools(request, slug):
-    print "Am ajuns aici"
     articol = list(
         School.objects.values('name', 'telephone', 'fax', 'email', 'website',
                               'address',

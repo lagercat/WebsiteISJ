@@ -37,7 +37,7 @@
                   {% if gallery %}
                   {% for image in gallery %}
                 <li class="col-md-4 col-sm-6 col-xs-12">
-                 	<div class="mu-single-gallery">                  
+                 	<div class="mu-single-gallery">
                     	<div class="mu-single-gallery-item">
 		                    <div class="mu-single-gallery-img">
 		                        <a href="#"><img alt="img" src="{{ image.file.url }}"></a>
@@ -62,7 +62,7 @@
 				                	</div>
 
 								</div>
-							</div> 
+							</div>
 						</div>
 
 					</div>
@@ -72,10 +72,39 @@
                 </li>
                   {% endfor %}
                   {% endif %}
-              </ul>            
+              </ul>
             </div>
           </div>
           <!-- end gallery content -->
+          <!-- start course pagination -->
+          <div class="mu-pagination">
+            <nav>
+              <ul class="pagination">
+                {% if gallery.has_previous %}
+                <li>
+                  <a href="?page={{ gallery.previous_page_number }}" aria-label="Previous">
+                    <span class="fa fa-angle-left"></span> Prev
+                  </a>
+                </li>
+                {% endif %}
+                {% for num in gallery.paginator.page_range %}
+                  {% if num == gallery.number %}
+                    <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
+                  {% else %}
+                    <li><a href="?page={{ num }}">{{ num }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if gallery.has_next %}
+                <li>
+                  <a href="?page={{ gallery.next_page_number }}" aria-label="Next">
+                   Next <span class="fa fa-angle-right"></span>
+                  </a>
+                </li>
+                {% endif %}
+              </ul>
+            </nav>
+          </div>
+          <!-- end course pagination -->
          </div>
        </div>
      </div>

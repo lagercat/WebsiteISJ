@@ -26,29 +26,32 @@
             <div class="row">
               <div class="col-md-9">
                 <!-- start course content container -->
-                <div class="mu-course-container">
+                <div class="mu-course-container mu-blog-archive">
                   <div class="row">
+
                     {% if events %}
                     {% for event in events %}
-                  <div  style="max-height: 300px" class="col-md-4 col-sm-4">
-                    <div class="mu-latest-course-single">
-                      <figure class="mu-latest-course-img">
-                        <a ><img   src= '{{ event.file.url }}'alt="img"></a>
-                        <figcaption class="mu-latest-course-imgcaption">
-                          <a href="#">{{ event.name }} </a>
-                          <span><i class="fa fa-clock-o"></i> {{ event.date }}</span>
-                        </figcaption>
-                      </figure>
-                      <div class="mu-latest-course-single-content">
-
-                        <div class="mu-latest-course-single-contbottom">
-                          <a class="mu-course-details" href="/event/{{ event.slug }}">Details</a>
-
+                    <div class="col-md-6 col-sm-6">
+                      <article class="mu-blog-single-item">
+                        <figure class="mu-blog-single-img">
+                          <a href="/event/{{ event.slug }}"><img style="width: 400px;height: 200px" src= '{{ event.file.url }}'alt="img"></a>
+                          <figcaption class="mu-blog-caption">
+                            <h3><a href="/event/{{ event.slug }}">{{ news.name }}</a></h3>
+                          </figcaption>
+                        </figure>
+                        <div class="mu-blog-meta">
+                          <a >By {{ event.author.get_full_name }}</a>
+                          <a >{{ event.date }}</a>
                         </div>
-                      </div>
+                        <div class="mu-blog-description">
+
+                          <a class="mu-read-more-btn" href="/event/{{ event.slug }}">Read More</a>
+                        </div>
+                      </article>
                     </div>
-                  </div>
                     {% endfor %}
+                    {% else %}
+                    <h3>Nu sunt informatii de afisat ! </h3>
                     {% endif %}
                   </div>
                 </div>
@@ -57,21 +60,27 @@
                 <div class="mu-pagination">
                   <nav>
                     <ul class="pagination">
+                      {% if events.has_previous %}
                       <li>
-                        <a href="#" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Prev 
+                        <a href="?page={{ events.previous_page_number }}" aria-label="Previous">
+                          <span class="fa fa-angle-left"></span> Prev
                         </a>
                       </li>
-                      <li class="active"><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
+                      {% endif %}
+                      {% for num in events.paginator.page_range %}
+                        {% if num == events.number %}
+                          <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% else %}
+                          <li><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if events.has_next %}
                       <li>
-                        <a href="#" aria-label="Next">
+                        <a href="?page={{ events.next_page_number }}" aria-label="Next">
                          Next <span class="fa fa-angle-right"></span>
                         </a>
                       </li>
+                      {% endif %}
                     </ul>
                   </nav>
                 </div>
