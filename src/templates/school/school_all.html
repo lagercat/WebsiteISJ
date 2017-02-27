@@ -30,19 +30,19 @@
                 <div class="mu-course-container mu-blog-archive">
                   <div class="row">
 
-                    {% if news_all %}
-                    {% for news in news_all %}
+                    {% if schools %}
+                    {% for school in schools %}
                     <div class="col-md-6 col-sm-6">
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
-                          <a href="#"><img style="width: 400px;height: 200px" src= '{{ news.file.url }}'alt="img"></a>
+                          <a href="#"><img style="width: 400px;height: 200px" src= '{{ school.file.url }}'alt="img"></a>
                           <figcaption class="mu-blog-caption">
-                            <h3><a href="/schools/{{ news.slug }}">{{ news.name }}</a></h3>
-                          </figcaption>                      
+                            <h3><a href="/schools/{{ school.slug }}">{{ school.name }}</a></h3>
+                          </figcaption>
                         </figure>
                         <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/schools/{{ news.slug }}">Read More</a>
+                          <a class="mu-read-more-btn" href="/schools/{{ school.slug }}">Read More</a>
                         </div>
                       </article>
                     </div>
@@ -57,21 +57,27 @@
                 <div class="mu-pagination">
                   <nav>
                     <ul class="pagination">
+                      {% if schools.has_previous %}
                       <li>
-                        <a href="#" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Prev 
+                        <a href="?page={{ schools.previous_page_number }}" aria-label="Previous">
+                          <span class="fa fa-angle-left"></span> Prev
                         </a>
                       </li>
-                      <li class="active"><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
+                      {% endif %}
+                      {% for num in schools.paginator.page_range %}
+                        {% if num == schools.number %}
+                          <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% else %}
+                          <li><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if schools.has_next %}
                       <li>
-                        <a href="#" aria-label="Next">
+                        <a href="?page={{ schools.next_page_number }}" aria-label="Next">
                          Next <span class="fa fa-angle-right"></span>
                         </a>
                       </li>
+                      {% endif %}
                     </ul>
                   </nav>
                 </div>
@@ -93,19 +99,19 @@
                   </div>
                   <!-- end single sidebar -->
                   <!-- start single sidebar -->
-                   {% if news_all %}
+                   {% if schools %}
                   <div class="mu-single-sidebar">
                     <h3>Other Schools</h3>
-                    {% for news in news_all %}
+                    {% for school in schools %}
                     <div class="mu-sidebar-popular-courses">
                       <div class="media">
                         <div class="media-left">
-                          <a href="/schools/{{ news.slug }}">
-                            <img class="media-object" src= '{{ news.file.url }}' alt="img">
+                          <a href="/schools/{{ school.slug }}">
+                            <img class="media-object" src= '{{ school.file.url }}' alt="img">
                           </a>
                         </div>
                         <div class="media-body">
-                          <h4 class="media-heading"><a href="/schools/{{ news.slug }}">{{ news.name }}</a></h4>
+                          <h4 class="media-heading"><a href="/schools/{{ school.slug }}">{{ school.name }}</a></h4>
                         </div>
                       </div>
                     </div>
