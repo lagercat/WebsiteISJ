@@ -31,20 +31,20 @@
                   <div class="row">
 
                     {% if articole %}
-                    {% for news in articole %}
+                    {% for articol in articole %}
                     <div class="col-md-6 col-sm-6">
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
-                          <a href="{{news.slug}}"><img style="width: 400px;height: 200px" src= '{{ news.file.url }}'alt="img"></a>
+                          <a href="{{articol.slug}}"><img style="width: 400px;height: 200px" src= '{{ articol.file.url }}'alt="img"></a>
                           <figcaption class="mu-blog-caption">
-                            <h3><a href="{{news.slug}}">{{ news.name }}</a></h3>
+                            <h3><a href="{{articol.slug}}">{{ articol.name }}</a></h3>
                           </figcaption>
                         </figure>
 
 
                         <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="{{news.slug}}">Read More</a>
+                          <a class="mu-read-more-btn" href="{{articol.slug}}">Read More</a>
                         </div>
                       </article>
                     </div>
@@ -59,21 +59,27 @@
                 <div class="mu-pagination">
                   <nav>
                     <ul class="pagination">
+                      {% if articole.has_previous %}
                       <li>
-                        <a href="#" aria-label="Previous">
+                        <a href="?page={{ articole.previous_page_number }}" aria-label="Previous">
                           <span class="fa fa-angle-left"></span> Prev
                         </a>
                       </li>
-                      <li class="active"><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
+                      {% endif %}
+                      {% for num in articole.paginator.page_range %}
+                        {% if num == articole.number %}
+                          <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% else %}
+                          <li><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if articole.has_next %}
                       <li>
-                        <a href="#" aria-label="Next">
+                        <a href="?page={{ articole.next_page_number }}" aria-label="Next">
                          Next <span class="fa fa-angle-right"></span>
                         </a>
                       </li>
+                      {% endif %}
                     </ul>
                   </nav>
                 </div>
@@ -95,20 +101,20 @@
                   </div>
                   <!-- end single sidebar -->
                   <!-- start single sidebar -->
-                   {% if news_all %}
+                   {% if articol_all %}
                   <div class="mu-single-sidebar">
-                    <h3>Popular News</h3>
-                    {% for news in news_all %}
+                    <h3>Popular articol</h3>
+                    {% for articol in articol_all %}
                     <div class="mu-sidebar-popular-courses">
                       <div class="media">
                         <div class="media-left">
-                          <a href="/news/{{ news.slug }}">
-                            <img class="media-object" src= '{{ news.file.url }}' alt="img">
+                          <a href="/articol/{{ articol.slug }}">
+                            <img class="media-object" src= '{{ articol.file.url }}' alt="img">
                           </a>
                         </div>
                         <div class="media-body">
-                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.name }}</a></h4>
-                          <span class="popular-course-price">{{ news.date }}</span>
+                          <h4 class="media-heading"><a href="/articol/{{ articol.slug }}">{{ articol.name }}</a></h4>
+                          <span class="popular-course-price">{{ articol.date }}</span>
                         </div>
                       </div>
                     </div>
