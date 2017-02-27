@@ -13,8 +13,12 @@ def logout_view(request):
   
 @login_required
 def admin_logout_view(request):
-    logout(request)
-    return redirect('/admin/login')
+    if request.user.status == 3:
+        logout(request)
+        return redirect('/admin/login')
+    else:
+        logout(request)
+        return redirect('/')
 
 def login_view(request):
     if request.user.is_authenticated():
