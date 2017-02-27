@@ -21,17 +21,14 @@ This script expects:
 
 */
 
-function enter_press(e){
-                if(e.keyCode == 13){
-                    console.log("Hello");
-                    search($('#searchbar').val());
-                }
-            }
+function addressEnter(){
+    googlemap.codeAddress();
+}
 
 function initAutocomplete() {
   // Create the autocomplete object, restricting the search to geographical
   // location types.
-  autocomplete = new google.maps.places.Autocomplete(
+  autocomplete = new google.maps.places.SearchBox(
       (document.getElementById('id_address')),
       {types: ['geocode']});
 
@@ -213,6 +210,12 @@ $(document).ready(function() {
     $("#id_address").after('\
         <a id="address-search-button" style="z-index: 1000;position: absolute;right: 15px;top: 15px;"><i class="material-icons" style="font-size: 18px;">search</i></a>\
     ');
+    $("#id_address").on("keypress", function(e){
+        var code = e.keyCode || e.which;
+        if (code == 13) {
+            addressEnter();
+        }
+    });
     googlemap.initialize();
     
 });

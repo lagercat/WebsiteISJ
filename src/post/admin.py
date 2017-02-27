@@ -15,6 +15,8 @@ from daterange_filter.filter import DateRangeFilter
 class PostAdmin(AdminChangeMixin):
     change_form = PostChangeFormAdmin
     add_form = PostCreationFormAdmin
+    change_own_field = "author__id"
+    change_own_owner_field = "id"
     
     add_form_template = "admin/add_files_form.html"
     
@@ -55,6 +57,8 @@ class PostAdmin(AdminChangeMixin):
 class PageAdmin(AdminChangeMixin):
     change_form = PageChangeFormAdmin
     add_form = PageCreationFormAdmin
+    change_own_field = "author__id"
+    change_own_owner_field = "id"
     
     icon = '<i class="material-icons">description</i>'
 

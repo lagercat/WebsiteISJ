@@ -17,6 +17,8 @@ class SubjectAdmin(AdminChangeMixin):
 class SubcategoryAdmin(AdminChangeMixin):
     change_form = SubcategoryChangeFormAdmin
     add_form = SubcategoryCreationFormAdmin
+    change_own_field = "author__id"
+    change_own_owner_field = "id"
 
     icon = '<i class="material-icons">queue</i>'
 
@@ -62,6 +64,8 @@ class SubcategoryAdmin(AdminChangeMixin):
 class SubjectPostAdmin(AdminChangeMixin):
     change_form = SubjectPostChangeFormAdmin
     add_form = SubjectPostCreationFormAdmin
+    change_own_field = "author__id"
+    change_own_owner_field = "id"
     list_display = ['name', 'subject', 'subcategory', 'author', 'fileLink',
                     'date', 'slug']
     list_filter = (

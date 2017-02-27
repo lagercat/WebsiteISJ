@@ -10,6 +10,8 @@ from django.contrib.admin.filters import DateFieldListFilter
 class ArticleAdmin(AdminChangeMixin):
     change_form = ArticleChangeFormAdmin
     add_form = ArticleCreationFormAdmin
+    change_own_field = "author__id"
+    change_own_owner_field = "id"
 
     icon = '<i class="material-icons">assignment</i>'
     list_display = ['short_name', 'subcategory', 'author', 'fileLink', 'date',
@@ -54,6 +56,8 @@ class ArticleAdmin(AdminChangeMixin):
 class SimplePageAdmin(AdminChangeMixin):
     change_form = SimplePageChangeFormAdmin
     add_form = SimplePageCreationFormAdmin
+    change_own_field = "author__id"
+    change_own_owner_field = "id"
 
     icon = '<i class="material-icons">list</i>'
     list_display = ['short_name', 'category', 'author', 'fileLink', 'date',

@@ -97,6 +97,8 @@ class ExtendedUser(AbstractBaseUser):
                 return True
             if perm == "post.change_own_post":
                 return True
+            if perm == "post.add_own_post":
+                return True
             return False
         elif self.status == 1:
             if perm == "school.change_own_school":
@@ -105,21 +107,35 @@ class ExtendedUser(AbstractBaseUser):
                 return True
             if perm == "post.change_own_post":
                 return True
+            if perm == "post.add_own_post":
+                return True
             return False
         elif self.status == 2:
             if perm == "post.view_post":
                 return True
             if perm == "post.change_own_post":
                 return True
+            if perm == "post.add_own_post":
+                return True
             if perm == "event.change_own_event":
+                return True
+            if perm == "event.add_own_event":
                 return True
             if perm == "news.change_own_news":
                 return True
+            if perm == "news.add_own_news":
+                return True
             if perm == "subject.change_own_subjectpost":
+                return True
+            if perm == "subject.add_own_subject":
                 return True
             if perm == "subject.change_own_subcategory":
                 return True
+            if perm == "subject.add_own_subcategory":
+                return True
             if perm == "gallery.change_own_gallery":
+                return True
+            if perm == "gallery.add_own_gallery":
                 return True
             return False
         return False

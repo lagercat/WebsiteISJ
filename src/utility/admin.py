@@ -4,13 +4,17 @@ from .models import make_view_proxy, ModuleProxy
 from material.frontend.admin import ModuleAdmin
 
 class AdminChangeMixin(admin.ModelAdmin): 
+    change_own_field = None
+    change_own_owner_field = None
+    can_change_own = True
+    
     def get_model_perms(self, request):
         """
         Return empty perms dict thus hiding the model from admin index.
         """
         return {
             "change" : self.has_perm(request.user, "change"), 
-            "change_own" : self.has_perm(request.user, "change_own"),
+            "change_own" : self.has_perm(request.user, "change_own") and self.can_change_own,
             "delete" : self.has_perm(request.user, "delete"), 
         }
       
@@ -26,7 +30,7 @@ class AdminChangeMixin(admin.ModelAdmin):
         return True
 
     def has_add_permission(self, request, obj=None):
-        return self.has_perm(request.user, "change") or self.has_perm(request.user, "change_own")
+        return (self.has_perm(request.user, "add_own") and self.has_perm(request.user,'change_own') and self.can_change_own) or self.has_perm(request.user,'change')
 
     def has_delete_permission(self, request, obj=None):
         return self.has_perm(request.user, "delete")
@@ -37,7 +41,7 @@ class AdminChangeMixin(admin.ModelAdmin):
         """
         if self.has_perm(request.user,'change'):
             return True
-        elif self.has_perm(request.user,'change_own'):
+        elif self.has_perm(request.user,'change_own') and self.can_change_own:
             return True        
         return False
 
@@ -68,7 +72,7 @@ class AdminChangeMixin(admin.ModelAdmin):
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
         extra_context['title'] = self.get_form(request, None).Meta.model._meta.verbose_name_plural
-        if self.has_perm(request.user, 'change_own') and not self.has_perm(request.user, 'change'):
+        if self.has_perm(request.user, 'change_own') and self.can_change_own and not self.has_perm(request.user, 'change'):
             extra_context['title'] = "Owned " + self.get_form(request, None).Meta.model._meta.verbose_name_plural
         return admin.ModelAdmin.changelist_view(self, request, extra_context=extra_context)
       
@@ -78,8 +82,16 @@ class AdminChangeMixin(admin.ModelAdmin):
       
     def get_queryset(self, request):
       queryset = admin.ModelAdmin.get_queryset(self, request)
-      if self.has_perm(request.user,'change_own') and not self.has_perm(request.user,'change'):
-          return queryset.filter(author=request.user)
+      if self.has_perm(request.user,'change_own') and self.can_change_own and not self.has_perm(request.user,'change'):
+          if self.change_own_field is None:
+              raise "change_own_field must be set."
+          if self.change_own_owner_field is None:
+              raise "change_own_owner_field must be set."
+          kwargs = {
+              self.change_own_field: getattr(request.user, self.change_own_owner_field).id if self.change_own_field is 'id' else getattr(request.user, self.change_own_owner_field),
+          }
+          print kwargs
+          return queryset.filter(**kwargs)
       return queryset
       
 class AdminViewMixin(admin.ModelAdmin): 

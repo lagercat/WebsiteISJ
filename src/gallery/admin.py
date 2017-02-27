@@ -12,6 +12,8 @@ from django.contrib.admin.filters import DateFieldListFilter
 
 class GalleryAdmin(AdminChangeMixin):
     icon = '<i class="material-icons">photo</i>'
+    change_own_field = "author__id"
+    change_own_owner_field = "id"
     
     add_form = GalleryCreationFormAdmin
     change_form = GalleryChangeFormAdmin

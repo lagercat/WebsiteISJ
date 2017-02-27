@@ -12,6 +12,8 @@ from django.contrib.admin.filters import DateFieldListFilter
 class SchoolAdmin(AdminChangeMixin):
     add_form = SchoolCreationFormAdmin
     change_form = SchoolChangeFormAdmin
+    change_own_field = "id"
+    change_own_owner_field = "school"
 
     icon = '<i class="material-icons">room</i>'
 

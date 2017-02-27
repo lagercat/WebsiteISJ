@@ -10,6 +10,8 @@ from django.contrib.admin.filters import DateFieldListFilter
 class EventAdmin(AdminChangeMixin):
     add_form = EventCreationFormAdmin
     change_form = EventChangeFormAdmin
+    change_own_field = "author__id"
+    change_own_owner_field = "id"
 
     icon = '<i class="material-icons">room</i>'
 

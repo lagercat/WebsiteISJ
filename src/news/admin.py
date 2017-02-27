@@ -9,6 +9,8 @@ from django.contrib.admin.filters import DateFieldListFilter
 class NewsAdmin(AdminChangeMixin):    
     change_form = NewsChangeFormAdmin
     add_form = NewsCreationFormAdmin
+    change_own_field = "author__id"
+    change_own_owner_field = "id"
     
     icon = '<i class="material-icons">rss_feed</i>'
 
