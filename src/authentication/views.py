@@ -27,7 +27,7 @@ def login_view(request):
                                 password=form.cleaned_data['password'])
             if user is not None:
                 login(request, user)
-                return redirect('/')
+                return redirect('/admin')
             else:
                 errors.append("Email sau parola invalida / Cont dezactivat")
     return render(request, 'authentication/login.html', {
