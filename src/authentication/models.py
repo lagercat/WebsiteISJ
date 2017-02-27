@@ -117,6 +117,8 @@ class ExtendedUser(AbstractBaseUser):
                 return True
             if perm == "subject.change_own_subjectpost":
                 return True
+            if perm == "subject.change_own_subcategory":
+                return True
             if perm == "gallery.change_own_gallery":
                 return True
             return False
