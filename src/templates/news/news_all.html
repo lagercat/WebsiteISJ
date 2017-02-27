@@ -37,7 +37,7 @@
                         <figure class="mu-blog-single-img">
                           <a href="#"><img style="width: 400px;height: 200px" src= '{{ news.file.url }}'alt="img"></a>
                           <figcaption class="mu-blog-caption">
-                            <h3><a href="/news/{{ news.slug }}">{{ news.name }}</a></h3>
+                            <h3><a href="/news/{{ news.slug }}">{{ news.name|truncatechars:25 }}</a></h3>
                           </figcaption>
                         </figure>
                         <div class="mu-blog-meta">
@@ -115,7 +115,7 @@
                           </a>
                         </div>
                         <div class="media-body">
-                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.name }}</a></h4>
+                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.name|truncatechars:14 }}</a></h4>
                           <span class="popular-course-price">{{ news.date }}</span>
                         </div>
                       </div>
