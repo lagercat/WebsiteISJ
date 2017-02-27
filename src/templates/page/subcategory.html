@@ -37,7 +37,7 @@
                         <figure class="mu-blog-single-img">
                           <a href="{{articol.slug}}"><img style="width: 400px;height: 200px" src= '{{ articol.file.url }}'alt="img"></a>
                           <figcaption class="mu-blog-caption">
-                            <h3><a href="{{articol.slug}}">{{ articol.name }}</a></h3>
+                            <h3><a href="{{articol.slug}}">{{ articol.name|truncatechars:18 }}</a></h3>
                           </figcaption>
                         </figure>
 
