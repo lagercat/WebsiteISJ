@@ -9,11 +9,11 @@
        <div class="col-md-12">
          <div class="mu-page-breadcrumb-area">
              <a href="/school_map">
-           <h2 >Scolile din Judetul Timis</h2>
+           <h2 >Şcolile din Judeţul Timiş</h2>
              </a>
            <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
-            <li class="active"><a href="/school_map" style="color: dodgerblue">Scoli</a></li>
+            <li class="active"><a href="/school_map" style="color: dodgerblue">Şcoli</a></li>
           </ol>
          </div>
        </div>
@@ -44,13 +44,13 @@
                         </figure>
                         <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/schools/{{ school.slug }}">Read More</a>
+                          <a class="mu-read-more-btn" href="/schools/{{ school.slug }}">Mai mult</a>
                         </div>
                       </article>
                     </div>
                     {% endfor %}
                     {% else %}
-                    <h3>Nu sunt informatii de afisat ! </h3>
+                    <h3>Nu sunt informaţii de afişat ! </h3>
                     {% endif %}
                   </div>
                 </div>
@@ -90,9 +90,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categories</h3>
+                    <h3>Categorii</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasa</a></li>
+                       <li><a href="/">Acasă</a></li>
                       <li><a href="/album">Galerie</a></li>
                       {% for category in categories %}
                       <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
@@ -103,7 +103,7 @@
                   <!-- start single sidebar -->
                    {% if schools %}
                   <div class="mu-single-sidebar">
-                    <h3>Other Schools</h3>
+                    <h3>Alte Şcoli</h3>
                     {% for school in schools %}
                     <div class="mu-sidebar-popular-courses">
                       <div class="media">
