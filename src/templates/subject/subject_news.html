@@ -91,7 +91,7 @@
 
                               </div>
                               <div class="mu-blog-description">
-                                  <a href="/news/{{ news.slug }}" class="mu-read-more-btn">Read More</a>
+                                  <a href="/news/{{ news.slug }}" class="mu-read-more-btn">Citeşte mai mult</a>
                               </div>
                             </article>
                           </div>
@@ -114,9 +114,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categories</h3>
+                    <h3>Categorii</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasa</a></li>
+                       <li><a href="/">Acasă</a></li>
                       <li><a href="/album">Galerie</a></li>
                       {% for category in categories %}
                       <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
@@ -127,7 +127,7 @@
                   <!-- start single sidebar -->
                   {% if other_news %}
                   <div class="mu-single-sidebar">
-                    <h3>Popular News</h3>
+                    <h3>Articole Populare</h3>
                     {% for news in other_news %}
                     <div class="mu-sidebar-popular-courses">
                       <div class="media">

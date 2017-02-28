@@ -40,20 +40,20 @@
                           <a href="{{news.slug}}"><img style="width: 400px;height: 200px" src= '{{ news.file.url }}'alt="img"></a>
                           <figcaption class="mu-blog-caption">
                             <h3><a href="{{news.slug}}">{{ news.name|truncatechars:17 }}</a></h3>
-                          </figcaption>                      
+                          </figcaption>
                         </figure>
 
 
                         <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="{{news.slug}}">Read More</a>
+                          <a class="mu-read-more-btn" href="{{news.slug}}">Citeşte mai mult</a>
                         </div>
                       </article>
                     </div>
                     {% endfor %}
 
                     {% else %}
-                    <h3>Nu sunt informatii <d></d>e afisat </h3>
+                    <h3>Nu sunt informaţii de afisat </h3>
                     {% endif %}
                   </div>
                 </div>
@@ -64,7 +64,7 @@
                     <ul class="pagination">
                       <li>
                         <a href="#" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Prev 
+                          <span class="fa fa-angle-left"></span> Prev
                         </a>
                       </li>
                       <li class="active"><a href="#">1</a></li>
@@ -87,9 +87,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categories</h3>
+                    <h3>Categorii</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasa</a></li>
+                       <li><a href="/">Acasă</a></li>
                       <li><a href="/album">Galerie</a></li>
                       {% for category in categories %}
                       <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>

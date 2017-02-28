@@ -44,7 +44,7 @@
 
                         <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="{{news.name}}">Read More</a>
+                          <a class="mu-read-more-btn" href="{{news.name}}">Citeşte mai mult</a>
                         </div>
                       </article>
                     </div>
@@ -65,7 +65,7 @@
 
                         <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/simple/{{ name }}/{{news.slug}}">Read More</a>
+                          <a class="mu-read-more-btn" href="/simple/{{ name }}/{{news.slug}}">Citeşte mai mult</a>
                         </div>
                       </article>
                     </div>
@@ -74,7 +74,7 @@
 
 
                     {% else %}
-                    <h3>Nu sunt informatii <d></d>e afisat </h3>
+                    <h3>Nu sunt informaţii de afişat </h3>
                     {% endif %}
                   </div>
                 </div>
@@ -108,9 +108,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categories</h3>
+                    <h3>Categorii</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasa</a></li>
+                       <li><a href="/">Acasă</a></li>
                       <li><a href="/album">Galerie</a></li>
                       {% for category in categories %}
                       <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
