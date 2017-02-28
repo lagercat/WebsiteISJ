@@ -38,10 +38,10 @@
                         </figure>
                         <div class="mu-latest-course-single-content">
                           <h2><a >{{ name|truncatechars:90 }}</a></h2>
-                          <h4>Event  Information</h4>
+                          <h4>Informaţii despre eveniment</h4>
                           <ul>
-                            <li> <span>Time</span> <span> {{ date }}</span></li>
-                            <li> <span>Location</span> <span>{{ location }}</span></li>
+                            <li> <span>Data & ora : </span> <span> {{ date }}</span></li>
+                            <li> <span>Locaţia :</span> <span>{{ location }}</span></li>
                             <input id="id_address" name="address" type="hidden" value="{{ location }}">
                             <input id="id_geolocation" name="geolocation" type="hidden" value="{{ geolocation }}">
                             <div id='map_container' class='row ' style="width: 70% ">
@@ -81,7 +81,7 @@
                           </figure>
                           <div class="mu-latest-course-single-content">
                               <div class="mu-latest-course-single-contbottom">
-                              <a href="/event/{{ event.slug }}" class="mu-course-details">Details</a>
+                              <a href="/event/{{ event.slug }}" class="mu-course-details">Mai mult</a>
 
                             </div>
                           </div>
@@ -101,9 +101,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categories</h3>
+                    <h3>Categorii</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasa</a></li>
+                       <li><a href="/">Acasă</a></li>
                       <li><a href="/album">Galerie</a></li>
                       {% for category in categories %}
                       <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
@@ -114,7 +114,7 @@
                   <!-- start single sidebar -->
                   {% if other_news %}
                   <div class="mu-single-sidebar">
-                    <h3>Popular News</h3>
+                    <h3>Articole Populare</h3>
                     {% for news in other_news %}
                     <div class="mu-sidebar-popular-courses">
                       <div class="media">
