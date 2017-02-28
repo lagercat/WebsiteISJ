@@ -8,10 +8,12 @@
      <div class="row">
        <div class="col-md-12">
          <div class="mu-page-breadcrumb-area">
-           <h2>Scolile din Judetul Timis</h2>
+             <a href="/school_map">
+           <h2 >Scolile din Judetul Timis</h2>
+             </a>
            <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
-            <li class="active">Scolile</li>
+            <li class="active"><a href="/school_map" style="color: dodgerblue">Scoli</a></li>
           </ol>
          </div>
        </div>
@@ -37,7 +39,7 @@
                         <figure class="mu-blog-single-img">
                           <a href="#"><img style="width: 400px;height: 200px" src= '{{ school.file.url }}'alt="img"></a>
                           <figcaption class="mu-blog-caption">
-                            <h3><a href="/schools/{{ school.slug }}">{{ school.name }}</a></h3>
+                            <h5><a href="/schools/{{ school.slug }}">{{ school.name|truncatechars:40  }}</a></h5>
                           </figcaption>
                         </figure>
                         <div class="mu-blog-description">

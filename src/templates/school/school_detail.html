@@ -8,10 +8,11 @@
      <div class="row">
        <div class="col-md-12">
          <div class="mu-page-breadcrumb-area">
-           <h2>School Detail</h2>
+           <h2>{{ name|truncatechars:80 }}</h2>
            <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
-            <li class="active">School Detail</li>
+
+               <li class="active"><a href="/school_map" style="color: dodgerblue">Scoli</a></li>
           </ol>
          </div>
        </div>
@@ -39,7 +40,8 @@
                           </figcaption>
                         </figure>
                         <div class="mu-latest-course-single-content">
-                          <h2><a >{{ name }}</a></h2>
+                          <h5><a >{{ name|truncatechars:80 }}</a></h5>
+                        <br>
                           <h4>School  Information</h4>
                           <ul>
                             {% if telephone %}
@@ -90,10 +92,9 @@
                       <div class="col-md-6">
                         <div class="mu-latest-course-single">
                           <figure class="mu-latest-course-img">
-                            <a href="/schools/{{ event.slug }}"><img alt="img" src= '{{ event.file.url }}'></a>
+                            <a href="/schools/{{ event.slug }}"><img style=" max-height: 160px" alt="img" src= '{{ event.file.url }}'></a>
                             <figcaption class="mu-latest-course-imgcaption">
-                              <a href="/schools/{{ event.slug }}">{{ event.name }}</a>
-                              <span><i class="fa fa-clock-o"></i>{{ event.date }}</span>
+                              <a href="/schools/{{ event.slug }}">{{ event.name|truncatechars:39 }}</a>
                             </figcaption>
                           </figure>
                           <div class="mu-latest-course-single-content">
