@@ -11,7 +11,7 @@ from post.forms import PostChangeFormAdmin, PostCreationFormAdmin,\
 from post.models import Page
 from django.contrib.admin.filters import DateFieldListFilter,\
   ChoicesFieldListFilter
-from daterange_filter.filter import DateRangeFilter
+
 class PostAdmin(AdminChangeMixin):
     change_form = PostChangeFormAdmin
     add_form = PostCreationFormAdmin
