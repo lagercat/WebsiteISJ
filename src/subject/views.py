@@ -39,10 +39,11 @@ def subject(request, name):
 
 def subcategory_subject(request, name, kind):
     sub = get_object_or_404(Subcategory, name=kind)
-    print sub.get_subpost()
     return render(request, 'subject/subcategory_post.html',
                   {
                       'subcategory_article': sub.get_subpost,
+                      'name':name,
+                      'kind':kind,
 
                   })
 
@@ -53,7 +54,6 @@ def subcategory_subject_news(request,name,kind,slug):
                                    'slug').filter(slug=slug,
                                                   subcategory__name=kind))
     other_news = News.objects.all()[:4]
-    print articol
     return render(request, 'subject/subject_news.html', {
 
 
@@ -61,6 +61,7 @@ def subcategory_subject_news(request,name,kind,slug):
         'text': articol[0].get('text'),
         'other_news': other_news,
         'thumbnail': "/media/" + articol[0].get('file'),
+        'name_subject':name,
 
 
     })
