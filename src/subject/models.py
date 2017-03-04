@@ -44,7 +44,8 @@ class Subject(CustomPermissionsMixin):
             return None
 
     def get_subject_post(self):
-        subject_post = SubjectPost.objects.filter(subject=self).all()
+        subject_post = SubjectPost.objects.filter(subject=self,
+                                                  subcategory=None).all()
         if subject_post is not None:
             return subject_post
         else:
