@@ -95,10 +95,18 @@
                 var lat = locations[i][1];
                 var long = locations[i][2];
                 var address = locations[i][3];
-                var phone = locations[i][4];
-                var fax = locations[i][5];
-                var email = locations[i][6];
-                var website = locations[i][7];
+                if(locations[i][4]) {
+                    var phone = locations[i][4];
+                }
+                 else var phone = "-"
+                if(locations[i][5]) var fax = locations[i][5];
+                    else var fax = "-";
+                if(locations[i][5]) var fax = locations[i][5];
+                    else var fax = "-";
+                if(locations[i][6]) var email = locations[i][6];
+                   else var email = "-";
+                if(locations[i][7]) var website = locations[i][7];
+                   else var website = "-"
                 var photo = locations[i][8];
         
                 var latlngset = new google.maps.LatLng(lat, long);
