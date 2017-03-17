@@ -3,26 +3,26 @@ from django.db import models
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-MEDIA_URL = '/media/' # NU MAI MODIFICATI !! @ema
-MEDIA_ROOT = os.path.join(BASE_DIR, "../media") # NU  MAI MODIFICATI !!!! @ema
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "../media")
 
-SECRET_KEY = 'vl27lst+j0&n4ec$dh7qu^=i0f2@$#(dw-25#7$f##$w9s%8b5'
+SECRET_KEY = os.environ.get('PROJECT_SECRET_KEY')
 
-RECAPTCHA_PUBLIC_KEY = '6Le23xAUAAAAALeZVS6-CFTIKbhD-2XGYDWV3JUY'
-RECAPTCHA_PRIVATE_KEY = '6Le23xAUAAAAADqwurHC-Cvm25zXqkvHuREZjiIo'
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyAaQMDSvMtqNgJCK9b9TwywchYETHCo_4g'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0"]
 
 INSTALLED_APPS = [
     # admin theme
     'material',
     'material.frontend',
     'material.admin',
-    
+
     # standard packages
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'tinymce',
     'django_extensions',
     'django_google_maps',
-    
+
     # usual apps
     'authentication',
     'homepages',
@@ -98,11 +98,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'isj',
-        'USER': 'isjuser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': os.environ.get('DATABASE_PORT'),
     }
 }
 
