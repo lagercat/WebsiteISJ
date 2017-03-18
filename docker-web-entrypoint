@@ -4,5 +4,5 @@ cd src/
 
 python manage.py makemigrations authentication contact event gallery news page post school subject utility
 python manage.py migrate
-echo "from authentication.models import ExtendedUser; ExtendedUser.objects.create_superuser('admin@admin.com','admin','admin', 3, 'password123').save()" | python manage.py shell
+echo "from authentication.models import ExtendedUser; ExtendedUser.objects.create_superuser('admin','admin','admin', 3, 'password123').save()" | python manage.py shell
 python manage.py runserver 0.0.0.0:8000
