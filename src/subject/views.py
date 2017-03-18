@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from forms import SubjectPostCreationFormAdmin
 from models import Subject, SubjectPost, Subcategory
@@ -39,12 +40,21 @@ def subject(request, name):
 
 def subcategory_subject(request, name, kind):
     sub = get_object_or_404(Subcategory, name=kind)
+    posts = sub.get_subpost()
+    paginator = Paginator(posts, 4)
+
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     return render(request, 'subject/subcategory_post.html',
                   {
-                      'subcategory_article': sub.get_subpost,
+                      'subcategory_article': posts,
                       'name':name,
-                      'kind':kind,
-
+                      'kind':kind
                   })
 
 
