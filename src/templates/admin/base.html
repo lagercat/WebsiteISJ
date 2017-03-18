@@ -150,6 +150,18 @@
                                 </div>\
                             ");
                         }
+                        
+                        $(window).on("load", function(){
+                          var selects = $(".select-dropdown");
+                          $.each(selects, function(i,el){
+                            console.log(el);var da = $(el).attr("data-activates");
+                            var list = $("#"+da);
+                            var v = list.find('li.active').length != 0
+                            if(!v){
+                              $(el).val("---------");
+                            }                         
+                          });
+                        });
                     </script>
                 </div>
             {% endblock main %}

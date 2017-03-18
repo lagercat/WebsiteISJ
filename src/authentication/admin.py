@@ -19,24 +19,24 @@ class ExtendedUserAdmin(BaseUserAdmin):
 
     icon = '<i class="material-icons">account_box</i>'
     
-    list_display = ('username', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'get_subjects',
+    list_display = ('username', 'first_name', 'last_name', 'school', 'get_subjects',
                     'status', 'is_active')
     
     list_filter = ('is_admin',)
     fieldsets = (
         ('Login Information', {'fields': ('username', ('password1', 'password2'))}),
-        ('Personal info', {'fields': (('first_name', 'last_name'), 'date_of_birth', 'phone_number', ('subjects', 'school'))}),
+        ('Personal info', {'fields': (('first_name', 'last_name'), ('subjects', 'school'))}),
         ('Permissions', {'fields': ('is_active', 'status')}),
     )
     
     add_fieldsets = (
         ('Login Information', {'fields': ('username', ('password1', 'password2'))}),
-        ('Personal info', {'fields': (('first_name', 'last_name'), 'date_of_birth', 'phone_number', ('subjects', 'school'))}),
+        ('Personal info', {'fields': (('first_name', 'last_name'), ('subjects', 'school'))}),
         ('Permissions', {'fields': ('status',)}),
     )
     
-    search_fields = ('username', 'first_name', 'last_name', 'phone_number', 'school__name',)
-    ordering = ('username', 'first_name', 'last_name', 'phone_number', 'school__name',)
+    search_fields = ('username', 'first_name', 'last_name', 'school__name',)
+    ordering = ('username', 'first_name', 'last_name', 'school__name',)
     filter_horizontal = ()
 
     def get_subjects(self, obj):

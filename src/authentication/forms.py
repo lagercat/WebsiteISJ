@@ -4,7 +4,7 @@ from models import ExtendedUser
 
 from captcha.fields import ReCaptchaField
 from subject.models import Subject
-
+from school.views import schools
 
 class LoginForm(forms.Form):
     re_captcha = ReCaptchaField(
@@ -40,35 +40,7 @@ class ResetPasswordForm(forms.Form):
                                              'required': 'required',
                                              'placeholder': 'Verifica parola noua'
                                          }))
-
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
-        super(ResetPasswordForm, self).__init__(*args, **kwargs)
-
-    def clean(self):
-        cleaned_data = super(ResetPasswordForm, self).clean()
-        old_password = cleaned_data.get("old_password")
-        new_password = cleaned_data.get("new_password")
-        new_password_check = cleaned_data.get("new_password_check")
-        specials = '[~!@#$%^&*()_+{}":;\']+$'
-        if not (self.user.check_password(old_password)):
-            raise forms.ValidationError("Parola veche nu este corecta")
-        else:
-            if not (new_password == new_password_check):
-                raise forms.ValidationError(
-                    "Parola noua nu se potriveste cu verificarea acesteia")
-            elif not (any(x.isupper() for x in new_password) and any(
-                    x.islower() for x in new_password)
-                      and any(x.isdigit() for x in new_password) and len(
-                new_password) >= 8
-                      and any(
-                    set(specials).intersection(x) for x in new_password)):
-                raise forms.ValidationError(
-                    "Parola trebuie ca aiba cel putin 8 caractere si sa contina cel"
-                    " putin: o litera mare, o litera mica, un numar si un caracter"
-                    " special")
-
-
+    
 class ExtendedUserCreationFormAdmin(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
@@ -76,7 +48,7 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
 
     class Meta:
         model = ExtendedUser
-        fields = ('first_name', 'last_name', 'username', 'phone_number', 'date_of_birth', 'school', 'status')
+        fields = ('first_name', 'last_name', 'username', 'school', 'status')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -85,7 +57,23 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2
-
+    
+    def clean_school(self):
+        status = self.cleaned_data.get("status")
+        if status in [0, 2, 3] and self.cleaned_data.get("school"):
+            raise forms.ValidationError("This should be completed for directors only")
+        if status == 1 and not self.cleaned_data.get("school"):
+            raise forms.ValidationError("Please choose a school for director")
+        return self.cleaned_data.get("school")
+        
+    def clean_subjects(self):
+        status = self.cleaned_data.get("status")
+        if status in [0, 1, 3] and self.cleaned_data.get("subjects"):
+            raise forms.ValidationError("This should be completed for inspectors only")
+        if status == 2 and not self.cleaned_data.get("subjects"):
+            raise forms.ValidationError("Please choose a subject for inspector")
+        return self.cleaned_data.get("subjects")
+    
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super(ExtendedUserCreationFormAdmin, self).save(commit=False)
@@ -106,7 +94,7 @@ class ExtendedUserChangeFormAdmin(forms.ModelForm):
 
     class Meta:
         model = ExtendedUser
-        fields = ('username', 'first_name', 'last_name', 'phone_number', 'date_of_birth', 'school', 'is_active', 'status')
+        fields = ('username', 'first_name', 'last_name', 'school', 'is_active', 'status')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -115,6 +103,24 @@ class ExtendedUserChangeFormAdmin(forms.ModelForm):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2
+
+    def clean_school(self):
+        status = self.cleaned_data.get("status") or self.instance.status
+        school = self.cleaned_data.get("school") or self.instance.school
+        if status in [0, 2, 3] and school:
+            raise forms.ValidationError("This should be completed for directors only")
+        if status == 1 and not school:
+            raise forms.ValidationError("Please choose a school for director")
+        return school
+        
+    def clean_subjects(self):
+        status = self.cleaned_data.get("status") or self.instance.status
+        subjects = self.cleaned_data.get("subjects")
+        if status in [0, 1, 3] and subjects:
+            raise forms.ValidationError("This should be completed for inspectors only")
+        if status == 2 and not subjects:
+            raise forms.ValidationError("Please choose a subject for inspector")
+        return subjects
 
     def save(self, commit=True):
         # Save the provided password in hashed format
@@ -129,4 +135,3 @@ class ExtendedUserChangeFormAdmin(forms.ModelForm):
         if commit:
             user.save()
         return user
-
