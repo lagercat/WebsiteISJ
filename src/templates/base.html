@@ -52,7 +52,7 @@
     </a>
   <!-- END SCROLL TOP BUTTON -->
 
-  <!-- Start header  -->
+  <!-- Start  -->
   <header id="mu-header">
     <div class="container">
       <div class="row">
@@ -109,25 +109,29 @@
       <div class="container">
         <div class="navbar-header">
           <!-- FOR MOBILE VIEW COLLAPSED BUTTON -->
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <!-- LOGO -->
-          <!-- TEXT BASED LOGO -->
-         <div style=" float: left;
-  width: 100px;
-  height: 100px;">
-           <a href="/" >
-  <img src="{% static "assets/img/logo.png" %}" alt="logo" style="width:100%; padding: 2px;"/>
-           </a>
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <!-- LOGO -->
+              <!-- TEXT BASED LOGO -->
+                 <div style=" float: left;
+                      height: 100px;">
+                               <a href="/" >
+                      <img src="{% static "assets/img/logo.png" %}" alt="logo" style="height:100%; padding: 8px;"/>
+                               </a>
 
-</div>
+                 </div>
+                <div style=" float: right;
+                          height: 100px;">
+                                   <a href="/" >
+ <img src="{% static "assets/img/minister2.png" %}" alt="logo" style="height: 113px; padding: 0px;"/>
+                </a>
 
-
-          <!-- IMG BASED LOGO  -->
+                 </div>
+            <!-- IMG BASED LOGO  -->
           <!-- <a class="navbar-brand" href="index.html"><img src="assets/img/logo.png" alt="logo"></a> -->
         </div>
         <div id="navbar" class="navbar-collapse collapse">
@@ -149,9 +153,14 @@
             {% endfor %}
 
           </ul>
+
+
         </div><!--/.nav-collapse -->
+
       </div>
+
     </nav>
+
   </section>
   <!-- End menu -->
   <!-- Start search box -->
