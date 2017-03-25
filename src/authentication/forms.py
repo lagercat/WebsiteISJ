@@ -105,8 +105,8 @@ class ExtendedUserChangeFormAdmin(forms.ModelForm):
         return password2
 
     def clean_school(self):
-        status = self.cleaned_data.get("status") or self.instance.status
-        school = self.cleaned_data.get("school") or self.instance.school
+        status = self.cleaned_data.get("status") if "status" in self.changed_data else self.instance.status
+        school = self.cleaned_data.get("school") if "school" in self.changed_data else self.instance.school
         if status in [0, 2, 3] and school:
             raise forms.ValidationError("This should be completed for directors only")
         if status == 1 and not school:
@@ -114,7 +114,7 @@ class ExtendedUserChangeFormAdmin(forms.ModelForm):
         return school
         
     def clean_subjects(self):
-        status = self.cleaned_data.get("status") or self.instance.status
+        status = self.cleaned_data.get("status") if "status" in self.changed_data else self.instance.status
         subjects = self.cleaned_data.get("subjects")
         if status in [0, 1, 3] and subjects:
             raise forms.ValidationError("This should be completed for inspectors only")

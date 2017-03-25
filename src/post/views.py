@@ -9,8 +9,6 @@ from django.utils import timezone
 
 from haystack.forms import SearchForm
 
-from forms import CreatePostForm, FilterPostForm
-
 from models import Post
 
 import magic
@@ -28,91 +26,6 @@ from django.db.models import Q
 import os
 from django.views.static import serve
 import config.settings
-
-@login_required
-def upload_file_form(request):
-    form = CreatePostForm(request.POST or None, request.FILES or None, user=request.user)
-    if request.method == 'POST':
-        if form.is_valid():
-            post = form.instance
-            post.author = request.user
-            post.save()
-            return redirect("/files/1")
-    return render(request, "post/form.html", {
-        "form": form
-    })
-
-
-@login_required
-def uploaded_files(request, page_id):
-    form = SearchForm(request.GET or None)
-    filters = FilterPostForm(request.POST or None)
-    query = ""
-    selects = [None] * 33
-    if "q" in form.data and form.data['q'] and form.is_valid():
-        results = form.search()
-        query += "?q=" + form.data['q']
-        files = [i.pk for i in results]
-        files = Post.objects.filter(pk__in=files)
-    else:
-        files = Post.objects.all()
-    if filters.is_valid():
-        number_days = int(filters.cleaned_data['time'])
-        permission = int(filters.cleaned_data['user_status'])
-        selects[number_days] = "selected"
-        selects[permission + 20] = "selected"
-        if permission != -1:
-            files = files.filter(author__status=permission)
-        if number_days and files:
-            target = datetime.now() - timedelta(days=number_days)
-            target = timezone.make_aware(target, timezone.get_current_timezone())
-            files = files.filter(date__gt=target)
-    if files:
-        files.latest('date')
-        pages = Paginator(files, 10)
-        try:
-            files = pages.page(page_id)
-        except EmptyPage:
-            files = pages.page(pages.num_pages)
-    return render(request, "post/posts.html", {
-        "form": form,
-        "selects": selects,
-        "files": files,
-        "query": query
-    })
-
-
-@login_required
-def download_file(request, slug):
-    post = get_object_or_404(Post, slug=slug)
-    mime = magic.Magic(mime=True)
-    response = HttpResponse(post.file, content_type=mime.from_file(post.file.path))
-    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(post.filename)
-    return response
-
-
-@login_required
-def delete_file(request, slug):
-    post = get_object_or_404(Post, slug=slug)
-    if post.author == request.user:
-        post.delete()
-        return redirect("/files/1")
-
-
-@login_required
-def edit_file(request, slug):
-    post = get_object_or_404(Post, slug=slug)
-    if post.author == request.user:
-        form = CreatePostForm(request.POST or None, request.FILES or None, instance=post, user=request.user)
-        if request.method == 'POST':
-            if form.is_valid():
-                form.save()
-                return redirect("/files/1")
-        return render(request, "post/edit.html", {
-            "form": form
-        })
-    else:
-        return HttpResponseForbidden()
       
 def show_page(request, slug):
     page = get_object_or_404(Page, slug=slug)

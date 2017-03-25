@@ -59,6 +59,7 @@ mime_documents_types = [
 ]
 
 def clean_file(file, image=False):
+    print file.__class__
     max_size = 10000000  # 10 MB
     filetype = magic.from_buffer(file.read(), mime=True)
     

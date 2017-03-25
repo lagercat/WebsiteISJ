@@ -94,7 +94,7 @@ class ExtendedUser(AbstractBaseUser):
         "news.change_own_news",
         "news.add_own_news",
         "subject.change_own_subjectpost",
-        "subject.add_own_subject",
+        "subject.add_own_subjectpost",
         "subject.change_own_subcategory",
         "subject.add_own_subcategory",
         "gallery.change_own_gallery",

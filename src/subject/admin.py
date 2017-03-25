@@ -81,12 +81,12 @@ class SubjectPostAdmin(AdminChangeMixin):
     fieldsets = ()
 
     change_fieldsets = (
-        ('Page', {'fields': (('name', 'subcategory', 'subject'), 'author')}),
+        ('Page', {'fields': ('name', ('subcategory', 'subject'), 'author')}),
         ('Page content', {'fields': ('text', 'file')})
     )
 
     add_fieldsets = (
-        ('Page', {'fields': (('name', 'subcategory', 'subject'),)}),
+        ('Page', {'fields': ('name', ('subcategory', 'subject'),)}),
         ('Page content', {'fields': ('text', 'file')})
     )
 
@@ -109,6 +109,7 @@ class SubjectPostAdmin(AdminChangeMixin):
             self.fieldsets = self.change_fieldsets
             self.readonly_fields = self.change_readonly_fields
             form = self.change_form
+            form.current_user = request.user
             form.text_initial = obj.text
             return form
 

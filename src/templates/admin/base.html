@@ -152,11 +152,14 @@
                         }
                         
                         $(window).on("load", function(){
-                          var selects = $(".select-dropdown");
+                          var selects = $("input.select-dropdown");
                           $.each(selects, function(i,el){
                             console.log(el);var da = $(el).attr("data-activates");
                             var list = $("#"+da);
-                            var v = list.find('li.active').length != 0
+                            var list1 = list.next()
+                            console.log(list1.find(':selected'))
+                            console.log(list.find('li.active'))
+                            var v = list.find('li.active').length != 0 || list1.find(':selected').length != 0
                             if(!v){
                               $(el).val("---------");
                             }                         
