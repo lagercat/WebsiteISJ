@@ -29,27 +29,18 @@ class Subject(CustomPermissionsMixin):
         return self.name
 
     def get_subject(self):
-        try:
-            subcategory_posts = Subcategory.objects.filter(subject=self)
-            print subcategory_posts
-            return subcategory_posts.get_subpost()
-        except:
-            pass
+        subcategory_posts = Subcategory.objects.all().filter(subject=self)
+        print subcategory_posts
+        return subcategory_posts.get_subpost()
 
     def get_subcategory(self):
-        subcategory = Subcategory.objects.filter(subject=self).all()
-        if subcategory is not None:
-            return subcategory
-        else:
-            return None
+        subcategory = Subcategory.objects.all().filter(subject=self)
+        return subcategory
 
     def get_subject_post(self):
-        subject_post = SubjectPost.objects.filter(subject=self,
-                                                  subcategory=None).all()
-        if subject_post is not None:
-            return subject_post
-        else:
-            return None
+        subject_post = SubjectPost.objects.all().filter(subject=self)
+        return subject_post
+
 
 
 class Subcategory(File):
@@ -70,14 +61,11 @@ class Subcategory(File):
         index_text = "Manage"
 
     def __unicode__(self):
-        return self.name
+        return str(self.subject) + "/" + self.name
 
     def get_subpost(self):
-        try:
-            subpost = SubjectPost.objects.filter(subcategory=self).all()
-            return subpost
-        except:
-            pass
+        subpost = SubjectPost.objects.filter(subcategory=self).all()
+        return subpost
 
     def get_name(self):
         return self.name

@@ -11,7 +11,7 @@ from subject.models import Subject
 
 
 class ExtendedUserManager(BaseUserManager):
-    def create_user(self, username, first_name, last_name, password):
+    def create_user(self, username, first_name, last_name, password, status=0):
         if not username:
             raise ValueError('Users must have an username')
 
@@ -28,16 +28,15 @@ class ExtendedUserManager(BaseUserManager):
             first_name=first_name,
             last_name=last_name,
             username=username,
-            status=0
+            status=status
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, first_name, last_name, status,
-                         password):
-        user = self.create_user(username, first_name, last_name, password)
+    def create_superuser(self, username, first_name, last_name, password):
+        user = self.create_user(username, first_name, last_name, password, 3)
         user.is_admin = True
         user.status = 3
         user.save(using=self._db)
@@ -55,8 +54,6 @@ class ExtendedUser(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
 
     school = ForeignKey(School, blank=True, null=True)
-    date_of_birth = models.DateField(blank=True, null=True)
-    phone_number = models.CharField(max_length=20, blank=True, null=True)
 
     STATUS_CHOICES = (
         (0, "Personal"),
@@ -65,7 +62,7 @@ class ExtendedUser(AbstractBaseUser):
         (3, "Admin"),
     )
     status = models.IntegerField(choices=STATUS_CHOICES,
-                                 verbose_name="author status")
+                                 verbose_name="user status", default=0)
     subjects = models.ManyToManyField(Subject, blank=True, null=True)
 
     is_active = models.BooleanField(default=True)
@@ -74,7 +71,39 @@ class ExtendedUser(AbstractBaseUser):
     objects = ExtendedUserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'status']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
+    
+    perms = {
+      0 : [
+        "post.view_post",
+        "post.change_own_post",
+        "post.add_own_post"
+      ],
+      1 : [
+        "school.change_own_school",
+        "post.view_post",
+        "post.change_own_post",
+        "post.add_own_post"
+      ],
+      2 : [
+        "post.view_post",
+        "post.change_own_post",
+        "post.add_own_post",
+        "event.change_own_event",
+        "event.add_own_event",
+        "news.change_own_news",
+        "news.add_own_news",
+        "subject.change_own_subjectpost",
+        "subject.add_own_subjectpost",
+        "subject.change_own_subcategory",
+        "subject.add_own_subcategory",
+        "gallery.change_own_gallery",
+        "gallery.add_own_gallery",
+      ],
+      3 : [
+        "all"
+      ],
+    }
 
     def get_full_name(self):
         return self.first_name + " " + self.last_name
@@ -90,54 +119,8 @@ class ExtendedUser(AbstractBaseUser):
             return True
         if perm == "frontend.change_module":
             return False
-        if self.status == 3:
-            return True
-        elif self.status == 0:
-            if perm == "post.view_post":
-                return True
-            if perm == "post.change_own_post":
-                return True
-            if perm == "post.add_own_post":
-                return True
-            return False
-        elif self.status == 1:
-            if perm == "school.change_own_school":
-                return True
-            if perm == "post.view_post":
-                return True
-            if perm == "post.change_own_post":
-                return True
-            if perm == "post.add_own_post":
-                return True
-            return False
-        elif self.status == 2:
-            if perm == "post.view_post":
-                return True
-            if perm == "post.change_own_post":
-                return True
-            if perm == "post.add_own_post":
-                return True
-            if perm == "event.change_own_event":
-                return True
-            if perm == "event.add_own_event":
-                return True
-            if perm == "news.change_own_news":
-                return True
-            if perm == "news.add_own_news":
-                return True
-            if perm == "subject.change_own_subjectpost":
-                return True
-            if perm == "subject.add_own_subject":
-                return True
-            if perm == "subject.change_own_subcategory":
-                return True
-            if perm == "subject.add_own_subcategory":
-                return True
-            if perm == "gallery.change_own_gallery":
-                return True
-            if perm == "gallery.add_own_gallery":
-                return True
-            return False
+        if "all" in self.perms[self.status] or perm in self.perms[self.status]:
+          return True
         return False
 
     def has_module_perms(self, app_label):
