@@ -6,7 +6,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "../media")
 
-SECRET_KEY = os.environ.get('PROJECT_SECRET_KEY')
+SECRET_KEY ='vl27lst+j0&n4ec$dh7qu^=i0f2@$#(dw-25#7$f##$w9s%8b5'
 
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # django packages
+    'django_jenkins',
     'captcha',
     'widget_tweaks',
     'haystack',
