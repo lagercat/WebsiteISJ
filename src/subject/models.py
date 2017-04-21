@@ -7,7 +7,7 @@ from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from tinymce.models import HTMLField
 from utility.models import CustomPermissionsMixin
-from bokeh.core.properties import abstract
+
 
 
 def user_directory_path(self, filename):
