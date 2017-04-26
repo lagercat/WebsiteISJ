@@ -25,7 +25,7 @@ class SubcategoryAdmin(AdminChangeMixin):
     list_display = ('name', 'author', 'subject', 'date', 'slug',)
     list_filter = (
         ('date', DateFieldListFilter),
-        ('subject', ChoicesFieldListFilter)
+        'subject'
     )
     readonly_fields = ['fileLink', 'author']
 
@@ -72,7 +72,7 @@ class SubjectPostAdmin(AdminChangeMixin):
                     'date', 'slug']
     list_filter = (
         ('date', DateFieldListFilter),
-        ('subject', ChoicesFieldListFilter)
+        'subject'
     )
     change_readonly_fields = ['author']
     add_readonly_fields = []
