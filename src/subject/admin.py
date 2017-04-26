@@ -43,7 +43,7 @@ class SubcategoryAdmin(AdminChangeMixin):
     search_fields = (
     'author__first_name', 'author__last_name', 'name', 'date', 'slug', 'subject')
 
-    ordering = ['date', 'name', 'subject']
+    ordering = ['date']
     filter_horizontal = ()
 
     def get_form(self, request, obj=None, **kwargs):
