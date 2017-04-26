@@ -2,9 +2,10 @@ import os
 from django.db import models
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+WEBROOT_DIR = os.path.join(BASE_DIR, "../../webroot/")
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "../media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "../../webroot/")
 
 SECRET_KEY ='vl27lst+j0&n4ec$dh7qu^=i0f2@$#(dw-25#7$f##$w9s%8b5'
 
@@ -15,7 +16,7 @@ GOOGLE_MAPS_API_KEY = 'AIzaSyAaQMDSvMtqNgJCK9b9TwywchYETHCo_4g'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0"]
+ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "isj.tm.edu.ro", "isj.tm.edu.ro:8080"]
 
 INSTALLED_APPS = [
     # admin theme
@@ -99,11 +100,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'isj',
-        'USER': 'isjuser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': os.environ.get('DATABASE_PORT'),
     }
 }
 
@@ -147,6 +148,7 @@ USE_TZ = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(WEBROOT_DIR, 'static/')
 STATICFILES_DIRS = ( os.path.join(os.path.dirname(os.path.dirname(__file__)), "static"), )
 
 NOCAPTCHA = True
