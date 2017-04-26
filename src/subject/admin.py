@@ -5,7 +5,7 @@ from models import SubjectPost, Subcategory
 from forms import SubjectPostChangeFormAdmin, SubjectPostCreationFormAdmin,SubcategoryCreationFormAdmin,SubcategoryChangeFormAdmin
 
 from utility.admin import AdminChangeMixin, register_model_admin
-from django.contrib.admin.filters import DateFieldListFilter
+from django.contrib.admin.filters import DateFieldListFilter, ChoicesFieldListFilter
 
 
 class SubjectAdmin(AdminChangeMixin):
