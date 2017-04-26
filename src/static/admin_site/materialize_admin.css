@@ -6423,3 +6423,6 @@ a:hover {
     right: 24px;
     transform: translateY(50%);
 }
+.content > .row {
+     width: 100%; 
+}
