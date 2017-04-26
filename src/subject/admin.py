@@ -22,9 +22,10 @@ class SubcategoryAdmin(AdminChangeMixin):
 
     icon = '<i class="material-icons">queue</i>'
 
-    list_display = ('name', 'author', 'fileLink', 'date', 'slug',)
+    list_display = ('name', 'author', 'subject', 'date', 'slug',)
     list_filter = (
         ('date', DateFieldListFilter),
+        ('subject', ChoicesFieldListFilter)
     )
     readonly_fields = ['fileLink', 'author']
 
@@ -40,9 +41,9 @@ class SubcategoryAdmin(AdminChangeMixin):
     )
 
     search_fields = (
-    'author__first_name', 'author__last_name', 'name', 'date', 'slug',)
+    'author__first_name', 'author__last_name', 'name', 'date', 'slug', 'subject')
 
-    ordering = ['date']
+    ordering = ['date', 'name', 'subject']
     filter_horizontal = ()
 
     def get_form(self, request, obj=None, **kwargs):
@@ -67,10 +68,11 @@ class SubjectPostAdmin(AdminChangeMixin):
     add_form = SubjectPostCreationFormAdmin
     change_own_field = "author__id"
     change_own_owner_field = "id"
-    list_display = ['name', 'subject', 'subcategory', 'author', 'fileLink',
+    list_display = ['name', 'subject', 'subcategory', 'author',
                     'date', 'slug']
     list_filter = (
         ('date', DateFieldListFilter),
+        ('subject', ChoicesFieldListFilter)
     )
     change_readonly_fields = ['author']
     add_readonly_fields = []
