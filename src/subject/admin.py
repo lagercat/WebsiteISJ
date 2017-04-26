@@ -54,6 +54,7 @@ class SubcategoryAdmin(AdminChangeMixin):
         else:
             self.fieldsets = self.change_fieldsets
             form = self.change_form
+            form.current_user = request.user
             return form
 
     pass
