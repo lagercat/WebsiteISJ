@@ -5,7 +5,7 @@ from models import SubjectPost, Subcategory
 from forms import SubjectPostChangeFormAdmin, SubjectPostCreationFormAdmin,SubcategoryCreationFormAdmin,SubcategoryChangeFormAdmin
 
 from utility.admin import AdminChangeMixin, register_model_admin
-from django.contrib.admin.filters import DateFieldListFilter
+from django.contrib.admin.filters import DateFieldListFilter, ChoicesFieldListFilter
 
 
 class SubjectAdmin(AdminChangeMixin):
@@ -22,9 +22,10 @@ class SubcategoryAdmin(AdminChangeMixin):
 
     icon = '<i class="material-icons">queue</i>'
 
-    list_display = ('name', 'author', 'fileLink', 'date', 'slug',)
+    list_display = ('name', 'author', 'subject', 'date', 'slug',)
     list_filter = (
         ('date', DateFieldListFilter),
+        'subject'
     )
     readonly_fields = ['fileLink', 'author']
 
@@ -40,7 +41,7 @@ class SubcategoryAdmin(AdminChangeMixin):
     )
 
     search_fields = (
-    'author__first_name', 'author__last_name', 'name', 'date', 'slug',)
+    'author__first_name', 'author__last_name', 'name', 'date', 'slug', 'subject')
 
     ordering = ['date']
     filter_horizontal = ()
@@ -54,6 +55,7 @@ class SubcategoryAdmin(AdminChangeMixin):
         else:
             self.fieldsets = self.change_fieldsets
             form = self.change_form
+            form.current_user = request.user
             return form
 
     pass
@@ -66,10 +68,11 @@ class SubjectPostAdmin(AdminChangeMixin):
     add_form = SubjectPostCreationFormAdmin
     change_own_field = "author__id"
     change_own_owner_field = "id"
-    list_display = ['name', 'subject', 'subcategory', 'author', 'fileLink',
+    list_display = ['name', 'subject', 'subcategory', 'author',
                     'date', 'slug']
     list_filter = (
         ('date', DateFieldListFilter),
+        'subject'
     )
     change_readonly_fields = ['author']
     add_readonly_fields = []
