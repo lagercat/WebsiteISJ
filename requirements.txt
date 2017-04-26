@@ -11,3 +11,4 @@ django-google-maps
 Pillow
 psycopg2
 bokeh
+django-jenkins
