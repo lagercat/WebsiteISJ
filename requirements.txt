@@ -8,8 +8,6 @@ python-magic==0.4.12
 django-tinymce
 django-extensions
 django-google-maps
-pysolr
 Pillow
 psycopg2
 bokeh
-
