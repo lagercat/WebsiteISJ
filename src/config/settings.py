@@ -7,7 +7,7 @@ WEBROOT_DIR = os.path.join(BASE_DIR, "../../webroot/")
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "../../webroot/")
 
-SECRET_KEY ='vl27lst+j0&n4ec$dh7qu^=i0f2@$#(dw-25#7$f##$w9s%8b5'
+SECRET_KEY = 'vl27lst+j0&n4ec$dh7qu^=i0f2@$#(dw-25#7$f##$w9s%8b5'
 
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
@@ -17,10 +17,8 @@ GOOGLE_MAPS_API_KEY = 'AIzaSyAaQMDSvMtqNgJCK9b9TwywchYETHCo_4g'
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "isj.tm.edu.ro", "isj.tm.edu.ro:8080",
-                 "www.isj.tm.edu.ro",
-                 "217.73.174.42", "217.73.174.42:8080","192.168.1.248"]
-
-
+                 "www.isj.tm.edu.ro", "www.new.isj.tm.edu.ro", "new.isj.tm.edu.ro",
+                 "217.73.174.42", "217.73.174.42:8080", "192.168.1.248"]
 
 INSTALLED_APPS = [
     # admin theme
@@ -137,7 +135,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-models.options.DEFAULT_NAMES += ("index_text", )
+models.options.DEFAULT_NAMES += ("index_text",)
 
 LANGUAGE_CODE = 'en-us'
 
@@ -153,7 +151,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(WEBROOT_DIR, 'static/')
-STATICFILES_DIRS = ( os.path.join(os.path.dirname(os.path.dirname(__file__)), "static"), )
+STATICFILES_DIRS = (os.path.join(os.path.dirname(os.path.dirname(__file__)), "static"),)
 
 NOCAPTCHA = True
 RECAPTCHA_USE_SSL = False
