@@ -1,0 +1,90 @@
+
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<section id="mu-page-breadcrumb">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="mu-page-breadcrumb-area">
+          <h2>Toate specializarile</h2>
+          <ol class="breadcrumb">
+           <li><a href="/">Home</a></li>
+           <li class="active">/Specializari</li>
+         </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+ <section id="mu-course-content">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-course-content-area">
+            <div class="row">
+              <div class="col-md-9">
+                <!-- start course content container -->
+                <div class="mu-course-container mu-blog-archive">
+                  <div class="row">
+
+
+
+
+                    <section id="mu-features">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12">
+                            <div class="mu-features-area">
+                              <div class="mu-title">
+                                <h2>Cu ce ne ocupam </h2>
+                                <p>Pe aceasta pagina veti gasi toate specializarile cu toate informatiile revelente pentru fiecare in parte!</p>
+                              </div>
+                              <!-- Start Title -->
+                              <!-- End Title -->
+                              <!-- Start features content -->
+                              <div class="mu-features-content">
+                                <div class="row">
+                                  {% if subjects %}
+                                     {% for subject in subjects %}
+                                  <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <div class="mu-single-feature">
+                                      <span class="glyphicon glyphicon-education"></span>
+                                      <h4>{{ subject.name }}</h4>
+                                    <a href="/subject/{{subject.name}}">Accesati specializarea</a>
+                                    </div>
+                                  </div>
+                                  {% endfor %}
+                                  {% endif %}
+                                </div>
+                              </div>
+                              <!-- End features content -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+
+                  </div>
+                </div>
+                <!-- end course content container -->
+                <!-- start course pagination --
+                <!-- end course pagination -->
+              </div>
+              <div class="col-md-3">
+                <!-- start sidebar -->
+                <aside class="mu-sidebar">
+                  <!-- start single sidebar -->
+                  <!-- end single sidebar -->
+                  <!-- start single sidebar -->
+
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+ {% endblock %}

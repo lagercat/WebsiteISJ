@@ -92,6 +92,11 @@ def subject_news(request, name, slug):
 
     })
 
+def subject_page_all(request):
+    subjects = Subject.objects.all()
+    return render(request,'subject/specializari.html',{
+        'subjects': subjects,
+    })
 
 @staff_member_required
 def subject_news_preview(request):

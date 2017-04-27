@@ -183,6 +183,7 @@
             <div class="mu-title">
               <h2>Specialităţi</h2>
               <p>În această secţiune veţi găsi informaţii relevante fiecărei discipline</p>
+              <a href="/subject_page_all" class="mu-read-more-btn " style="color: #0f0f0f">Toate Specializarile</a>
             </div>
             <!-- End Title -->
             <!-- Start features content -->
@@ -190,7 +191,7 @@
               <div class="row">
                 {% if subjects %}
                 {% for subject in subjects %}
-                <div class="col-lg-2 col-md-4 col-sm-6">
+                <div class="col-lg-4 col-md-4 col-sm-6">
                   <div class="mu-single-feature">
                     <span class="glyphicon glyphicon-education"></span>
                     <h4>{{ subject.name }}</h4>
@@ -439,5 +440,3 @@
 
 
  {% endblock %}
-
-

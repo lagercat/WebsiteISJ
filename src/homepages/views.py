@@ -12,7 +12,7 @@ def home(request):
     template = 'homepages/index.html'
     noutati = News.objects.all()[:3]
     events = Event.objects.all()[:9]
-    subjects = Subject.objects.all()
+    subjects = Subject.objects.all()[:6]
     album = Gallery.objects.all()[:3]
     schools = School.objects.all()[:3]
     return render(request, template, {
