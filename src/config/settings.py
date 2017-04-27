@@ -17,10 +17,8 @@ GOOGLE_MAPS_API_KEY = 'AIzaSyAaQMDSvMtqNgJCK9b9TwywchYETHCo_4g'
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "isj.tm.edu.ro", "isj.tm.edu.ro:8080",
-                 "www.isj.tm.edu.ro","*.edu.ro",
-                 "217.73.174.42", "217.73.174.42:8080",]
-
-
+                 "www.isj.tm.edu.ro", "new.isj.tm.edu.ro", "192.168.1.248",
+                 "217.73.174.42", "217.73.174.42:8080"]
 
 INSTALLED_APPS = [
     # admin theme
