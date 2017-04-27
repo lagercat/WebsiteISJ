@@ -3,7 +3,9 @@ from . import views
 
 urlpatterns = [
 
-    url(r'^subpost/', views.create_subject_post, name="subpost"),
+    url(r'^subject_page_all/$', views.subject_page_all, name="suba_page_all"),
+
+    url(r'^subpost/$', views.create_subject_post, name="subpost"),
 
     url(r'^subject/(?P<name>.+?)/(?P<kind>.+?)/(?P<slug>[^\.]+)$',
         views.subcategory_subject_news,
@@ -18,7 +20,7 @@ urlpatterns = [
 
     url(r'^subject/(?P<name>.+?)/$', views.subject, name='subject'),
 
-    url(r'^preview_subjectpost/', views.subject_news_preview,
+    url(r'^preview_subjectpost/$', views.subject_news_preview,
         name='subject_news_preview'),
 
     url(r'^subject/(?P<name>.+?)/(?P<slug>[^\.]+)/$', views.subject_news,
