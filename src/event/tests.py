@@ -13,10 +13,10 @@ class EventTestCase(TestCase):
                                                 password=password,
                                                 status=status)
 
-    def create_event(self, name="de test", text="ca sa fie",
-                     date=timezone.now(), address="Something",
+    def create_event(self, name="de test", text="ca sa fie"
+                     , address="Something",
                      geolocation="4,20"):
-        return Event.objects.create(name=name, text=text, date=date,
+        return Event.objects.create(name=name, text=text,
                                     address=address, geolocation=geolocation,
                                     author = self.create_user())
 
