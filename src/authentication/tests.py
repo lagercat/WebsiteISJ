@@ -1,11 +1,5 @@
-'''
-Created on Mar 18, 2017
-
-@author: roadd
-'''
-
 from django.test import TestCase
-from .models import *
+from authentication.models import *
 import random
 import string
 
