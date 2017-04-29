@@ -16,7 +16,7 @@ def user_directory_path(instance, filename):
     return './documents/events/{0}{1}'.format(instance.slug, file_extension)
 
 
-# Create your models here.
+
 class Event(File):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "thumbnails/events"
@@ -37,9 +37,8 @@ class Event(File):
         verbose_name = "Event"
         verbose_name_plural = "Events"
         index_text = "Manage"
-        
+
 @receiver(pre_delete, sender=Event)
 def file_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
-        
