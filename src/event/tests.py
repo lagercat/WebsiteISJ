@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.utils import timezone
 from event.models import Event
 from authentication.tests import ExtendedUser
 
