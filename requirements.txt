@@ -12,3 +12,5 @@ Pillow
 psycopg2
 bokeh
 django-jenkins
+coverage
+django-nose

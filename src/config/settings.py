@@ -35,10 +35,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # django packages
+    'django_nose',
     'django_jenkins',
     'captcha',
     'widget_tweaks',
-    'haystack',
     'django_cleanup',
     'tinymce',
     'django_extensions',
@@ -67,6 +67,14 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=authentication, contact, event, gallery, news, page, post'
+     ',school, subject',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -110,15 +118,6 @@ DATABASES = {
     }
 }
 
-# Search engine config
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr'
-    },
-}
-# Haystack index automatically
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
