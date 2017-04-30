@@ -7,7 +7,6 @@ from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponse, HttpResponseForbidden
 from django.utils import timezone
 
-from haystack.forms import SearchForm
 
 from models import Post
 
@@ -26,7 +25,7 @@ from django.db.models import Q
 import os
 from django.views.static import serve
 import config.settings
-      
+
 def show_page(request, slug):
     page = get_object_or_404(Page, slug=slug)
     return HttpResponse("<head><title>" + page.name + '</title><link rel="stylesheet" type="text/css" href="/static/prism/prism.css"><script src="/static/prism/prism.js"></script></head><body>' + page.text + "</body>")
@@ -55,22 +54,21 @@ def add_multiple_files(request):
             formset.save_m2m()
             return redirect("/admin/post/post/")
         else:
-            response = HttpResponse(json.dumps({"errors" : formset.errors}), 
+            response = HttpResponse(json.dumps({"errors" : formset.errors}),
                 content_type='application/json')
             response.status_code = 400
             return response
     else:
         return HttpResponseForbidden()
 
-@staff_member_required      
+@staff_member_required
 def page_preview(request):
     if request.method == "GET":
         return HttpResponse("<head><title>" + "{0}" + '</title><link rel="stylesheet" type="text/css" href="/static/prism/prism.css"><script src="/static/prism/prism.js"></script></head><body>' + "{0}<br>" + request.user.get_full_name() + "<br>{1}" + "</body>")
     else:
         return HttpResponseForbidden()
-    
+
 def exterior_files(request, location, path):
     if location is not "interior":
         print location
         return serve(request, os.path.join("documents", location, path), document_root=config.settings.MEDIA_ROOT)
-  
