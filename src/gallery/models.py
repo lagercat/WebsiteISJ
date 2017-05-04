@@ -10,7 +10,6 @@ from django.db.models.fields import IntegerField
 from django.dispatch.dispatcher import receiver
 from django.db.models.signals import pre_delete
 
-# Create your models here.
 
 
 class Gallery(File):
