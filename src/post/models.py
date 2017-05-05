@@ -1,20 +1,23 @@
 from __future__ import unicode_literals
+
 import os
 import uuid
 
 from django.db import models
-from utility.models import CustomPermissionsMixin
-from tinymce.models import HTMLField
-from django.template.defaultfilters import truncatechars
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
+from django.template.defaultfilters import truncatechars
 from django.utils.datetime_safe import datetime
+
+from tinymce.models import HTMLField
+from utility.models import CustomPermissionsMixin
 
 
 def user_directory_path(self, filename):
     filename, file_extension = os.path.splitext(filename)
     return './documents/{0}/{1}{2}'.format(self.location,
                                            self.slug, file_extension)
+
 
 class File(CustomPermissionsMixin):
     author = models.ForeignKey("authentication.ExtendedUser", blank=False)
@@ -29,16 +32,17 @@ class File(CustomPermissionsMixin):
         return os.path.basename(self.file.url)
 
     def fileLink(self):
-      if self.file:
-          return '<a href="' + str(self.file.url) + '">' + "See file" + '</a>'
-      else:
-          return '<a href="''"></a>'
+        if self.file:
+            return '<a href="' + str(self.file.url) + '">' + "See file" + '</a>'
+        else:
+            return '<a href="''"></a>'
+
     fileLink.allow_tags = True
     fileLink.short_description = "File Link"
 
     def __unicode__(self):
         return "File %s from %s" % (self.filename, self.author.username)
-      
+
     @property
     def short_name(self):
         return truncatechars(self.name, 40)
@@ -48,31 +52,33 @@ class File(CustomPermissionsMixin):
         get_latest_by = 'date'
         verbose_name = 'File'
         verbose_name_plural = 'Files'
-        
+
+
 class Post(File):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "interior"
         super(Post, self).__init__(*args, **kwargs)
-      
+
     REQUIRED = ['name', 'file']
-    
+
     class Meta(File.Meta):
         abstract = False
         get_latest_by = 'date'
         verbose_name = 'File'
         verbose_name_plural = 'Files'
         index_text = "Manage"
-        
+
+
 class Page(File):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "thumbails/pages"
         self._meta.get_field('file').label = "Thumbnail"
         super(Page, self).__init__(*args, **kwargs)
-      
+
     text = HTMLField()
 
     REQUIRED = ['name', 'text', 'file']
-  
+
     class Meta(Post.Meta):
         abstract = False
         get_latest_by = 'date'
@@ -80,9 +86,9 @@ class Page(File):
         verbose_name_plural = 'Pages'
         index_text = "Manage"
 
-@receiver(pre_delete, sender=Page)       
+
+@receiver(pre_delete, sender=Page)
 @receiver(pre_delete, sender=Post)
 def file_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
-        

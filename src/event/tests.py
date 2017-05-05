@@ -1,10 +1,10 @@
 from django.test import TestCase
 
 from authentication.tests import ExtendedUser
-from news.models import News
+from event.models import Event
 
 
-class NewsTestCase(TestCase):
+class EventTestCase(TestCase):
 
     @staticmethod
     def create_user(first_name="test", last_name="forthewin",
@@ -16,14 +16,16 @@ class NewsTestCase(TestCase):
                                                 password=password,
                                                 status=status)
 
-    def create_news(self, name="de test", text="ca sa fie"):
-        """ Test test news """
-        return News.objects.create(name=name, text=text,
-                                   author=self.create_user())
+    def create_event(self, name="de test", text="ca sa fie", address="Something",
+                     geolocation="4,20"):
+        """ Test test event """
+        return Event.objects.create(name=name, text=text,
+                                    address=address, geolocation=geolocation,
+                                    author=self.create_user())
 
-    def test_create_news(self):
-        """ Test if news is created correctly"""
-        obj = self.create_news()
+    def test_create_event(self):
+        """ Test if event is created correctly"""
+        obj = self.create_event()
 
-        self.assertTrue(isinstance(obj, News))
+        self.assertTrue(isinstance(obj, Event))
         self.assertEqual(obj.__unicode__(), obj.name)

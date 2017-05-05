@@ -1,22 +1,22 @@
 from __future__ import unicode_literals
-from authentication.models import ExtendedUser
-from django.core.urlresolvers import reverse
-from utility.models import CustomPermissionsMixin
-from django.db import models
+
 import os
-import uuid
-from post.models import File
-from tinymce.models import HTMLField
+
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
+
+from authentication.models import ExtendedUser
 from django_google_maps import fields as map_fields
+from post.models import File
+from tinymce.models import HTMLField
+from utility.models import CustomPermissionsMixin
+
 
 def user_directory_path(instance, filename):
     filename, file_extension = os.path.splitext(filename)
     return './documents/events/{0}{1}'.format(instance.slug, file_extension)
 
 
-# Create your models here.
 class Event(File):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "thumbnails/events"
@@ -37,9 +37,9 @@ class Event(File):
         verbose_name = "Event"
         verbose_name_plural = "Events"
         index_text = "Manage"
-        
+
+
 @receiver(pre_delete, sender=Event)
 def file_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
-        

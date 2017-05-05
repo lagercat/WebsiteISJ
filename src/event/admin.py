@@ -1,11 +1,9 @@
-from django.contrib import admin
+from django.contrib.admin.filters import DateFieldListFilter
+
+from event.forms import EventChangeFormAdmin, EventCreationFormAdmin
 from models import Event
 from utility.admin import AdminChangeMixin, register_model_admin
-from django import forms
 
-from event.forms import EventCreationFormAdmin, EventChangeFormAdmin
-from django.contrib.admin.filters import DateFieldListFilter
-# Register your models here.
 
 class EventAdmin(AdminChangeMixin):
     add_form = EventCreationFormAdmin

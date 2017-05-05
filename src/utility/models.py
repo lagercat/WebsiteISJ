@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 
 from django.db import models
+
 from material.frontend.models import Module
+
 
 # Create your models here.
 

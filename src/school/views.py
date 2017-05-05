@@ -1,26 +1,26 @@
-from django.shortcuts import render
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-from models import School
-from news.models import News
 from config import settings
 
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.shortcuts import render
+
+from models import School
 
 
 def schools_all(request):
-    schools = School.objects.all()
-    paginator = Paginator(schools, 4)
+    all_schools = School.objects.all()
+    paginator = Paginator(all_schools, 4)
 
     page = request.GET.get('page')
     try:
-        schools = paginator.page(page)
+        all_schools = paginator.page(page)
     except PageNotAnInteger:
-        schools = paginator.page(1)
+        all_schools = paginator.page(1)
     except EmptyPage:
-        schools = paginator.page(paginator.num_pages)
+        all_schools = paginator.page(paginator.num_pages)
     return render(request, 'school/school_all.html', {
-        'schools': schools,
+        'schools': all_schools,
     })
+
 
 def schools_map(request):
     school = School.objects.all().order_by('name')
@@ -28,8 +28,6 @@ def schools_map(request):
         'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY,
         'schools': school,
     })
-
-
 
 
 def schools(request, slug):

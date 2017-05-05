@@ -3,20 +3,20 @@ from __future__ import unicode_literals
 import os
 import uuid
 
+from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
+
 from post.models import File
 from tinymce.models import HTMLField
-
-from django.db import models
 from utility.models import CustomPermissionsMixin
+
 
 def user_directory_path(instance, filename):
     filename, file_extension = os.path.splitext(filename)
     return './documents/category/{0}{1}'.format(instance.slug, file_extension)
 
 
-# Create your models here.
 class Category(CustomPermissionsMixin):
     class Meta(CustomPermissionsMixin.Meta):
         get_latest_by = 'title'
@@ -31,8 +31,6 @@ class Category(CustomPermissionsMixin):
 
     def __unicode__(self):
         return self.title
-
-    
 
 
 class Subcategory(CustomPermissionsMixin):
@@ -61,7 +59,6 @@ class Article(File):
 
     text = HTMLField()
     subcategory = models.ForeignKey(Subcategory, blank=False, null=False)
-    # category = models.ForeignKey(Category, blank=False, null=False)
 
     REQUIRED = ['subcategory', 'name', 'text', 'file', 'date']  # 'category'
 

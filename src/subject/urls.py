@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from . import views
 
 urlpatterns = [
@@ -11,12 +12,8 @@ urlpatterns = [
         views.subcategory_subject_news,
         name='subcategory_subject_news'),
 
-
-
     url(r'^subject/(?P<name>.+?)/(?P<kind>.+?)/$', views.subcategory_subject,
         name='subcategory_subject'),
-
-
 
     url(r'^subject/(?P<name>.+?)/$', views.subject, name='subject'),
 

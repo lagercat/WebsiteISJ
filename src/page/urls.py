@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from . import views
 
 urlpatterns = [
@@ -8,7 +9,5 @@ urlpatterns = [
         name='simple'),
     url(r'^(?P<name>.+?)/(?P<slug>[^\.]+)/$', views.article_post,
         name='article'),
-    url(r'^(?P<name>.+?)/$', views.subcategory, name='subcategory'),
-
-
+    url(r'^(?P<name>.+?)/$', views.subcategory, name='subcategory')
 ]

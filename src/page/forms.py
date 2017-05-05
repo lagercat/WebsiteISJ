@@ -1,7 +1,7 @@
 from django import forms
+
 from page.models import Article, SimplePage
 from tinymce.widgets import AdminTinyMCE
-import os
 from utility.utility import clean_file
 
 

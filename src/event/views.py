@@ -1,12 +1,11 @@
+from config import settings
+
+from django.contrib.admin.views.decorators import staff_member_required
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.http.response import HttpResponseForbidden
 from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from models import Event
-from news.models import News
-from django.contrib.admin.views.decorators import staff_member_required
-from django.http.response import HttpResponseForbidden
-from config import settings
 
 
 def event_all(request):

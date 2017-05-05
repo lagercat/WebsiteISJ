@@ -1,13 +1,11 @@
-import os
-
 from django import forms
 from django.forms import modelformset_factory
 
-from models import Post, Page
-from tinymce.widgets import TinyMCE, AdminTinyMCE
+from models import Page, Post
+from tinymce.widgets import AdminTinyMCE
 from utility.utility import clean_file
 
-    
+
 class PostCreationFormAdmin(forms.ModelForm):
     class Meta:
         model = Post
@@ -38,7 +36,8 @@ class PostChangeFormAdmin(forms.ModelForm):
         if error:
             raise forms.ValidationError(error)
         return uploaded_file
-      
+
+
 class PageCreationFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     show_files = True
@@ -63,6 +62,7 @@ class PageCreationFormAdmin(forms.ModelForm):
         if commit:
             uploaded_file.save()
         return uploaded_file
+
 
 class PageChangeFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')

@@ -1,9 +1,9 @@
-from django.contrib import admin
+from django.contrib.admin.filters import DateFieldListFilter
+
+from news.forms import NewsChangeFormAdmin, NewsCreationFormAdmin
+from utility.admin import AdminChangeMixin, register_model_admin
 
 from .models import News
-from utility.admin import AdminChangeMixin, register_model_admin
-from news.forms import NewsCreationFormAdmin, NewsChangeFormAdmin
-from django.contrib.admin.filters import DateFieldListFilter
 
 
 class NewsAdmin(AdminChangeMixin):    

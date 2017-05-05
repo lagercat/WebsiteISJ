@@ -1,20 +1,21 @@
-from django.shortcuts import redirect, render
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout, authenticate, login
+from django.shortcuts import redirect, render
 
 from forms import LoginForm, ResetPasswordForm
-from captcha.client import request
 
 
 @login_required
 def logout_view(request):
     logout(request)
     return redirect('/')
-  
+
+
 @login_required
 def admin_logout_view(request):
-        logout(request)
-        return redirect('/')
+    logout(request)
+    return redirect('/')
+
 
 def login_view(request):
     if request.user.is_authenticated():
@@ -49,7 +50,6 @@ def reset_password_view(request):
                                 password=password_new)
             login(request, user)
             confirms.append("Parola a fost schimbata")
-    print form.errors
     return render(request, "authentication/password_form.html", {
         "form": form,
         "confirms": confirms

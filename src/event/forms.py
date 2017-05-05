@@ -1,17 +1,11 @@
-'''
-Created on Jan 10, 2017
-
-@author: roadd
-'''
-from django.forms import SplitDateTimeWidget
-from event.models import Event
 from django import forms
-from tinymce.widgets import AdminTinyMCE
-import os
-from django_google_maps import fields as map_fields
+
 from django_google_maps import widgets as map_widgets
+from event.models import Event
+from tinymce.widgets import AdminTinyMCE
 from utility.utility import clean_file
-      
+
+
 class EventCreationFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     date = forms.SplitDateTimeField()
@@ -21,6 +15,7 @@ class EventCreationFormAdmin(forms.ModelForm):
     show_files = True
     show_preview = True
     preview_url = "/preview_event/"
+
     class Meta:
         model = Event
         fields = ('name', 'file',)
@@ -56,7 +51,7 @@ class EventCreationFormAdmin(forms.ModelForm):
 
 class EventChangeFormAdmin(forms.ModelForm):
     date = forms.SplitDateTimeField()
-    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}),label='')
+    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget)
     geolocation = forms.CharField()
     

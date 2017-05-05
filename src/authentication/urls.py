@@ -1,6 +1,7 @@
 from django.conf.urls import url
-from . import views
 from django.views import generic
+
+from . import views
 
 urlpatterns = [
   url('^$', generic.RedirectView.as_view(url='./customers/', permanent=False), name="index"),

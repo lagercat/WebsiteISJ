@@ -1,10 +1,9 @@
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django import forms
-from models import ExtendedUser
 
 from captcha.fields import ReCaptchaField
+from models import ExtendedUser
 from subject.models import Subject
-from school.views import schools
+
 
 class LoginForm(forms.Form):
     re_captcha = ReCaptchaField(
@@ -41,11 +40,13 @@ class ResetPasswordForm(forms.Form):
                                              'required': 'required',
                                              'placeholder': 'Verifica parola noua'
                                          }))
-    
+
+
 class ExtendedUserCreationFormAdmin(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
-    subjects = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple(attrs={"multiple": "multiple"}), queryset=Subject.objects.all(), required=False)
+    subjects = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple(attrs={"multiple": "multiple"}),
+                                              queryset=Subject.objects.all(), required=False)
 
     class Meta:
         model = ExtendedUser
@@ -89,9 +90,10 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
 
 
 class ExtendedUserChangeFormAdmin(forms.ModelForm):
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput, required = False)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput, required = False)
-    subjects = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple(attrs={"multiple": "multiple"}), queryset=Subject.objects.all(), required= False)
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput, required=False)
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput, required=False)
+    subjects = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple(attrs={"multiple": "multiple"}),
+                                              queryset=Subject.objects.all(), required=False)
 
     class Meta:
         model = ExtendedUser

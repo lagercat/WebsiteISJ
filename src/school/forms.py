@@ -1,9 +1,7 @@
-from models import School
 from django import forms
-from tinymce.widgets import AdminTinyMCE
-import os
-from django_google_maps import fields as map_fields
+
 from django_google_maps import widgets as map_widgets
+from models import School
 from utility.utility import clean_file
 
 

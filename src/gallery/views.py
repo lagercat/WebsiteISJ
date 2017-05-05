@@ -1,14 +1,14 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from models import Gallery
-from django.http.response import HttpResponseForbidden, HttpResponse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from gallery.models import GalleryPhoto
-from django.contrib.admin.views.decorators import staff_member_required
-from django.utils.html import escape
 import json
-import os
-from utility.utility import clean_file
 
+from django.contrib.admin.views.decorators import staff_member_required
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.http.response import HttpResponse, HttpResponseForbidden
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.html import escape
+
+from gallery.models import GalleryPhoto
+from models import Gallery
+from utility.utility import clean_file
 
 
 def gallery(request):
@@ -40,9 +40,8 @@ def remove_gallery_photo(request):
 @staff_member_required
 def add_gallery(request):
     if request.method == "POST":
-        obj = None
         json_dict = {}
-        if(request.POST["name"] == ""):
+        if request.POST["name"] == "":
             json_dict["name"] = "This field is required."
         file = None
         if request.FILES.get("file"):
@@ -66,11 +65,11 @@ def add_gallery(request):
 
         if json_dict != {}:
             response = HttpResponse(json.dumps(json_dict),
-                content_type='application/json')
+                                    content_type='application/json')
             response.status_code = 400
             return response
 
-        if (request.POST["change"] == "1"):
+        if request.POST["change"] == "1":
             obj = get_object_or_404(Gallery, id=request.POST["id"])
             obj.name = escape(request.POST["name"])
             if request.FILES.get("file"):
@@ -78,7 +77,6 @@ def add_gallery(request):
             obj.save()
 
             for i in range(0, int(request.POST["delete_nr"])):
-                print request.POST["delete-" + str(i) + "-id"]
                 id = int(request.POST["delete-" + str(i) + "-id"])
                 photo = GalleryPhoto.objects.get(pk=id)
                 photo.delete()
@@ -98,7 +96,8 @@ def add_gallery(request):
 
             name = request.POST["form-" + str(i) + "-name"]
             if not id:
-                photo = GalleryPhoto(gallery=obj, name=name, file=file, author=request.user, location="gallery/" + str(obj.slug))
+                photo = GalleryPhoto(gallery=obj, name=name, file=file, author=request.user,
+                                     location="gallery/" + str(obj.slug))
                 photo.save()
             else:
                 photo = GalleryPhoto.objects.get(pk=id)

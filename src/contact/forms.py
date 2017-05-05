@@ -1,14 +1,14 @@
-from django.core.validators import validate_email
 from django import forms
+from django.core.validators import validate_email
 
 from captcha.fields import ReCaptchaField
+
 from .models import Contact
 
 
 class CreateContactForm(forms.ModelForm):
-
     captcha = ReCaptchaField(attrs={
-  'lang' : 'ro'})
+        'lang': 'ro'})
 
     class Meta:
         model = Contact
