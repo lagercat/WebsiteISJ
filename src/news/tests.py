@@ -1,6 +1,7 @@
 from django.test import TestCase
-from news.models import News
+
 from authentication.tests import ExtendedUser
+from news.models import News
 
 
 class NewsTestCase(TestCase):

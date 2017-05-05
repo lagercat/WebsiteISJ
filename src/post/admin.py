@@ -5,8 +5,7 @@ from models import Post
 from post.forms import (PageChangeFormAdmin, PageCreationFormAdmin,
                         PostChangeFormAdmin, PostCreationFormAdmin)
 from post.models import Page
-from utility.admin import (AdminChangeMixin,
-                           register_model_admin)
+from utility.admin import AdminChangeMixin, register_model_admin
 
 
 class PostAdmin(AdminChangeMixin):

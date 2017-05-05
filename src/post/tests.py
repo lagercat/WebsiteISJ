@@ -1,8 +1,9 @@
 import os
 
 from django.test import TestCase
-from post.models import Post
+
 from authentication.models import ExtendedUser
+from post.models import Post
 
 
 class PostTestCase(TestCase):

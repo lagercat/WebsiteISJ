@@ -1,6 +1,7 @@
 from django.test import TestCase
-from event.models import Event
+
 from authentication.tests import ExtendedUser
+from event.models import Event
 
 
 class EventTestCase(TestCase):
