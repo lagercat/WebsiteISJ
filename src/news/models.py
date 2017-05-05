@@ -1,13 +1,13 @@
 from __future__ import unicode_literals
 
 import os
+
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
+
 from post.models import File
 from tinymce.models import HTMLField
-from django.dispatch.dispatcher import receiver
-from django.db.models.signals import pre_delete
 
-
-# Create your models here.
 
 def user_directory_path(instance, filename):
     filename, file_extension = os.path.splitext(filename)
@@ -32,6 +32,7 @@ class News(File):
         verbose_name = "News"
         verbose_name_plural = "News"
         index_text = "Manage"
+
 
 @receiver(pre_delete, sender=News)
 def file_delete(sender, instance, **kwargs):

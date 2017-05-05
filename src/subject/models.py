@@ -1,13 +1,14 @@
 from __future__ import unicode_literals
+
 import os
 
 from django.db import models
-from post.models import File
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
+
+from post.models import File
 from tinymce.models import HTMLField
 from utility.models import CustomPermissionsMixin
-
 
 
 def user_directory_path(self, filename):
@@ -30,7 +31,6 @@ class Subject(CustomPermissionsMixin):
 
     def get_subject(self):
         subcategory_posts = Subcategory.objects.all().filter(subject=self)
-        print subcategory_posts
         return subcategory_posts.get_subpost()
 
     def get_subcategory(self):
@@ -40,7 +40,6 @@ class Subject(CustomPermissionsMixin):
     def get_subject_post(self):
         subject_post = SubjectPost.objects.all().filter(subject=self)
         return subject_post
-
 
 
 class Subcategory(File):

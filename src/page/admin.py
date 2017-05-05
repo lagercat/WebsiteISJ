@@ -1,10 +1,11 @@
 from django.contrib import admin
-
-from .models import Article, Category, Subcategory,SimplePage
-from utility.admin import AdminChangeMixin, register_model_admin
-from forms import ArticleCreationFormAdmin, ArticleChangeFormAdmin
-from forms import SimplePageChangeFormAdmin,SimplePageCreationFormAdmin
 from django.contrib.admin.filters import DateFieldListFilter
+
+from forms import (ArticleChangeFormAdmin, ArticleCreationFormAdmin,
+                   SimplePageChangeFormAdmin, SimplePageCreationFormAdmin)
+from utility.admin import AdminChangeMixin, register_model_admin
+
+from .models import Article, Category, SimplePage, Subcategory
 
 
 class ArticleAdmin(AdminChangeMixin):
@@ -113,4 +114,4 @@ register_model_admin(Category, PageAdmin)
 register_model_admin(Subcategory, SubcategoryAdmin)
 
 register_model_admin(Article, ArticleAdmin)
-register_model_admin(SimplePage,SimplePageAdmin)
+register_model_admin(SimplePage, SimplePageAdmin)

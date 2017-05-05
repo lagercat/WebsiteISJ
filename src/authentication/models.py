@@ -1,11 +1,7 @@
-'''
-Created on Jan 6, 2017
-
-@author: roadd
-'''
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db.models.fields.related import ForeignKey
+
 from school.models import School
 from subject.models import Subject
 
@@ -74,18 +70,18 @@ class ExtendedUser(AbstractBaseUser):
     REQUIRED_FIELDS = ['first_name', 'last_name']
     
     perms = {
-      0 : [
+      0: [
         "post.view_post",
         "post.change_own_post",
         "post.add_own_post"
       ],
-      1 : [
+      1: [
         "school.change_own_school",
         "post.view_post",
         "post.change_own_post",
         "post.add_own_post"
       ],
-      2 : [
+      2: [
         "post.view_post",
         "post.change_own_post",
         "post.add_own_post",
@@ -100,7 +96,7 @@ class ExtendedUser(AbstractBaseUser):
         "gallery.change_own_gallery",
         "gallery.add_own_gallery",
       ],
-      3 : [
+      3: [
         "all"
       ],
     }
@@ -120,7 +116,7 @@ class ExtendedUser(AbstractBaseUser):
         if perm == "frontend.change_module":
             return False
         if "all" in self.perms[self.status] or perm in self.perms[self.status]:
-          return True
+            return True
         return False
 
     def has_module_perms(self, app_label):

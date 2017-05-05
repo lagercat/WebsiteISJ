@@ -4,11 +4,12 @@ import os
 import uuid
 
 from django.db import models
-from post.models import File
-from utility.models import CustomPermissionsMixin
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
+
 from django_google_maps import fields as map_fields
+from post.models import File
+from utility.models import CustomPermissionsMixin
 
 
 def user_directory_path(instance, filename):

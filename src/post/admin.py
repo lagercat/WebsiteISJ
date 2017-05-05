@@ -1,16 +1,13 @@
-from django import forms
-from django.contrib import admin
+from django.contrib.admin.filters import (ChoicesFieldListFilter,
+                                          DateFieldListFilter)
 
 from models import Post
-import os
-from django.forms.fields import URLField
-from utility.admin import AdminChangeMixin, AdminViewMixin, register_model_admin
-
-from post.forms import PostChangeFormAdmin, PostCreationFormAdmin,\
-  PageCreationFormAdmin, PageChangeFormAdmin
+from post.forms import (PageChangeFormAdmin, PageCreationFormAdmin,
+                        PostChangeFormAdmin, PostCreationFormAdmin)
 from post.models import Page
-from django.contrib.admin.filters import DateFieldListFilter,\
-  ChoicesFieldListFilter
+from utility.admin import (AdminChangeMixin,
+                           register_model_admin)
+
 
 class PostAdmin(AdminChangeMixin):
     change_form = PostChangeFormAdmin

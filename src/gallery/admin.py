@@ -1,14 +1,10 @@
-from django.contrib import admin
-from .models import Gallery
-
-from utility.admin import AdminChangeMixin, register_model_admin
-from gallery.forms import GalleryChangeFormAdmin, GalleryCreationFormAdmin
-from gallery.models import GalleryPhoto
-from gallery.views import gallery
 from django.contrib.admin.filters import DateFieldListFilter
 
+from gallery.forms import GalleryChangeFormAdmin, GalleryCreationFormAdmin
+from utility.admin import AdminChangeMixin, register_model_admin
 
-# Register your models here.
+from .models import Gallery
+
 
 class GalleryAdmin(AdminChangeMixin):
     icon = '<i class="material-icons">photo</i>'

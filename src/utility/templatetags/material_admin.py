@@ -1,25 +1,24 @@
-import re
 import datetime
+import re
 from importlib import import_module
 
 from django.apps import apps
-from django.contrib.admin.views.main import PAGE_VAR
-from django.contrib.admin.utils import get_fields_from_path
-from django.core.urlresolvers import reverse, NoReverseMatch
 from django.conf import settings
+from django.contrib.admin.utils import get_fields_from_path
+from django.contrib.admin.views.main import PAGE_VAR
+from django.core.urlresolvers import NoReverseMatch, reverse
 from django.db import models
+from django.template import Library
 from django.utils import formats, six
 from django.utils.dates import MONTHS
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
-from django.template import Library
 
-from material import Layout, Fieldset, Row
-from material.compat import simple_tag
+from material import Fieldset, Layout, Row
 from material.admin.base import AdminReadonlyField, Inline
-
+from material.compat import simple_tag
 
 register = Library()
 

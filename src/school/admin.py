@@ -1,13 +1,7 @@
-from django.contrib import admin
+from forms import SchoolChangeFormAdmin, SchoolCreationFormAdmin
 from models import School
 from utility.admin import AdminChangeMixin, register_model_admin
-from django import forms
 
-from forms import SchoolCreationFormAdmin, SchoolChangeFormAdmin
-from django.contrib.admin.filters import DateFieldListFilter
-
-
-# Register your models here.
 
 class SchoolAdmin(AdminChangeMixin):
     add_form = SchoolCreationFormAdmin
@@ -18,7 +12,7 @@ class SchoolAdmin(AdminChangeMixin):
     icon = '<i class="material-icons">room</i>'
 
     list_display = ('name', 'telephone', 'fax', 'email', 'website', 'address',
-                  'geolocation', 'file',)
+                    'geolocation', 'file',)
 
     search_fields = (
         'name', 'address',)
@@ -36,7 +30,7 @@ class SchoolAdmin(AdminChangeMixin):
         ('School name', {'fields': ('name',)}),
         ('School Contact',
          {'fields': ('telephone', 'fax', 'email', 'website', 'file',)}),
-        ('Location and Time', {'fields': ( 'address', 'geolocation',)}),
+        ('Location and Time', {'fields': ('address', 'geolocation',)}),
     )
 
     def get_form(self, request, obj=None, **kwargs):

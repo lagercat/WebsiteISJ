@@ -4,8 +4,8 @@ Created on Feb 13, 2017
 @author: roadd
 '''
 import os
-import magic
 
+import magic
 
 mime_documents_types = [
     'application/msword', 

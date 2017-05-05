@@ -1,16 +1,12 @@
 from __future__ import unicode_literals
-from utility.models import CustomPermissionsMixin
-from django.core.urlresolvers import reverse
 
 from django.db import models
-import os
-from post.models import File
 from django.db.models.fields.related import ForeignKey
-from django.db.models.fields import IntegerField
-from django.dispatch.dispatcher import receiver
 from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
 
-# Create your models here.
+from post.models import File
+from utility.models import CustomPermissionsMixin
 
 
 class Gallery(File):
@@ -24,6 +20,7 @@ class Gallery(File):
         verbose_name = "Gallery"
         verbose_name_plural = "Galleries"
         index_text = "Manage"
+
 
 class GalleryPhoto(File):
     def __init__(self, *args, **kwargs):
@@ -42,6 +39,7 @@ class GalleryPhoto(File):
         verbose_name = "Gallery Photo"
         verbose_name_plural = "Gallery Photos"
         index_text = "Manage"
+
 
 @receiver(pre_delete, sender=Gallery)
 @receiver(pre_delete, sender=GalleryPhoto)

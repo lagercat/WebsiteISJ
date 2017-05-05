@@ -1,11 +1,9 @@
-from django.contrib import admin
+from django.contrib.admin.filters import DateFieldListFilter
 
-from models import Subject
-from models import SubjectPost, Subcategory
-from forms import SubjectPostChangeFormAdmin, SubjectPostCreationFormAdmin,SubcategoryCreationFormAdmin,SubcategoryChangeFormAdmin
-
+from forms import (SubcategoryChangeFormAdmin, SubcategoryCreationFormAdmin,
+                   SubjectPostChangeFormAdmin, SubjectPostCreationFormAdmin)
+from models import Subcategory, Subject, SubjectPost
 from utility.admin import AdminChangeMixin, register_model_admin
-from django.contrib.admin.filters import DateFieldListFilter, ChoicesFieldListFilter
 
 
 class SubjectAdmin(AdminChangeMixin):
@@ -36,12 +34,12 @@ class SubcategoryAdmin(AdminChangeMixin):
     )
 
     add_fieldsets = (
-        ('Page', {'fields': ('name','subject',)}),
+        ('Page', {'fields': ('name', 'subject',)}),
         ('Page content', {'fields': ('file',)})
     )
 
     search_fields = (
-    'author__first_name', 'author__last_name', 'name', 'date', 'slug', 'subject')
+        'author__first_name', 'author__last_name', 'name', 'date', 'slug', 'subject')
 
     ordering = ['date']
     filter_horizontal = ()
@@ -59,8 +57,6 @@ class SubcategoryAdmin(AdminChangeMixin):
             return form
 
     pass
-
-
 
 
 class SubjectPostAdmin(AdminChangeMixin):

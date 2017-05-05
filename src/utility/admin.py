@@ -1,7 +1,11 @@
-from django.contrib import admin
 from config import settings
-from .models import make_view_proxy, ModuleProxy
+
+from django.contrib import admin
+
 from material.frontend.admin import ModuleAdmin
+
+from .models import ModuleProxy, make_view_proxy
+
 
 class AdminChangeMixin(admin.ModelAdmin): 
     change_own_field = None

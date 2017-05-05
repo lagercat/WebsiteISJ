@@ -1,8 +1,9 @@
 from django import forms
+
 from news.models import News
 from tinymce.widgets import AdminTinyMCE
-import os
 from utility.utility import clean_file
+
 
 class NewsCreationFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')

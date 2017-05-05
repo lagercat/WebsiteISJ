@@ -1,4 +1,5 @@
 import os
+
 from django.db import models
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -38,7 +39,6 @@ INSTALLED_APPS = [
     'django_jenkins',
     'captcha',
     'widget_tweaks',
-    'haystack',
     'django_cleanup',
     'tinymce',
     'django_extensions',
@@ -109,16 +109,6 @@ DATABASES = {
         'PORT': os.environ.get('DATABASE_PORT'),
     }
 }
-
-# Search engine config
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr'
-    },
-}
-# Haystack index automatically
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

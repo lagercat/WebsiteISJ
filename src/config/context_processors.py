@@ -1,5 +1,4 @@
-from subject.models import Subject
-from page.models import Category, Subcategory, SimplePage
+from page.models import Category
 
 
 def template_context(request):

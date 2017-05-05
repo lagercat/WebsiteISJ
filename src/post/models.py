@@ -1,20 +1,23 @@
 from __future__ import unicode_literals
+
 import os
 import uuid
 
 from django.db import models
-from utility.models import CustomPermissionsMixin
-from tinymce.models import HTMLField
-from django.template.defaultfilters import truncatechars
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
+from django.template.defaultfilters import truncatechars
 from django.utils.datetime_safe import datetime
+
+from tinymce.models import HTMLField
+from utility.models import CustomPermissionsMixin
 
 
 def user_directory_path(self, filename):
     filename, file_extension = os.path.splitext(filename)
     return './documents/{0}/{1}{2}'.format(self.location,
                                            self.slug, file_extension)
+
 
 class File(CustomPermissionsMixin):
     author = models.ForeignKey("authentication.ExtendedUser", blank=False)
@@ -29,10 +32,11 @@ class File(CustomPermissionsMixin):
         return os.path.basename(self.file.url)
 
     def fileLink(self):
-      if self.file:
-          return '<a href="' + str(self.file.url) + '">' + "See file" + '</a>'
-      else:
-          return '<a href="''"></a>'
+        if self.file:
+            return '<a href="' + str(self.file.url) + '">' + "See file" + '</a>'
+        else:
+            return '<a href="''"></a>'
+
     fileLink.allow_tags = True
     fileLink.short_description = "File Link"
 
@@ -49,6 +53,7 @@ class File(CustomPermissionsMixin):
         verbose_name = 'File'
         verbose_name_plural = 'Files'
 
+
 class Post(File):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "interior"
@@ -62,6 +67,7 @@ class Post(File):
         verbose_name = 'File'
         verbose_name_plural = 'Files'
         index_text = "Manage"
+
 
 class Page(File):
     def __init__(self, *args, **kwargs):
@@ -79,6 +85,7 @@ class Page(File):
         verbose_name = 'Page'
         verbose_name_plural = 'Pages'
         index_text = "Manage"
+
 
 @receiver(pre_delete, sender=Page)
 @receiver(pre_delete, sender=Post)

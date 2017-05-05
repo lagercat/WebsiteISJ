@@ -1,20 +1,18 @@
-from django.shortcuts import render, get_object_or_404
-from models import Category, Subcategory, Article, SimplePage
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.shortcuts import get_object_or_404, render
 
+from models import Article, Category, SimplePage, Subcategory
 
 
 def category(request, name):
     category_name = get_object_or_404(Category, title=name)
-    subcategory = Subcategory.objects.all().filter(category=category_name)
+    subcat = Subcategory.objects.all().filter(category=category_name)
     simple_page = SimplePage.objects.all().filter(category=category_name)
-    print simple_page
-    print subcategory
     return render(request, 'page/category.html',
                   {
                       'name': category_name,
-                      'subcategories': subcategory,
-                      'simple_pages':simple_page,
+                      'subcategories': subcat,
+                      'simple_pages': simple_page,
                   })
 
 
@@ -33,8 +31,8 @@ def subcategory_article(request, name, slug):
 
 
 def subcategory(request, name):
-    subcategory = get_object_or_404(Subcategory, name=name)
-    articles = Article.objects.all().filter(subcategory=subcategory)
+    subcat = get_object_or_404(Subcategory, name=name)
+    articles = Article.objects.all().filter(subcategory=subcat)
     paginator = Paginator(articles, 4)
 
     page = request.GET.get('page')

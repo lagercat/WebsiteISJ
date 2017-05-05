@@ -1,17 +1,12 @@
-'''
-Created on Jan 6, 2017
-
-@author: roadd
-'''
 from django.contrib import admin
-from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from forms import ExtendedUserChangeFormAdmin, ExtendedUserCreationFormAdmin
+from django.contrib.auth.models import Group
 
-from models import ExtendedUser
+from forms import ExtendedUserChangeFormAdmin, ExtendedUserCreationFormAdmin
 from material.frontend import models
-from utility.admin import register_module_admin, register_module_admin
-from material.frontend.admin import ModuleAdmin
+from models import ExtendedUser
+from utility.admin import register_module_admin
+
 
 class ExtendedUserAdmin(BaseUserAdmin):
     form = ExtendedUserChangeFormAdmin
@@ -50,7 +45,6 @@ class ExtendedUserAdmin(BaseUserAdmin):
         return self.readonly_fields
 
 admin.site.register(ExtendedUser, ExtendedUserAdmin)
-
 admin.site.unregister(Group)
 admin.site.unregister(models.Module)
 register_module_admin()

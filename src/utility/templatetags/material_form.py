@@ -2,19 +2,18 @@ import os
 import re
 from collections import defaultdict
 
-from django.forms.utils import flatatt
 from django.forms.forms import BoundField
+from django.forms.utils import flatatt
 from django.template import Library
-from django.template.base import (
-    TemplateSyntaxError, Node, Variable, token_kwargs)
+from django.template.base import (Node, TemplateSyntaxError, Variable,
+                                  token_kwargs)
 from django.template.loader import get_template
 from django.template.loader_tags import IncludeNode
+from django.utils.encoding import force_text
+from django.utils.html import escape
 from django.utils.safestring import mark_safe
 
 from material.compat import context_flatten
-from django.utils.html import escape
-from django.utils.encoding import force_text
-
 
 register = Library()
 

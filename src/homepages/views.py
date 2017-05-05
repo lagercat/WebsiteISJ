@@ -1,11 +1,12 @@
 from django.shortcuts import render, render_to_response
-from news.models import News
-from event.models import Event
-from subject.models import Subject
-from gallery.models import Gallery
-from school.models import School
-from page.models import Category, Subcategory
 from django.template import RequestContext
+
+from event.models import Event
+from gallery.models import Gallery
+from news.models import News
+from page.models import Category, Subcategory
+from school.models import School
+from subject.models import Subject
 
 
 def home(request):
