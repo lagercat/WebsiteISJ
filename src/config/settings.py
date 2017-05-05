@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # django packages
+    'django_nose',
     'django_jenkins',
     'captcha',
     'widget_tweaks',
@@ -67,6 +68,14 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=authentication, contact, event, gallery, news, page, post'
+     ',school, subject',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -109,6 +118,7 @@ DATABASES = {
         'PORT': os.environ.get('DATABASE_PORT'),
     }
 }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
