@@ -16,12 +16,12 @@ class EventTestCase(TestCase):
                                                 status=status)
 
     def create_news(self, name="de test", text="ca sa fie"):
-        """ Test test event """
+        """ Test test news """
         return News.objects.create(name=name, text=text,
                                    author=self.create_user())
 
     def test_create_news(self):
-        """ Test if event is created correctly"""
+        """ Test if news is created correctly"""
         obj = self.create_news()
 
         self.assertTrue(isinstance(obj, News))
