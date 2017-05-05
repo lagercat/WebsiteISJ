@@ -70,6 +70,9 @@ class Subcategory(File):
     def get_name(self):
         return self.name
 
+    def get_type(self):
+        return type(self).__name__
+
 
 class SubjectPost(File):
     def __init__(self, *args, **kwargs):
@@ -85,6 +88,10 @@ class SubjectPost(File):
 
     def __unicode__(self):
         return self.name
+
+    @property
+    def get_type(self):
+        return type(self).__name__
 
     class Meta(File.Meta):
         abstract = False

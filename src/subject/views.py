@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.shortcuts import render
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
@@ -28,13 +30,22 @@ def create_subject_post(request):
 
 def subject(request, name):
     subject = get_object_or_404(Subject, name=name)
+    results = sorted(list(
+        chain(subject.get_subcategory(), subject.get_subject_post())),
+        key=lambda instance: instance.date, reverse=True)
+    paginator = Paginator(results, 4)
+
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     return render(request, 'subject/subject_all.html',
                   {
-
-                      'materia': subject.get_subcategory(),
-                      'simples': subject.get_subject_post(),
-                      'name':name
-
+                      'name':name,
+                      'posts': posts
                   })
 
 

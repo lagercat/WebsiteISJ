@@ -38,7 +38,7 @@ class File(CustomPermissionsMixin):
 
     def __unicode__(self):
         return "File %s from %s" % (self.filename, self.author.username)
-      
+
     @property
     def short_name(self):
         return truncatechars(self.name, 40)
@@ -48,31 +48,31 @@ class File(CustomPermissionsMixin):
         get_latest_by = 'date'
         verbose_name = 'File'
         verbose_name_plural = 'Files'
-        
+
 class Post(File):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "interior"
         super(Post, self).__init__(*args, **kwargs)
-      
+
     REQUIRED = ['name', 'file']
-    
+
     class Meta(File.Meta):
         abstract = False
         get_latest_by = 'date'
         verbose_name = 'File'
         verbose_name_plural = 'Files'
         index_text = "Manage"
-        
+
 class Page(File):
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "thumbails/pages"
         self._meta.get_field('file').label = "Thumbnail"
         super(Page, self).__init__(*args, **kwargs)
-      
+
     text = HTMLField()
 
     REQUIRED = ['name', 'text', 'file']
-  
+
     class Meta(Post.Meta):
         abstract = False
         get_latest_by = 'date'
@@ -80,9 +80,8 @@ class Page(File):
         verbose_name_plural = 'Pages'
         index_text = "Manage"
 
-@receiver(pre_delete, sender=Page)       
+@receiver(pre_delete, sender=Page)
 @receiver(pre_delete, sender=Post)
 def file_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
-        
