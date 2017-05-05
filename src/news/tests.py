@@ -3,7 +3,7 @@ from news.models import News
 from authentication.tests import ExtendedUser
 
 
-class EventTestCase(TestCase):
+class NewsTestCase(TestCase):
 
     @staticmethod
     def create_user(first_name="test", last_name="forthewin",
