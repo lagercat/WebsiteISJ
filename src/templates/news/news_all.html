@@ -10,7 +10,7 @@
          <div class="mu-page-breadcrumb-area">
            <h2>Noutăţi</h2>
            <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/">Acasă</a></li>
             <li class="active">Noutăţi</li>
           </ol>
          </div>
@@ -41,7 +41,6 @@
                           </figcaption>
                         </figure>
                         <div class="mu-blog-meta">
-                          <a >By {{ news.author.get_full_name }}</a>
                           <a >{{ news.date }}</a>
                         </div>
                         <div class="mu-blog-description">
@@ -64,7 +63,7 @@
                       {% if news_all.has_previous %}
                       <li>
                         <a href="?page={{ news_all.previous_page_number }}" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Prev
+                          <span class="fa fa-angle-left"></span> Înapoi
                         </a>
                       </li>
                       {% endif %}
@@ -78,7 +77,7 @@
                       {% if news_all.has_next %}
                       <li>
                         <a href="?page={{ news_all.next_page_number }}" aria-label="Next">
-                         Next <span class="fa fa-angle-right"></span>
+                         Înainte <span class="fa fa-angle-right"></span>
                         </a>
                       </li>
                       {% endif %}

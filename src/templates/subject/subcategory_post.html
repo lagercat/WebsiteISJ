@@ -12,7 +12,7 @@
            <h2>{{ name }}</h2>
              </a>
            <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/">Acasă</a></li>
             <li class="active">{{ kind }}</li>
           </ol>
          </div>
@@ -65,7 +65,7 @@
                       {% if subcategory_article.has_previous %}
                       <li>
                         <a href="?page={{ subcategory_article.previous_page_number }}" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Prev
+                          <span class="fa fa-angle-left"></span> Înapoi
                         </a>
                       </li>
                       {% endif %}
@@ -79,7 +79,7 @@
                       {% if subcategory_article.has_next %}
                       <li>
                         <a href="?page={{ subcategory_article.next_page_number }}" aria-label="Next">
-                         Next <span class="fa fa-angle-right"></span>
+                         Înainte <span class="fa fa-angle-right"></span>
                         </a>
                       </li>
                       {% endif %}

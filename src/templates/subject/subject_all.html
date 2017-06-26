@@ -10,7 +10,7 @@
          <div class="mu-page-breadcrumb-area">
            <h2>{{  name  }}</h2>
            <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/">Acasă</a></li>
             <li class="active">{{ name }}</li>
           </ol>
          </div>
@@ -73,7 +73,7 @@
                       {% if posts.has_previous %}
                       <li>
                         <a href="?page={{ posts.previous_page_number }}" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Prev
+                          <span class="fa fa-angle-left"></span> Înapoi
                         </a>
                       </li>
                       {% endif %}
@@ -87,7 +87,7 @@
                       {% if posts.has_next %}
                       <li>
                         <a href="?page={{ posts.next_page_number }}" aria-label="Next">
-                         Next <span class="fa fa-angle-right"></span>
+                         Înainte <span class="fa fa-angle-right"></span>
                         </a>
                       </li>
                       {% endif %}
