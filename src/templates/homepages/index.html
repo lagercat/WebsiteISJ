@@ -17,7 +17,7 @@
         <span></span>
         <h2>Suntem aici pentru a te ajuta</h2>
         <p>Inspectoratul Şcolar Judeţean Timiş, instituţie descentralizată de specialitate a Ministerului Educatiei si Cercetării Stiintifice</p>
-        <a href="#despre" class="mu-read-more-btn">Afla mai multe</a>
+        <a href="#despre" class="mu-read-more-btn">Află mai multe</a>
       </div>
     </div>
     <!-- Start single slider item -->
@@ -52,7 +52,7 @@
             <div class="mu-service-single">
               <span class="glyphicon glyphicon-bullhorn"></span>
               <a href="/news_all">
-              <h3 style="color: white;">Noutaţi</h3>
+              <h3 style="color: white;">Noutăţi</h3>
               <p>Te ţinem la curent cu tot ce se întamplă</p>
               </a>
             </div>
@@ -68,9 +68,11 @@
             <!-- Start single service -->
             <!-- Start single service -->
             <div class="mu-service-single">
-              <span class="glyphicon glyphicon-erase"></span>
-              <h3>Relaţii cu publicul </h3>
+              <span class="glyphicon glyphicon-book"></span>
+              <a href="/subject_page_all">
+              <h3>Specialități</h3>
               <p>Informaţii de care ai nevoie</p>
+              </a>
             </div>
             <!-- Start single service -->
           </div>
@@ -120,59 +122,6 @@
   </section>
   <!-- End about us -->
 
-  <!-- Start about us counter -->
-  <section id="mu-abtus-counter">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="mu-abtus-counter-area">
-            <div class="row">
-              <!-- Start counter item -->
-               <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="mu-abtus-counter-single">
-                  <span class="glyphicon glyphicon-home"></span>
-                  <h4 class="counter">272</h4>
-                  <p>Unităţi de învaţământ </p>
-                </div>
-              </div>
-
-              <!-- End counter item -->
-              <!-- Start counter item -->
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="mu-abtus-counter-single">
-                  <span class="glyphicon glyphicon-education"></span>
-                  <h4 class="counter">7427</h4>
-                  <p>Profesori</p>
-                </div>
-              </div>
-
-              <!-- End counter item -->
-              <!-- Start counter item -->
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="mu-abtus-counter-single">
-                  <span class="fa fa-users"></span>
-                  <h4 class="counter">678068</h4>
-                  <p>Populaţie </p>
-                </div>
-              </div>
-              <!-- End counter item -->
-              <!-- Start counter item -->
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="mu-abtus-counter-single no-border">
-                  <span class="glyphicon glyphicon-star"></span>
-                  <h4 class="counter">5</h4>
-                  <p>Şcoli Europene  </p>
-                </div>
-              </div>
-              <!-- End counter item -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End about us counter -->
-
   <!-- Start features section -->
   <section id="mu-features">
     <div class="container">
@@ -195,7 +144,7 @@
                   <div class="mu-single-feature">
                     <span class="glyphicon glyphicon-education"></span>
                     <h4>{{ subject.name }}</h4>
-                    <a href="/subject/{{subject.name}}">Read More</a>
+                    <a href="/subject/{{subject.name}}">Accesați specializarea</a>
                   </div>
                 </div>
                 {% endfor %}
@@ -304,7 +253,6 @@
                       </figcaption>
                     </figure>
                     <div class="mu-blog-meta">
-                      <a href="#">By {{ news.author.get_full_name }}</a>
                       <a href="#">{{ news.date_creation }}</a>
 
                     </div>
@@ -357,7 +305,7 @@
                   </figure>
                   <div class="mu-latest-course-single-content">
                     <div class="mu-latest-course-single-contbottom">
-                      <a class="mu-course-details" href="/schools/{{ school.slug }}">Mail mult</a>
+                      <a class="mu-course-details" href="/schools/{{ school.slug }}">Mai mult</a>
                     </div>
                   </div>
                 </div>
@@ -419,7 +367,7 @@
                       </figcaption>
                     </figure>
                     <div class="mu-blog-description">
-                            <a href="/gallery_img/{{ news.slug }}" class="mu-read-more-btn">Vizualizati albumul</a>
+                            <a href="/gallery_img/{{ news.slug }}" class="mu-read-more-btn">Vizualizați albumul</a>
                     </div>
 
                   </article>

@@ -12,7 +12,7 @@
            <h2 >Şcolile din Judeţul Timiş</h2>
              </a>
            <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/">Acasă</a></li>
             <li class="active"><a href="/school_map" style="color: dodgerblue">Şcoli</a></li>
           </ol>
          </div>
@@ -62,7 +62,7 @@
                       {% if schools.has_previous %}
                       <li>
                         <a href="?page={{ schools.previous_page_number }}" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Prev
+                          <span class="fa fa-angle-left"></span> Înapoi
                         </a>
                       </li>
                       {% endif %}
@@ -76,7 +76,7 @@
                       {% if schools.has_next %}
                       <li>
                         <a href="?page={{ schools.next_page_number }}" aria-label="Next">
-                         Next <span class="fa fa-angle-right"></span>
+                         Înainte <span class="fa fa-angle-right"></span>
                         </a>
                       </li>
                       {% endif %}
@@ -90,12 +90,10 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categorii</h3>
+                    <h3>Specializări</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasă</a></li>
-                      <li><a href="/album">Galerie</a></li>
-                      {% for category in categories %}
-                      <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
+                      {% for subject in left_subjects %}
+                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
@@ -106,54 +104,6 @@
                     <h4>Hartă interactivă</h4>
                     </a>
                 </div>
-                   {% if schools %}
-                  <div class="mu-single-sidebar">
-                    <h3>Alte Şcoli</h3>
-                    {% for school in schools %}
-                    <div class="mu-sidebar-popular-courses">
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="/schools/{{ school.slug }}">
-                            <img class="media-object" src= '{{ school.file.url }}' alt="img">
-                          </a>
-                        </div>
-                        <div class="media-body">
-                          <h4 class="media-heading"><a href="/schools/{{ school.slug }}">{{ school.name }}</a></h4>
-                        </div>
-                      </div>
-                    </div>
-                    {% endfor %}
-                  </div>
-                  {% endif %}
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    <h3>Archives</h3>
-                    <ul class="mu-sidebar-catg mu-sidebar-archives">
-                      <li><a href="#">May <span>(25)</span></a></li>
-                      <li><a href="">June <span>(35)</span></a></li>
-                      <li><a href="">July <span>(20)</span></a></li>
-                      <li><a href="">August <span>(125)</span></a></li>
-                      <li><a href="">September <span>(45)</span></a></li>
-                      <li><a href="">October <span>(85)</span></a></li>
-                    </ul>
-                  </div>
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    <h3>Tags Cloud</h3>
-                    <div class="tag-cloud">
-                      <a href="#">Health</a>
-                      <a href="#">Science</a>
-                      <a href="#">Sports</a>
-                      <a href="#">Mathematics</a>
-                      <a href="#">Web Design</a>
-                      <a href="#">Admission</a>
-                      <a href="#">History</a>
-                      <a href="#">Environment</a>
-                    </div>
-                  </div>
-                  <!-- end single sidebar -->
                 </aside>
                 <!-- / end sidebar -->
              </div>

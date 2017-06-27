@@ -10,7 +10,7 @@
          <div class="mu-page-breadcrumb-area">
            <h2>{{ name }}</h2>
            <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/">Acasă</a></li>
             <li class="active">{{ name }}</li>
           </ol>
          </div>
@@ -50,7 +50,7 @@
                     </div>
                     {% endfor %}
                     {% else %}
-                    <h3>Nu sunt informatii de afisat </h3>
+                    <h3>Nu sunt informații de afișat </h3>
                     {% endif %}
                   </div>
                 </div>
@@ -62,7 +62,7 @@
                       {% if articole.has_previous %}
                       <li>
                         <a href="?page={{ articole.previous_page_number }}" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Prev
+                          <span class="fa fa-angle-left"></span> Înapoi
                         </a>
                       </li>
                       {% endif %}
@@ -76,7 +76,7 @@
                       {% if articole.has_next %}
                       <li>
                         <a href="?page={{ articole.next_page_number }}" aria-label="Next">
-                         Next <span class="fa fa-angle-right"></span>
+                         Înainte <span class="fa fa-angle-right"></span>
                         </a>
                       </li>
                       {% endif %}
@@ -90,12 +90,10 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categories</h3>
+                    <h3>Specializări</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasa</a></li>
-                      <li><a href="/album">Galerie</a></li>
-                      {% for category in categories %}
-                      <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
+                      {% for subject in left_subjects %}
+                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>

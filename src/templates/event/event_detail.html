@@ -12,7 +12,7 @@
                  <h2>Evenimente</h2>
              </a>
            <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/">Acasă</a></li>
             <li class="active">Eveniment</li>
           </ol>
          </div>
@@ -65,7 +65,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="mu-related-item">
-                  <h3>Other Events </h3>
+                  <h3>Alte evenimente</h3>
                   <div class="mu-related-item-area">
                     <div id="mu-related-item-slide">
                       {% if other_event %}
@@ -101,12 +101,10 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categorii</h3>
+                    <h3>Specializări</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasă</a></li>
-                      <li><a href="/album">Galerie</a></li>
-                      {% for category in categories %}
-                      <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
+                      {% for subject in left_subjects %}
+                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
@@ -132,34 +130,6 @@
                     {% endfor %}
                   </div>
                   {% endif %}
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    <h3>Archives</h3>
-                    <ul class="mu-sidebar-catg mu-sidebar-archives">
-                      <li><a href="#">May <span>(25)</span></a></li>
-                      <li><a href="">June <span>(35)</span></a></li>
-                      <li><a href="">July <span>(20)</span></a></li>
-                      <li><a href="">August <span>(125)</span></a></li>
-                      <li><a href="">September <span>(45)</span></a></li>
-                      <li><a href="">October <span>(85)</span></a></li>
-                    </ul>
-                  </div>
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    <h3>Tags Cloud</h3>
-                    <div class="tag-cloud">
-                      <a href="#">Health</a>
-                      <a href="#">Science</a>
-                      <a href="#">Sports</a>
-                      <a href="#">Mathematics</a>
-                      <a href="#">Web Design</a>
-                      <a href="#">Admission</a>
-                      <a href="#">History</a>
-                      <a href="#">Environment</a>
-                    </div>
-                  </div>
                   <!-- end single sidebar -->
                 </aside>
                 <!-- / end sidebar -->

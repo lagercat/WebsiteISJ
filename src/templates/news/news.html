@@ -37,7 +37,6 @@
                           </figcaption>
                         </figure>
                         <div class="mu-blog-meta">
-                          <a href="#">By {{ author }}</a><br/>
                           <a href="#"><i class="fa fa-clock-o"></i> {{ date }}</a>
                         </div>
                         <div class="mu-blog-description">
@@ -111,48 +110,11 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categorii</h3>
+                    <h3>Specializări</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasă</a></li>
-                      <li><a href="/album">Galerie</a></li>
-                      {% for category in categories %}
-                      <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
+                      {% for subject in left_subjects %}
+                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
-                    </ul>
-                  </div>
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                  {% if other_news %}
-                  <div class="mu-single-sidebar">
-                    <h3>Articole Populare</h3>
-                    {% for news in other_news %}
-                    <div class="mu-sidebar-popular-courses">
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="/news/{{ news.slug }}">
-                            <img class="media-object" src= '{{ news.file.url }}' alt="img">
-                          </a>
-                        </div>
-                        <div class="media-body">
-                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.name|truncatechars:16 }}</a></h4>
-                          <span class="popular-course-price">{{ news.date }}</span>
-                        </div>
-                      </div>
-                    </div>
-                    {% endfor %}
-                  </div>
-                  {% endif %}
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    <h3>Archives</h3>
-                    <ul class="mu-sidebar-catg mu-sidebar-archives">
-                      <li><a href="#">May <span>(25)</span></a></li>
-                      <li><a href="">June <span>(35)</span></a></li>
-                      <li><a href="">July <span>(20)</span></a></li>
-                      <li><a href="">August <span>(125)</span></a></li>
-                      <li><a href="">September <span>(45)</span></a></li>
-                      <li><a href="">October <span>(85)</span></a></li>
                     </ul>
                   </div>
                   <!-- end single sidebar -->

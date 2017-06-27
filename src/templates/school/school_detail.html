@@ -10,7 +10,7 @@
          <div class="mu-page-breadcrumb-area">
            <h2>{{ name|truncatechars:80 }}</h2>
            <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/">Acasă</a></li>
 
                <li class="active"><a href="/school_map" style="color: dodgerblue">Scoli</a></li>
           </ol>
@@ -42,7 +42,7 @@
                         <div class="mu-latest-course-single-content">
                           <h5><a >{{ name|truncatechars:80 }}</a></h5>
                         <br>
-                          <h4>School  Information</h4>
+                          <h4>Înformații despre școală</h4>
                           <ul>
                             {% if telephone %}
                             <li> <span>Telephone</span> <span> {{ telephone }}</span></li>
@@ -60,7 +60,7 @@
                             <li> <span>Website</span> <span> {{ website }}</span></li>
                             {% endif %}
                             
-                            <li> <span>Location</span> <span>{{ location }}</span></li>
+                            <li> <span>Locație</span> <span>{{ location }}</span></li>
                             <input id="id_address" name="address" type="hidden" value="{{ location }}">
                             <input id="id_geolocation" name="geolocation" type="hidden" value="{{ geolocation }}">
                             <div id='map_container' class='row ' style="width: 70% ">
@@ -84,7 +84,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="mu-related-item">
-                  <h3>Other Schools </h3>
+                  <h3>Alte școli </h3>
                   <div class="mu-related-item-area">
                     <div id="mu-related-item-slide">
                       {% if other_news %}
@@ -99,7 +99,7 @@
                           </figure>
                           <div class="mu-latest-course-single-content">
                               <div class="mu-latest-course-single-contbottom">
-                              <a href="/schools/{{ event.slug }}" class="mu-course-details">Details</a>
+                              <a href="/schools/{{ event.slug }}" class="mu-course-details">Detalii</a>
 
                             </div>
                           </div>
@@ -119,63 +119,12 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categories</h3>
+                    <h3>Specializări</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasa</a></li>
-                      <li><a href="/album">Galerie</a></li>
-                      {% for category in categories %}
-                      <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
+                      {% for subject in left_subjects %}
+                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
-                  </div>
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                  {% if other_news %}
-                  <div class="mu-single-sidebar">
-                    <h3>Other Schools </h3>
-                    {% for news in other_news %}
-                    <div class="mu-sidebar-popular-courses">
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="/schools/{{ news.slug }}">
-                            <img class="media-object" src= '{{ news.file.url }}' alt="img">
-                          </a>
-                        </div>
-                        <div class="media-body">
-                          <h4 class="media-heading"><a href="/schools/{{ news.slug }}">{{ news.name }}</a></h4>
-                        </div>
-                      </div>
-                    </div>
-                    {% endfor %}
-                  </div>
-                  {% endif %}
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    <h3>Archives</h3>
-                    <ul class="mu-sidebar-catg mu-sidebar-archives">
-                      <li><a href="#">May <span>(25)</span></a></li>
-                      <li><a href="">June <span>(35)</span></a></li>
-                      <li><a href="">July <span>(20)</span></a></li>
-                      <li><a href="">August <span>(125)</span></a></li>
-                      <li><a href="">September <span>(45)</span></a></li>
-                      <li><a href="">October <span>(85)</span></a></li>
-                    </ul>
-                  </div>
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    <h3>Tags Cloud</h3>
-                    <div class="tag-cloud">
-                      <a href="#">Health</a>
-                      <a href="#">Science</a>
-                      <a href="#">Sports</a>
-                      <a href="#">Mathematics</a>
-                      <a href="#">Web Design</a>
-                      <a href="#">Admission</a>
-                      <a href="#">History</a>
-                      <a href="#">Environment</a>
-                    </div>
                   </div>
                   <!-- end single sidebar -->
                 </aside>
