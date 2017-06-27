@@ -101,37 +101,13 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categorii</h3>
+                    <h3>Specializări</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasă</a></li>
-                      <li><a href="/album">Galerie</a></li>
-                      {% for category in categories %}
-                      <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
+                      {% for subject in left_subjects %}
+                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                   {% if news_all %}
-                  <div class="mu-single-sidebar">
-                    <h3>Popular News</h3>
-                    {% for news in news_all %}
-                    <div class="mu-sidebar-popular-courses">
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="/news/{{ news.slug }}">
-                            <img class="media-object" src= '{{ news.file.url }}' alt="img">
-                          </a>
-                        </div>
-                        <div class="media-body">
-                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.name }}</a></h4>
-                          <span class="popular-course-price">{{ news.date }}</span>
-                        </div>
-                      </div>
-                    </div>
-                    {% endfor %}
-                  </div>
-                  {% endif %}
                   <!-- end single sidebar -->
                 </aside>
                 <!-- / end sidebar -->

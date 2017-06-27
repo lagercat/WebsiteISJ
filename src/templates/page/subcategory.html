@@ -90,12 +90,10 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categories</h3>
+                    <h3>Specializări</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasa</a></li>
-                      <li><a href="/album">Galerie</a></li>
-                      {% for category in categories %}
-                      <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
+                      {% for subject in left_subjects %}
+                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
