@@ -78,7 +78,7 @@
                       <button type="button" class="btn btn-info">Contact</button>
                       </a>
                       {% if  request.user.is_authenticated %}
-                      <a href="/admin"><span class="btn btn-warning">View Admin </span></a>
+                      <a href="/admin"><span class="btn btn-warning">Administration</span></a>
                       <a href="/logout"><span class="btn btn-danger">Sign out</span></a>
                       {% else %}
                        <a href="/login"><span class="btn btn-success">Login </span></a>
