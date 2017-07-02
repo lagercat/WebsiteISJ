@@ -1,17 +1,18 @@
-import config.settings
 import json
 import os
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, Http404
 from django.http.response import JsonResponse
+from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect
 from django.views.static import serve
 
 from models import Post
 from post.forms import PostFormSet
 from post.models import Page
+import config.settings
 
 
 def show_page(request, slug):
@@ -64,6 +65,18 @@ def page_preview(request):
     else:
         return HttpResponseForbidden()
 
+
+@staff_member_required
+def download_interior_file(request, slug):
+    given_file = get_object_or_404(Post, slug=slug)
+    path = given_file.file.path
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/force-download")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404
 
 def exterior_files(request, location, path):
     if location is not "interior":

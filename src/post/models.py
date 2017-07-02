@@ -33,12 +33,12 @@ class File(CustomPermissionsMixin):
 
     def fileLink(self):
         if self.file:
-            return '<a href="' + str(self.file.url) + '">' + "See file" + '</a>'
+            return '<a href="' + "/download/" + str(self.slug) + '">' + "Download file" + '</a>'
         else:
             return '<a href="''"></a>'
 
     fileLink.allow_tags = True
-    fileLink.short_description = "File Link"
+    fileLink.short_description = "Download"
 
     def __unicode__(self):
         return "File %s from %s" % (self.filename, self.author.username)
