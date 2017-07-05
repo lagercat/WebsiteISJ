@@ -6,13 +6,14 @@
 	position:absolute;
 	width: 192px; 
 	height: 72px;
+	left: 150px;
 }
 
 #edu-text-1{
 	z-index:100;
     position:absolute;    
     color:white;
-    left: 55px;
+    left: 205px;
     top: 5px;
   	font-size: 20px;
 }
@@ -22,7 +23,7 @@
     color:white;
   	font-size: 15px;
   	top: 27px;
-  	left: 25px;
+  	left: 175px;
 }
 #edu-year{
 	z-index:100;
@@ -30,5 +31,10 @@
     color:white;
   	font-size: 18px;
   	top: 45px;
-  	left: 75px;
+  	left: 225px;
+}
+#minister-image{
+	position:absolute;
+	top: -40px;
+	left: 490px;
 }
