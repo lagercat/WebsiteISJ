@@ -41,6 +41,10 @@ class Subject(CustomPermissionsMixin):
         subject_post = SubjectPost.objects.all().filter(subject=self)
         return subject_post
 
+    def get_simple_subject_post(self):
+        subject_post = SubjectPost.objects.all().filter(subject=self, subcategory=None)
+        return subject_post
+
 
 class Subcategory(File):
     def __init__(self, *args, **kwargs):

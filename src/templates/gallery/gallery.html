@@ -10,7 +10,7 @@
          <div class="mu-page-breadcrumb-area">
            <h2>Galerie de Albume</h2>
            <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/">Acasă</a></li>
             <li class="active">Albume</li>
           </ol>
          </div>
@@ -67,7 +67,7 @@
                     <div class="mu-latest-course-single-contbottom">
                          <h3><a href="/gallery_img/{{ image.slug }}"  >{{ image.name|truncatechars:16 }}</a></h3>
 
-                      <a class="mu-course-details" href="gallery_img/{{image.slug}}" style="color: #00acc1">Vizualizati albumul</a>
+                      <a class="mu-course-details" href="gallery_img/{{image.slug}}" style="color: #00acc1">Vizualizați albumul</a>
                     </div>
                 </li>
                   {% endfor %}
@@ -83,7 +83,7 @@
                 {% if gallery.has_previous %}
                 <li>
                   <a href="?page={{ gallery.previous_page_number }}" aria-label="Previous">
-                    <span class="fa fa-angle-left"></span> Prev
+                    <span class="fa fa-angle-left"></span> Înapoi
                   </a>
                 </li>
                 {% endif %}
@@ -97,7 +97,7 @@
                 {% if gallery.has_next %}
                 <li>
                   <a href="?page={{ gallery.next_page_number }}" aria-label="Next">
-                   Next <span class="fa fa-angle-right"></span>
+                   Înainte <span class="fa fa-angle-right"></span>
                   </a>
                 </li>
                 {% endif %}

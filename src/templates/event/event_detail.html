@@ -12,7 +12,7 @@
                  <h2>Evenimente</h2>
              </a>
            <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/">Acasă</a></li>
             <li class="active">Eveniment</li>
           </ol>
          </div>
@@ -65,7 +65,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="mu-related-item">
-                  <h3>Other Events </h3>
+                  <h3>Alte evenimente</h3>
                   <div class="mu-related-item-area">
                     <div id="mu-related-item-slide">
                       {% if other_event %}
@@ -101,12 +101,10 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categorii</h3>
+                    <h3>Specializări</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasă</a></li>
-                      <li><a href="/album">Galerie</a></li>
-                      {% for category in categories %}
-                      <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
+                      {% for subject in left_subjects %}
+                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>

@@ -97,7 +97,6 @@ class AdminChangeMixin(admin.ModelAdmin):
                                      getattr(request.user, self.change_own_owner_field).all() if self.change_own_field[-4:] == "__in" else 
                                      getattr(request.user, self.change_own_owner_field),
           }
-          print kwargs
           return queryset.filter(**kwargs)
       return queryset
       
@@ -175,7 +174,18 @@ class AdminViewMixin(admin.ModelAdmin):
         if actions.get('delete_selected', False):
             del actions['delete_selected']
         return actions
-      
+
+    def get_queryset(self, request):
+        queryset = admin.ModelAdmin.get_queryset(self, request)
+        if self.has_perm(request.user, 'view'):
+            kwargs = {
+                self.change_own_field: getattr(request.user,
+                    self.change_own_owner_field).id if self.change_own_field is 'id' else getattr(
+                    request.user, self.change_own_owner_field),
+            }
+            return queryset.exclude(**kwargs)
+        return queryset
+
 def make_view_admin(admin):   
     class ViewAdmin(AdminViewMixin, admin):
         pass

@@ -12,7 +12,7 @@
            <h2 >Şcolile din Judeţul Timiş</h2>
              </a>
            <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/">Acasă</a></li>
             <li class="active"><a href="/school_map" style="color: dodgerblue">Şcoli</a></li>
           </ol>
          </div>
@@ -62,7 +62,7 @@
                       {% if schools.has_previous %}
                       <li>
                         <a href="?page={{ schools.previous_page_number }}" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Prev
+                          <span class="fa fa-angle-left"></span> Înapoi
                         </a>
                       </li>
                       {% endif %}
@@ -76,7 +76,7 @@
                       {% if schools.has_next %}
                       <li>
                         <a href="?page={{ schools.next_page_number }}" aria-label="Next">
-                         Next <span class="fa fa-angle-right"></span>
+                         Înainte <span class="fa fa-angle-right"></span>
                         </a>
                       </li>
                       {% endif %}
@@ -90,12 +90,10 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Categorii</h3>
+                    <h3>Specializări</h3>
                     <ul class="mu-sidebar-catg">
-                       <li><a href="/">Acasă</a></li>
-                      <li><a href="/album">Galerie</a></li>
-                      {% for category in categories %}
-                      <li><a href="/category/{{ category.title }}">{{ category.title }}</a></li>
+                      {% for subject in left_subjects %}
+                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
@@ -106,26 +104,6 @@
                     <h4>Hartă interactivă</h4>
                     </a>
                 </div>
-                   {% if schools %}
-                  <div class="mu-single-sidebar">
-                    <h3>Alte Şcoli</h3>
-                    {% for school in schools %}
-                    <div class="mu-sidebar-popular-courses">
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="/schools/{{ school.slug }}">
-                            <img class="media-object" src= '{{ school.file.url }}' alt="img">
-                          </a>
-                        </div>
-                        <div class="media-body">
-                          <h4 class="media-heading"><a href="/schools/{{ school.slug }}">{{ school.name }}</a></h4>
-                        </div>
-                      </div>
-                    </div>
-                    {% endfor %}
-                  </div>
-                  {% endif %}
-                  <!-- end single sidebar -->
                 </aside>
                 <!-- / end sidebar -->
              </div>
