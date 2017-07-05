@@ -22,8 +22,13 @@
         <script type="text/javascript">
         var locations = [
             {% for school in schools %}
+                {% if school.file %}
                 ["{{school.name}}", {{school.geolocation}}, "{{school.address}}", "{{school.telephone}}", 
                  "{{school.fax}}", "{{school.email}}", "{{school.website}}", "{{school.file.url}}"],
+                {% else %}
+                ["{{school.name}}", {{school.geolocation}}, "{{school.address}}", "{{school.telephone}}",
+                 "{{school.fax}}", "{{school.email}}", "{{school.website}}", "/static/assets/img/school.jpg"],
+                {% endif %}
             {% endfor %}
         ];
         

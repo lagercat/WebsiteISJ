@@ -33,7 +33,12 @@
                     <div class="col-md-12">
                       <div class="mu-latest-course-single">
                         <figure class="mu-latest-course-img">
+                            {% if  thumbnail.url %}
                           <a href="#"><img src= '{{ thumbnail }}' alt="img"></a>
+                            {% else %}
+
+                             <a href="#"><img  src= "{% static "assets/img/school.jpg" %}" alt="img"></a>
+                            {% endif %}
                           <figcaption class="mu-latest-course-imgcaption">
 
                             <span><i class="fa fa-clock-o"></i>{{ date }}</span>
@@ -92,7 +97,13 @@
                       <div class="col-md-6">
                         <div class="mu-latest-course-single">
                           <figure class="mu-latest-course-img">
-                            <a href="/schools/{{ event.slug }}"><img style=" max-height: 160px" alt="img" src= '{{ event.file.url }}'></a>
+                            <a href="/schools/{{ event.slug }}">
+                                {% if event.file %}
+                                <img style=" max-height: 160px" alt="img" src= '{{ event.file.url }}'>
+                                {% else %}
+                                 <img style=" max-height: 160px" alt="img" src= "{% static "assets/img/school.jpg" %}">
+                                {% endif %}
+                            </a>
                             <figcaption class="mu-latest-course-imgcaption">
                               <a href="/schools/{{ event.slug }}">{{ event.name|truncatechars:39 }}</a>
                             </figcaption>

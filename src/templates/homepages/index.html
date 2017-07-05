@@ -298,7 +298,13 @@
               <div class="col-lg-4 col-md-4 col-xs-12">
                 <div class="mu-latest-course-single">
                   <figure class="mu-latest-course-img">
-                    <a ><img style="max-width: 400px;max-height: 180px" src= '{{ school.file.url }}' alt="img"></a>
+                    <a >
+                        {% if school.file %}
+                        <img style="max-width: 400px;max-height: 180px" src= '{{ school.file.url }}' alt="img">
+                        {% else %}
+                         <img style="max-width: 400px;max-height: 180px" src= "{% static "assets/img/school.jpg" %}" alt="img">
+                        {% endif %}
+                    </a>
                     <figcaption class="mu-latest-course-imgcaption">
                       <a href="/schools/{{ school.slug }}" >{{ school.name|truncatechars:33 }}</a>
                     </figcaption>
