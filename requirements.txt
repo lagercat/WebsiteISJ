@@ -14,3 +14,4 @@ bokeh
 django-jenkins
 coverage
 django-nose
+pip==9.0.1

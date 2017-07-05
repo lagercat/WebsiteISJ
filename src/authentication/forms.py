@@ -7,7 +7,8 @@ from subject.models import Subject
 
 class LoginForm(forms.Form):
     re_captcha = ReCaptchaField(
-        attrs={'lang': 'ro'}
+        attrs={'lang': 'ro',
+               'required':'required'}
     )
 
     username = forms.CharField(max_length=30, label="username",

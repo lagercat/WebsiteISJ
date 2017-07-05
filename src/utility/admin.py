@@ -91,8 +91,11 @@ class AdminChangeMixin(admin.ModelAdmin):
               raise "change_own_field must be set."
           if self.change_own_owner_field is None:
               raise "change_own_owner_field must be set."
+          print getattr(request.user, self.change_own_owner_field)
           kwargs = {
-              self.change_own_field: getattr(request.user, self.change_own_owner_field).id if self.change_own_field is 'id' else getattr(request.user, self.change_own_owner_field),
+              self.change_own_field: getattr(request.user, self.change_own_owner_field).id if self.change_own_field is 'id' else 
+                                     getattr(request.user, self.change_own_owner_field).all() if self.change_own_field[-4:] == "__in" else 
+                                     getattr(request.user, self.change_own_owner_field),
           }
           return queryset.filter(**kwargs)
       return queryset

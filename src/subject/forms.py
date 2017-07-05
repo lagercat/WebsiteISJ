@@ -49,6 +49,7 @@ class SubjectPostCreationFormAdmin(forms.ModelForm):
         post = super(SubjectPostCreationFormAdmin, self).save(commit=False)
         post.author = self.current_user
         post.text = self.cleaned_data['text']
+        post.subject = self.cleaned_data["subject"] or self.cleaned_data["subcategory"].subject
         if commit:
             post.save()
         return post
@@ -98,6 +99,7 @@ class SubjectPostChangeFormAdmin(forms.ModelForm):
     def save(self, commit=True):
         post = super(SubjectPostChangeFormAdmin, self).save(commit=False)
         post.text = self.cleaned_data['text']
+        post.subject = self.cleaned_data["subject"] or self.cleaned_data["subcategory"].subject
         if commit:
             post.save()
         return post
