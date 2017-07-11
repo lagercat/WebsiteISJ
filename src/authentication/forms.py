@@ -4,7 +4,7 @@ from captcha.fields import ReCaptchaField
 from models import ExtendedUser
 from subject.models import Subject
 from utility.forms import SelectWithDisabled
-from nltk.app.nemo_app import initialFind
+
 
 class LoginForm(forms.Form):
     re_captcha = ReCaptchaField(
