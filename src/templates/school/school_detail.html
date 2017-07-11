@@ -7,8 +7,8 @@
    <div class="container">
      <div class="row">
        <div class="col-md-12">
-         <div class="mu-page-breadcrumb-area">
-           <h2>{{ name|truncatechars:80 }}</h2>
+         <div class="mu-page-breadcrumb-area" style="word-break: break-all;">
+           <h2>{{ name }}</h2>
            <ol class="breadcrumb">
             <li><a href="/">Acasă</a></li>
 
@@ -44,8 +44,8 @@
                             <span><i class="fa fa-clock-o"></i>{{ date }}</span>
                           </figcaption>
                         </figure>
-                        <div class="mu-latest-course-single-content">
-                          <h5><a >{{ name|truncatechars:80 }}</a></h5>
+                        <div class="mu-latest-course-single-content" style="word-break: break-all;">
+                          <h5><a >{{ name }}</a></h5>
                         <br>
                           <h4>Înformații despre școală</h4>
                           <ul>
@@ -105,7 +105,7 @@
                                 {% endif %}
                             </a>
                             <figcaption class="mu-latest-course-imgcaption">
-                              <a href="/schools/{{ event.slug }}">{{ event.name|truncatechars:39 }}</a>
+                              <a href="/schools/{{ event.slug }}">{{ event.name|truncatewords:5| truncatechars:25 }}</a>
                             </figcaption>
                           </figure>
                           <div class="mu-latest-course-single-content">
