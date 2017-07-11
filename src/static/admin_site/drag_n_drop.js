@@ -192,7 +192,10 @@ function post(){
             processData: false,
             contentType: false,
             success: (function(e){
-                window.location.replace("/admin/post/post/");
+                if($_GET('_exterior') == 1)
+                    window.close();
+                else
+                    window.location.replace("/admin/post/post/");
             }),
             error: (function(XMLHttpRequest, textStatus, errorThrown) { 
                 show_errors(JSON.parse(XMLHttpRequest.responseText));
