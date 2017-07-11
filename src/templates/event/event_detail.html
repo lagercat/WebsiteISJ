@@ -36,8 +36,8 @@
                         <figure class="mu-latest-course-img">
                           <a href="#"><img style=" max-height: 500px" src= '{{ thumbnail }}' alt="img"></a>
                         </figure>
-                        <div class="mu-latest-course-single-content">
-                          <h2><a >{{ name|truncatechars:90 }}</a></h2>
+                        <div class="mu-latest-course-single-content" style="word-break: break-all;">
+                          <h2 style="word-break: break-all;"><a>{{ name }}</a></h2>
                           <h4>Informaţii despre eveniment</h4>
                           <ul>
                             <li> <span>Data & ora : </span> <span> {{ date }}</span></li>
@@ -50,11 +50,7 @@
                                     </div>
                                 </div>
                           </ul>
-                          <h4></h4>
-                          <p> {{ text|safe }}</p>
-
-
-
+                          <p style="word-break: break-all;"> {{ text|safe }}</p>
                         </div>
                       </div>
                     </div>
@@ -75,8 +71,7 @@
                           <figure class="mu-latest-course-img">
                             <a href="/event/{{ event.slug }}"><img style=" max-height: 160px" alt="img" src= '{{ event.file.url }}'></a>
                             <figcaption class="mu-latest-course-imgcaption">
-                              <a href="/event/{{ event.slug }}">{{ event.name|truncatechars:10 }}</a>
-                              <span><i class="fa fa-clock-o"></i>{{ event.date }}</span>
+                              <a href="/event/{{ event.slug }}">{{ event.name|truncatewords:5| truncatechars:25 }}</a>
                             </figcaption>
                           </figure>
                           <div class="mu-latest-course-single-content">
