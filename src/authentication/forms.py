@@ -3,7 +3,8 @@ from django import forms
 from captcha.fields import ReCaptchaField
 from models import ExtendedUser
 from subject.models import Subject
-
+from utility.forms import SelectWithDisabled
+from nltk.app.nemo_app import initialFind
 
 class LoginForm(forms.Form):
     re_captcha = ReCaptchaField(
@@ -47,10 +48,17 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
     subjects = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple(attrs={"multiple": "multiple"}),
                                               queryset=Subject.objects.all(), required=False)
-
+    status = forms.ChoiceField(choices=(
+        (0, "Personal"),
+        (1, "Director"),
+        (2, "Inspector"),
+        (3, {"label": "Admin", "disabled": True}),
+    ), required=True, label="User status", widget=SelectWithDisabled, initial=0)
+    
+    
     class Meta:
         model = ExtendedUser
-        fields = ('first_name', 'last_name', 'username', 'school', 'status')
+        fields = ('first_name', 'last_name', 'username', 'school',)
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -95,9 +103,23 @@ class ExtendedUserChangeFormAdmin(forms.ModelForm):
     subjects = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple(attrs={"multiple": "multiple"}),
                                               queryset=Subject.objects.all(), required=False)
 
+    status = forms.ChoiceField(choices=(
+        (0, "Personal"),
+        (1, "Director"),
+        (2, "Inspector"),
+        (3,  {'label': "Admin", 'disabled': True}),
+    ), required=True, label="User status", widget=SelectWithDisabled)
+
     class Meta:
         model = ExtendedUser
-        fields = ('username', 'first_name', 'last_name', 'school', 'is_active', 'status')
+        fields = ('username', 'first_name', 'last_name', 'school', 'is_active', )
+        
+    def __init__(self, *args, **kwargs):
+        initial = {
+            'status': self.status_initial
+        }
+        kwargs['initial'] = initial
+        super(ExtendedUserChangeFormAdmin, self).__init__(*args, **kwargs)
 
     def clean_password2(self):
         # Check that the two password entries match
