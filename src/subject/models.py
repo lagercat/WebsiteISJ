@@ -24,7 +24,7 @@ class Subject(CustomPermissionsMixin):
         verbose_name_plural = "Subjects"
         index_text = "Create"
 
-    name = models.CharField(max_length=50, null=True, unique=True)
+    name = models.CharField(max_length=60, null=True, unique=True)
 
     def __unicode__(self):
         return self.name
