@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # django packages
-    'django_nose',
+#     'django_nose',
     'django_jenkins',
     'captcha',
     'widget_tweaks',
