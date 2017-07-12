@@ -86,13 +86,13 @@
                 </div>
                 <!-- end course content container -->
                 <!-- start related course item -->
+                {% if other_news %}
                 <div class="row">
                   <div class="col-md-12">
                     <div class="mu-related-item">
                   <h3>Alte școli </h3>
                   <div class="mu-related-item-area">
                     <div id="mu-related-item-slide">
-                      {% if other_news %}
                       {% for event in other_news %}
                       <div class="col-md-6">
                         <div class="mu-latest-course-single">
@@ -117,12 +117,12 @@
                         </div>
                       </div>
                       {% endfor %}
-                      {% endif %}
                     </div>
                   </div>
                 </div>
                   </div>
                 </div>
+                {% endif %}
                 <!-- end start related course item -->
               </div>
               <div class="col-md-3">

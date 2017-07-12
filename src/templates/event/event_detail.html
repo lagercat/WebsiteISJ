@@ -58,13 +58,13 @@
                 </div>
                 <!-- end course content container -->
                 <!-- start related course item -->
+                {% if other_event %}
                 <div class="row">
                   <div class="col-md-12">
                     <div class="mu-related-item">
                   <h3>Alte evenimente</h3>
                   <div class="mu-related-item-area">
                     <div id="mu-related-item-slide">
-                      {% if other_event %}
                       {% for event in other_event %}
                       <div class="col-md-6">
                         <div class="mu-latest-course-single">
@@ -83,13 +83,13 @@
                         </div>
                       </div>
                       {% endfor %}
-                      {% endif %}
                     </div>
                   </div>
                 </div>
                   </div>
                 </div>
                 <!-- end start related course item -->
+                                      {% endif %}
               </div>
               <div class="col-md-3">
                 <!-- start sidebar -->
