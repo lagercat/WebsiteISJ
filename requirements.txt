@@ -14,3 +14,4 @@ bokeh
 django-jenkins
 coverage
 django-nose
+elasticsearch==2.4.1
