@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
 
-{% block content %}
     <h2>Search</h2>
 
     <form method="get" action=".">
@@ -19,7 +17,7 @@
 
             {% for result in page.object_list %}
                 <p>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
+                    <a href="/gallery_img/{{ result.slug }}"> {{ result.name }} </a>
                 </p>
             {% empty %}
                 <p>No results found.</p>
@@ -32,8 +30,5 @@
                     {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
                 </div>
             {% endif %}
-        {% else %}
-            {# Show some example queries to run, maybe query syntax, something else? #}
         {% endif %}
     </form>
-{% endblock %}
