@@ -23,6 +23,9 @@
                 {% if result.content_type == "event.event" %}
                     <a href="/event/{{ result.slug }}"> {{ result.name }} </a>
                 {% endif %}
+                {% if result.content_type == "news.news" %}
+                    <a href="/news/{{ result.slug }}"> {{ result.name }} </a>
+                {% endif %}
                 </p>
             {% empty %}
                 <p>No results found.</p>
