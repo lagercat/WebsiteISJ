@@ -26,6 +26,18 @@
                 {% if result.content_type == "news.news" %}
                     <a href="/news/{{ result.slug }}"> {{ result.name }} </a>
                 {% endif %}
+                {% if result.content_type == "page.category" %}
+                    <a href="/category/{{ result.title }}"> {{ result.title }} </a>
+                {% endif %}
+                {% if result.content_type == "page.subcategory" %}
+                    <a href="/{{ result.name }}"> {{ result.name }} </a>
+                {% endif %}
+                {% if result.content_type == "page.article" %}
+                    <a href="/{{ result.subcategory }}/{{ result.slug }}"> {{ result.name }} </a>     
+                {% endif %}
+                {% if result.content_type == "page.simplepage" %}
+                    <a href="/simple/{{ result.slug }}"> {{ result.name }} </a>
+                {% endif %}
                 </p>
             {% empty %}
                 <p>No results found.</p>
