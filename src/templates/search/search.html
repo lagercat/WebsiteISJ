@@ -17,7 +17,12 @@
 
             {% for result in page.object_list %}
                 <p>
+                {% if result.content_type == "gallery.gallery" %} 
                     <a href="/gallery_img/{{ result.slug }}"> {{ result.name }} </a>
+                {% endif %}
+                {% if result.content_type == "event.event" %}
+                    <a href="/event/{{ result.slug }}"> {{ result.name }} </a>
+                {% endif %}
                 </p>
             {% empty %}
                 <p>No results found.</p>
