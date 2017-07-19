@@ -137,7 +137,7 @@
                 {% for simple_page in category.simplepages.all|slice:"3" %}
                 <li><a href="/simple/{{simple_page.slug}}">{{ simple_page.name}}</a></li>
                 {% endfor %}
-                 <li><a href="/category/{{ category.title }}" style="color: #ac2925" >Accesati restul informatiilor </a></li>
+                 <li><a href="/category/{{ category.slug }}" style="color: #ac2925" >Accesati restul informatiilor </a></li>
               </ul>
             </li>
             {% endfor %}

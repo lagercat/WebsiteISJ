@@ -4,8 +4,8 @@ from django.shortcuts import get_object_or_404, render
 from models import Article, Category, SimplePage, Subcategory
 
 
-def category(request, name):
-    category_name = get_object_or_404(Category, title=name)
+def category(request, slug):
+    category_name = get_object_or_404(Category, slug=slug)
     subcat = Subcategory.objects.all().filter(category=category_name)
     simple_page = SimplePage.objects.all().filter(category=category_name)
     return render(request, 'page/category.html',
