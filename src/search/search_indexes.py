@@ -9,6 +9,12 @@ class BaseIndex(indexes.SearchIndex):
                             index_analyzer='analyzer_1',
                             search_analyzer='analyzer_2')
     slug = indexes.CharField(model_attr='slug')
+    suggestions = indexes.FacetCharField()
 
     class Meta:
         abstract = True
+
+    def prepare(self, obj):
+        prepared_data = super(BaseIndex, self).prepare(obj)
+        prepared_data['suggestions'] = prepared_data['text']
+        return prepared_data

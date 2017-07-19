@@ -14,7 +14,7 @@
 
         {% if query %}
             <h3>Results</h3>
-
+            {{ suggestion }}
             {% for result in page_obj.object_list %}
                 <p>
                 {% if result.content_type == "gallery.gallery" %} 
