@@ -132,7 +132,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ category.title }}<span class="fa fa-angle-down"></span></a>
               <ul class="dropdown-menu" role="menu">
                 {% for subcategory in category.subcategories.all|slice:"4" %}
-                <li><a href="/{{subcategory.name}}">{{ subcategory.name}}</a></li>
+                <li><a href="/subcategory/{{subcategory.slug_sub }}">{{ subcategory.name}}</a></li>
                 {% endfor %}
                 {% for simple_page in category.simplepages.all|slice:"3" %}
                 <li><a href="/simple/{{simple_page.slug}}">{{ simple_page.name}}</a></li>

@@ -35,7 +35,7 @@
                     <div class="col-md-6 col-sm-6">
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
-                          <a href="{{articol.slug}}"><img style="width: 400px;height: 200px" src= '{{ articol.file.url }}'alt="img"></a>
+                          <a href="/article/{{articol.slug}}"><img style="width: 400px;height: 200px" src= '{{ articol.file.url }}'alt="img"></a>
                           <figcaption class="mu-blog-caption">
                             <h3><a href="{{articol.slug}}">{{ articol.name|truncatechars:18 }}</a></h3>
                           </figcaption>
@@ -44,7 +44,7 @@
 
                         <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="{{articol.slug}}">Read More</a>
+                          <a class="mu-read-more-btn" href="/article/{{articol.slug}}">Citeste</a>
                         </div>
                       </article>
                     </div>
