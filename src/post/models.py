@@ -47,6 +47,10 @@ class File(CustomPermissionsMixin):
     def short_name(self):
         return truncatechars(self.name, 40)
 
+    @property
+    def getAutocompleteText(self):
+        return self.name
+
     class Meta(CustomPermissionsMixin.Meta):
         abstract = True
         get_latest_by = 'date'
