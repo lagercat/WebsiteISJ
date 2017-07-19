@@ -1,7 +1,7 @@
 
     <h2>Search</h2>
 
-    <form method="get" action=".">
+    <form method="get" action="/search/">
         <table>
             {{ form.q }}
             <tr>
@@ -15,7 +15,7 @@
         {% if query %}
             <h3>Results</h3>
 
-            {% for result in page.object_list %}
+            {% for result in page_obj.object_list %}
                 <p>
                 {% if result.content_type == "gallery.gallery" %} 
                     <a href="/gallery_img/{{ result.slug }}"> {{ result.name }} </a>
