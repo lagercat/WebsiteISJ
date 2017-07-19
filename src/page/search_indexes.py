@@ -1,7 +1,7 @@
 from haystack import indexes
 
 from page.models import Category, Subcategory, Article, SimplePage
-from post.search_indexes import BaseIndex
+from search.search_indexes import BaseIndex
 
 
 class CategoryIndex(indexes.SearchIndex, indexes.Indexable):

@@ -1,7 +1,7 @@
 from haystack import indexes
 
 from event.models import Event
-from post.search_indexes import BaseIndex
+from search.search_indexes import BaseIndex
 
 
 class EventIndex(BaseIndex, indexes.Indexable):
