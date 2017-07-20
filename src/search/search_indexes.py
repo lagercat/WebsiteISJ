@@ -6,7 +6,6 @@ class BaseIndex(indexes.SearchIndex):
     name = indexes.CharField(model_attr='name')
     slug = indexes.CharField(model_attr='slug')
     suggestions = indexes.FacetCharField()
-    text_auto = indexes.EdgeNgramField(model_attr='getAutocompleteText')
 
     class Meta:
         abstract = True

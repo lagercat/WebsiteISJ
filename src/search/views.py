@@ -1,7 +1,3 @@
-import json
-
-from django.http import HttpResponse
-
 from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
 from haystack.query import SearchQuerySet
@@ -19,12 +15,5 @@ class CustomSearchView(SearchView):
         ).spelling_suggestion(context['query'])
         return context
 
-
-def autocomplete(request):
-    sqs = SearchQuerySet().autocomplete(
-        content_auto=request.GET.get('q', ''))[:5]
-    suggestions = [result.title for result in sqs]
-    the_data = json.dumps({
-        'results': suggestions
-    })
-    return HttpResponse(the_data, content_type='application/json')
+    def index_queryset(self, using=None):
+        return self.get_model().objects.all()
