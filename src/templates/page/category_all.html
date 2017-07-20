@@ -38,7 +38,7 @@
                     {% if categories_all %}
 
                           {% for category  in categories_all %}
-                            <a href="/{{ category.name }}" class="list-group-item act">{{ category.title }}</a>
+                            <a href="/category/{{ category.slug }}" class="list-group-item act">{{ category.title }}</a>
 
                           {% endfor %}
 
