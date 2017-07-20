@@ -4,8 +4,8 @@ from django.shortcuts import get_object_or_404, render
 from models import Article, Category, SimplePage, Subcategory
 
 
-def category(request, name):
-    category_name = get_object_or_404(Category, title=name)
+def category(request, slug):
+    category_name = get_object_or_404(Category, slug=slug)
     subcat = Subcategory.objects.all().filter(category=category_name)
     simple_page = SimplePage.objects.all().filter(category=category_name)
     return render(request, 'page/category.html',
@@ -38,8 +38,8 @@ def subcategory_article(request, name, slug):
     })
 
 
-def subcategory(request, name):
-    subcat = get_object_or_404(Subcategory, name=name)
+def subcategory(request, slug):
+    subcat = get_object_or_404(Subcategory, slug_sub=slug)
     articles = Article.objects.all().filter(subcategory=subcat)
     paginator = Paginator(articles, 4)
 
@@ -51,12 +51,12 @@ def subcategory(request, name):
     except EmptyPage:
         articles = paginator.page(paginator.num_pages)
     return render(request, 'page/subcategory.html',
-                  {'name': name,
+                  {'name': subcat.name,
                    'articole': articles,
                    })
 
 
-def article_post(request, name, slug):
+def article_post(request, slug):
     article = list(
         Article.objects.values('subcategory', 'name', 'text', 'file',
                                'date').filter(slug=slug))

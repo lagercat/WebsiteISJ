@@ -31,7 +31,7 @@ def event_detail(request, slug):
                                         'geolocation',
                                         'location',
                                         'slug').filter(slug=slug))
-    other_event = Event.objects.all()[:4]
+    other_event = Event.objects.all().exclude(slug=slug)[:4]
     return render(request, 'event/event_detail.html', {
         'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY,
         'name': articol[0].get('name'),

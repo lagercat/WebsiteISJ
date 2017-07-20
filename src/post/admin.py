@@ -1,6 +1,6 @@
 from django.contrib.admin.filters import (ChoicesFieldListFilter,
-                                          DateFieldListFilter)
-
+                                          DateFieldListFilter, 
+                                          AllValuesFieldListFilter)
 from models import Post
 from post.forms import (PageChangeFormAdmin, PageCreationFormAdmin,
                         PostChangeFormAdmin, PostCreationFormAdmin)
@@ -21,7 +21,8 @@ class PostAdmin(AdminChangeMixin):
     list_display = ('short_name', 'author', 'fileLink', 'location', 'date', 'slug',)
     list_filter = (
         ('date', DateFieldListFilter),
-        ('author__status', ChoicesFieldListFilter)
+        ('author__status', ChoicesFieldListFilter),
+        ('location', AllValuesFieldListFilter),
     )
     readonly_fields = ['fileLink', 'author', 'location']
 

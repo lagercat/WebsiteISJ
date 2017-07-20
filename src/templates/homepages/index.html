@@ -211,8 +211,7 @@
                   <figure class="mu-latest-course-img">
                     <a ><img style="max-width: 400px;max-height: 180px" src= '{{ event.file.url }}' alt="img"></a>
                     <figcaption class="mu-latest-course-imgcaption">
-                      <a href="/event/{{ event.slug }}" >{{ event.name|truncatechars:10 }}</a>
-                      <span><i class="fa fa-clock-o"></i>{{ event.date }}</span>
+                      <a href="/event/{{ event.slug }}" >{{ event.name|truncatewords:5| truncatechars:20 }}</a>
                     </figcaption>
                   </figure>
                   <div class="mu-latest-course-single-content">
@@ -276,7 +275,7 @@
                     <figure class="mu-blog-single-img">
                       <a href="/news/{{ news.slug }}"><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
                       <figcaption class="mu-blog-caption">
-                        <h3><a href="/news/{{ news.slug }}">{{ news.name|truncatechars:20 }}</a></h3>
+                        <h3><a href="/news/{{ news.slug }}">{{ news.name|truncatewords:5| truncatechars:20 }}</a></h3>
                       </figcaption>
                     </figure>
                     <div class="mu-blog-meta">
@@ -315,6 +314,7 @@
               <h2>Şcolile din judeţul Timiş </h2>
 <p>"Educaţia înseamnă învăţarea a ceea ce nu ai ştiut vreodată că nu ştii."</p>
             <a href="/school_all" class="mu-read-more-btn">Toate şcolile</a>
+                 <a href="/school_map" class="mu-read-more-btn">Harta Interactiva</a>
             </div>
             </a>
             <!-- End Title -->
@@ -325,9 +325,15 @@
               <div class="col-lg-4 col-md-4 col-xs-12">
                 <div class="mu-latest-course-single">
                   <figure class="mu-latest-course-img">
-                    <a ><img style="max-width: 400px;max-height: 180px" src= '{{ school.file.url }}' alt="img"></a>
+                    <a >
+                        {% if school.file %}
+                        <img style="max-width: 400px;max-height: 180px" src= '{{ school.file.url }}' alt="img">
+                        {% else %}
+                         <img style="max-width: 400px;max-height: 180px" src= "{% static "assets/img/school.jpg" %}" alt="img">
+                        {% endif %}
+                    </a>
                     <figcaption class="mu-latest-course-imgcaption">
-                      <a href="/schools/{{ school.slug }}" >{{ school.name|truncatechars:33 }}</a>
+                      <a href="/schools/{{ school.slug }}" >{{ school.name|truncatewords:5| truncatechars:20 }}</a>
                     </figcaption>
                   </figure>
                   <div class="mu-latest-course-single-content">
@@ -390,7 +396,7 @@
                     <figure class="mu-blog-single-img">
                       <a href="/gallery_img/{{ news.slug }}" ><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
                       <figcaption class="mu-blog-caption">
-                        <h3><a href="/gallery_img/{{ news.slug }}"  >{{ news.name|truncatechars:16 }}</a></h3>
+                        <h3><a href="/gallery_img/{{ news.slug }}"  >{{ news.name|truncatechars:16|truncatewords:5 }}</a></h3>
                       </figcaption>
                     </figure>
                     <div class="mu-blog-description">

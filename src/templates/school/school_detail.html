@@ -8,8 +8,8 @@
    <div class="container">
      <div class="row">
        <div class="col-md-12">
-         <div class="mu-page-breadcrumb-area">
-           <h2>{{ name|truncatechars:80 }}</h2>
+         <div class="mu-page-breadcrumb-area" style="word-break: break-all;">
+           <h2>{{ name }}</h2>
            <ol class="breadcrumb">
             <li><a href="/">Acasă</a></li>
 
@@ -34,14 +34,19 @@
                     <div class="col-md-12">
                       <div class="mu-latest-course-single">
                         <figure class="mu-latest-course-img">
+                            {% if  thumbnail.url %}
                           <a href="#"><img src= '{{ thumbnail }}' alt="img"></a>
+                            {% else %}
+
+                             <a href="#"><img  src= "{% static "assets/img/school.jpg" %}" alt="img"></a>
+                            {% endif %}
                           <figcaption class="mu-latest-course-imgcaption">
 
                             <span><i class="fa fa-clock-o"></i>{{ date }}</span>
                           </figcaption>
                         </figure>
-                        <div class="mu-latest-course-single-content">
-                          <h5><a >{{ name|truncatechars:80 }}</a></h5>
+                        <div class="mu-latest-course-single-content" style="word-break: break-all;">
+                          <h5><a >{{ name }}</a></h5>
                         <br>
                           <h4>Înformații despre școală</h4>
                           <ul>
@@ -82,20 +87,26 @@
                 </div>
                 <!-- end course content container -->
                 <!-- start related course item -->
+                {% if other_news %}
                 <div class="row">
                   <div class="col-md-12">
                     <div class="mu-related-item">
                   <h3>Alte școli </h3>
                   <div class="mu-related-item-area">
                     <div id="mu-related-item-slide">
-                      {% if other_news %}
                       {% for event in other_news %}
                       <div class="col-md-6">
                         <div class="mu-latest-course-single">
                           <figure class="mu-latest-course-img">
-                            <a href="/schools/{{ event.slug }}"><img style=" max-height: 160px" alt="img" src= '{{ event.file.url }}'></a>
+                            <a href="/schools/{{ event.slug }}">
+                                {% if event.file %}
+                                <img style=" max-height: 160px" alt="img" src= '{{ event.file.url }}'>
+                                {% else %}
+                                 <img style=" max-height: 160px" alt="img" src= "{% static "assets/img/school.jpg" %}">
+                                {% endif %}
+                            </a>
                             <figcaption class="mu-latest-course-imgcaption">
-                              <a href="/schools/{{ event.slug }}">{{ event.name|truncatechars:39 }}</a>
+                              <a href="/schools/{{ event.slug }}">{{ event.name|truncatewords:5| truncatechars:25 }}</a>
                             </figcaption>
                           </figure>
                           <div class="mu-latest-course-single-content">
@@ -107,12 +118,12 @@
                         </div>
                       </div>
                       {% endfor %}
-                      {% endif %}
                     </div>
                   </div>
                 </div>
                   </div>
                 </div>
+                {% endif %}
                 <!-- end start related course item -->
               </div>
               <div class="col-md-3">

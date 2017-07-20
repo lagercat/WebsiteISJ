@@ -43,6 +43,13 @@ class ExtendedUserAdmin(BaseUserAdmin):
         if obj == request.user:  # editing an existing object
             return self.readonly_fields + ('status',)
         return self.readonly_fields
+    
+    
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(ExtendedUserAdmin, self).get_form(request, obj, **kwargs)
+        if obj is not None:
+            form.status_initial = obj.status
+        return form
 
 admin.site.register(ExtendedUser, ExtendedUserAdmin)
 admin.site.unregister(Group)
