@@ -1,24 +1,24 @@
 {% extends "base.html" %}
+{% block title %}{{ name }}{% endblock %}
 {% load staticfiles %}
 {% block content %}
 
  <!-- Page breadcrumb -->
  <section id="mu-page-breadcrumb">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-
-         <div class="mu-page-breadcrumb-area">
-             <a href="/subject/{{ name_subject }}">
-           <h2>{{ name_subject }}</h2>
-             </a>
-
-         </div>
-       
-       </div>
-     </div>
-   </div>
- </section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="mu-page-breadcrumb-area">
+          <h2>{{ name }}</h2>
+          <ol class="breadcrumb">
+           <li><a href="/">Acasă</a></li>
+           <li class="active">{{ subject_name }}</li>
+         </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
  <!-- End breadcrumb -->
  <section id="mu-course-content">
    <div class="container">

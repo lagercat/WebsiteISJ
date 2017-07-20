@@ -93,6 +93,7 @@ def subject_news(request, name, slug):
     return render(request, 'subject/subject_news.html', {
 
         'name': articol[0].get('name'),
+        'subject_name':name,
         'text': articol[0].get('text'),
         'other_news': other_news,
         'thumbnail': "/media/" + articol[0].get('file'),
