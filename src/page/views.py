@@ -16,6 +16,14 @@ def category(request, name):
                   })
 
 
+def category_all(request):
+    categories = Category.objects.all()
+    return render(request, 'page/category_all.html',
+                  {
+                      'categories_all':categories,
+                  })
+
+
 def subcategory_article(request, name, slug):
     article = list(
         Article.objects.values('name', 'text', 'subcategory', 'file', 'date',

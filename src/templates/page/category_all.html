@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ name }}{% endblock %}
+{% block title %}Toate categoriile {% endblock %}
 {% load staticfiles %}
 {% block content %}
 
@@ -12,7 +12,7 @@
            <h2>{{ name }}</h2>
            <ol class="breadcrumb">
             <li><a href="/">Acasă</a></li>
-            <li class="active">{{ name }}</li>
+            <li class="active">Toate categoriile</li>
           </ol>
          </div>
        </div>
@@ -31,26 +31,20 @@
                 <div class="mu-course-container mu-blog-archive">
                   <div class="row">
                     <div class="list-group">
-                        <a href="#" class="list-group-item active">{{ name }}</a>
-                      {% if subcategories or simple_pages  %}
+                        <a href="#" class="list-group-item active">Toate categoriile</a>
 
 
-                      {% for subcategory in subcategories %}
-                        <a href="/{{ subcategory.name }}" class="list-group-item act">{{ subcategory.name }}</a>
 
-                      {% endfor %}
+                    {% if categories_all %}
 
-                      {% for page in simple_pages %}
-                        <a href="/simple/{{ page.slug }}" class="list-group-item act">{{ page.name }}</a>
+                          {% for category  in categories_all %}
+                            <a href="/{{ category.name }}" class="list-group-item act">{{ category.title }}</a>
 
-                      <!--<li><a href="/simple/{{ simple_page.name }}/{{simple_page.slug}}">{{ simple_page.name}}</a></li>-->
-
-                      {% endfor %}
-
+                          {% endfor %}
 
                       {% else %}
                       <a  class="list-group-item list-group-item-danger">Nu sunt informații de afișat </a>
-                      {%endif%}
+                    {%endif%}
 
 
                       </div>
