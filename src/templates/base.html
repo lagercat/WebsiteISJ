@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
     {% block title %}{% endblock %}
-  </title>
+     </title>
+    {% block link_add %}{% endblock %}
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{% static "assets/img/favicon.ico" %}" type="image/x-icon">
@@ -48,6 +49,9 @@
     <link rel="stylesheet" type="text/css" href="{% static "prism/prism.css" %}">
     <script src="{% static "prism/prism.js" %}"></script>
     <script src="{% static "scripts/get_year_button.js" %}"></script>
+
+
+
   </head>
   <body>
 
