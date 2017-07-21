@@ -27,7 +27,7 @@
               <div class="col-md-9">
                 <!-- start course content container -->
                 <div class="mu-course-container mu-blog-archive">
-                {% if suggestion != query %}
+                {% if suggestion != query and suggestion %}
                   <a href="/search/?q={{ suggestion }}">
                     <h4>Încercați și varianta <i>{{ suggestion }}</i></h4>
                   </a>
