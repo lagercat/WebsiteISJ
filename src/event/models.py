@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 import os
 
-from django.urls import reverse
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 
@@ -31,11 +30,6 @@ class Event(File):
 
     def __unicode__(self):
         return self.name
-
-    @property
-    def get_absolute_url(self):
-        path = reverse('event', args=[self.slug])
-        return path
 
     class Meta(File.Meta):
         abstract = False

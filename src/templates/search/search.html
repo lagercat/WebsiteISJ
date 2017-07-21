@@ -16,7 +16,6 @@
             <h3>Results</h3>
             {{ suggestion }}
             {% for result in page_obj.object_list %}
-                {{ result.test }}
                 <p>
                 {% if result.content_type == "gallery.gallery" %} 
                     <a href="/gallery_img/{{ result.slug }}"> {{ result.name }} </a>
