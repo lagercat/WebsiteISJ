@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block title %}ISJ TIMIS{% endblock %}
 {% load staticfiles %}
 {% block content %}
 
@@ -101,10 +102,31 @@
                     <li>Asigură aplicarea legislaţiei în organizarea, conducerea şi desfăşurarea procesului de învăţământ;</li>
                     <li>Asigură calitatea învăţământului şi respectarea standardelor naţionale prin inspecţia şcolară;</li>
                     <li>Asigură, împreună cu autorităţile administraţiei publice locale, şcolarizarea elevilor pe durata învăţământului obligatoriu;</li>
-                    <li>Coordoneaza încadrarea unităţilor de învăţământ cu personal didactic;</li>
-                    <li>Organizează şi îndrumă activitatea de perfecţionare a personalului din învăţământul preuniversitar;</li>
-                  </ul>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis quaerat harum facilis excepturi et? Mollitia!</p>
+                     <li>Asigură, împreună cu autorităţile administraţiei publice locale, şcolarizarea elevilor pe durata învăţământului obligatoriu;</li>
+                  <div class="container">
+                     <div >
+                        <div>
+                          <div class="mu-about-us-area">
+                            <div >
+
+                                <div id="first-button" class="edu" style="background-image: url({% static "assets/img/edu-background.png" %});">
+                                  <p class="edu-text-1">Înscrierea</p>
+                                  <p class="edu-text">în învățământul primar</p>
+                                  <p class="edu-year edu-year-button"></p>
+                                </div>
+                                <div id="second-button" class="edu" style="background-image: url({% static "assets/img/edu-background.png" %});">
+                                  <p class="edu-text-1">Înscrierea</p>
+                                  <p class="edu-text">în învăţământul preşcolar</p>
+                                  <p class="edu-year edu-year-button"></p>
+
+                                </div>
+                            </div>
+                          </div>
+                     </div>
+                  </div>
+                   </div>
+
+
                 </div>
               </div>
               <div class="col-lg-6 col-md-6">
@@ -366,13 +388,13 @@
                 <div class="col-md-4 col-sm-4">
                   <article class="mu-blog-single-item">
                     <figure class="mu-blog-single-img">
-                      <a href="/gallery_img/{{ news.slug }}" ><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
+                      <a href="/gallery/{{ news.slug }}" ><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
                       <figcaption class="mu-blog-caption">
-                        <h3><a href="/gallery_img/{{ news.slug }}"  >{{ news.name|truncatechars:16|truncatewords:5 }}</a></h3>
+                        <h3><a href="/gallery/{{ news.slug }}"  >{{ news.name|truncatechars:16|truncatewords:5 }}</a></h3>
                       </figcaption>
                     </figure>
                     <div class="mu-blog-description">
-                            <a href="/gallery_img/{{ news.slug }}" class="mu-read-more-btn">Vizualizați albumul</a>
+                            <a href="/gallery/{{ news.slug }}" class="mu-read-more-btn">Vizualizați albumul</a>
                     </div>
 
                   </article>
