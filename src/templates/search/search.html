@@ -7,10 +7,10 @@
      <div class="row">
        <div class="col-md-12">
          <div class="mu-page-breadcrumb-area">
-           <h2>Evenimente</h2>
+           <h2>Rezultatele căutarii</h2>
            <ol class="breadcrumb">
             <li><a href="/">Acasă</a></li>
-            <li class="active">Evenimente</li>
+            <li class="active">Căutare</li>
           </ol>
          </div>
        </div>
@@ -28,14 +28,14 @@
                 <!-- start course content container -->
                 <div class="mu-course-container mu-blog-archive">
                   <div class="row">
-                                {{ suggestion }}
                     {% if query and page_obj.object_list %}
                     {% for result in page_obj.object_list %}
                     <div class="col-md-6 col-sm-6">
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
                         {% if result.content_type == "gallery.gallery" %} 
-                            <a href="/gallery/{{ result.slug }}"><img style="width: 400px;height: 200px" src='{{ result.file.url }}'alt="img"></a>
+                            <a href="/gallery/{{ result.slug }}">
+                            <img style="width: 400px;height: 200px" src='/media/{{ result.file }}' alt="img"></a>
                             <figcaption class="mu-blog-caption">
                               <h3><a href="/gallery/{{ result.slug }}">{{ result.name }}</a></h3>
                             </figcaption>
@@ -43,66 +43,62 @@
                           <div class="mu-blog-description">
 
                             <a class="mu-read-more-btn" href="/gallery/{{ result.slug }}">Citeşte mai mult</a> 
+                                                      </div>
                           {% endif %}
                         {% if result.content_type == "event.event" %}
-                          <a href="/event/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '{{ result.file.url }}'alt="img"></a>
+                          <a href="/event/{{ result.slug }}">
+                          <img style="width: 400px;height: 200px" src='/media/{{ result.file }}' alt="img">
+                          </a>
                           <figcaption class="mu-blog-caption">
                             <h3><a href="/event/{{ result.slug }}">{{ result.name }}</a></h3>
                           </figcaption>
                         </figure>
                         <div class="mu-blog-description">
-                          <a class="mu-read-more-btn" href="/event/{{ result.slug }}">Citeşte mai mult</a>                        
+                          <a class="mu-read-more-btn" href="/event/{{ result.slug }}">Citeşte mai mult</a>                             </div>                     
                           {% endif %}
                         {% if result.content_type == "news.news" %}
-                          <a href="/news/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '{{ result.file.url }}'alt="img"></a>
+                          <a href="/news/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
                           <figcaption class="mu-blog-caption">
                             <h3><a href="/news/{{ result.slug }}">{{ result.name }}</a></h3>
                           </figcaption>
                         </figure>
                         <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/news/{{ result.slug }}">Citeşte mai mult</a>                        
+                          <a class="mu-read-more-btn" href="/news/{{ result.slug }}">Citeşte mai mult</a>                              </div>                    
                           {% endif %}
                         {% if result.content_type == "page.category" %}
-                          <a href="/category/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '{{ result.file.url }}'alt="img"></a>
+                          <a href="/category/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
                           <figcaption class="mu-blog-caption">
                             <h3><a href="/category/{{ result.slug }}">{{ result.title }}</a></h3>
                           </figcaption>
                         </figure>
                         <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/category/{{ result.slug }}">Citeşte mai mult</a>                        
+                          <a class="mu-read-more-btn" href="/category/{{ result.slug }}">Citeşte mai mult</a>                              </div>                    
                           {% endif %}
                         {% if result.content_type == "page.subcategory" %}
-                          <a href="/subcategory/{{ result.slug_sub }}"><img style="width: 400px;height: 200px" src= '{{ result.file.url }}'alt="img"></a>
+                          <a href="/subcategory/{{ result.slug_sub }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
                           <figcaption class="mu-blog-caption">
                             <h3><a href="/subcategory/{{ result.slug_sub }}">{{ news.name }}</a></h3>
                           </figcaption>
                         </figure>
                         <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/subcategory/{{ result.slug_sub }}">Citeşte mai mult</a>                        
+                          <a class="mu-read-more-btn" href="/subcategory/{{ result.slug_sub }}">Citeşte mai mult</a>                          </div>                        
                         {% endif %}
                         {% if result.content_type == "page.article" %}
-                          <a href="/article/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '{{ result.file.url }}'alt="img"></a>
+                          <a href="/article/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
                           <figcaption class="mu-blog-caption">
                             <h3><a href="/article/{{ result.slug }}">{{ result.name }}</a></h3>
                           </figcaption>
                         </figure>
                         <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/article/{{ result.slug }}">Citeşte mai mult</a>                        
+                          <a class="mu-read-more-btn" href="/article/{{ result.slug }}">Citeşte mai mult</a>
+                          </div>
                           {% endif %}
                         {% if result.content_type == "page.simplepage" %}
-                          <a href="/simple/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '{{ result.file.url }}'alt="img"></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/simple/{{ result.slug }}">{{ result.name }}</a></h3>
-                          </figcaption>
-                        </figure>
-                        <div class="mu-blog-description">
-
-                          <a class="mu-read-more-btn" href="/simple/{{ result.slug }}">Citeşte mai mult</a>                        {% endif %}
-                          <a href="/simple/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '{{ result.file.url }}'alt="img"></a>
+                          <a href="/simple/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
                           <figcaption class="mu-blog-caption">
                             <h3><a href="/simple/{{ result.slug }}">{{ result.name }}</a></h3>
                           </figcaption>
@@ -110,7 +106,16 @@
                         <div class="mu-blog-description">
 
                           <a class="mu-read-more-btn" href="/simple/{{ result.slug }}">Citeşte mai mult</a>
-                        </div>
+                          <a href="/simple/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
+                          <figcaption class="mu-blog-caption">
+                            <h3><a href="/simple/{{ result.slug }}">{{ result.name }}</a></h3>
+                          </figcaption>
+                        </figure>
+                        <div class="mu-blog-description">
+
+                          <a class="mu-read-more-btn" href="/simple/{{ result.slug }}">Citeşte mai mult</a>
+                          </div>
+                        {% endif %}
                       </article>
                     </div>
                     {% endfor %}
