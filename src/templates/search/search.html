@@ -34,7 +34,7 @@
                 {% endif %}
                   <div class="row">
                     {% if query and page_obj.object_list %}
-                    {% for result in page_obj.object_list %}
+                    {% for result in page %}
                     <div class="col-md-6 col-sm-6">
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
@@ -163,21 +163,21 @@
                     <ul class="pagination">
                       {% if page.has_previous %}
                       <li>
-                        <a href="?page={{ page.previous_page_number }}" aria-label="Previous">
+                        <a href="?q={{ query }}&page={{ page.previous_page_number }}" aria-label="Previous">
                           <span class="fa fa-angle-left"></span> Înapoi
                         </a>
                       </li>
                       {% endif %}
-                      {% for num in page.paginator.page_range %}
+                      {% for num in paginator.page_range %}
                         {% if num == page.number %}
-                          <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
+                          <li class="active"><a href="?q={{ query }}&page={{ num }}">{{ num }}</a></li>
                         {% else %}
-                          <li><a href="?page={{ num }}">{{ num }}</a></li>
+                          <li><a href="?q={{ query }}&page={{ num }}">{{ num }}</a></li>
                         {% endif %}
                       {% endfor %}
                       {% if page.has_next %}
                       <li>
-                        <a href="?page={{ page.next_page_number }}" aria-label="Next">
+                        <a href="?q={{ query }}&&page={{ page.next_page_number }}" aria-label="Next">
                          Înainte <span class="fa fa-angle-right"></span>
                         </a>
                       </li>
