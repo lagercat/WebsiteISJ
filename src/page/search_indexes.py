@@ -22,7 +22,7 @@ class CategoryIndex(indexes.SearchIndex, indexes.Indexable):
 class SubcategoryIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr='name')
-    slug = indexes.CharField(model_attr='slug_sub')
+    slug_sub = indexes.CharField(model_attr='slug_sub')
     suggestions = indexes.FacetCharField()
 
     def get_model(self):
