@@ -27,6 +27,11 @@
               <div class="col-md-9">
                 <!-- start course content container -->
                 <div class="mu-course-container mu-blog-archive">
+                {% if suggestion != query %}
+                  <a href="/search/?q={{ suggestion }}">
+                    <h4>Încercați varianta <i>{{ suggestion }}</i></h4>
+                  </a>
+                {% endif %}
                   <div class="row">
                     {% if query and page_obj.object_list %}
                     {% for result in page_obj.object_list %}
