@@ -5,6 +5,8 @@ class BaseIndex(indexes.SearchIndex):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr='name')
     slug = indexes.CharField(model_attr='slug')
+    file = indexes.CharField(model_attr='file')
+    url = indexes.CharField(model_attr='get_absolute_url')
     suggestions = indexes.FacetCharField()
 
     class Meta:
