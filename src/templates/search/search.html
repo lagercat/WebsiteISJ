@@ -111,15 +111,40 @@
                         <div class="mu-blog-description">
 
                           <a class="mu-read-more-btn" href="/simple/{{ result.slug }}">Citeşte mai mult</a>
-                          <a href="/simple/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/simple/{{ result.slug }}">{{ result.name }}</a></h3>
-                          </figcaption>
-                        </figure>
                         <div class="mu-blog-description">
 
                           <a class="mu-read-more-btn" href="/simple/{{ result.slug }}">Citeşte mai mult</a>
                           </div>
+                        {% endif %}
+                        {% if result.content_type == "school.school" %}
+                          <a href="/schools/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
+                          <figcaption class="mu-blog-caption">
+                            <h3><a href="/schools/{{ result.slug }}">{{ result.name }}</a></h3>
+                          </figcaption>
+                        </figure>
+                        <div class="mu-blog-description">
+
+                          <a class="mu-read-more-btn" href="/schools/{{ result.slug }}">Citeşte mai mult</a>
+                        {% endif %}
+                        {% if result.content_type == "subject.subcategory" %}
+                          <a href="/subject/{{ result.subject }}/{{ result.name }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
+                          <figcaption class="mu-blog-caption">
+                            <h3><a href="/subject/{{ result.subject }}/{{ result.name }}">{{ result.name }}</a></h3>
+                          </figcaption>
+                        </figure>
+                        <div class="mu-blog-description">
+
+                          <a class="mu-read-more-btn" href="/subject/{{ result.subject }}/{{ result.name }}">Citeşte mai mult</a>
+                        {% endif %}
+                        {% if result.content_type == "subject.subjectpost" %}
+                          <a href="/simple/{{ result.subject }}/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
+                          <figcaption class="mu-blog-caption">
+                            <h3><a href="/simple/{{ result.subject }}/{{ result.slug }}">{{ result.name }}</a></h3>
+                          </figcaption>
+                        </figure>
+                        <div class="mu-blog-description">
+
+                          <a class="mu-read-more-btn" href="/simple/{{ result.subject }}/{{ result.slug }}">Citeşte mai mult</a>
                         {% endif %}
                       </article>
                     </div>
