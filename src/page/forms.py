@@ -1,5 +1,5 @@
 from django import forms
-
+from datetime import datetime
 from page.models import Article, SimplePage
 from tinymce.widgets import AdminTinyMCE
 from utility.utility import clean_file
@@ -23,6 +23,14 @@ class ArticleCreationFormAdmin(forms.ModelForm):
         if error:
             raise forms.ValidationError(error)
         return uploaded_file
+
+    def clean_date(self):
+        data = self.cleaned_data['date']
+        now = datetime.now()
+        data = data.replace(tzinfo=None)
+        if data < now:
+            raise forms.ValidationError("Data nu e valida.Nu puteti posta o stire in trecut!")
+        return data
 
     def save(self, commit=True):
         uploaded_file = super(ArticleCreationFormAdmin, self).save(
@@ -61,6 +69,14 @@ class ArticleChangeFormAdmin(forms.ModelForm):
             raise forms.ValidationError(error)
         return uploaded_file
 
+    def clean_date(self):
+        data = self.cleaned_data['date']
+        now = datetime.now()
+        data = data.replace(tzinfo=None)
+        if data < now:
+            raise forms.ValidationError("Data nu e valida.Nu puteti posta o stire in trecut!")
+        return data
+
     def save(self, commit=True):
         uploaded_file = super(ArticleChangeFormAdmin, self).save(commit=False)
         uploaded_file.text = self.cleaned_data['text']
@@ -89,6 +105,14 @@ class SimplePageCreationFormAdmin(forms.ModelForm):
         if error:
             raise forms.ValidationError(error)
         return uploaded_file
+
+    def clean_date(self):
+        data = self.cleaned_data['date']
+        now = datetime.now()
+        data = data.replace(tzinfo=None)
+        if data < now:
+            raise forms.ValidationError("Data nu e valida.Nu puteti posta o stire in trecut!")
+        return data
 
     def save(self, commit=True):
         uploaded_file = super(SimplePageCreationFormAdmin, self).save(
@@ -126,6 +150,14 @@ class SimplePageChangeFormAdmin(forms.ModelForm):
         if error:
             raise forms.ValidationError(error)
         return uploaded_file
+
+    def clean_date(self):
+        data = self.cleaned_data['date']
+        now = datetime.now()
+        data = data.replace(tzinfo=None)
+        if data < now:
+            raise forms.ValidationError("Data nu e valida.Nu puteti posta o stire in trecut!")
+        return data
 
     def save(self, commit=True):
         uploaded_file = super(SimplePageChangeFormAdmin, self).save(
