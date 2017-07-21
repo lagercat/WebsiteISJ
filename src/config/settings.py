@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # django packages
-#     'django_nose',
+    'django_nose',
     'django_jenkins',
     'captcha',
     'widget_tweaks',
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'tinymce',
     'django_extensions',
     'django_google_maps',
+    'haystack',
 
     # usual apps
     'authentication',
@@ -56,7 +57,8 @@ INSTALLED_APPS = [
     'news',
     'gallery',
     'contact',
-    'page'
+    'page',
+    'search'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -75,7 +77,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--with-coverage',
     '--cover-package=authentication, contact, event, gallery, news, page, post'
-     ',school, subject',
+    ',school, subject',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -119,19 +121,37 @@ DATABASES = {
     }
 }
 
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend'
+        '.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+        'INCLUDE_SPELLING': True,
+    },
+}
+
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 4
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+        '.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+        '.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+        '.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+        '.NumericPasswordValidator',
     },
 ]
 
@@ -151,7 +171,8 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(WEBROOT_DIR, 'static/')
-STATICFILES_DIRS = (os.path.join(os.path.dirname(os.path.dirname(__file__)), "static"),)
+STATICFILES_DIRS = (os.path.join(os.path.dirname(os.path.dirname(__file__)),
+                    "static"),)
 
 NOCAPTCHA = True
 RECAPTCHA_USE_SSL = False

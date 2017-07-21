@@ -1,0 +1,4 @@
+{{ object.name }}
+{{ object.slug }}
+{{ object.subcategory.name }}
+{{ object.text }}
