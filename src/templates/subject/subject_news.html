@@ -12,7 +12,12 @@
           <h2>{{ name }}</h2>
           <ol class="breadcrumb">
            <li><a href="/">Acasă</a></li>
-           <li class="active">{{ subject_name }}</li>
+            <li><a href="/subject_page_all">Specializari</a></li>
+           <li><a href="/subject/{{ subject_name }}">{{ subject_name }}</a></li>
+           {% if subcategory %}
+             <li><a href="/subject/{{ subject_name }}/{{ subcategory }}">{{ subcategory }}</a></li>   
+           {% endif %}
+           <li class="active">{{ name }}</li>
          </ol>
         </div>
       </div>
@@ -33,11 +38,11 @@
                     <div class="col-md-12" style="word-break: break-all;">
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
-                          <a ><img alt="img" style="width: 850px;height: 440px" src= '{{thumbnail}}'></a>
-                          <figcaption class="mu-blog-caption">
+                          <a ><img alt="img" src= '{{thumbnail}}'></a>
+                        </figure>
+                          <figcaption class="mu-blog-caption" style="padding-top: 305px;">
                             <h3><a href="#">{{ name }}</a></h3>
                           </figcaption>
-                        </figure>
                         <div class="mu-blog-meta">
 
 
@@ -80,11 +85,11 @@
                           <div class="col-md-6">
                             <article class="mu-blog-single-item">
                               <figure class="mu-blog-single-img">
-                                <a href="/news/{{ news.slug }}"><img style=" max-height: 160px" alt="img" src= '{{ news.file.url }}'></a>
-                                <figcaption class="mu-blog-caption">
-                                  <h3><a href="/news/{{ news.slug }}">{{ news.name|truncatechars:18|truncatewords:5 }}</a></h3>
-                                </figcaption>                      
+                                <a href="/news/{{ news.slug }}"><img style=" max-height: 160px" alt="img" src= '{{ news.file.url }}'></a>                
                               </figure>
+                                <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                                  <h3><a href="/news/{{ news.slug }}" title="{{news.name}}">{{ news.name|truncatechars:18|truncatewords:5 }}</a></h3>
+                                </figcaption>      
                               <div class="mu-blog-description">
                                   <a href="/news/{{ news.slug }}" class="mu-read-more-btn">Citeşte mai mult</a>
                               </div>
@@ -109,7 +114,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Specializări</h3>
+                    
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>

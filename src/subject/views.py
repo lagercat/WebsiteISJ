@@ -79,7 +79,8 @@ def subcategory_subject_news(request, name, kind, slug):
         'text': articol[0].get('text'),
         'other_news': other_news,
         'thumbnail': "/media/" + articol[0].get('file'),
-        'name_subject': name,
+        'subject_name': name,
+        'subcategory': kind,
 
     })
 

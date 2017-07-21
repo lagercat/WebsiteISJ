@@ -39,14 +39,14 @@
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
                             {% if school.file %}
-                          <a href="#"><img style="width: 400px;height: 200px" src= '{{ school.file.url }}'alt="img"></a>
+                          <a href="#"><img  src= '{{ school.file.url }}'alt="img"></a>
                           {% else %}
                             <a href="#"><img style="width: 300px;height: 200px" src= "{% static "assets/img/school.jpg" %}"alt="img"></a>
                             {% endif %}
-                            <figcaption class="mu-blog-caption">
-                            <h5><a href="/schools/{{ school.slug }}">{{ school.name|truncatechars:40  }}</a></h5>
-                          </figcaption>
                         </figure>
+                            <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                            <h5><a href="/schools/{{ school.slug }}">{{ school.name }}</a></h5>
+                          </figcaption>
                         <div class="mu-blog-description">
 
                           <a class="mu-read-more-btn" href="/schools/{{ school.slug }}">Mai mult</a>
@@ -95,7 +95,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Specializări</h3>
+                    
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>

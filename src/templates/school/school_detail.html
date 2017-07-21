@@ -40,13 +40,9 @@
 
                              <a href="#"><img  src= "{% static "assets/img/school.jpg" %}" alt="img"></a>
                             {% endif %}
-                          <figcaption class="mu-latest-course-imgcaption">
-
-                            <span><i class="fa fa-clock-o"></i>{{ date }}</span>
-                          </figcaption>
                         </figure>
+                        
                         <div class="mu-latest-course-single-content" style="word-break: break-all;">
-                          <h5><a >{{ name }}</a></h5>
                         <br>
                           <h4>Înformații despre școală</h4>
                           <ul>
@@ -105,10 +101,11 @@
                                  <img style=" max-height: 160px" alt="img" src= "{% static "assets/img/school.jpg" %}">
                                 {% endif %}
                             </a>
-                            <figcaption class="mu-latest-course-imgcaption">
+                          </figure>
+                          
+                            <figcaption class="mu-latest-course-imgcaption" style="padding-top: 305px;">
                               <a href="/schools/{{ event.slug }}">{{ event.name|truncatewords:5| truncatechars:25 }}</a>
                             </figcaption>
-                          </figure>
                           <div class="mu-latest-course-single-content">
                               <div class="mu-latest-course-single-contbottom">
                               <a href="/schools/{{ event.slug }}" class="mu-course-details">Detalii</a>
@@ -131,7 +128,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Specializări</h3>
+                    
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>

@@ -12,6 +12,7 @@
            <h2>{{  name  }}</h2>
            <ol class="breadcrumb">
             <li><a href="/">Acasă</a></li>
+            <li><a href="/subject_page_all">Specializari</a></li>
             <li class="active">{{ name }}</li>
           </ol>
          </div>
@@ -36,20 +37,19 @@
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
                           {% if post.get_type == "Subcategory" %}
-                          <a href="{{ post.name }}"><img style="width: 400px;height: 200px" src= '{{ post.file.url }}'alt="img"></a>
+                          <a href="{{ post.name }}"><img  src= '{{ post.file.url }}'alt="img"></a>
                           {% else %}
-                          <a href="/simple/{{ name }}/{{ post.slug }}" ><img style="width: 400px;height: 200px" src= '{{ post.file.url }}'alt="img"></a>
+                          <a href="/simple/{{ name }}/{{ post.slug }}" ><img  src= '{{ post.file.url }}'alt="img"></a>
                           {% endif %}
-                          <figcaption class="mu-blog-caption">
-                            {% if post.get_type == "Subcategory" %}
-                            <h3><a href="{{post.name}}">{{ post.name|truncatechars:17 }}</a></h3>
-                            {% else %}
-                            <h3><a href="/simple/{{ name }}/{{ post.slug }}">{{ post.name|truncatechars:17 }}</a></h3>
-                            {% endif %}
-                          </figcaption>
                         </figure>
 
-
+                          <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                            {% if post.get_type == "Subcategory" %}
+                            <h3><a href="{{post.name}}" title="{{post.name}}">{{ post.name|truncatechars:17 }}</a></h3>
+                            {% else %}
+                            <h3><a href="/simple/{{ name }}/{{ post.slug }}" title="{{post.name}}">{{ post.name|truncatechars:17 }}</a></h3>
+                            {% endif %}
+                          </figcaption>
                         <div class="mu-blog-description">
                         {% if post.get_type == "Subcategory" %}
                           <a class="mu-read-more-btn" href="{{ post.name }}">Citeşte mai mult</a>
@@ -102,7 +102,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Specializări</h3>
+                    
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>

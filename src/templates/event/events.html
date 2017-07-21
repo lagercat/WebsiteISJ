@@ -35,15 +35,11 @@
                     <div class="col-md-6 col-sm-6">
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
-                          <a href="/event/{{ event.slug }}"><img style="width: 400px;height: 200px" src= '{{ event.file.url }}'alt="img"></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/event/{{ event.slug }}">{{ news.name }}</a></h3>
-                          </figcaption>
+                          <a href="/event/{{ event.slug }}"><img  src= '{{ event.file.url }}'alt="img"></a>
                         </figure>
-                        <div class="mu-blog-meta">
-                          <a >By {{ event.author.get_full_name }}</a>
-                          <a >{{ event.date }}</a>
-                        </div>
+                          <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                            <h3><a href="/event/{{ event.slug }}" title="{{ event.name }}">{{ event.name | truncatechars:20 }}</a></h3>
+                          </figcaption>
                         <div class="mu-blog-description">
 
                           <a class="mu-read-more-btn" href="/event/{{ event.slug }}">Citeşte mai mult</a>
@@ -92,7 +88,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Specializări</h3>
+                    
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>

@@ -36,11 +36,11 @@
                     <div class="col-md-6 col-sm-6">
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
-                          <a href="/article/{{articol.slug}}"><img style="width: 400px;height: 200px" src= '{{ articol.file.url }}'alt="img"></a>
-                          <figcaption class="mu-blog-caption">
+                          <a href="/article/{{articol.slug}}"><img  src= '{{ articol.file.url }}'alt="img"></a>
+                        </figure>
+                          <figcaption class="mu-blog-caption" style="padding-top: 305px;">
                             <h3><a href="{{articol.slug}}">{{ articol.name|truncatechars:18 }}</a></h3>
                           </figcaption>
-                        </figure>
 
 
                         <div class="mu-blog-description">
@@ -91,7 +91,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Specializări</h3>
+                    
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>

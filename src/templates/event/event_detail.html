@@ -71,10 +71,10 @@
                         <div class="mu-latest-course-single">
                           <figure class="mu-latest-course-img">
                             <a href="/event/{{ event.slug }}"><img style=" max-height: 160px" alt="img" src= '{{ event.file.url }}'></a>
-                            <figcaption class="mu-latest-course-imgcaption">
+                          </figure>
+                            <figcaption class="mu-latest-course-imgcaption" style="padding-top:305px;">
                               <a href="/event/{{ event.slug }}">{{ event.name|truncatewords:5| truncatechars:25 }}</a>
                             </figcaption>
-                          </figure>
                           <div class="mu-latest-course-single-content">
                               <div class="mu-latest-course-single-contbottom">
                               <a href="/event/{{ event.slug }}" class="mu-course-details">Mai mult</a>
@@ -97,7 +97,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Specializări</h3>
+                    
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>

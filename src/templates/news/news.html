@@ -32,10 +32,10 @@
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
                           <a ><img alt="img" src= '{{ thumbnail }}'></a>
-                          <figcaption class="mu-blog-caption">
+                        </figure>
+                          <figcaption class="mu-blog-caption" style="padding-top: 305px;">
                             <h3><a href="#">{{ name }}</a></h3>
                           </figcaption>
-                        </figure>
                         <div class="mu-blog-meta">
                           <a href="#"><i class="fa fa-clock-o"></i> {{ date }}</a>
                         </div>
@@ -77,10 +77,10 @@
                             <article class="mu-blog-single-item">
                               <figure class="mu-blog-single-img">
                                 <a href="/news/{{ news.slug }}"><img style=" max-height: 160px" alt="img" src='{{ news.file.url }}'></a>
-                                <figcaption class="mu-blog-caption">
-                                  <h3><a href="/news/{{ news.slug }}">{{ news.name|truncatechars:16 }}</a></h3>
-                                </figcaption>                      
                               </figure>
+                                <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                                  <h3><a href="/news/{{ news.slug }}" title="{{ news.name }}">{{ news.name|truncatechars:20 }}</a></h3>
+                                </figcaption>                      
                               <div class="mu-blog-meta">
                                 <a >{{ news.author.get_full_name }}</a>
                                 <a >{{ news.date }}</a>
@@ -110,7 +110,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Specializări</h3>
+                    
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>

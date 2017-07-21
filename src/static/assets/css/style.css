@@ -716,12 +716,21 @@ img {
   display: inline;
   float: left;
   width: 100%;
+  height: 300px;
+  background-color: black;
+  text-align: center;
+  vertical-align: middle;
+  display:flex;
+  align-items: center;
+  justify-content: center;
 }
 .mu-latest-course-single .mu-latest-course-img a {
-  display: block;
+  display: inline-block;
+  vertical-align: middle;
 }
 .mu-latest-course-single .mu-latest-course-img a img {
-  width: 100%;
+  max-height: 300px !important;
+  max-width: 100% !important;
 }
 .mu-latest-course-single .mu-latest-course-img .mu-latest-course-imgcaption {
   background-color: #f8f8f8;
@@ -730,6 +739,16 @@ img {
   padding: 10px 15px;
   width: 100%;
 }
+
+.mu-latest-course-imgcaption {
+  text-align: center;
+  padding-top: 310px;
+}
+
+.mu-latest-course-imgcaption > a {
+  vertical-align: middle;
+}
+
 .mu-latest-course-single .mu-latest-course-img .mu-latest-course-imgcaption a {
   display: inline-block;
   float: left;
@@ -749,7 +768,8 @@ img {
   display: inline;
   float: left;
   width: 100%;
-  padding: 15px;
+  padding: 0px 15px 15px 15px;
+  word-wrap: break-word;
 }
 .mu-latest-course-single .mu-latest-course-single-content h4 {
   color: #333;
@@ -1040,15 +1060,26 @@ img {
   display: inline;
   float: left;
   width: 100%;
+  height: 300px;
+  background-color: black;
+  text-align: center;
+  vertical-align: middle;
+  display:flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .mu-blog-single-item .mu-blog-single-img a {
   display: block;
+  vertical-align: middle;
+  text-align: center;
 }
 .mu-blog-single-item .mu-blog-single-img a img {
-  width: 100%;
+  max-height: 300px !important;
+  max-width: 100% !important;
 }
 .mu-blog-single-item .mu-blog-single-img .mu-blog-caption {
-  display: inline;
+  display: block;
   float: left;
   width: 100%;
 }
@@ -1714,6 +1745,7 @@ img {
   width: 100%;
   position: relative;
 }
+
 #mu-gallery .mu-gallery-area .mu-gallery-content .mu-gallery-body ul li .mu-single-gallery .mu-single-gallery-item:hover .mu-single-gallery-img img {
   transform: scale(1.3);
 }
@@ -1728,19 +1760,25 @@ img {
 #mu-gallery .mu-gallery-area .mu-gallery-content .mu-gallery-body ul li .mu-single-gallery .mu-single-gallery-item .mu-single-gallery-img {
   display: inline;
   float: left;
-  height: 220px;
   overflow: hidden;
   width: 100%;
+  height: 300px;
+  background-color: black;
+  text-align: center;
+  vertical-align: middle;
+  display:flex;
+  align-items: center;
+  justify-content: center;
 }
 #mu-gallery .mu-gallery-area .mu-gallery-content .mu-gallery-body ul li .mu-single-gallery .mu-single-gallery-item .mu-single-gallery-img img {
-  width: 100%;
-  height: 100%;
   transform: scale(1);
   -webkit-transition: all 0.8s;
   -moz-transition: all 0.8s;
   -ms-transition: all 0.8s;
   -o-transition: all 0.8s;
   transition: all 0.8s;
+  max-height: 300px !important;
+  max-width: 100% !important;
 }
 #mu-gallery .mu-gallery-area .mu-gallery-content .mu-gallery-body ul li .mu-single-gallery .mu-single-gallery-item .mu-single-gallery-info {
   background-color: rgba(0, 0, 0, 0.2);

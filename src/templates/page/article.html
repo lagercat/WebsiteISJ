@@ -34,10 +34,10 @@
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
                           <a ><img alt="img" style="width: 850px;height: 400px" src= '{{thumbnail}}'></a>
-                          <figcaption class="mu-blog-caption">
+                        </figure>
+                          <figcaption class="mu-blog-caption" style="padding-top: 305px;">
                             <h3><a href="#">{{ name }}</a></h3>
                           </figcaption>
-                        </figure>
                         <div class="mu-blog-meta">
                           <a >By admin,</a>
                           <a>{{ date }}</a>
@@ -76,7 +76,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Specializări</h3>
+                    
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>

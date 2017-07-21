@@ -9,11 +9,13 @@
      <div class="row">
        <div class="col-md-12">
          <div class="mu-page-breadcrumb-area">
-             <a href="/subject/{{ name }}">
-           <h2>{{ name }}</h2>
+             <a href="/subject/{{ name }}/{{kind}}">
+           <h2>{{ kind }}</h2>
              </a>
            <ol class="breadcrumb">
             <li><a href="/">Acasă</a></li>
+            <li><a href="/subject_page_all">Specializari</a></li>
+            <li><a href="/subject/{{ name }}">{{ name }}</a></li>
             <li class="active">{{ kind }}</li>
           </ol>
          </div>
@@ -37,11 +39,11 @@
                     <div class="col-md-6 col-sm-6">
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
-                          <a href="{{news.slug}}"><img style="width: 400px;height: 200px" src= '{{ news.file.url }}'alt="img"></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="{{news.slug}}">{{ news.name|truncatechars:17 }}</a></h3>
-                          </figcaption>
+                          <a href="{{news.slug}}"><img  src= '{{ news.file.url }}'alt="img"></a>
                         </figure>
+                          <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                            <h3><a href="{{news.slug}}" title="{{news.name}}">{{ news.name|truncatechars:17 }}</a></h3>
+                          </figcaption>
 
 
                         <div class="mu-blog-description">
@@ -93,7 +95,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Specializări</h3>
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
+                    
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>

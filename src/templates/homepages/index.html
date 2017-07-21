@@ -51,28 +51,25 @@
           <div class="mu-service-area">
             <!-- Start single service -->
             <div class="mu-service-single">
+              <a href="/news_all" style="color: white;">
               <span class="glyphicon glyphicon-bullhorn"></span>
-              <a href="/news_all">
               <h3 style="color: white;">Noutăţi</h3>
-              <p>Te ţinem la curent cu tot ce se întamplă</p>
               </a>
             </div>
             <!-- Start single service -->
             <!-- Start single service -->
             <div class="mu-service-single">
+              <a href="/events_all" style="color: white;">
               <span class="glyphicon glyphicon-pushpin"></span>
-              <a href="/events_all">
               <h3 style="color: white">Evenimente</h3>
-              <p>Aflaţi informaţii despre evenimente </p>
               </a>
             </div>
             <!-- Start single service -->
             <!-- Start single service -->
             <div class="mu-service-single">
+              <a href="/subject_page_all" style="color: white;">
               <span class="glyphicon glyphicon-book"></span>
-              <a href="/subject_page_all">
               <h3 style="color: white;">Specialități</h3>
-              <p>Informaţii de care ai nevoie</p>
               </a>
             </div>
             <!-- Start single service -->
@@ -159,7 +156,7 @@
             <div class="mu-title">
               <h2>Specialităţi</h2>
               <p>În această secţiune veţi găsi informaţii relevante fiecărei discipline</p>
-              <a href="/subject_page_all" class="mu-read-more-btn " style="color: #0f0f0f">Toate Specializarile</a>
+              <a href="/subject_page_all" class="mu-read-more-btn " style="color: #0f0f0f; border: 1px solid #000;">Toate Specializarile</a>
             </div>
             <!-- End Title -->
             <!-- Start features content -->
@@ -209,11 +206,12 @@
               <div class="col-lg-4 col-md-4 col-xs-12">
                 <div class="mu-latest-course-single">
                   <figure class="mu-latest-course-img">
-                    <a ><img style="max-width: 400px;max-height: 180px" src= '{{ event.file.url }}' alt="img"></a>
-                    <figcaption class="mu-latest-course-imgcaption">
-                      <a href="/event/{{ event.slug }}" >{{ event.name|truncatewords:5| truncatechars:20 }}</a>
-                    </figcaption>
+                    <a ><img src= '{{ event.file.url }}' alt="img"></a>
+                    
                   </figure>
+                  <figcaption class="mu-latest-course-imgcaption">
+                      <a href="/event/{{ event.slug }}"  title="{{ event.name }}" >{{ event.name|truncatewords:5| truncatechars:20 }}</a>
+                  </figcaption>
                   <div class="mu-latest-course-single-content">
                     <div class="mu-latest-course-single-contbottom">
                       <a class="mu-course-details" href="/event/{{ event.slug }}">Află mai mult</a>
@@ -260,7 +258,7 @@
 
               <p>Vă ţinem la curent cu cele mai noi informaţii</p>
 
-                  <a href="/news_all" class="mu-read-more-btn " style="color: #0f0f0f">Toate noutaţiile</a>
+                  <a href="/news_all" class="mu-read-more-btn " style="color: #0f0f0f; border: 1px solid #000;">Toate noutaţiile</a>
               </a>
             </div>
             <!-- end title -->
@@ -274,14 +272,13 @@
                   <article class="mu-blog-single-item">
                     <figure class="mu-blog-single-img">
                       <a href="/news/{{ news.slug }}"><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
-                      <figcaption class="mu-blog-caption">
-                        <h3><a href="/news/{{ news.slug }}">{{ news.name|truncatewords:5| truncatechars:20 }}</a></h3>
-                      </figcaption>
+                      
                     </figure>
-                    <div class="mu-blog-meta">
-                      <a href="#">{{ news.date_creation }}</a>
-
-                    </div>
+                        
+                    <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                        <h3><a href="/news/{{ news.slug }}" title="{{ news.name }}">{{ news.name|truncatewords:5| truncatechars:20 }}</a></h3>
+                    </figcaption>
+    
                     <div class="mu-blog-description">
                             <a href="/news/{{ news.slug }}" class="mu-read-more-btn">Citiţi in continuare</a>
                     </div>
@@ -327,15 +324,15 @@
                   <figure class="mu-latest-course-img">
                     <a >
                         {% if school.file %}
-                        <img style="max-width: 400px;max-height: 180px" src= '{{ school.file.url }}' alt="img">
+                        <img  src= '{{ school.file.url }}' alt="img">
                         {% else %}
-                         <img style="max-width: 400px;max-height: 180px" src= "{% static "assets/img/school.jpg" %}" alt="img">
+                         <img  src= "{% static "assets/img/school.jpg" %}" alt="img">
                         {% endif %}
                     </a>
-                    <figcaption class="mu-latest-course-imgcaption">
-                      <a href="/schools/{{ school.slug }}" >{{ school.name|truncatewords:5| truncatechars:20 }}</a>
-                    </figcaption>
                   </figure>
+                    <figcaption class="mu-latest-course-imgcaption">
+                      <a href="/schools/{{ school.slug }}" title="{{ school.name }}" >{{ school.name|truncatewords:5| truncatechars:20 }}</a>
+                    </figcaption>
                   <div class="mu-latest-course-single-content">
                     <div class="mu-latest-course-single-contbottom">
                       <a class="mu-course-details" href="/schools/{{ school.slug }}">Mai mult</a>
@@ -381,7 +378,7 @@
 
               <p>„O minte educată îți permite să susții un gând fără a-l accepta.” — Aristotel</p>
 
-                  <a href="/album" class="mu-read-more-btn " style="color: #0f0f0f">Toate albumele</a>
+                  <a href="/album" class="mu-read-more-btn " style="color: #0f0f0f;border: 1px solid #000;">Toate albumele</a>
               </a>
             </div>
             <!-- end title -->
@@ -395,10 +392,11 @@
                   <article class="mu-blog-single-item">
                     <figure class="mu-blog-single-img">
                       <a href="/gallery/{{ news.slug }}" ><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
-                      <figcaption class="mu-blog-caption">
-                        <h3><a href="/gallery/{{ news.slug }}"  >{{ news.name|truncatechars:16|truncatewords:5 }}</a></h3>
-                      </figcaption>
+                      
                     </figure>
+                    <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                        <h3><a href="/gallery/{{ news.slug }}" title="{{ news.name }}" >{{ news.name|truncatechars:16|truncatewords:5 }}</a></h3>
+                      </figcaption>
                     <div class="mu-blog-description">
                             <a href="/gallery/{{ news.slug }}" class="mu-read-more-btn">Vizualizați albumul</a>
                     </div>
