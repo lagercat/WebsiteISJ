@@ -1,3 +1,4 @@
+from datetime import datetime
 from django import forms
 
 from django_google_maps import widgets as map_widgets
@@ -36,6 +37,14 @@ class EventCreationFormAdmin(forms.ModelForm):
         if error:
             raise forms.ValidationError(error)
         return uploaded_file
+
+    def clean_date(self):
+        data = self.cleaned_data['date']
+        now = datetime.now()
+        data = data.replace(tzinfo=None)
+        if data < now:
+            raise forms.ValidationError("Data nu e valida.Nu puteti posta un eveniment in trecut!")
+        return data
 
     def save(self, commit=True):
         uploaded_file = super(EventCreationFormAdmin, self).save(commit=False)
@@ -90,6 +99,14 @@ class EventChangeFormAdmin(forms.ModelForm):
         if error:
             raise forms.ValidationError(error)
         return uploaded_file
+
+    def clean_date(self):
+        data = self.cleaned_data['date']
+        now = datetime.now()
+        data = data.replace(tzinfo=None)
+        if data < now:
+            raise forms.ValidationError("Data nu e valida.Nu puteti posta un eveniment in trecut!")
+        return data
       
     def save(self, commit=True):
         uploaded_file = super(EventChangeFormAdmin, self).save(commit=False)
