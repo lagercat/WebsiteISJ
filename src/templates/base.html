@@ -30,7 +30,6 @@
     <!-- Main style sheet -->
     <link href="{% static "assets/css/style.css" %}" rel="stylesheet">
 
-
     <!-- Google Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,300,300italic,500,700' rel='stylesheet' type='text/css'>
@@ -150,10 +149,10 @@
               </ul>
             </li>
             {% endfor %}
-          {% if categories_number == 7 or categories_number > 7 %}
+          {% if categories_number == 6 or categories_number > 6 %}
           <li ><a href="/category_all">Altele</a></li>
           {% endif %}
-
+          <li><a href="#" id="mu-search-icon"><i class="fa fa-search"></i></a></li>
           </ul>
 
 
@@ -172,8 +171,8 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <form class="mu-search-form">
-              <input type="search" placeholder="Type Your Keyword(s) & Hit Enter">
+            <form method="GET" class="mu-search-form" action="/search/">
+              <input name="q" type="search" placeholder="Caută" autocomplete="off">
             </form>
           </div>
         </div>
@@ -255,7 +254,6 @@
 
   <!-- Custom js -->
   <script src="{% static "assets/js/custom.js" %}"></script>
-
   </body>
 
 </html>

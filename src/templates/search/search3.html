@@ -1,0 +1,54 @@
+
+    <h2>Search</h2>
+
+    <form method="get" action="/search/">
+        <table>
+            {{ form.q }}
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Search">
+                </td>
+            </tr>
+        </table>
+
+        {% if query %}
+            <h3>Results</h3>
+            {{ suggestion }}
+            {% for result in page_obj.object_list %}
+                <p>
+                {% if result.content_type == "gallery.gallery" %} 
+                    <a href="/gallery_img/{{ result.slug }}"> {{ result.name }} </a>
+                {% endif %}
+                {% if result.content_type == "event.event" %}
+                    <a href="/event/{{ result.slug }}"> {{ result.name }} </a>
+                {% endif %}
+                {% if result.content_type == "news.news" %}
+                    <a href="/news/{{ result.slug }}"> {{ result.name }} </a>
+                {% endif %}
+                {% if result.content_type == "page.category" %}
+                    <a href="/category/{{ result.title }}"> {{ result.title }} </a>
+                {% endif %}
+                {% if result.content_type == "page.subcategory" %}
+                    <a href="/{{ result.name }}"> {{ result.name }} </a>
+                {% endif %}
+                {% if result.content_type == "page.article" %}
+                    <a href="/{{ result.subcategory }}/{{ result.slug }}"> {{ result.name }} </a>     
+                {% endif %}
+                {% if result.content_type == "page.simplepage" %}
+                    <a href="/simple/{{ result.slug }}"> {{ result.name }} </a>
+                {% endif %}
+                </p>
+            {% empty %}
+                <p>No results found.</p>
+            {% endfor %}
+
+            {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        {% endif %}
+    </form>

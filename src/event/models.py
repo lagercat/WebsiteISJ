@@ -5,11 +5,9 @@ import os
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 
-from authentication.models import ExtendedUser
 from django_google_maps import fields as map_fields
 from post.models import File
 from tinymce.models import HTMLField
-from utility.models import CustomPermissionsMixin
 
 
 def user_directory_path(instance, filename):
@@ -18,6 +16,7 @@ def user_directory_path(instance, filename):
 
 
 class Event(File):
+
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "thumbnails/events"
         self._meta.get_field('file').label = "Thumbnail"
