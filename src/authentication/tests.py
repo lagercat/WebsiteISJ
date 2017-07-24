@@ -8,7 +8,10 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 
 from authentication.models import ExtendedUser
-from authentication.forms import LoginForm, ResetPasswordForm
+from authentication.forms import (LoginForm, ResetPasswordForm,
+                                  ExtendedUserCreationFormAdmin)
+from school.models import School
+from subject.models import Subject
 
 
 class ExtendedUserManagerTestCase(TestCase):
@@ -131,6 +134,7 @@ class LoginFormTestCase(TestCase):
 
 
 class ResetPasswordFormTestCase(TestCase):
+
     def test_required_old_password(self):
         """Tests required condition for old_password field"""
         form = ResetPasswordForm({
@@ -141,7 +145,7 @@ class ResetPasswordFormTestCase(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_required_password(self):
-        """Tests required condition for password field"""
+        """Tests required condition for new_password field"""
         form = ResetPasswordForm({
             "old_password": "password",
             "new_password": "",
@@ -150,10 +154,78 @@ class ResetPasswordFormTestCase(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_required_recaptcha(self):
-        """Tests required condition for recaptcha field"""
+        """Tests required condition for new_password_check field"""
         form = ResetPasswordForm({
             "old_password": "password",
             "new_password": "password",
             "new_password_check": ""
         })
+        self.assertFalse(form.is_valid())
+
+
+class ExtendedUserCreationFormAdminTestCase(TestCase):
+    def setUp(self):
+        self.school = School.objects.create(
+            name="TestSchool",
+            geolocation="23,24",
+            address="test"
+        )
+        self.subject = Subject.objects.create(
+            name="TestSubject"
+            )
+        self.input = {
+            "username": "test_username",
+            "first_name": "Tuxi",
+            "last_name": "Pinguinescu",
+            "school": self.school,
+            "is_active": True,
+            "password1": "pass1",
+            "password2": "pass1",
+            "subject": self.subject,
+            "status": 0
+        }
+
+    def test_empty_password(self):
+        inp = self.input
+        inp["password1"] = ""
+        inp["password2"] = ""
+        form = ExtendedUserCreationFormAdmin(self.input)
+        self.assertFalse(form.is_valid())
+
+    def test_same_check_password(self):
+        inp = self.input
+        inp["password2"] = "test"
+        form = ExtendedUserCreationFormAdmin(self.input)
+        self.assertFalse(form.is_valid())
+
+    def test_available_status_choices(self):
+        form_instace = ExtendedUserCreationFormAdmin()
+        form_choices = form_instace.fields['status'].choices
+        user_status_choices = ExtendedUser.STATUS_CHOICES
+        restult = True
+        for first, second in zip(form_choices, user_status_choices):
+            for a, b in zip(first, second):
+                to_comp_f = a
+                to_comp_s = b
+                if isinstance(to_comp_f, dict):
+                    to_comp_f = to_comp_f['label']
+                if isinstance(to_comp_s, dict):
+                    to_comp_s = to_comp_s['label']
+                if to_comp_f != to_comp_s:
+                    restult = False
+                    break
+            if not restult:
+                break
+        self.assertTrue(restult)
+
+    def test_empty_school(self):
+        form_instace = ExtendedUserCreationFormAdmin()
+        form_choices = form_instace.fields['status'].choices
+        director_status = [x[0] for x in form_choices if x[1] == "Director"][0]
+        inp = self.input
+        inp["status"] = str(director_status)
+        inp["school"] = None
+        inp["subject"] = None
+        print inp
+        form = ExtendedUserCreationFormAdmin(inp)
         self.assertFalse(form.is_valid())
