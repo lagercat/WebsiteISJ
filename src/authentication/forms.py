@@ -12,7 +12,7 @@ class LoginForm(forms.Form):
                'required': 'required'}
     )
 
-    username = forms.CharField(max_length=30, label="username",
+    username = forms.CharField(max_length=150, label="username",
                                widget=forms.TextInput(attrs={
                                    'required': 'required',
                                    'placeholder': 'username'
