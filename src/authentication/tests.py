@@ -1,9 +1,14 @@
 import random
 import string
+import os
+from random import choice
+from string import ascii_uppercase
 
 from django.test import TestCase
+from django.contrib.auth.models import User
 
 from authentication.models import ExtendedUser
+from authentication.forms import LoginForm, ResetPasswordForm
 
 
 class ExtendedUserManagerTestCase(TestCase):
@@ -71,4 +76,55 @@ class ExtendedUserTestCase(TestCase):
         self.assertFalse(self.admin.has_perm("frontend.change_module"))
         self.assertTrue(
             self.admin.has_perm(r''.join(random.choice(string.ascii_uppercase +
-                                         string.digits) for _ in range(20))))
+                                                       string.digits) for _ in range(20))))
+
+
+class LoginFormTestCase(TestCase):
+
+    def setUp(self):
+        os.environ["RECAPTCHA_TESTING"] = "True"
+
+    def tearDown(self):
+        os.environ["RECAPTCHA_TESTING"] = "False"
+
+    def test_required_username(self):
+        """Tests required condition for username field"""
+        form = LoginForm({
+            "username": "",
+            "password": "password",
+            "recaptcha_response_field": "PASSED"
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_required_password(self):
+        """Tests required condition for password field"""
+        form = LoginForm({
+            "username": "username",
+            "password": "",
+            "recaptcha_response_field": "PASSED"
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_required_recaptcha(self):
+        """Tests required condition for recaptcha field"""
+        form = LoginForm({
+            "username": "username",
+            "password": "password",
+            "recaptcha_response_field": ""
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_username_maxlen(self):
+        """Tests max length attribute of username field"""
+        form_instace = LoginForm()
+        field_length = form_instace.fields['username'].max_length
+        django_length = User._meta.get_field('username').max_length
+        self.assertEqual(field_length, django_length)
+        random_username = (''.join(choice(ascii_uppercase)
+                                   for i in range(field_length + 1)))
+        form = LoginForm({
+            "username": random_username,
+            "password": "password",
+            "recaptcha_response_field": ""
+        })
+        self.assertFalse(form.is_valid())
