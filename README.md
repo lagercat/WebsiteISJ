@@ -1,6 +1,6 @@
 # Inspectoratul Școlar Județean Timiș
 
-http://www.isj.tm.edu.ro:8080/
+#### http://www.isj.tm.edu.ro:8080/
 
 # Componenta Echipei
 
