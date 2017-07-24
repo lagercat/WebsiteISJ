@@ -58,9 +58,22 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
         (3, {"label": "Admin", "disabled": True}),
     ), required=True, label="User status", widget=SelectWithDisabled, initial=0)
 
-    class Meta:
-        model = ExtendedUser
-        fields = ('first_name', 'last_name', 'username', 'school',)
+    def clean(self):
+        data = self.cleaned_data
+        status = data["status"]
+        status = int(status)
+        if status in [0, 2, 3] and data.get("school"):
+            raise forms.ValidationError(
+                "School should be completed for directors only")
+        if status == 1 and not data.get("school"):
+            raise forms.ValidationError("Please choose a school for director")
+        if status in [0, 1, 3] and data.get("subjects"):
+            raise forms.ValidationError(
+                "Subject should be completed for inspectors only")
+        if status == 2 and not data.get("subjects"):
+            raise forms.ValidationError(
+                "Please choose a subject for inspector")
+        return data
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -69,25 +82,6 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2
-
-    def clean_school(self):
-        status = self.cleaned_data.get("status")
-        if status in [0, 2, 3] and self.cleaned_data.get("school"):
-            raise forms.ValidationError(
-                "This should be completed for directors only")
-        if status == 1 and not self.cleaned_data.get("school"):
-            raise forms.ValidationError("Please choose a school for director")
-        return self.cleaned_data.get("school")
-
-    def clean_subjects(self):
-        status = self.cleaned_data.get("status")
-        if status in [0, 1, 3] and self.cleaned_data.get("subjects"):
-            raise forms.ValidationError(
-                "This should be completed for inspectors only")
-        if status == 2 and not self.cleaned_data.get("subjects"):
-            raise forms.ValidationError(
-                "Please choose a subject for inspector")
-        return self.cleaned_data.get("subjects")
 
     def save(self, commit=True):
         # Save the provided password in hashed format
@@ -100,6 +94,10 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+    class Meta:
+        model = ExtendedUser
+        fields = ('first_name', 'last_name', 'username', 'school')
 
 
 class ExtendedUserChangeFormAdmin(forms.ModelForm):
