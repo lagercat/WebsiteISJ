@@ -3,7 +3,7 @@ import string
 
 from django.test import TestCase
 
-from .models import *
+from authentication.models import ExtendedUser
 
 
 class ExtendedUserManagerTestCase(TestCase):

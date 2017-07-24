@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # django packages
     'django_nose',
@@ -58,8 +59,10 @@ INSTALLED_APPS = [
     'gallery',
     'contact',
     'page',
-    'search'
+    'search',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
