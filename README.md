@@ -18,7 +18,7 @@ back-end developer
 * Proiectul e protejat de [..]
 
 ## Documentatie
-* Documentatia proiectului poate fi accesata aici 
+* Documentatia proiectului poate fi accesata aici http://bit.ly/2vSjmeR 
 
 ## Tehnologi folosite
 ### Back-end:
