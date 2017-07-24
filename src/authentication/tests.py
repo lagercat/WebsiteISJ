@@ -133,7 +133,7 @@ class LoginFormTestCase(TestCase):
 class ResetPasswordFormTestCase(TestCase):
     def test_required_old_password(self):
         """Tests required condition for old_password field"""
-        form = LoginForm({
+        form = ResetPasswordForm({
             "old_password": "",
             "new_password": "password",
             "new_password_check": "password"
@@ -142,7 +142,7 @@ class ResetPasswordFormTestCase(TestCase):
 
     def test_required_password(self):
         """Tests required condition for password field"""
-        form = LoginForm({
+        form = ResetPasswordForm({
             "old_password": "password",
             "new_password": "",
             "new_password_check": "password"
@@ -151,7 +151,7 @@ class ResetPasswordFormTestCase(TestCase):
 
     def test_required_recaptcha(self):
         """Tests required condition for recaptcha field"""
-        form = LoginForm({
+        form = ResetPasswordForm({
             "old_password": "password",
             "new_password": "password",
             "new_password_check": ""
