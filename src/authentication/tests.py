@@ -7,12 +7,14 @@ from authentication.models import ExtendedUser
 
 
 class ExtendedUserManagerTestCase(TestCase):
+
     def setUp(self):
         pass
 
     def test_create_user(self):
         """Tests if user is created successfully."""
-        user = ExtendedUser.objects.create_user("roadd", "garo", "adi", "dadadada98", 2)
+        user = ExtendedUser.objects.create_user(
+            "roadd", "garo", "adi", "dadadada98", 2)
         self.assertEqual(user.username, "roadd")
         self.assertEqual(user.first_name, "garo")
         self.assertEqual(user.last_name, "adi")
@@ -21,7 +23,8 @@ class ExtendedUserManagerTestCase(TestCase):
 
     def test_create_superuser(self):
         """Tests if superuser is created successfully."""
-        user = ExtendedUser.objects.create_superuser("mrroadd", "garo", "adi", "dadadada98")
+        user = ExtendedUser.objects.create_superuser(
+            "mrroadd", "garo", "adi", "dadadada98")
         self.assertEqual(user.username, "mrroadd")
         self.assertEqual(user.first_name, "garo")
         self.assertEqual(user.last_name, "adi")
@@ -30,11 +33,16 @@ class ExtendedUserManagerTestCase(TestCase):
 
 
 class ExtendedUserTestCase(TestCase):
+
     def setUp(self):
-        self.personal = ExtendedUser.objects.create_user("roadd0", "garo", "adi", "dadadada98", 0)
-        self.director = ExtendedUser.objects.create_user("roadd1", "garo", "adi", "dadadada98", 1)
-        self.inspector = ExtendedUser.objects.create_user("roadd2", "garo", "adi", "dadadada98", 2)
-        self.admin = ExtendedUser.objects.create_user("roadd3", "garo", "adi", "dadadada98", 3)
+        self.personal = ExtendedUser.objects.create_user(
+            "roadd0", "garo", "adi", "dadadada98", 0)
+        self.director = ExtendedUser.objects.create_user(
+            "roadd1", "garo", "adi", "dadadada98", 1)
+        self.inspector = ExtendedUser.objects.create_user(
+            "roadd2", "garo", "adi", "dadadada98", 2)
+        self.admin = ExtendedUser.objects.create_user(
+            "roadd3", "garo", "adi", "dadadada98", 3)
 
     def test_permissions_personal(self):
         """Tests personal account permissions."""
@@ -62,4 +70,5 @@ class ExtendedUserTestCase(TestCase):
         self.assertTrue(self.admin.has_perm("frontend.view_module"))
         self.assertFalse(self.admin.has_perm("frontend.change_module"))
         self.assertTrue(
-            self.admin.has_perm(r''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))))
+            self.admin.has_perm(r''.join(random.choice(string.ascii_uppercase +
+                                         string.digits) for _ in range(20))))
