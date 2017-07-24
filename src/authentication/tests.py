@@ -128,3 +128,32 @@ class LoginFormTestCase(TestCase):
             "recaptcha_response_field": ""
         })
         self.assertFalse(form.is_valid())
+
+
+class ResetPasswordFormTestCase(TestCase):
+    def test_required_old_password(self):
+        """Tests required condition for old_password field"""
+        form = LoginForm({
+            "old_password": "",
+            "new_password": "password",
+            "new_password_check": "password"
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_required_password(self):
+        """Tests required condition for password field"""
+        form = LoginForm({
+            "old_password": "password",
+            "new_password": "",
+            "new_password_check": "password"
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_required_recaptcha(self):
+        """Tests required condition for recaptcha field"""
+        form = LoginForm({
+            "old_password": "password",
+            "new_password": "password",
+            "new_password_check": ""
+        })
+        self.assertFalse(form.is_valid())
