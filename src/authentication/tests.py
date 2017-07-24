@@ -164,6 +164,7 @@ class ResetPasswordFormTestCase(TestCase):
 
 
 class ExtendedUserCreationFormAdminTestCase(TestCase):
+
     def setUp(self):
         self.school = School.objects.create(
             name="TestSchool",
@@ -172,20 +173,21 @@ class ExtendedUserCreationFormAdminTestCase(TestCase):
         )
         self.subject = Subject.objects.create(
             name="TestSubject"
-            )
+        )
         self.input = {
             "username": "test_username",
             "first_name": "Tuxi",
             "last_name": "Pinguinescu",
-            "school": self.school,
+            "school": School.objects.filter(slug=self.school.slug),
             "is_active": True,
             "password1": "pass1",
             "password2": "pass1",
-            "subject": self.subject,
+            "subjects": Subject.objects.filter(id=self.subject.id),
             "status": 0
         }
 
     def test_empty_password(self):
+        """Tests required condition for password fields"""
         inp = self.input
         inp["password1"] = ""
         inp["password2"] = ""
@@ -193,12 +195,14 @@ class ExtendedUserCreationFormAdminTestCase(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_same_check_password(self):
+        """Tests equality condition for password fields"""
         inp = self.input
         inp["password2"] = "test"
         form = ExtendedUserCreationFormAdmin(self.input)
         self.assertFalse(form.is_valid())
 
     def test_available_status_choices(self):
+        """Tests if the form's status choices are the same with the user's"""
         form_instace = ExtendedUserCreationFormAdmin()
         form_choices = form_instace.fields['status'].choices
         user_status_choices = ExtendedUser.STATUS_CHOICES
@@ -218,14 +222,83 @@ class ExtendedUserCreationFormAdminTestCase(TestCase):
                 break
         self.assertTrue(restult)
 
-    def test_empty_school(self):
+    def test_correct_director(self):
+        """Tests positbility to create a headmaster"""
         form_instace = ExtendedUserCreationFormAdmin()
         form_choices = form_instace.fields['status'].choices
         director_status = [x[0] for x in form_choices if x[1] == "Director"][0]
         inp = self.input
-        inp["status"] = str(director_status)
+        inp["status"] = int(director_status)
+        inp["subjects"] = None
+        form = ExtendedUserCreationFormAdmin(inp)
+        self.assertTrue(form.is_valid())
+
+    def test_empty_school(self):
+        """Tests positbility to create a headmaster without a school"""
+        form_instace = ExtendedUserCreationFormAdmin()
+        form_choices = form_instace.fields['status'].choices
+        director_status = [x[0] for x in form_choices if x[1] == "Director"][0]
+        inp = self.input
+        inp["status"] = int(director_status)
         inp["school"] = None
-        inp["subject"] = None
-        print inp
+        inp["subjects"] = None
         form = ExtendedUserCreationFormAdmin(inp)
         self.assertFalse(form.is_valid())
+
+    def test_wrong_school_permission(self):
+        """Tests positbility to create any other permission
+         but a headmaster with a school"""
+        form_instace = ExtendedUserCreationFormAdmin()
+        form_choices = form_instace.fields['status'].choices
+        inp = self.input
+        inp["subjects"] = None
+        response = True
+        for x in form_choices:
+            if x[1] != "Director":
+                inp["status"] = x[0]
+                form = ExtendedUserCreationFormAdmin(inp)
+                if form.is_valid():
+                    response = False
+        self.assertTrue(response)
+
+    def test_correct_inspector(self):
+        """Tests positbility to create a inspector"""
+        form_instace = ExtendedUserCreationFormAdmin()
+        form_choices = form_instace.fields['status'].choices
+        director_status = [x[0]
+                           for x in form_choices if x[1] == "Inspector"][0]
+        inp = self.input
+        inp["status"] = int(director_status)
+        inp["school"] = None
+        form = ExtendedUserCreationFormAdmin(inp)
+        self.assertTrue(form.is_valid())
+
+    def test_empty_subject(self):
+        """Tests positbility to create an inspector without a subject"""
+        form_instace = ExtendedUserCreationFormAdmin()
+        form_choices = form_instace.fields['status'].choices
+        inspector_status = [x[0]
+                            for x in form_choices if x[1] == "Inspector"][0]
+        inp = self.input
+        inp["status"] = inspector_status
+        inp["subjects"] = None
+        inp["school"] = None
+        form = ExtendedUserCreationFormAdmin(inp)
+        self.assertFalse(form.is_valid())
+
+    def test_wrong_subject_permission(self):
+        """Tests positbility to create a any other permission
+         but an inspector with a subject"""
+        form_instace = ExtendedUserCreationFormAdmin()
+        form_choices = form_instace.fields['status'].choices
+        inp = self.input
+        inp["school"] = None
+        response = True
+        for x in form_choices:
+            if x[1] != "Inspector":
+                inp["status"] = x[0]
+                form = ExtendedUserCreationFormAdmin(inp)
+                if form.is_valid():
+                    response = False
+                    break
+        self.assertTrue(response)
