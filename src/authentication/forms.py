@@ -58,9 +58,14 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
         (3, {"label": "Admin", "disabled": True}),
     ), required=True, label="User status", widget=SelectWithDisabled, initial=0)
 
+    class Meta:
+        model = ExtendedUser
+        fields = ('first_name', 'last_name', 'username', 'school')
+
+
     def clean(self):
         data = self.cleaned_data
-        status = data["status"]
+        status = data.get("status")
         status = int(status)
         if status in [0, 2, 3] and data.get("school"):
             raise forms.ValidationError(
@@ -94,10 +99,6 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
         if commit:
             user.save()
         return user
-
-    class Meta:
-        model = ExtendedUser
-        fields = ('first_name', 'last_name', 'username', 'school')
 
 
 class ExtendedUserChangeFormAdmin(forms.ModelForm):
