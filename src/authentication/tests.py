@@ -326,6 +326,3 @@ class AuthenticationViewsTestCase(TestCase):
             "g-recaptcha-response": "PASED"
             })
         self.assertNotEqual(login_response.wsgi_request.user, self.user)
-
-    def rest_reset_password_view(self):
-
