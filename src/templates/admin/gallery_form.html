@@ -6,7 +6,7 @@
 {% block breadcrumbs_items %}
 <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
 <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
-<a class="active" href="{% url opts|admin_urlname:'changelist' %}">{% if add %}{% trans 'Add' %} {{ opts.verbose_name }}{% elif view %}{% trans 'View' %}{% elif change %}{% trans 'Change' %}{% endif %}</a>
+<a class="active" href="{% url opts|admin_urlname:'changelist' %}">{% if add %}{% trans 'Add' %}{% elif view %}{% trans 'View' %}{% elif change %}{% trans 'Change' %}{% endif %}{{ opts.verbose_name }}</a>
 {% endblock %}
 
 
@@ -98,7 +98,7 @@
                 </div>
                 {% endblock %}
             </div>
-        </div>        
+        </div>
         {% endif %}
     </div>
     {% if adminform.form.show_files %}
