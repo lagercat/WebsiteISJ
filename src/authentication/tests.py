@@ -78,8 +78,9 @@ class ExtendedUserTestCase(TestCase):
         self.assertTrue(self.admin.has_perm("frontend.view_module"))
         self.assertFalse(self.admin.has_perm("frontend.change_module"))
         self.assertTrue(
-            self.admin.has_perm(r''.join(random.choice(string.ascii_uppercase +
-                                                       string.digits) for _ in range(20))))
+            self.admin.has_perm(r''.join(
+                random.choice(string.ascii_uppercase +
+                string.digits) for _ in range(20))))
 
 
 class LoginFormTestCase(TestCase):
