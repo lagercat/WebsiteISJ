@@ -59,9 +59,7 @@ class PostAdmin(AdminChangeMixin):
 
     def add_view(self, request, extra_context=None):
         extra_context = extra_context or {}
-        print request.GET
         extra_context['location'] = int(request.GET.get('_exterior', 2))
-        print extra_context
         return super(PostAdmin, self).add_view(request, extra_context=extra_context)
 
 class PageAdmin(AdminChangeMixin):

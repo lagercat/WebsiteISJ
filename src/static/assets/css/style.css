@@ -2718,3 +2718,7 @@ display: flex;
 .mu-blog-single-item{
   text-align: center;
 }
+
+#mu-course-content{
+  padding: 50px 0 50px 0 !important;
+}

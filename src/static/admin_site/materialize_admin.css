@@ -6359,7 +6359,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 
 .app-item > a > .material-icons,
 .app-item > a > h6 {
-    color: #EF5350; 
+    color: #EF5350;
 }
 
 nav .nav-wrapper i {
@@ -6414,7 +6414,7 @@ a:hover {
 }
 
 .accent-color{
-    color: #EF5350 !important; 
+    color: #EF5350 !important;
 }
 
 .btn-floating.halfway-fab {
@@ -6424,5 +6424,17 @@ a:hover {
     transform: translateY(50%);
 }
 .content > .row {
-     width: 100%; 
+     width: 100%;
+}
+
+@media only screen and (min-width: 993px)
+materialize.admin.min.css:16
+footer, main {
+    margin-left: 300px;
+}
+
+@media only screen and (max-width: 992px)
+materialize.admin.min.css:16
+footer, main {
+    margin-left: 0px;
 }
