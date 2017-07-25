@@ -9,10 +9,10 @@ from utility.forms import SelectWithDisabled
 class LoginForm(forms.Form):
     re_captcha = ReCaptchaField(
         attrs={'lang': 'ro',
-               'required':'required'}
+               'required': 'required'}
     )
 
-    username = forms.CharField(max_length=30, label="username",
+    username = forms.CharField(max_length=150, label="username",
                                widget=forms.TextInput(attrs={
                                    'required': 'required',
                                    'placeholder': 'username'
@@ -39,26 +39,45 @@ class ResetPasswordForm(forms.Form):
                                          label="Introdu inca o data parola nou",
                                          widget=forms.PasswordInput(attrs={
                                              'required': 'required',
-                                             'placeholder': 'Verifica parola noua'
+                                             'placeholder':
+                                             'Verifica parola noua'
                                          }))
 
 
 class ExtendedUserCreationFormAdmin(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
-    subjects = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple(attrs={"multiple": "multiple"}),
-                                              queryset=Subject.objects.all(), required=False)
+    password2 = forms.CharField(
+        label='Password confirmation', widget=forms.PasswordInput)
+    subjects = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple(
+        attrs={"multiple": "multiple"}),
+        queryset=Subject.objects.all(), required=False)
     status = forms.ChoiceField(choices=(
         (0, "Personal"),
         (1, "Director"),
         (2, "Inspector"),
         (3, {"label": "Admin", "disabled": True}),
     ), required=True, label="User status", widget=SelectWithDisabled, initial=0)
-    
-    
+
     class Meta:
         model = ExtendedUser
-        fields = ('first_name', 'last_name', 'username', 'school',)
+        fields = ('first_name', 'last_name', 'username', 'school')
+
+    def clean(self):
+        data = self.cleaned_data
+        status = data.get("status")
+        status = int(status)
+        if status in [0, 2, 3] and data.get("school"):
+            raise forms.ValidationError(
+                "School should be completed for directors only")
+        if status == 1 and not data.get("school"):
+            raise forms.ValidationError("Please choose a school for director")
+        if status in [0, 1, 3] and data.get("subjects"):
+            raise forms.ValidationError(
+                "Subject should be completed for inspectors only")
+        if status == 2 and not data.get("subjects"):
+            raise forms.ValidationError(
+                "Please choose a subject for inspector")
+        return data
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -67,23 +86,7 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2
-    
-    def clean_school(self):
-        status = self.cleaned_data.get("status")
-        if status in [0, 2, 3] and self.cleaned_data.get("school"):
-            raise forms.ValidationError("This should be completed for directors only")
-        if status == 1 and not self.cleaned_data.get("school"):
-            raise forms.ValidationError("Please choose a school for director")
-        return self.cleaned_data.get("school")
-        
-    def clean_subjects(self):
-        status = self.cleaned_data.get("status")
-        if status in [0, 1, 3] and self.cleaned_data.get("subjects"):
-            raise forms.ValidationError("This should be completed for inspectors only")
-        if status == 2 and not self.cleaned_data.get("subjects"):
-            raise forms.ValidationError("Please choose a subject for inspector")
-        return self.cleaned_data.get("subjects")
-    
+
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super(ExtendedUserCreationFormAdmin, self).save(commit=False)
@@ -98,10 +101,14 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
 
 
 class ExtendedUserChangeFormAdmin(forms.ModelForm):
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput, required=False)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput, required=False)
-    subjects = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple(attrs={"multiple": "multiple"}),
-                                              queryset=Subject.objects.all(), required=False)
+    password1 = forms.CharField(
+        label='Password', widget=forms.PasswordInput, required=False)
+    password2 = forms.CharField(
+        label='Password confirmation', widget=forms.PasswordInput,
+        required=False)
+    subjects = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple(
+        attrs={"multiple": "multiple"}),
+        queryset=Subject.objects.all(), required=False)
 
     status = forms.ChoiceField(choices=(
         (0, "Personal"),
@@ -112,8 +119,9 @@ class ExtendedUserChangeFormAdmin(forms.ModelForm):
 
     class Meta:
         model = ExtendedUser
-        fields = ('username', 'first_name', 'last_name', 'school', 'is_active', )
-        
+        fields = ('username', 'first_name',
+                  'last_name', 'school', 'is_active')
+
     def __init__(self, *args, **kwargs):
         initial = {
             'status': self.status_initial
@@ -129,23 +137,27 @@ class ExtendedUserChangeFormAdmin(forms.ModelForm):
             raise forms.ValidationError("Passwords don't match")
         return password2
 
-    def clean_school(self):
-        status = self.cleaned_data.get("status") if "status" in self.changed_data else self.instance.status
-        school = self.cleaned_data.get("school") if "school" in self.changed_data else self.instance.school
+    def clean(self):
+        data = self.cleaned_data
+        data_changed = self.changed_data
+        status = data.get(
+            "status") if "status" in data_changed else self.instance.status
+        school = data.get(
+            "school") if "school" in data_changed else self.instance.school
+        subjects = data.get("subjects")
+        status = int(status)
         if status in [0, 2, 3] and school:
-            raise forms.ValidationError("This should be completed for directors only")
+            raise forms.ValidationError(
+                "School should be completed for directors only")
         if status == 1 and not school:
             raise forms.ValidationError("Please choose a school for director")
-        return school
-        
-    def clean_subjects(self):
-        status = self.cleaned_data.get("status") if "status" in self.changed_data else self.instance.status
-        subjects = self.cleaned_data.get("subjects")
         if status in [0, 1, 3] and subjects:
-            raise forms.ValidationError("This should be completed for inspectors only")
+            raise forms.ValidationError(
+                "Subject should be completed for inspectors only")
         if status == 2 and not subjects:
-            raise forms.ValidationError("Please choose a subject for inspector")
-        return subjects
+            raise forms.ValidationError(
+                "Please choose a subject for inspector")
+        return data
 
     def save(self, commit=True):
         # Save the provided password in hashed format
