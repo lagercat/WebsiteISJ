@@ -40,11 +40,25 @@
 }
 
 .edu{
-  margin-left: 50px;
-  margin-top: 20px;
-  width: 192px;
-  height: 72px;
+  margin: 20px 10px 0px 10px;
+  width: 220px;
+  height: 78px;
   background-size: contain;
   display: inline-block;
+	flex: 0 auto;
 }
 
+.container-edu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-flow: row wrap;
+}
+
+@media (max-width: 600px) {
+  .container-edu {
+    flex-direction: column;
+    align-items: center;
+  }
+}

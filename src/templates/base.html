@@ -66,34 +66,30 @@
       <div class="row">
         <div class="col-lg-12 col-md-12">
           <div class="mu-header-area">
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <div class="mu-header-top-left">
-                  <div class="mu-top-email">
-                    <i class="fa fa-envelope"></i>
-                    <span>mail.isj.timis@gmail.com</span>
-                  </div>
-                  <div class="mu-top-phone">
-                    <i class="fa fa-phone"></i>
-                    <span>0256-305799</span>
-                  </div>
-                </div>
+
+            <div class="mu-header-top-left" style="vertical-align: middle;">
+              <div class="mu-top-email">
+                <i class="fa fa-envelope"></i>
+                <span>mail.isj.timis@gmail.com</span>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-24 btn-group">
-                <div class="mu-header-top-right">
-                  <nav>
-                      <a href="/contact">
-                      <button type="button" class="btn btn-info">Contact</button>
-                      </a>
-                      {% if  request.user.is_authenticated %}
-                      <a href="/admin"><span class="btn btn-warning">Administration</span></a>
-                      <a href="/logout"><span class="btn btn-danger">Sign out</span></a>
-                      {% else %}
-                       <a href="/login"><span class="btn btn-success">Login </span></a>
-                      {% endif %}
-                  </nav>
-                </div>
+              <br/>
+              <div class="mu-top-phone">
+                <i class="fa fa-phone"></i>
+                <span>0256-305799</span>
               </div>
+            </div>
+            <div class="mu-header-top-right btn-group pull-right">
+              <nav>
+                  <a href="/contact">
+                  <span class="btn btn-info"><i class="glyphicon glyphicon-envelope"></i> Contact</span>
+                  </a>
+                  {% if  request.user.is_authenticated %}
+                  <a href="/admin"><span class="btn btn-warning"><i class="glyphicon glyphicon-font"></i> Admin</span></a>
+                  <a href="/logout"><span class="btn btn-danger"><i class="glyphicon glyphicon-log-out"></i> Sign out</span></a>
+                  {% else %}
+                   <a href="/login"><span class="btn btn-success"><i class="glyphicon glyphicon-log-in"></i> Login</span></a>
+                  {% endif %}
+              </nav>
             </div>
           </div>
         </div>
@@ -102,17 +98,17 @@
   </header>
   <!-- End header  -->
   <!-- Start menu -->
-  <div align="center"  style="height: 100%;">
-      
-                               <a href="/" >
-                                  <img   src="{% static "assets/img/logo.png" %}" alt="logo" style="height:90px;"/>
-                               </a>
-                             <a href="/" >
-                                 <img src="{% static "assets/img/gov.png" %}" alt="logo" style="height:90px; "/>
-                               </a>
+  <div  align="center">
+
+     <a href="/" >
+        <img  class=" " src="{% static "assets/img/logo.png" %}" alt="logo" style="max-height: 80px;max-width: 100%;"/>
+     </a>
+   <a href="/" >
+       <img class="" src="{% static "assets/img/gov.png" %}" alt="logo" style="max-height: 80px;max-width: 100%;"/>
+     </a>
 
 
-                 </div>
+ </div>
   <section id="mu-menu">
     <nav class="navbar navbar-default" role="navigation">
       <div class="container">
