@@ -35,22 +35,3 @@ def login_view(request):
         'errors': errors,
         'form': form
     })
-
-
-@login_required
-def reset_password_view(request):
-    form = ResetPasswordForm(request.POST or None, user=request.user)
-    confirms = []
-    if request.method == "POST":
-        if form.is_valid():
-            password_new = form.cleaned_data["new_password"]
-            request.user.set_password(password_new)
-            request.user.save()
-            user = authenticate(username=request.user.username,
-                                password=password_new)
-            login(request, user)
-            confirms.append("Parola a fost schimbata")
-    return render(request, "authentication/password_form.html", {
-        "form": form,
-        "confirms": confirms
-    })
