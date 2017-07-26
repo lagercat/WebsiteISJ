@@ -26,12 +26,6 @@ class CreateContactForm(forms.ModelForm):
             raise forms.ValidationError("Introdu un prenume valid")
         return first_name
 
-    def clean_subject(self):
-        subject = self.cleaned_data['subject']
-        if not subject.isalpha():
-            raise forms.ValidationError("Introdu un subiect valid")
-        return subject
-
     def clean_email(self):
         email = self.cleaned_data['email']
         if validate_email(email):
