@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # django packages
-    # 'django_nose',
+    'django_nose',
     'django_jenkins',
     'captcha',
     'widget_tweaks',
