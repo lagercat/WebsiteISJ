@@ -60,7 +60,7 @@ class Article(File):
     text = HTMLField()
     subcategory = models.ForeignKey(Subcategory, blank=False, null=False)
 
-    REQUIRED = ['subcategory', 'name', 'text', 'file', 'date']  # 'category'
+    REQUIRED = ['subcategory', 'name', 'text', 'file']  # 'category'
 
     def __unicode__(self):
         return self.name

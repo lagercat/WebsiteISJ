@@ -24,12 +24,12 @@ class ArticleAdmin(AdminChangeMixin):
 
     fieldsets = ()
     change_fieldsets = (
-        ('Page', {'fields': ('name', 'subcategory', 'author', 'date')}),
+        ('Page', {'fields': ('name', 'subcategory', 'author')}),
         ('Article content', {'fields': ('text', 'file')})
     )
 
     add_fieldsets = (
-        ('Page', {'fields': ('name', 'subcategory', 'date')}),
+        ('Page', {'fields': ('name', 'subcategory')}),
         ('Article content', {'fields': ('text', 'file')})
     )
 
