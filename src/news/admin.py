@@ -14,20 +14,20 @@ class NewsAdmin(AdminChangeMixin):
     
     icon = '<i class="material-icons">rss_feed</i>'
 
-    list_display = ('short_name', 'author', 'fileLink', 'date', 'slug',)
+    list_display = ('short_name', 'author', 'date', 'slug',)
     list_filter = (
         ('date', DateFieldListFilter),
     )
-    readonly_fields = ['fileLink', 'author']
+    readonly_fields = ['author']
 
     fieldsets = ()
     change_fieldsets = (
-        ('Page', {'fields': ('name', 'author', 'date')}),
+        ('Page', {'fields': ('name', 'author')}),
         ('News content', {'fields': ('text', 'file')})
     )
     
     add_fieldsets = (
-        ('Page', {'fields': ('name', 'date')}),
+        ('Page', {'fields': ('name',)}),
         ('News content', {'fields': ('text', 'file')})
     )
     

@@ -22,7 +22,7 @@ class News(File):
 
     text = HTMLField()
 
-    REQUIRED = ['name', 'text', 'file', 'date']
+    REQUIRED = ['name', 'text', 'file']
 
     def __unicode__(self):
         return self.name
