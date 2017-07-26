@@ -19,8 +19,8 @@ class EventCreationFormAdmin(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ('name', 'file',)
-        
+        fields = ('name', 'file')
+
     def clean(self):
         cleaned_data = super(EventCreationFormAdmin, self).clean()
         geoloc = cleaned_data['geolocation']
