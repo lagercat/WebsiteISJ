@@ -15,12 +15,12 @@ class ArticleAdmin(AdminChangeMixin):
     change_own_owner_field = "id"
 
     icon = '<i class="material-icons">assignment</i>'
-    list_display = ['short_name', 'subcategory', 'author', 'fileLink', 'date',
+    list_display = ['short_name', 'subcategory', 'author', 'date',
                     'slug']
     list_filter = (
         ('date', DateFieldListFilter),
     )
-    readonly_fields = ['fileLink', 'author']
+    readonly_fields = ['author']
 
     fieldsets = ()
     change_fieldsets = (
@@ -61,21 +61,21 @@ class SimplePageAdmin(AdminChangeMixin):
     change_own_owner_field = "id"
 
     icon = '<i class="material-icons">list</i>'
-    list_display = ['short_name', 'category', 'author', 'fileLink', 'date',
+    list_display = ['short_name', 'category', 'author', 'date',
                     'slug']
     list_filter = (
         ('date', DateFieldListFilter),
     )
-    readonly_fields = ['fileLink', 'author']
+    readonly_fields = ['author']
 
     fieldsets = ()
     change_fieldsets = (
-        ('Page', {'fields': ('name', 'category', 'author', 'date')}),
+        ('Page', {'fields': ('name', 'category', 'author')}),
         ('Simple plage content', {'fields': ('text', 'file')})
     )
 
     add_fieldsets = (
-        ('Page', {'fields': ('name', 'category', 'date')}),
+        ('Page', {'fields': ('name', 'category')}),
         ('Simple page content', {'fields': ('text', 'file')})
     )
 

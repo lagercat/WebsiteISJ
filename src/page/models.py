@@ -82,7 +82,7 @@ class SimplePage(File):
     category = models.ForeignKey(Category, related_name='simplepages',
                                  blank=False, null=False)
 
-    REQUIRED = ['category', 'name', 'text', 'file', 'date']
+    REQUIRED = ['category', 'name', 'text', 'file']
 
     def __unicode__(self):
         return self.name
