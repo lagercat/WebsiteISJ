@@ -97,6 +97,10 @@ class SimplePage(File):
         verbose_name_plural = "Simple pages"
         index_text = "Manage"
 
+    @property
+    def url_link(self):
+        return "/simple/" + self.slug
+
 
 @receiver(pre_delete, sender=SimplePage)
 @receiver(pre_delete, sender=Article)
