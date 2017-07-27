@@ -28,7 +28,7 @@ class SchoolAdmin(AdminChangeMixin):
     icon = '<i class="material-icons">room</i>'
 
     list_display = ('name', 'telephone', 'fax', 'email', 'website', 'address',
-                    'geolocation','my_url_link',)
+                    'geolocation', 'my_url_link',)
 
     search_fields = (
         'name', 'address',)
@@ -39,14 +39,14 @@ class SchoolAdmin(AdminChangeMixin):
         ('School name', {'fields': ('name',)}),
         ('School Contact',
          {'fields': ('telephone', 'fax', 'email', 'website', 'file',)}),
-        ('Location and Time', {'fields': ('address', 'geolocation',)}),
+        ('Location', {'fields': ('address', 'geolocation',)}),
     )
 
     add_fieldsets = (
         ('School name', {'fields': ('name',)}),
         ('School Contact',
          {'fields': ('telephone', 'fax', 'email', 'website', 'file',)}),
-        ('Location and Time', {'fields': ('address', 'geolocation',)}),
+        ('Location', {'fields': ('address', 'geolocation',)}),
     )
 
     def my_url_link(self, obj):
