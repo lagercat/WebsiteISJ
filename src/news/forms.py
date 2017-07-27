@@ -10,7 +10,7 @@ class NewsCreationFormAdmin(forms.ModelForm):
     show_files = True
     show_preview = True
     preview_url = "/preview_news/"
-    
+
     class Meta:
         model = News
         fields = ('name', 'file')
