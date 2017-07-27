@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_google_maps',
     'haystack',
+    'phonenumber_field',
 
     # usual apps
     'authentication',

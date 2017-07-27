@@ -16,7 +16,9 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django import forms
 
+from phonenumber_field.formfields import PhoneNumberField
 from django_google_maps import widgets as map_widgets
+
 from models import School
 from utility.utility import clean_file
 
@@ -24,6 +26,8 @@ from utility.utility import clean_file
 class SchoolCreationFormAdmin(forms.ModelForm):
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget())
     geolocation = forms.CharField()
+    telephone = PhoneNumberField()
+    fax = PhoneNumberField()
 
     class Meta:
         model = School
@@ -62,6 +66,8 @@ class SchoolCreationFormAdmin(forms.ModelForm):
 class SchoolChangeFormAdmin(forms.ModelForm):
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget)
     geolocation = forms.CharField()
+    telephone = PhoneNumberField()
+    fax = PhoneNumberField()
 
     class Meta:
         model = School

@@ -23,8 +23,9 @@ from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 
+from phonenumber_field.modelfields import PhoneNumberField
 from django_google_maps import fields as map_fields
-from post.models import File
+
 from utility.models import CustomPermissionsMixin
 
 
@@ -41,17 +42,18 @@ class School(CustomPermissionsMixin):
         index_text = "Manage"
 
     name = models.CharField(max_length=100, null=True)
-    telephone = models.CharField(max_length=11, blank=True)
-    fax = models.CharField(max_length=15, blank=True)
+    telephone = PhoneNumberField(blank=True)
+    fax = PhoneNumberField(blank=True)
     email = models.EmailField(max_length=20, blank=True)
     website = models.CharField(max_length=100, blank=True)
     address = map_fields.AddressField(max_length=200)
     geolocation = map_fields.GeoLocationField(max_length=100)
-    file = models.FileField(upload_to=user_directory_path, null=True, blank=True)
+    file = models.FileField(upload_to=user_directory_path, null=True,
+                            blank=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
     location = models.CharField(max_length=50, default="thumbnails/school")
 
-    REQUIRED = ['name', 'address', 'geolocation']
+    REQUIRED = ['name', 'addrsi ess', 'geolocation']
 
     def __unicode__(self):
         return self.name
