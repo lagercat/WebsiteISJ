@@ -1,3 +1,19 @@
+# Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males
+#
+# This file is part of WebsiteISJ
+#
+# WebsiteISJ is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# WebsiteISJ is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django.contrib.admin.filters import DateFieldListFilter
 
 from gallery.forms import GalleryChangeFormAdmin, GalleryCreationFormAdmin
@@ -17,7 +33,7 @@ class GalleryAdmin(AdminChangeMixin):
     add_form_template = "admin/gallery_form.html"
     change_form_template = "admin/gallery_form.html"
     
-    list_display = ('name', 'author', 'date', 'slug',)
+    list_display = ('name', 'author', 'date', 'my_url_link',)
     list_filter = (
         ('date', DateFieldListFilter),
     )
@@ -36,6 +52,13 @@ class GalleryAdmin(AdminChangeMixin):
         ('Gallery', {'fields': ('name', 'file')}),
         ('Gallery Photos', {'fields': ()}),
     )
+
+    def my_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.url_link, 'Access')
+
+    my_url_link.allow_tags = True
+    my_url_link.short_description = 'Link to page'
       
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:

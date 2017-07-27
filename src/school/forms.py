@@ -1,13 +1,33 @@
+# Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males
+#
+# This file is part of WebsiteISJ
+#
+# WebsiteISJ is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# WebsiteISJ is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django import forms
 
+from phonenumber_field.formfields import PhoneNumberField
 from django_google_maps import widgets as map_widgets
+
 from models import School
 from utility.utility import clean_file
 
 
 class SchoolCreationFormAdmin(forms.ModelForm):
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget())
-    geolocation = forms.CharField()
+    geolocation = forms.CharField(widget=forms.HiddenInput())
+    telephone = PhoneNumberField(required=False)
+    fax = PhoneNumberField(required=False)
 
     class Meta:
         model = School
@@ -46,6 +66,8 @@ class SchoolCreationFormAdmin(forms.ModelForm):
 class SchoolChangeFormAdmin(forms.ModelForm):
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget)
     geolocation = forms.CharField()
+    telephone = PhoneNumberField()
+    fax = PhoneNumberField()
 
     class Meta:
         model = School

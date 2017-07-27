@@ -1,3 +1,19 @@
+<!-- Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males-->
+<!---->
+<!-- This file is part of WebsiteISJ-->
+<!---->
+<!-- WebsiteISJ is free software: you can redistribute it and/or modify-->
+<!-- it under the terms of the GNU General Public License as published by-->
+<!-- the Free Software Foundation, either version 3 of the License, or-->
+<!-- (at your option) any later version.-->
+<!---->
+<!-- WebsiteISJ is distributed in the hope that it will be useful,-->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of-->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the-->
+<!-- GNU General Public License for more details.-->
+<!---->
+<!-- You should have received a copy of the GNU General Public License-->
+<!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls admin_static admin_modify material_form material_admin %}
 
@@ -177,7 +193,8 @@
             <div class="card-content">
                 <span class="card-title black-text">{% trans "Page Preview" %}</span>
                 <div id="preview-wrap" style="overflow: hidden;">
-                    <iframe class="card frame" id="preview" frameborder="0">
+                    <iframe sandbox="allow-same-origin allow-scripts
+                    " class="card frame" id="preview" frameborder="0" >
                     </iframe>
                     <div id="preview-overlay" onclick="preview()" style="top:0; left:0;">
                     </div>
@@ -313,7 +330,6 @@
                 $(clone).attr("frameborder", 0);
                 $(clone).attr("id", "iframe-preview");
                 $("#preview-big").append(clone);
-
                 var doc = clone.contentDocument ?
                           clone.contentDocument :
                           (clone.contentWindow ? clone.contentWindow.document : clone.document);
@@ -321,9 +337,16 @@
                 var img_src = $('input[name="file"]')[0].files ? ($('input[name="file"]')[0].files[0] ? window.URL.createObjectURL($('input[name="file"]')[0].files[0]) : "/static/assets/img/news.png") : "/static/assets/img/news.png";
                 var location = $('input[name="address"]').val() != "" ? $('input[name="address"]').val() : "Location here";
                 var date = $('input[name="date_0"]').val() ? ($('input[name="date_0"]').val() + " " + $('input[name="date_1"]').val()) : "Date & Time here";
+                var title_inp = $('#id_name').val().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+{#                title_inp = $('<div/>').text(title_inp).html().replace(/(?=[() ])/g, '\\');;#}
+{#                console.log(title_inp);#}
+
                 doc.open();
-                doc.write(template.format($('#id_name').val(), tinyMCE.activeEditor.getContent(), img_src, location, date));
+                doc.write(template.format(title_inp,
+                    tinyMCE.activeEditor.getContent(), img_src, location, date));
                 doc.close();
+
+
 
                 overlay = $('#preview-overlay').clone();
                 overlay.removeAttr("id");

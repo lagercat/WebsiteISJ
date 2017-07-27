@@ -1,10 +1,26 @@
+# Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males
+#
+# This file is part of WebsiteISJ
+#
+# WebsiteISJ is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# WebsiteISJ is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 import random
 import string
 import os
 from random import choice
 from string import ascii_uppercase
 
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.contrib.auth.models import User
 
 from authentication.models import ExtendedUser
@@ -130,36 +146,6 @@ class LoginFormTestCase(TestCase):
             "username": random_username,
             "password": "password",
             "recaptcha_response_field": ""
-        })
-        self.assertFalse(form.is_valid())
-
-
-class ResetPasswordFormTestCase(TestCase):
-
-    def test_required_old_password(self):
-        """Tests required condition for old_password field"""
-        form = ResetPasswordForm({
-            "old_password": "",
-            "new_password": "password",
-            "new_password_check": "password"
-        })
-        self.assertFalse(form.is_valid())
-
-    def test_required_password(self):
-        """Tests required condition for new_password field"""
-        form = ResetPasswordForm({
-            "old_password": "password",
-            "new_password": "",
-            "new_password_check": "password"
-        })
-        self.assertFalse(form.is_valid())
-
-    def test_required_recaptcha(self):
-        """Tests required condition for new_password_check field"""
-        form = ResetPasswordForm({
-            "old_password": "password",
-            "new_password": "password",
-            "new_password_check": ""
         })
         self.assertFalse(form.is_valid())
 
@@ -303,3 +289,56 @@ class ExtendedUserCreationFormAdminTestCase(TestCase):
                     response = False
                     break
         self.assertTrue(response)
+
+
+class AuthenticationViewsTestCase(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.user_unecrypt_pass = "pass123"
+        self.user = ExtendedUser.objects.create_user(
+            "test_user", "Tuxi", "Pinguinescu", self.user_unecrypt_pass, 0)
+        os.environ["RECAPTCHA_TESTING"] = "True"
+
+    def tearDown(self):
+        os.environ["RECAPTCHA_TESTING"] = "False"
+
+    def test_login_view(self):
+        """Tests if login view works with right credetials and right
+         recaptcha"""
+        login_response = self.client.post('/login/', data={
+            "username": self.user.username,
+            "password": self.user_unecrypt_pass,
+            "g-recaptcha-response": "PASSED"
+            })
+        self.assertEqual(login_response.wsgi_request.user, self.user)
+
+    def test_wrong_login_view(self):
+        """Tests if login view works with wrong credetials and right
+         recaptcha"""
+        login_response = self.client.post('/login/', data={
+            "username": self.user.username + "rand",
+            "password": self.user_unecrypt_pass,
+            "g-recaptcha-response": "PASSED"
+            })
+        self.assertNotEqual(login_response.wsgi_request.user, self.user)
+
+    def test_login_view_captcha(self):
+        """Tests if login view works with right
+        credetials and wrong recaptcha"""
+        login_response = self.client.post('/login/', data={
+            "username": self.user.username,
+            "password": self.user_unecrypt_pass,
+            "g-recaptcha-response": "PASED"
+            })
+        self.assertNotEqual(login_response.wsgi_request.user, self.user)
+
+    def test_wrong_login_view_captcha(self):
+        """Tests if login view works with wrong
+        credetials and wrong recaptcha"""
+        login_response = self.client.post('/login/', data={
+            "username": self.user.username + "rand",
+            "password": self.user_unecrypt_pass,
+            "g-recaptcha-response": "PASED"
+            })
+        self.assertNotEqual(login_response.wsgi_request.user, self.user)

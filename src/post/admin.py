@@ -1,3 +1,19 @@
+# Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males
+#
+# This file is part of WebsiteISJ
+#
+# WebsiteISJ is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# WebsiteISJ is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django.contrib.admin.filters import (ChoicesFieldListFilter,
                                           DateFieldListFilter,
                                           AllValuesFieldListFilter)
@@ -18,7 +34,7 @@ class PostAdmin(AdminChangeMixin):
 
     icon = '<i class="material-icons">description</i>'
 
-    list_display = ('short_name', 'author', 'fileLink', 'location', 'date', 'slug',)
+    list_display = ('short_name', 'author', 'fileLink','see_file_link', 'location', 'date', )
     list_filter = (
         ('date', DateFieldListFilter),
         ('author__status', ChoicesFieldListFilter),
@@ -39,6 +55,13 @@ class PostAdmin(AdminChangeMixin):
 
     ordering = ['date']
     filter_horizontal = ()
+
+    def see_file_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.see_file, 'Access file')
+
+    see_file_link.allow_tags = True
+    see_file_link.short_description = 'See file'
 
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
@@ -107,4 +130,4 @@ class PageAdmin(AdminChangeMixin):
     pass
 
 register_model_admin(Post, PostAdmin)
-register_model_admin(Page, PageAdmin)
+

@@ -1,3 +1,19 @@
+# Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males
+#
+# This file is part of WebsiteISJ
+#
+# WebsiteISJ is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# WebsiteISJ is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from forms import SchoolChangeFormAdmin, SchoolCreationFormAdmin
 from models import School
 from utility.admin import AdminChangeMixin, register_model_admin
@@ -12,7 +28,7 @@ class SchoolAdmin(AdminChangeMixin):
     icon = '<i class="material-icons">room</i>'
 
     list_display = ('name', 'telephone', 'fax', 'email', 'website', 'address',
-                    'geolocation', 'file',)
+                    'geolocation', 'my_url_link',)
 
     search_fields = (
         'name', 'address',)
@@ -23,15 +39,22 @@ class SchoolAdmin(AdminChangeMixin):
         ('School name', {'fields': ('name',)}),
         ('School Contact',
          {'fields': ('telephone', 'fax', 'email', 'website', 'file',)}),
-        ('Location and Time', {'fields': ('address', 'geolocation',)}),
+        ('Location', {'fields': ('address', 'geolocation',)}),
     )
 
     add_fieldsets = (
         ('School name', {'fields': ('name',)}),
         ('School Contact',
          {'fields': ('telephone', 'fax', 'email', 'website', 'file',)}),
-        ('Location and Time', {'fields': ('address', 'geolocation',)}),
+        ('Location', {'fields': ('address', 'geolocation',)}),
     )
+
+    def my_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.url_link, 'Access')
+
+    my_url_link.allow_tags = True
+    my_url_link.short_description = 'Link to page'
 
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:

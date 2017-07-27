@@ -1,3 +1,19 @@
+<!-- Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males-->
+<!---->
+<!-- This file is part of WebsiteISJ-->
+<!---->
+<!-- WebsiteISJ is free software: you can redistribute it and/or modify-->
+<!-- it under the terms of the GNU General Public License as published by-->
+<!-- the Free Software Foundation, either version 3 of the License, or-->
+<!-- (at your option) any later version.-->
+<!---->
+<!-- WebsiteISJ is distributed in the hope that it will be useful,-->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of-->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the-->
+<!-- GNU General Public License for more details.-->
+<!---->
+<!-- You should have received a copy of the GNU General Public License-->
+<!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -75,10 +91,7 @@
                 <span>mail.isj.timis@gmail.com</span>
               </div>
               <br/>
-              <div class="mu-top-phone">
-                <i class="fa fa-phone"></i>
-                <span>0256-305799</span>
-              </div>
+
             </div>
             <div class="mu-header-top-right btn-group pull-right">
               <nav>
@@ -86,7 +99,7 @@
                   <span class="btn btn-info"><i class="glyphicon glyphicon-envelope"></i> Contact</span>
                   </a>
                   {% if  request.user.is_authenticated %}
-                  <a href="/admin"><span class="btn btn-warning"><i class="glyphicon glyphicon-font"></i> Admin</span></a>
+                  <a href="/admin"><span class="btn btn-warning"><i class="glyphicon glyphicon-font"></i> Administration</span></a>
                   <a href="/logout"><span class="btn btn-danger"><i class="glyphicon glyphicon-log-out"></i> Sign out</span></a>
                   {% else %}
                    <a href="/login"><span class="btn btn-success"><i class="glyphicon glyphicon-log-in"></i> Login</span></a>

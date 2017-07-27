@@ -1,3 +1,19 @@
+# Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males
+#
+# This file is part of WebsiteISJ
+#
+# WebsiteISJ is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# WebsiteISJ is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 
 import os
@@ -29,6 +45,10 @@ class Category(CustomPermissionsMixin):
                              unique=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
 
+    @property
+    def url_link(self):
+        return "/category/" + self.slug
+
     def __unicode__(self):
         return self.title
 
@@ -50,6 +70,10 @@ class Subcategory(CustomPermissionsMixin):
         verbose_name_plural = 'Subcategories'
         index_text = "Manage"
 
+    @property
+    def url_link(self):
+        return "/subcategory/" + self.slug_sub
+
 
 class Article(File):
     def __init__(self, *args, **kwargs):
@@ -60,7 +84,7 @@ class Article(File):
     text = HTMLField()
     subcategory = models.ForeignKey(Subcategory, blank=False, null=False)
 
-    REQUIRED = ['subcategory', 'name', 'text', 'file', 'date']  # 'category'
+    REQUIRED = ['subcategory', 'name', 'text', 'file']  # 'category'
 
     def __unicode__(self):
         return self.name
@@ -70,6 +94,10 @@ class Article(File):
         verbose_name = "Article"
         verbose_name_plural = "Articles"
         index_text = "Manage"
+
+    @property
+    def url_link(self):
+        return "/article/" + self.slug
 
 
 class SimplePage(File):
@@ -82,7 +110,7 @@ class SimplePage(File):
     category = models.ForeignKey(Category, related_name='simplepages',
                                  blank=False, null=False)
 
-    REQUIRED = ['category', 'name', 'text', 'file', 'date']
+    REQUIRED = ['category', 'name', 'text', 'file']
 
     def __unicode__(self):
         return self.name
@@ -92,6 +120,10 @@ class SimplePage(File):
         verbose_name = "Simple page"
         verbose_name_plural = "Simple pages"
         index_text = "Manage"
+
+    @property
+    def url_link(self):
+        return "/simple/" + self.slug
 
 
 @receiver(pre_delete, sender=SimplePage)

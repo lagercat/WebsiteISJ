@@ -1,3 +1,19 @@
+# Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males
+#
+# This file is part of WebsiteISJ
+#
+# WebsiteISJ is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# WebsiteISJ is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 import os
 
 from django.db import models
@@ -24,7 +40,7 @@ ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "isj.tm.edu.ro", "isj.tm.edu.ro:8080",
 INSTALLED_APPS = [
     # admin theme
     'material',
-    'material.frontend',
+    # 'material.frontend',
     'material.admin',
 
     # standard packages
@@ -37,7 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # django packages
-    # 'django_nose',
+    'django_nose',
     'django_jenkins',
     'captcha',
     'widget_tweaks',
@@ -46,6 +62,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_google_maps',
     'haystack',
+    'phonenumber_field',
 
     # usual apps
     'authentication',
