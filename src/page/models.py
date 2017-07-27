@@ -29,6 +29,10 @@ class Category(CustomPermissionsMixin):
                              unique=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
 
+    @property
+    def url_link(self):
+        return "/category/" + self.slug
+
     def __unicode__(self):
         return self.title
 
@@ -49,6 +53,10 @@ class Subcategory(CustomPermissionsMixin):
         verbose_name = 'Subcategory'
         verbose_name_plural = 'Subcategories'
         index_text = "Manage"
+
+    @property
+    def url_link(self):
+        return "/subcategory/" + self.slug_sub
 
 
 class Article(File):
