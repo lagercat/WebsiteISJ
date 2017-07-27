@@ -47,7 +47,8 @@ class School(CustomPermissionsMixin):
     website = models.CharField(max_length=100, blank=True)
     address = map_fields.AddressField(max_length=200)
     geolocation = map_fields.GeoLocationField(max_length=100)
-    file = models.FileField(upload_to=user_directory_path, null=True, blank=True)
+    file = models.FileField(upload_to=user_directory_path, null=True,
+                            blank=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
     location = models.CharField(max_length=50, default="thumbnails/school")
 
@@ -55,6 +56,10 @@ class School(CustomPermissionsMixin):
 
     def __unicode__(self):
         return self.name
+
+    @property
+    def url_link(self):
+        return "/schools/" + self.slug
 
 
 @receiver(pre_delete, sender=School)
