@@ -71,6 +71,10 @@ class Article(File):
         verbose_name_plural = "Articles"
         index_text = "Manage"
 
+    @property
+    def url_link(self):
+        return "/article/" + self.slug
+
 
 class SimplePage(File):
     def __init__(self, *args, **kwargs):
