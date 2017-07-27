@@ -193,7 +193,8 @@
             <div class="card-content">
                 <span class="card-title black-text">{% trans "Page Preview" %}</span>
                 <div id="preview-wrap" style="overflow: hidden;">
-                    <iframe class="card frame" id="preview" frameborder="0">
+                    <iframe sandbox="allow-same-origin allow-scripts
+                    " class="card frame" id="preview" frameborder="0" >
                     </iframe>
                     <div id="preview-overlay" onclick="preview()" style="top:0; left:0;">
                     </div>
@@ -329,7 +330,6 @@
                 $(clone).attr("frameborder", 0);
                 $(clone).attr("id", "iframe-preview");
                 $("#preview-big").append(clone);
-
                 var doc = clone.contentDocument ?
                           clone.contentDocument :
                           (clone.contentWindow ? clone.contentWindow.document : clone.document);
@@ -337,9 +337,16 @@
                 var img_src = $('input[name="file"]')[0].files ? ($('input[name="file"]')[0].files[0] ? window.URL.createObjectURL($('input[name="file"]')[0].files[0]) : "/static/assets/img/news.png") : "/static/assets/img/news.png";
                 var location = $('input[name="address"]').val() != "" ? $('input[name="address"]').val() : "Location here";
                 var date = $('input[name="date_0"]').val() ? ($('input[name="date_0"]').val() + " " + $('input[name="date_1"]').val()) : "Date & Time here";
+                var title_inp = $('#id_name').val().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+{#                title_inp = $('<div/>').text(title_inp).html().replace(/(?=[() ])/g, '\\');;#}
+{#                console.log(title_inp);#}
+
                 doc.open();
-                doc.write(template.format($('#id_name').val(), tinyMCE.activeEditor.getContent(), img_src, location, date));
+                doc.write(template.format(title_inp,
+                    tinyMCE.activeEditor.getContent(), img_src, location, date));
                 doc.close();
+
+
 
                 overlay = $('#preview-overlay').clone();
                 overlay.removeAttr("id");
