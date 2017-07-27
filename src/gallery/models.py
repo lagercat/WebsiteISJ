@@ -37,6 +37,10 @@ class Gallery(File):
         verbose_name_plural = "Galleries"
         index_text = "Manage"
 
+    @property
+    def url_link(self):
+        return "/gallery/" + self.slug
+
 
 class GalleryPhoto(File):
     def __init__(self, *args, **kwargs):

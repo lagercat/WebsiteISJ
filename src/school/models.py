@@ -58,6 +58,10 @@ class School(CustomPermissionsMixin):
     def __unicode__(self):
         return self.name
 
+    @property
+    def url_link(self):
+        return "/schools/" + self.slug
+
 
 @receiver(pre_delete, sender=School)
 def file_delete(sender, instance, **kwargs):

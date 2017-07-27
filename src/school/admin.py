@@ -28,7 +28,7 @@ class SchoolAdmin(AdminChangeMixin):
     icon = '<i class="material-icons">room</i>'
 
     list_display = ('name', 'telephone', 'fax', 'email', 'website', 'address',
-                    'geolocation',)
+                    'geolocation','my_url_link',)
 
     search_fields = (
         'name', 'address',)
@@ -48,6 +48,13 @@ class SchoolAdmin(AdminChangeMixin):
          {'fields': ('telephone', 'fax', 'email', 'website', 'file',)}),
         ('Location and Time', {'fields': ('address', 'geolocation',)}),
     )
+
+    def my_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.url_link, 'Access')
+
+    my_url_link.allow_tags = True
+    my_url_link.short_description = 'Link to page'
 
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
