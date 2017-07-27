@@ -107,4 +107,4 @@ class PageAdmin(AdminChangeMixin):
     pass
 
 register_model_admin(Post, PostAdmin)
-register_model_admin(Page, PageAdmin)
+
