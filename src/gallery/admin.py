@@ -33,7 +33,7 @@ class GalleryAdmin(AdminChangeMixin):
     add_form_template = "admin/gallery_form.html"
     change_form_template = "admin/gallery_form.html"
     
-    list_display = ('name', 'author', 'date', 'slug',)
+    list_display = ('name', 'author', 'date', 'my_url_link',)
     list_filter = (
         ('date', DateFieldListFilter),
     )
@@ -52,6 +52,13 @@ class GalleryAdmin(AdminChangeMixin):
         ('Gallery', {'fields': ('name', 'file')}),
         ('Gallery Photos', {'fields': ()}),
     )
+
+    def my_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.url_link, 'Access')
+
+    my_url_link.allow_tags = True
+    my_url_link.short_description = 'Link to page'
       
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
