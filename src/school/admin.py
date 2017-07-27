@@ -12,7 +12,7 @@ class SchoolAdmin(AdminChangeMixin):
     icon = '<i class="material-icons">room</i>'
 
     list_display = ('name', 'telephone', 'fax', 'email', 'website', 'address',
-                    'geolocation', 'file',)
+                    'geolocation',)
 
     search_fields = (
         'name', 'address',)
