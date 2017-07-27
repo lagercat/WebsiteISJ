@@ -5,7 +5,8 @@ from utility.utility import clean_file
 
 
 class NewsCreationFormAdmin(forms.ModelForm):
-    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
+    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}),
+                           label='')
     show_files = True
     show_preview = True
     preview_url = "/preview_news/"
@@ -13,7 +14,7 @@ class NewsCreationFormAdmin(forms.ModelForm):
     class Meta:
         model = News
         fields = ('name', 'file')
-        
+
     def clean_file(self):
         uploaded_file = self.cleaned_data['file']
         error = clean_file(uploaded_file, image=True)
@@ -31,22 +32,23 @@ class NewsCreationFormAdmin(forms.ModelForm):
 
 
 class NewsChangeFormAdmin(forms.ModelForm):
-    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
+    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}),
+                           label='')
     show_files = True
     show_preview = True
     preview_url = "/preview_news/"
-    
+
     class Meta:
         model = News
         fields = ('name', 'file')
-        
+
     def __init__(self, *args, **kwargs):
         initial = {
-          'text': self.text_initial
+            'text': self.text_initial
         }
         kwargs['initial'] = initial
         super(NewsChangeFormAdmin, self).__init__(*args, **kwargs)
-        
+
     def clean_file(self):
         uploaded_file = self.cleaned_data['file']
         error = clean_file(uploaded_file, image=True)
