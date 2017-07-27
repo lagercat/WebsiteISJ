@@ -26,8 +26,8 @@ from utility.utility import clean_file
 class SchoolCreationFormAdmin(forms.ModelForm):
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget())
     geolocation = forms.CharField()
-    telephone = PhoneNumberField()
-    fax = PhoneNumberField()
+    telephone = PhoneNumberField(required=False)
+    fax = PhoneNumberField(required=False)
 
     class Meta:
         model = School
@@ -36,6 +36,7 @@ class SchoolCreationFormAdmin(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(SchoolCreationFormAdmin, self).clean()
+        print cleaned_data
         geoloc = cleaned_data['geolocation']
         addr = cleaned_data['address']
         if geoloc == "Invalid address or no results":
