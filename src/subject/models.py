@@ -42,8 +42,13 @@ class Subject(CustomPermissionsMixin):
         return subject_post
 
     def get_simple_subject_post(self):
-        subject_post = SubjectPost.objects.all().filter(subject=self, subcategory=None)
+        subject_post = SubjectPost.objects.all().filter(subject=self,
+                                                        subcategory=None)
         return subject_post
+
+    @property
+    def url_link(self):
+        return "/subject/" + self.name
 
 
 class Subcategory(File):
@@ -76,6 +81,10 @@ class Subcategory(File):
     def get_type(self):
         return type(self).__name__
 
+    @property
+    def url_link(self):
+        return "/subject/" + self.subject.name + "/" + self.name
+
 
 class SubjectPost(File):
     def __init__(self, *args, **kwargs):
@@ -101,6 +110,14 @@ class SubjectPost(File):
         verbose_name = "Subject Page"
         verbose_name_plural = "Subject Pages"
         index_text = "Manage"
+
+    @property
+    def url_link(self):
+        if self.subcategory is not None:
+            return "/subject/" + self.subject.name + "/" + self.subcategory.name \
+                   + "/" + self.slug
+        else:
+            return "/simple/" + self.subject.name + "/" + self.slug
 
 
 @receiver(pre_delete, sender=Subcategory)
