@@ -6359,7 +6359,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 
 .app-item > a > .material-icons,
 .app-item > a > h6 {
-    color: #26a69a; 
+    color: #26a69a;
 }
 
 nav .nav-wrapper i {
@@ -6402,12 +6402,12 @@ nav .nav-wrapper i {
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
-    color: #26a69a;    
+    color: #26a69a;
     transition: color 0.3s ease 0s;
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating):hover {
-    color: #4db6ac; 
+    color: #4db6ac;
 }
 
 a:hover {
@@ -6425,5 +6425,17 @@ a:hover {
     transform: translateY(50%);
 }
 .content > .row {
-     width: 100%; 
+     width: 100%;
+}
+
+@media only screen and (min-width: 993px)
+materialize.admin.min.css:16
+footer, main {
+    margin-left: 300px;
+}
+
+@media only screen and (max-width: 992px)
+materialize.admin.min.css:16
+footer, main {
+    margin-left: 0px;
 }
