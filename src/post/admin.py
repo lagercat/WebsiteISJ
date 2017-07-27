@@ -18,7 +18,7 @@ class PostAdmin(AdminChangeMixin):
 
     icon = '<i class="material-icons">description</i>'
 
-    list_display = ('short_name', 'author', 'fileLink', 'location', 'date', 'slug',)
+    list_display = ('short_name', 'author', 'fileLink','see_file_link', 'location', 'date', )
     list_filter = (
         ('date', DateFieldListFilter),
         ('author__status', ChoicesFieldListFilter),
@@ -39,6 +39,13 @@ class PostAdmin(AdminChangeMixin):
 
     ordering = ['date']
     filter_horizontal = ()
+
+    def see_file_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.see_file, 'Access file')
+
+    see_file_link.allow_tags = True
+    see_file_link.short_description = 'See file'
 
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
@@ -107,4 +114,4 @@ class PageAdmin(AdminChangeMixin):
     pass
 
 register_model_admin(Post, PostAdmin)
-
+register_model_admin(Page, PageAdmin)

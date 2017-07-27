@@ -53,6 +53,10 @@ class File(CustomPermissionsMixin):
         verbose_name = 'File'
         verbose_name_plural = 'Files'
 
+    @property
+    def see_file(self):
+        return self.file.url
+
 
 class Post(File):
     def __init__(self, *args, **kwargs):
