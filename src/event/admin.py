@@ -13,28 +13,36 @@ class EventAdmin(AdminChangeMixin):
 
     icon = '<i class="material-icons">room</i>'
 
-    list_display = ('name', 'author', 'address', 'date', 'slug',)
+    list_display = ('name', 'author', 'address', 'date', 'my_url_link',)
     list_filter = (
         ('date', DateFieldListFilter),
     )
     readonly_fields = ['author']
-    
-    search_fields = ('name', 'author__first_name', 'author__last_name', 'address', 'date',)
+
+    search_fields = (
+    'name', 'author__first_name', 'author__last_name', 'address', 'date',)
 
     ordering = ['date']
     filter_horizontal = ()
-    
+
     change_fieldsets = (
         ('Event Info', {'fields': ('name', 'author')}),
         ('Event Description', {'fields': ('text', 'file')}),
         ('Location and Time', {'fields': ('date', 'address', 'geolocation')}),
     )
-    
+
     add_fieldsets = (
-        ('Event Info', {'fields': ('name', )}),
+        ('Event Info', {'fields': ('name',)}),
         ('Event Description', {'fields': ('text', 'file')}),
         ('Location and Time', {'fields': ('date', 'address', 'geolocation')}),
     )
+
+    def my_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.url_link, 'Access')
+
+    my_url_link.allow_tags = True
+    my_url_link.short_description = 'Link to page'
 
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
@@ -50,7 +58,8 @@ class EventAdmin(AdminChangeMixin):
             form.address_initial = obj.address
             form.geolocation_initial = obj.geolocation
             return form
-    
+
     pass
-    
+
+
 register_model_admin(Event, EventAdmin)

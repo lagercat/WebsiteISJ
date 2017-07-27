@@ -16,7 +16,6 @@ def user_directory_path(instance, filename):
 
 
 class Event(File):
-
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "thumbnails/events"
         self._meta.get_field('file').label = "Thumbnail"
@@ -36,6 +35,10 @@ class Event(File):
         verbose_name = "Event"
         verbose_name_plural = "Events"
         index_text = "Manage"
+
+    @property
+    def url_link(self):
+        return "/event/" + self.slug
 
 
 @receiver(pre_delete, sender=Event)
