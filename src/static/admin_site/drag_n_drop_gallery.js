@@ -37,13 +37,13 @@ var $form = $('.box');
 var $input = $form.find('input[type="file"]');
 
 if (isAdvancedUpload) {
-  $form.addClass('has-advanced-upload');   
+  $form.addClass('has-advanced-upload');
 }
 
 if (!String.prototype.format) {
   String.prototype.format = function() {
     var args = arguments;
-    return this.replace(/{(\d+)}/g, function(match, number) { 
+    return this.replace(/{(\d+)}/g, function(match, number) {
       return typeof args[number] != 'undefined'
         ? args[number]
         : match
@@ -70,12 +70,12 @@ var template = '\
     <div class="card-content">\
         <input name="index" type="hidden" value="{1}">\
         <input name="id" type="hidden" value="{2}">\
-        <image id="src_photo_{1}">\
+        <image id="src_photo_{1}" onerror="this.src=`http://cdn.xl.thumbs.canstockphoto.com/canstock23497117.jpg`">\
     </div>\
     <a class="btn-floating waves-effect waves-light z-depth-2 delete" onclick="delete_entry({1})">\
         <i class="material-icons">delete</i>\
     </a>\
-    <a class="btn-floating waves-effect waves-light z-depth-2 error tooltipped" data-position="top" data-delay="50" id="error-tooltip-{1}" style="display: none;">\
+    <a class="btn-floating z-depth-2 error tooltipped" data-position="top" data-delay="100" id="error-tooltip-{1}" style="display: none;">\
         <i class="material-icons">error</i>\
     </a>\
 </div>\
@@ -96,7 +96,7 @@ function rewrite_form(){
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#src_photo_{0}'.format(i)).attr('src', e.target.result);
-                
+
             };
             reader.readAsDataURL(file);
         });
@@ -118,7 +118,7 @@ function reindex(){
         newTotalFiles[i] = totalFiles[oi];
         newTotalIds[i] = totalIds[oi];
     });
-    
+
     totalFiles = newTotalFiles;
     totalIds = newTotalIds;
     rewrite_form();
@@ -182,7 +182,7 @@ function show_errors(errors){
             $("#id_{0}_container".format(i)).append(error_msg.format(error));
     });
     $(document).ready(function(){
-        $('.tooltipped').tooltip({delay: 50});
+        $('.tooltipped').tooltip({delay: 100});
     });
 }
 
@@ -196,10 +196,10 @@ function post(){
     ajaxData.append( "change", $('input[name=change]').val() );
     if($('input[name=change]').val() == "1")
         ajaxData.append( "id", id );
-    
+
     $.each( deleteIds, function(i, id) {
         ajaxData.append( "delete-{0}-id".format(i), id );
-    });        
+    });
 
     $.each( totalFiles, function(i, file) {
         ajaxData.append( "form-{0}-file".format(i), file );
@@ -210,13 +210,13 @@ function post(){
     $.ajax({
             url: "/add_gallery/",
             type: "POST",
-            data: ajaxData,    
+            data: ajaxData,
             processData: false,
             contentType: false,
             success: (function(e){
                 window.location.replace("/admin/gallery/gallery/");
             }),
-            error: (function(XMLHttpRequest, textStatus, errorThrown) { 
+            error: (function(XMLHttpRequest, textStatus, errorThrown) {
                 show_errors(JSON.parse(XMLHttpRequest.responseText));
             }),
     });
@@ -262,10 +262,10 @@ if (isAdvancedUpload) {
         $.each( droppedFiles, function(i, file) {
             totalFiles.push(file);
         });
-        
+
         rewrite_form();
     }
-    
+
 //     $form.trigger('submit');
   });
 
@@ -277,7 +277,7 @@ $input.on('change', function(e) { // when drag & drop is NOT supported
         $.each( droppedFiles, function(i, file) {
             totalFiles.push(file);
         });
-        
+
         rewrite_form();
     }
 });
@@ -286,7 +286,3 @@ $form.hover(
        function(){ $('.box__file + label').addClass('accent-color'); },
        function(){ $('.box__file + label').removeClass('accent-color'); }
 );
-
-
-
-
