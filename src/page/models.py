@@ -45,6 +45,10 @@ class Category(CustomPermissionsMixin):
                              unique=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
 
+    @property
+    def url_link(self):
+        return "/category/" + self.slug
+
     def __unicode__(self):
         return self.title
 
@@ -65,6 +69,10 @@ class Subcategory(CustomPermissionsMixin):
         verbose_name = 'Subcategory'
         verbose_name_plural = 'Subcategories'
         index_text = "Manage"
+
+    @property
+    def url_link(self):
+        return "/subcategory/" + self.slug_sub
 
 
 class Article(File):
@@ -87,6 +95,10 @@ class Article(File):
         verbose_name_plural = "Articles"
         index_text = "Manage"
 
+    @property
+    def url_link(self):
+        return "/article/" + self.slug
+
 
 class SimplePage(File):
     def __init__(self, *args, **kwargs):
@@ -108,6 +120,10 @@ class SimplePage(File):
         verbose_name = "Simple page"
         verbose_name_plural = "Simple pages"
         index_text = "Manage"
+
+    @property
+    def url_link(self):
+        return "/simple/" + self.slug
 
 
 @receiver(pre_delete, sender=SimplePage)

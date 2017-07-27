@@ -22,15 +22,15 @@ from utility.admin import AdminChangeMixin, register_model_admin
 from .models import News
 
 
-class NewsAdmin(AdminChangeMixin):    
+class NewsAdmin(AdminChangeMixin):
     change_form = NewsChangeFormAdmin
     add_form = NewsCreationFormAdmin
     change_own_field = "author__id"
     change_own_owner_field = "id"
-    
+
     icon = '<i class="material-icons">rss_feed</i>'
 
-    list_display = ('short_name', 'author', 'date', 'slug',)
+    list_display = ('short_name', 'author', 'date', 'my_url_link',)
     list_filter = (
         ('date', DateFieldListFilter),
     )
@@ -41,17 +41,25 @@ class NewsAdmin(AdminChangeMixin):
         ('Page', {'fields': ('name', 'author')}),
         ('News content', {'fields': ('text', 'file')})
     )
-    
+
     add_fieldsets = (
         ('Page', {'fields': ('name',)}),
         ('News content', {'fields': ('text', 'file')})
     )
-    
-    search_fields = ('author__first_name', 'author__last_name', 'name', 'date', 'slug',)
+
+    search_fields = (
+        'author__first_name', 'author__last_name', 'name', 'date', 'slug',)
 
     ordering = ['date']
     filter_horizontal = ()
-      
+
+    def my_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.url_link, 'Access')
+
+    my_url_link.allow_tags = True
+    my_url_link.short_description = 'Link to page'
+
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
             self.fieldsets = self.add_fieldsets
@@ -63,7 +71,8 @@ class NewsAdmin(AdminChangeMixin):
             form = self.change_form
             form.text_initial = obj.text
             return form
-    
+
     pass
+
 
 register_model_admin(News, NewsAdmin)

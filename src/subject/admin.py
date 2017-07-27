@@ -23,9 +23,16 @@ from utility.admin import AdminChangeMixin, register_model_admin
 
 
 class SubjectAdmin(AdminChangeMixin):
-    list_display = ['name']
+    list_display = ['name', 'my_url_link']
     ordering = ['name']
     icon = '<i class="material-icons">import_contacts</i>'
+
+    def my_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.url_link, 'Access')
+
+    my_url_link.allow_tags = True
+    my_url_link.short_description = 'Link to page'
 
 
 class SubcategoryAdmin(AdminChangeMixin):
@@ -36,7 +43,7 @@ class SubcategoryAdmin(AdminChangeMixin):
 
     icon = '<i class="material-icons">queue</i>'
 
-    list_display = ('name', 'author', 'subject', 'date', 'slug',)
+    list_display = ('name', 'author', 'subject', 'date', 'my_url_link',)
     list_filter = (
         ('date', DateFieldListFilter),
         'subject'
@@ -60,6 +67,13 @@ class SubcategoryAdmin(AdminChangeMixin):
     ordering = ['date']
     filter_horizontal = ()
 
+    def my_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.url_link, 'Access')
+
+    my_url_link.allow_tags = True
+    my_url_link.short_description = 'Link to page'
+
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
             self.fieldsets = self.add_fieldsets
@@ -81,7 +95,7 @@ class SubjectPostAdmin(AdminChangeMixin):
     change_own_field = "subject__in"
     change_own_owner_field = "subjects"
     list_display = ['name', 'subject', 'subcategory', 'author',
-                    'date', 'slug']
+                    'date', 'my_url_link']
     list_filter = (
         ('date', DateFieldListFilter),
         'subject'
@@ -112,6 +126,13 @@ class SubjectPostAdmin(AdminChangeMixin):
 
     ordering = ['date']
     filter_horizontal = ()
+
+    def my_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.url_link, 'Access')
+
+    my_url_link.allow_tags = True
+    my_url_link.short_description = 'Link to page'
 
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:

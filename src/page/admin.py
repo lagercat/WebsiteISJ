@@ -32,7 +32,7 @@ class ArticleAdmin(AdminChangeMixin):
 
     icon = '<i class="material-icons">assignment</i>'
     list_display = ['short_name', 'subcategory', 'author', 'date',
-                    'slug']
+                    'my_url_link']
     list_filter = (
         ('date', DateFieldListFilter),
     )
@@ -54,6 +54,13 @@ class ArticleAdmin(AdminChangeMixin):
 
     ordering = ['date']
     filter_horizontal = ()
+
+    def my_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.url_link, 'Access')
+
+    my_url_link.allow_tags = True
+    my_url_link.short_description = 'Link to page'
 
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
@@ -78,7 +85,7 @@ class SimplePageAdmin(AdminChangeMixin):
 
     icon = '<i class="material-icons">list</i>'
     list_display = ['short_name', 'category', 'author', 'date',
-                    'slug']
+                    'my_url_link']
     list_filter = (
         ('date', DateFieldListFilter),
     )
@@ -101,6 +108,13 @@ class SimplePageAdmin(AdminChangeMixin):
     ordering = ['date']
     filter_horizontal = ()
 
+    def my_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.url_link, 'Access')
+
+    my_url_link.allow_tags = True
+    my_url_link.short_description = 'Link to page'
+
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
             self.fieldsets = self.add_fieldsets
@@ -118,12 +132,26 @@ class SimplePageAdmin(AdminChangeMixin):
 
 class PageAdmin(admin.ModelAdmin):
     icon = '<i class="material-icons">chrome_reader_mode</i>'
-    list_display = ['title']
+    list_display = ['title', 'my_url_link']
+
+    def my_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.url_link, 'Access')
+
+    my_url_link.allow_tags = True
+    my_url_link.short_description = 'Link to page'
 
 
 class SubcategoryAdmin(admin.ModelAdmin):
     icon = '<i class="material-icons">dashboard</i>'
-    list_display = ['name']
+    list_display = ['name', 'my_url_link']
+
+    def my_url_link(self, obj):
+        return '<a href="%s">%s</a>' % (
+            obj.url_link, 'Access')
+
+    my_url_link.allow_tags = True
+    my_url_link.short_description = 'Link to page'
 
 
 register_model_admin(Category, PageAdmin)

@@ -49,6 +49,10 @@ class News(File):
         verbose_name_plural = "News"
         index_text = "Manage"
 
+    @property
+    def url_link(self):
+        return "/news/"+self.slug
+
 
 @receiver(pre_delete, sender=News)
 def file_delete(sender, instance, **kwargs):
