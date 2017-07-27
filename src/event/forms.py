@@ -27,7 +27,7 @@ class EventCreationFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     date = forms.SplitDateTimeField()
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget())
-    geolocation = forms.CharField(widget=forms.HiddenInput())
+    geolocation = forms.CharField(widget=forms.HiddenInput(), label='')
 
     show_files = True
     show_preview = True
@@ -39,12 +39,16 @@ class EventCreationFormAdmin(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(EventCreationFormAdmin, self).clean()
-        geoloc = cleaned_data['geolocation']
-        addr = cleaned_data['address']
-        if geoloc == "Invalid address or no results":
+        try:
+            geoloc = cleaned_data['geolocation']
+            addr = cleaned_data['address']
+            if geoloc == "Invalid address or no results":
+                self.add_error("address", forms.ValidationError("The address is invalid"))
+            if addr == "Invalid geolocation":
+                self.add_error("geolocation", forms.ValidationError("The geolocation is invalid"))
+        except:
             self.add_error("address", forms.ValidationError("The address is invalid"))
-        if addr == "Invalid geolocation":
-            self.add_error("geolocation", forms.ValidationError("The geolocation is invalid"))
+
         return cleaned_data
 
     def clean_file(self):
