@@ -66,8 +66,8 @@ class SchoolCreationFormAdmin(forms.ModelForm):
 class SchoolChangeFormAdmin(forms.ModelForm):
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget)
     geolocation = forms.CharField()
-    telephone = PhoneNumberField()
-    fax = PhoneNumberField()
+    telephone = PhoneNumberField(required=False)
+    fax = PhoneNumberField(required=False)
 
     class Meta:
         model = School
