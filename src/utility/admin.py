@@ -84,7 +84,6 @@ class AdminChangeMixin(admin.ModelAdmin):
         """
             Disable buttons for `viewers` in `change_view`
         """
-        print extra_context
         extra_context = extra_context or {}
         extra_context['change'] = True
         extra_context['google_maps_api_key'] = settings.GOOGLE_MAPS_API_KEY
