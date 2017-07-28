@@ -27,27 +27,31 @@ class EventCreationFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     date = forms.SplitDateTimeField()
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget())
-    geolocation = forms.CharField()
-    
+    geolocation = forms.CharField(widget=forms.HiddenInput(), label='')
+
     show_files = True
     show_preview = True
     preview_url = "/preview_event/"
 
     class Meta:
         model = Event
-        fields = ('name', 'file')
+        fields = ('name', 'file',)
 
     def clean(self):
         cleaned_data = super(EventCreationFormAdmin, self).clean()
-        geoloc = cleaned_data['geolocation']
-        addr = cleaned_data['address']
-        if geoloc == "Invalid address or no results":
+        try:
+            geoloc = cleaned_data['geolocation']
+            addr = cleaned_data['address']
+            if geoloc == "Invalid address or no results":
+                self.add_error("address", forms.ValidationError("The address is invalid"))
+            if addr == "Invalid geolocation":
+                self.add_error("geolocation", forms.ValidationError("The geolocation is invalid"))
+        except:
             self.add_error("address", forms.ValidationError("The address is invalid"))
-        if addr == "Invalid geolocation":
-            self.add_error("geolocation", forms.ValidationError("The geolocation is invalid"))
+
         return cleaned_data
-        
-    def clean_file(self):        
+
+    def clean_file(self):
         uploaded_file = self.cleaned_data['file']
         error = clean_file(uploaded_file, image=True)
         if error:
@@ -79,15 +83,15 @@ class EventChangeFormAdmin(forms.ModelForm):
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget)
     geolocation = forms.CharField()
-    
+
     show_files = True
     show_preview = True
     preview_url = "/preview_event/"
-    
+
     class Meta:
         model = Event
         fields = ('name', 'file')
-        
+
     def __init__(self, *args, **kwargs):
         initial = {
           'text': self.text_initial,
@@ -97,7 +101,7 @@ class EventChangeFormAdmin(forms.ModelForm):
         }
         kwargs['initial'] = initial
         super(EventChangeFormAdmin, self).__init__(*args, **kwargs)
-        
+
     def clean(self):
         cleaned_data = super(EventChangeFormAdmin, self).clean()
         geoloc = cleaned_data['geolocation']
@@ -107,9 +111,9 @@ class EventChangeFormAdmin(forms.ModelForm):
         if addr == "Invalid geolocation":
             self.add_error("geolocation", forms.ValidationError("The geolocation is invalid"))
         return cleaned_data
-        
+
     def clean_file(self):
-        
+
         uploaded_file = self.cleaned_data['file']
         error = clean_file(uploaded_file, image=True)
         if error:
@@ -123,7 +127,7 @@ class EventChangeFormAdmin(forms.ModelForm):
         if data < now:
             raise forms.ValidationError("Data nu e valida.Nu puteti posta un eveniment in trecut!")
         return data
-      
+
     def save(self, commit=True):
         uploaded_file = super(EventChangeFormAdmin, self).save(commit=False)
         uploaded_file.text = self.cleaned_data['text']
