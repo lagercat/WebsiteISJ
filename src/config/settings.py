@@ -35,7 +35,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "isj.tm.edu.ro", "isj.tm.edu.ro:8080",
                  "www.isj.tm.edu.ro", "new.isj.tm.edu.ro", "192.168.1.248",
-                 "217.73.174.42", "217.73.174.42:8080","isj.website","www.isj.website","46.101.150.229"]
+                 "217.73.174.42", "217.73.174.42:8080",
+                 "isj.website", "www.isj.website", "46.101.150.229"]
 
 INSTALLED_APPS = [
     # admin theme
@@ -50,7 +51,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
 
     # django packages
     # 'django_nose',
@@ -79,7 +79,6 @@ INSTALLED_APPS = [
     'search',
 ]
 
-SITE_ID = 1
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -192,7 +191,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(WEBROOT_DIR, 'static/')
 STATICFILES_DIRS = (os.path.join(os.path.dirname(os.path.dirname(__file__)),
-                    "static"),)
+                                 "static"),)
 
 NOCAPTCHA = True
 RECAPTCHA_USE_SSL = False
