@@ -31,11 +31,11 @@ RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 
 GOOGLE_MAPS_API_KEY = os.environ.get('GOOGLE_MAPS_API_KEY')
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "isj.tm.edu.ro", "isj.tm.edu.ro:8080",
                  "www.isj.tm.edu.ro", "new.isj.tm.edu.ro", "192.168.1.248",
-                 "217.73.174.42", "217.73.174.42:8080"]
+                 "217.73.174.42", "217.73.174.42:8080","isj.website","www.isj.website","46.101.150.229"]
 
 INSTALLED_APPS = [
     # admin theme
