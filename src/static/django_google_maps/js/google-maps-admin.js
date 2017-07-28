@@ -97,15 +97,15 @@ function googleMapAdmin() {
             if (existinglocation) {
                 self.setMarker(latlng);
             }
-            
+
             $("#id_address").on("change", function(){
                   self.codeAddress();
             });
-            $("#id_geolocation").change(function() {self.decodeAdress();});
+            $("input[id=id_geolocation]").change(function() {self.decodeAdress();});
         },
 
         getExistingLocation: function() {
-            var geolocation = $("#id_geolocation").val();
+            var geolocation = $("input[id=id_geolocation]").val();
             if (geolocation) {
                 return geolocation.split(',');
             }
@@ -124,12 +124,12 @@ function googleMapAdmin() {
                     self.updateGeolocation(latlng);
                     self.updateAddress(address);
                 } else {
-                    $("#id_geolocation")
+                    $("input[id=id_geolocation]")
                         .val("Invalid address or no results");
                 }
             });
         },
-        
+
         centerMarker: function(latlng){
             map.setCenter(latlng);
             map.setZoom(18);
@@ -161,7 +161,7 @@ function googleMapAdmin() {
             marker.setDraggable(true);
             google.maps.event.addListener(marker, 'dragend', function(new_location) {
                 self.updateGeolocation(new_location.latLng);
-                $("#id_geolocation").trigger("change");
+                $("input[id=id_geolocation]").trigger("change");
             });
         },
 
@@ -170,15 +170,15 @@ function googleMapAdmin() {
         },
 
         updateGeolocation: function(latlng) {
-            $("#id_geolocation")
+            $("input[id=id_geolocation]")
                 .val(latlng.lat() + "," + latlng.lng());
         },
-        
+
         updateAddress: function(address) {
             $("#id_address")
                 .val(address);
         },
-        
+
         decodeAdress: function() {
             var input = document.getElementById('id_geolocation').value;
             var latlngStr = input.split(',', 2);
@@ -217,5 +217,5 @@ $(document).ready(function() {
         }
     });
     googlemap.initialize();
-    
+
 });

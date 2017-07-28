@@ -1,4 +1,21 @@
+<!-- Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males-->
+<!---->
+<!-- This file is part of WebsiteISJ-->
+<!---->
+<!-- WebsiteISJ is free software: you can redistribute it and/or modify-->
+<!-- it under the terms of the GNU General Public License as published by-->
+<!-- the Free Software Foundation, either version 3 of the License, or-->
+<!-- (at your option) any later version.-->
+<!---->
+<!-- WebsiteISJ is distributed in the hope that it will be useful,-->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of-->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the-->
+<!-- GNU General Public License for more details.-->
+<!---->
+<!-- You should have received a copy of the GNU General Public License-->
+<!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
 {% extends "base.html" %}
+{% block title %}{{ name }}{% endblock %}
 {% load staticfiles %}
 {% block content %}
 
@@ -35,7 +52,7 @@
 
 
                       {% for subcategory in subcategories %}
-                        <a href="/{{ subcategory.name }}" class="list-group-item act">{{ subcategory.name }}</a>
+                        <a href="/subcategory/{{ subcategory.slug_sub }}" class="list-group-item act">{{ subcategory.name }}</a>
 
                       {% endfor %}
 
@@ -62,7 +79,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Specializări</h3>
+                    
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>

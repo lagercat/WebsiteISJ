@@ -1,0 +1,304 @@
+<!-- Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males-->
+<!---->
+<!-- This file is part of WebsiteISJ-->
+<!---->
+<!-- WebsiteISJ is free software: you can redistribute it and/or modify-->
+<!-- it under the terms of the GNU General Public License as published by-->
+<!-- the Free Software Foundation, either version 3 of the License, or-->
+<!-- (at your option) any later version.-->
+<!---->
+<!-- WebsiteISJ is distributed in the hope that it will be useful,-->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of-->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the-->
+<!-- GNU General Public License for more details.-->
+<!---->
+<!-- You should have received a copy of the GNU General Public License-->
+<!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+ <!-- Page breadcrumb -->
+ <section id="mu-page-breadcrumb">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-page-breadcrumb-area">
+           <h2>Rezultatele căutarii</h2>
+           <ol class="breadcrumb">
+            <li><a href="/">Acasă</a></li>
+            <li class="active">Căutare</li>
+          </ol>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+
+ <!-- End breadcrumb -->
+ <section id="mu-course-content">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-course-content-area">
+            <div class="row">
+              <div class="col-md-9">
+                <!-- start course content container -->
+                <div class="mu-course-container mu-blog-archive">
+                {% if suggestion != query and suggestion %}
+                  <a href="/search/?q={{ suggestion }}">
+                    <h4>Încercați și varianta <i>{{ suggestion }}</i></h4>
+                  </a>
+                {% endif %}
+
+
+                  <div class="row">
+
+                   {% if query and page_obj.object_list %}
+                    {% for result in page_obj.object_list %}
+
+
+                        {% if result.content_type == "gallery.gallery" %}
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                 <a href="/gallery/{{ result.slug }}">
+                            <img style="width: 400px;height: 200px" src='/media/{{ result.file }}' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/gallery/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
+
+                                  <a class="mu-read-more-btn" href="/gallery/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
+
+
+                        {% if result.content_type == "event.event" %}
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                 <a href="/event/{{ result.slug }}">
+                            <img style="width: 400px;height: 200px" src='/media/{{ result.file }}' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/event/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
+
+                                  <a class="mu-read-more-btn" href="/event/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
+
+
+
+                         {% if result.content_type == "page.category" %}
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                 <a href="/category/{{ result.slug }}">
+                            <img style="width: 400px;height: 200px" src= '/static/assets/img/category.jpeg' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/category/{{ result.slug }}">{{ result.title }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
+
+                                  <a class="mu-read-more-btn" href="/category/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
+
+
+
+                        {% if result.content_type == "page.subcategory" %}
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                <a href="/subcategory/{{ result.slug_sub }}"><img style="width: 400px;height: 200px" src= '/static/assets/img/category.jpeg' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/subcategory/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
+
+                                  <a class="mu-read-more-btn" href="/subcategory/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
+
+
+
+                        {% if result.content_type == "page.article" %}
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                <a href="/article/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/article/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
+
+                                  <a class="mu-read-more-btn" href="/article/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
+
+
+
+
+                        {% if result.content_type == "page.simplepage" %}
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                <a href="/simple/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/simple/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
+
+                                  <a class="mu-read-more-btn" href="/simple/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
+
+
+
+                        {% if result.content_type == "school.school" %}
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                    {% if result.file %}
+                                                <a href="/schools/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
+                                        {% else %}
+                                                <a href="/schools/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/static/assets/img/school.jpg' alt="img"></a>
+                                        {% endif %}
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/schools/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
+
+                                  <a class="mu-read-more-btn" href="/schools/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
+
+
+
+                        {% if result.content_type == "subject.subcategory" %}
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                <a href="/subject/{{ result.subject }}/{{ result.name }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/subject/{{ result.subject }}/{{ result.name }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
+
+                                  <a class="mu-read-more-btn" href="/subject/{{ result.subject }}/{{ result.name }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
+
+
+                        {% if result.content_type == "subject.subjectpost" %}
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                <a href="/simple/{{ result.subject }}/{{ result.slug }}">
+                                    <img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img">
+                                </a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/simple/{{ result.subject }}/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
+
+                                  <a class="mu-read-more-btn" href="/simple/{{ result.subject }}/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
+
+
+
+
+
+
+                    {% endfor %}
+                    {% else %}
+                    <h3>Nu sunt informaţii de afişat ! </h3>
+                    {% endif %}
+                  </div>
+                </div>
+                <!-- end course content container -->
+                <!-- start course pagination -->
+                <div class="mu-pagination">
+                  <nav>
+                    <ul class="pagination">
+                      {% if page_obj.has_previous %}
+                      <li>
+                        <a href="?q={{ query }}&page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                          <span class="fa fa-angle-left"></span> Înapoi
+                        </a>
+                      </li>
+                      {% endif %}
+                      {% for num in paginator.page_range %}
+                        {% if num == page_obj.number %}
+                          <li class="active"><a href="?q={{ query }}&page={{ num }}">{{ num }}</a></li>
+                        {% else %}
+                          <li><a href="?q={{ query }}&page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if page_obj.has_next %}
+                      <li>
+                        <a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}" aria-label="Next">
+                         Înainte <span class="fa fa-angle-right"></span>
+                        </a>
+                      </li>
+                      {% endif %}
+                    </ul>
+                  </nav>
+                </div>
+                <!-- end course pagination -->
+              </div>
+              <div class="col-md-3">
+                <!-- start sidebar -->
+                <aside class="mu-sidebar">
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
+                    <ul class="mu-sidebar-catg">
+                      {% for subject in left_subjects %}
+                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  <!-- end single sidebar -->
+                </aside>
+                <!-- / end sidebar -->
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+
+{% endblock %}

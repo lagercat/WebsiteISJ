@@ -1,6 +1,27 @@
+<!-- Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males-->
+<!---->
+<!-- This file is part of WebsiteISJ-->
+<!---->
+<!-- WebsiteISJ is free software: you can redistribute it and/or modify-->
+<!-- it under the terms of the GNU General Public License as published by-->
+<!-- the Free Software Foundation, either version 3 of the License, or-->
+<!-- (at your option) any later version.-->
+<!---->
+<!-- WebsiteISJ is distributed in the hope that it will be useful,-->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of-->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the-->
+<!-- GNU General Public License for more details.-->
+<!---->
+<!-- You should have received a copy of the GNU General Public License-->
+<!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
 {% extends "base.html" %}
+{% block title %}{{ album_name }}{% endblock %}
+{% block link_add %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+{% endblock %}
 {% load staticfiles %}
 {% block content %}
+
 
  <!-- Page breadcrumb -->
  <section id="mu-page-breadcrumb">
@@ -30,8 +51,29 @@
           <!-- start title -->
           <div class="mu-title">
 
-            <p>„O minte educată îți permite să susții un gând fără a-l accepta.” — Aristotel</p>
           <!-- end title -->
+  {% if photos %}
+
+          <div class="w3-content" style="max-width:900px">
+
+                  {% for image in photos %}
+                    <img class="mySlides" src="{{ image.file.url }}" style="width:100%">
+                         {% endfor %}
+
+          </div>
+
+<div class="w3-center">
+  <div class="w3-section">
+    <button class="w3-button w3-light-grey" onclick="plusDivs(-1)">❮ Prev</button>
+    <button class="w3-button w3-light-grey" onclick="plusDivs(1)">Next ❯</button>
+  </div>
+     {% for image in photos %}
+  <button class="w3-button demo" onclick="currentDiv({{ forloop.counter }})">{{ forloop.counter }}</button>
+ {% endfor %}
+</div>
+          {% endif %}
+
+
           <!-- start gallery content -->
           <div class="mu-gallery-content">
             <div class="mu-gallery-body">
@@ -54,7 +96,7 @@
 								  	<div class="portfolio-detail">
 					                    <a href="#" class="modal-close-btn"><span class="fa fa-times"></span></a>
 					                    <img src="{{ image.file.url }}" alt="img-9"/>
-					                 
+
 
 
 				                	</div>
@@ -74,5 +116,34 @@
      </div>
    </div>
  </section>
+
+    <script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function currentDiv(n) {
+  showDivs(slideIndex = n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+     dots[i].className = dots[i].className.replace(" w3-red", "");
+  }
+  x[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " w3-red";
+}
+</script>
 
  {% endblock %}

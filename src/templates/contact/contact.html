@@ -1,3 +1,19 @@
+<!-- Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males-->
+<!---->
+<!-- This file is part of WebsiteISJ-->
+<!---->
+<!-- WebsiteISJ is free software: you can redistribute it and/or modify-->
+<!-- it under the terms of the GNU General Public License as published by-->
+<!-- the Free Software Foundation, either version 3 of the License, or-->
+<!-- (at your option) any later version.-->
+<!---->
+<!-- WebsiteISJ is distributed in the hope that it will be useful,-->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of-->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the-->
+<!-- GNU General Public License for more details.-->
+<!---->
+<!-- You should have received a copy of the GNU General Public License-->
+<!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load widget_tweaks %}
@@ -60,13 +76,13 @@
 
                                         {% if  field.label == 'First name' %}
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">First Name</label>
-                                            {{ field|add_class:"form-control"|add_class:"comment-form-author"|attr:"placeholder:Enter your first name"|attr:"required:required"|attr:"id=exampleInputEmail1"}}
+                                            <label for="exampleInputEmail1">Prenume</label>
+                                            {{ field|add_class:"form-control"|add_class:"comment-form-author"|attr:"placeholder:Introduceti prenumele dvs."|attr:"required:required"|attr:"id=exampleInputEmail1"}}
                                         </div>
                                         {% if field.errors %}
                                                         <div class="alert alert-danger fade in" id="input-alert">
                                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                        <strong>Warning!</strong>
+                                                        <strong>Atentie!</strong>
 				                                        {% for error in field.errors %}
 				                                                {{ error }}
 				                                        {% endfor %}
@@ -76,14 +92,14 @@
                                        {% elif  field.label == 'Last name' %}
 
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Last Name</label>
-                                            {{ field|add_class:"form-control"|add_class:"comment-form-author"|attr:"placeholder:Enter your last name"|attr:"required:required"|attr:"id=exampleInputEmail1"}}
+                                            <label for="exampleInputEmail1">Nume</label>
+                                            {{ field|add_class:"form-control"|add_class:"comment-form-author"|attr:"placeholder:Introdu numele tau"|attr:"required:required"|attr:"id=exampleInputEmail1"}}
                                         </div>
 
                                         {% if field.errors %}
                                                         <div class="alert alert-danger fade in" id="input-alert">
                                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                        <strong>Warning!</strong>
+                                                        <strong>Atentie!</strong>
 				                                        {% for error in field.errors %}
 				                                                {{ error }}
 				                                        {% endfor %}
@@ -96,13 +112,13 @@
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">E-mail</label>
-                                            {{ field|add_class:"form-control"|add_class:"comment-form-email"|attr:"placeholder:Enter  your e-mail "|attr:"required:required"}}
+                                            {{ field|add_class:"form-control"|add_class:"comment-form-email"|attr:"placeholder:Introdu email-ul tau "|attr:"required:required"}}
                                         </div>
 
                                         {% if field.errors %}
                                                         <div class="alert alert-danger fade in" id="input-alert">
                                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                        <strong>Warning!</strong>
+                                                        <strong>Atentie!</strong>
 				                                        {% for error in field.errors %}
 				                                                {{ error }}
 				                                        {% endfor %}
@@ -114,14 +130,14 @@
 
 
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Subject</label>
-                                            {{ field|add_class:"form-control"|add_class:"comment-form-email"|attr:"placeholder:Enter a subject "|attr:"required:required"}}
+                                            <label for="exampleInputEmail1">Subiect</label>
+                                            {{ field|add_class:"form-control"|add_class:"comment-form-email"|attr:"placeholder:Introdu subiectul mesajului"|attr:"required:required"}}
                                         </div>
 
                                         {% if field.errors %}
                                                         <div class="alert alert-danger fade in" id="input-alert">
                                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                        <strong>Warning!</strong>
+                                                       <strong>Atentie!</strong>
 				                                        {% for error in field.errors %}
 				                                                {{ error }}
 				                                        {% endfor %}
@@ -131,17 +147,17 @@
                                     {% elif  field.label == 'Message' %}
 
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Message</label>
+                                            <label for="exampleInputPassword1">Mesaj</label>
                                             <div>
 
-                                                 {{ field|add_class:"form-control"|add_class:"comment-form-comment"|attr:"placeholder:Enter your message "|attr:"required:required"}}
+                                                 {{ field|add_class:"form-control"|add_class:"comment-form-comment"|attr:"placeholder:Introdu mesajul tau"|attr:"required:required"}}
                                             </div>
                                         </div>
 
                                         {% if field.errors %}
                                                         <div class="alert alert-danger fade in" id="input-alert">
                                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                        <strong>Warning!</strong>
+                                                        <strong>Atentie!</strong>
 				                                        {% for error in field.errors %}
 				                                                {{ error }}
 				                                        {% endfor %}
@@ -156,7 +172,7 @@
                                            {% if field.errors %}
                                                         <div class="alert alert-danger fade in" id="input-alert">
                                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                        <strong>Warning!</strong>
+                                                        <strong>Atentie!</strong>
 				                                        {% for error in field.errors %}
 				                                                {{ error }}
 				                                        {% endfor %}
@@ -169,7 +185,7 @@
                                      {% endfor %}
                     <br>
 
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-default">Trimite</button>
 
 
 

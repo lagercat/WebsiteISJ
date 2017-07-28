@@ -1,3 +1,19 @@
+# Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males
+#
+# This file is part of WebsiteISJ
+#
+# WebsiteISJ is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# WebsiteISJ is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from __future__ import unicode_literals
 
 import os
@@ -5,11 +21,9 @@ import os
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 
-from authentication.models import ExtendedUser
 from django_google_maps import fields as map_fields
 from post.models import File
 from tinymce.models import HTMLField
-from utility.models import CustomPermissionsMixin
 
 
 def user_directory_path(instance, filename):
@@ -37,6 +51,10 @@ class Event(File):
         verbose_name = "Event"
         verbose_name_plural = "Events"
         index_text = "Manage"
+
+    @property
+    def url_link(self):
+        return "/event/" + self.slug
 
 
 @receiver(pre_delete, sender=Event)

@@ -1,0 +1,70 @@
+<!-- Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males-->
+<!---->
+<!-- This file is part of WebsiteISJ-->
+<!---->
+<!-- WebsiteISJ is free software: you can redistribute it and/or modify-->
+<!-- it under the terms of the GNU General Public License as published by-->
+<!-- the Free Software Foundation, either version 3 of the License, or-->
+<!-- (at your option) any later version.-->
+<!---->
+<!-- WebsiteISJ is distributed in the hope that it will be useful,-->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of-->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the-->
+<!-- GNU General Public License for more details.-->
+<!---->
+<!-- You should have received a copy of the GNU General Public License-->
+<!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
+
+    <h2>Search</h2>
+
+    <form method="get" action="/search/">
+        <table>
+            {{ form.q }}
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Search">
+                </td>
+            </tr>
+        </table>
+
+        {% if query %}
+            <h3>Results</h3>
+            {{ suggestion }}
+            {% for result in page_obj.object_list %}
+                <p>
+                {% if result.content_type == "gallery.gallery" %} 
+                    <a href="/gallery_img/{{ result.slug }}"> {{ result.name }} </a>
+                {% endif %}
+                {% if result.content_type == "event.event" %}
+                    <a href="/event/{{ result.slug }}"> {{ result.name }} </a>
+                {% endif %}
+                {% if result.content_type == "news.news" %}
+                    <a href="/news/{{ result.slug }}"> {{ result.name }} </a>
+                {% endif %}
+                {% if result.content_type == "page.category" %}
+                    <a href="/category/{{ result.title }}"> {{ result.title }} </a>
+                {% endif %}
+                {% if result.content_type == "page.subcategory" %}
+                    <a href="/{{ result.name }}"> {{ result.name }} </a>
+                {% endif %}
+                {% if result.content_type == "page.article" %}
+                    <a href="/{{ result.subcategory }}/{{ result.slug }}"> {{ result.name }} </a>     
+                {% endif %}
+                {% if result.content_type == "page.simplepage" %}
+                    <a href="/simple/{{ result.slug }}"> {{ result.name }} </a>
+                {% endif %}
+                </p>
+            {% empty %}
+                <p>No results found.</p>
+            {% endfor %}
+
+            {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        {% endif %}
+    </form>

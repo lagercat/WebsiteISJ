@@ -1,4 +1,21 @@
+<!-- Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males-->
+<!---->
+<!-- This file is part of WebsiteISJ-->
+<!---->
+<!-- WebsiteISJ is free software: you can redistribute it and/or modify-->
+<!-- it under the terms of the GNU General Public License as published by-->
+<!-- the Free Software Foundation, either version 3 of the License, or-->
+<!-- (at your option) any later version.-->
+<!---->
+<!-- WebsiteISJ is distributed in the hope that it will be useful,-->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of-->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the-->
+<!-- GNU General Public License for more details.-->
+<!---->
+<!-- You should have received a copy of the GNU General Public License-->
+<!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
 {% extends "base.html" %}
+{% block title %}ISJ TIMIS{% endblock %}
 {% load staticfiles %}
 {% block content %}
 
@@ -15,8 +32,7 @@
       <div class="mu-slider-content">
         <h4>Bine aţi venit !</h4>
         <span></span>
-        <h2>Suntem aici pentru a te ajuta</h2>
-        <p>Inspectoratul Şcolar Judeţean Timiş, instituţie descentralizată de specialitate a Ministerului Educatiei si Cercetării Stiintifice</p>
+        <p>Suntem aici pentru a te ajuta Inspectoratul Şcolar Judeţean Timiş, instituţie descentralizată de specialitate a Ministerului Educatiei si Cercetării Stiintifice</p>
         <a href="#despre" class="mu-read-more-btn">Află mai multe</a>
       </div>
     </div>
@@ -29,11 +45,10 @@
         </figure>
       </div>
       <div class="mu-slider-content">
-        <h4>M I S I U N E</h4>
+        <h4>Misiune</h4>
         <span></span>
-        <h3>Inspectoratul Şcolar Judeţean Timiş promovează si încurajează cresterea calitătii actului educativ</h3>
-        <p>prin îmbunătătirea activitătii proprii, dar si  prin crearea unui mediu stimulativ si motivant pentru copii, tineri si cadre didactice,</p>
-        <a href="#" class="mu-read-more-btn">Află mai mult</a>
+        <p>Inspectoratul Şcolar Judeţean Timiş promovează si încurajează cresterea calitătii actului educativ prin îmbunătătirea activitătii proprii, dar si  prin crearea unui mediu stimulativ si motivant pentru copii, tineri si cadre didactice,</p>
+        <a href="#despre" class="mu-read-more-btn">Află mai multe</a>
       </div>
     </div>
     <!-- Start single slider item -->
@@ -50,28 +65,25 @@
           <div class="mu-service-area">
             <!-- Start single service -->
             <div class="mu-service-single">
+              <a href="/news_all" style="color: white;">
               <span class="glyphicon glyphicon-bullhorn"></span>
-              <a href="/news_all">
               <h3 style="color: white;">Noutăţi</h3>
-              <p>Te ţinem la curent cu tot ce se întamplă</p>
               </a>
             </div>
             <!-- Start single service -->
             <!-- Start single service -->
             <div class="mu-service-single">
+              <a href="/events_all" style="color: white;">
               <span class="glyphicon glyphicon-pushpin"></span>
-              <a href="/events_all">
               <h3 style="color: white">Evenimente</h3>
-              <p>Aflaţi informaţii despre evenimente </p>
               </a>
             </div>
             <!-- Start single service -->
             <!-- Start single service -->
             <div class="mu-service-single">
+              <a href="/subject_page_all" style="color: white;">
               <span class="glyphicon glyphicon-book"></span>
-              <a href="/subject_page_all">
-              <h3>Specialități</h3>
-              <p>Informaţii de care ai nevoie</p>
+              <h3 style="color: white;">Specialități</h3>
               </a>
             </div>
             <!-- Start single service -->
@@ -82,7 +94,7 @@
   </section>
   <!-- End service  -->
 
-  <!-- Start about us -->
+    <!-- Start about us -->
   <section id="mu-about-us">
     <div class="container">
       <div class="row">
@@ -101,19 +113,41 @@
                     <li>Asigură aplicarea legislaţiei în organizarea, conducerea şi desfăşurarea procesului de învăţământ;</li>
                     <li>Asigură calitatea învăţământului şi respectarea standardelor naţionale prin inspecţia şcolară;</li>
                     <li>Asigură, împreună cu autorităţile administraţiei publice locale, şcolarizarea elevilor pe durata învăţământului obligatoriu;</li>
-                    <li>Coordoneaza încadrarea unităţilor de învăţământ cu personal didactic;</li>
-                    <li>Organizează şi îndrumă activitatea de perfecţionare a personalului din învăţământul preuniversitar;</li>
-                  </ul>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis quaerat harum facilis excepturi et? Mollitia!</p>
+                     <li>Asigură, împreună cu autorităţile administraţiei publice locale, şcolarizarea elevilor pe durata învăţământului obligatoriu;</li>
+                  <div class="container">
+                     <div >
+                        <div>
+                          <div class="mu-about-us-area">
+                            <div >
+
+                                <div id="first-button" class="edu" style="background-image: url({% static "assets/img/edu-background.png" %});">
+                                  <p class="edu-text-1">Înscrierea</p>
+                                  <p class="edu-text">în învățământul primar</p>
+                                  <p class="edu-year edu-year-button"></p>
+                                </div>
+                                <div id="second-button" class="edu" style="background-image: url({% static "assets/img/edu-background.png" %});">
+                                  <p class="edu-text-1">Înscrierea</p>
+                                  <p class="edu-text">în învăţământul preşcolar</p>
+                                  <p class="edu-year edu-year-button"></p>
+
+                                </div>
+                            </div>
+                          </div>
+                     </div>
+                  </div>
+                   </div>
+
+
                 </div>
               </div>
               <div class="col-lg-6 col-md-6">
-                <div class="mu-about-us-right">
-                <a id="mu-abtus-video" href="https://www.youtube.com/watch?v=1kX11JZpw7E" target="mutube-video">
-                  <img src="{% static "assets/img/cladire.jpg" %}" alt="img">
-                </a>
+                <div >
+
+                <iframe width="555" height="402"
+                src="https://www.youtube.com/embed/1-fjuNmruuM">
+                </iframe>
+
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -121,7 +155,6 @@
     </div>
   </section>
   <!-- End about us -->
-
   <!-- Start features section -->
   <section id="mu-features">
     <div class="container">
@@ -132,7 +165,7 @@
             <div class="mu-title">
               <h2>Specialităţi</h2>
               <p>În această secţiune veţi găsi informaţii relevante fiecărei discipline</p>
-              <a href="/subject_page_all" class="mu-read-more-btn " style="color: #0f0f0f">Toate Specializarile</a>
+              <a href="/subject_page_all" class="mu-read-more-btn " style="color: #0f0f0f; border: 1px solid #000;">Toate Specializarile</a>
             </div>
             <!-- End Title -->
             <!-- Start features content -->
@@ -182,12 +215,12 @@
               <div class="col-lg-4 col-md-4 col-xs-12">
                 <div class="mu-latest-course-single">
                   <figure class="mu-latest-course-img">
-                    <a ><img style="max-width: 400px;max-height: 180px" src= '{{ event.file.url }}' alt="img"></a>
-                    <figcaption class="mu-latest-course-imgcaption">
-                      <a href="/event/{{ event.slug }}" >{{ event.name|truncatechars:10 }}</a>
-                      <span><i class="fa fa-clock-o"></i>{{ event.date }}</span>
-                    </figcaption>
+                    <a ><img src= '{{ event.file.url }}' alt="img"></a>
+
                   </figure>
+                  <figcaption class="mu-latest-course-imgcaption">
+                      <a href="/event/{{ event.slug }}"  title="{{ event.name }}" >{{ event.name|truncatewords:5| truncatechars:20 }}</a>
+                  </figcaption>
                   <div class="mu-latest-course-single-content">
                     <div class="mu-latest-course-single-contbottom">
                       <a class="mu-course-details" href="/event/{{ event.slug }}">Află mai mult</a>
@@ -234,7 +267,7 @@
 
               <p>Vă ţinem la curent cu cele mai noi informaţii</p>
 
-                  <a href="/news_all" class="mu-read-more-btn " style="color: #0f0f0f">Toate noutaţiile</a>
+                  <a href="/news_all" class="mu-read-more-btn " style="color: #0f0f0f; border: 1px solid #000;">Toate noutaţiile</a>
               </a>
             </div>
             <!-- end title -->
@@ -248,16 +281,15 @@
                   <article class="mu-blog-single-item">
                     <figure class="mu-blog-single-img">
                       <a href="/news/{{ news.slug }}"><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
-                      <figcaption class="mu-blog-caption">
-                        <h3><a href="/news/{{ news.slug }}">{{ news.name|truncatechars:20 }}</a></h3>
-                      </figcaption>
-                    </figure>
-                    <div class="mu-blog-meta">
-                      <a href="#">{{ news.date_creation }}</a>
 
-                    </div>
-                    <div class="mu-blog-description">
-                            <a href="/news/{{ news.slug }}" class="mu-read-more-btn">Citiţi in continuare</a>
+                    </figure>
+
+                    <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                        <h3><a href="/news/{{ news.slug }}" title="{{ news.name }}">{{ news.name|truncatewords:5| truncatechars:20 }}</a></h3>
+                    </figcaption>
+
+                    <div class="mu-blog-description" style="font-family: 'Source Sans Pro', sans-serif;!important;">
+                            <a href="/news/{{ news.slug }}" class="mu-read-more-btn">Citeşte mai mult</a>
                     </div>
 
                   </article>
@@ -288,6 +320,7 @@
               <h2>Şcolile din judeţul Timiş </h2>
 <p>"Educaţia înseamnă învăţarea a ceea ce nu ai ştiut vreodată că nu ştii."</p>
             <a href="/school_all" class="mu-read-more-btn">Toate şcolile</a>
+             <a href="/school_map" class="mu-read-more-btn">Harta Interactiva</a>
             </div>
             </a>
             <!-- End Title -->
@@ -298,11 +331,17 @@
               <div class="col-lg-4 col-md-4 col-xs-12">
                 <div class="mu-latest-course-single">
                   <figure class="mu-latest-course-img">
-                    <a ><img style="max-width: 400px;max-height: 180px" src= '{{ school.file.url }}' alt="img"></a>
-                    <figcaption class="mu-latest-course-imgcaption">
-                      <a href="/schools/{{ school.slug }}" >{{ school.name|truncatechars:33 }}</a>
-                    </figcaption>
+                    <a >
+                        {% if school.file %}
+                        <img  src= '{{ school.file.url }}' alt="img">
+                        {% else %}
+                         <img  src= "{% static "assets/img/school.jpg" %}" alt="img">
+                        {% endif %}
+                    </a>
                   </figure>
+                    <figcaption class="mu-latest-course-imgcaption">
+                      <a href="/schools/{{ school.slug }}" title="{{ school.name }}" >{{ school.name|truncatewords:5| truncatechars:20 }}</a>
+                    </figcaption>
                   <div class="mu-latest-course-single-content">
                     <div class="mu-latest-course-single-contbottom">
                       <a class="mu-course-details" href="/schools/{{ school.slug }}">Mai mult</a>
@@ -348,7 +387,7 @@
 
               <p>„O minte educată îți permite să susții un gând fără a-l accepta.” — Aristotel</p>
 
-                  <a href="/album" class="mu-read-more-btn " style="color: #0f0f0f">Toate albumele</a>
+                  <a href="/album" class="mu-read-more-btn " style="color: #0f0f0f;border: 1px solid #000;">Toate albumele</a>
               </a>
             </div>
             <!-- end title -->
@@ -361,13 +400,14 @@
                 <div class="col-md-4 col-sm-4">
                   <article class="mu-blog-single-item">
                     <figure class="mu-blog-single-img">
-                      <a href="/gallery_img/{{ news.slug }}" ><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
-                      <figcaption class="mu-blog-caption">
-                        <h3><a href="/gallery_img/{{ news.slug }}"  >{{ news.name|truncatechars:16 }}</a></h3>
-                      </figcaption>
+                      <a href="/gallery/{{ news.slug }}" ><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
+
                     </figure>
+                    <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                        <h3><a href="/gallery/{{ news.slug }}" title="{{ news.name }}" >{{ news.name|truncatechars:16|truncatewords:5 }}</a></h3>
+                      </figcaption>
                     <div class="mu-blog-description">
-                            <a href="/gallery_img/{{ news.slug }}" class="mu-read-more-btn">Vizualizați albumul</a>
+                            <a href="/gallery/{{ news.slug }}" class="mu-read-more-btn">Vizualizați albumul</a>
                     </div>
 
                   </article>

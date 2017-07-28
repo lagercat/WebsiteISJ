@@ -1,4 +1,21 @@
+<!-- Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males-->
+<!---->
+<!-- This file is part of WebsiteISJ-->
+<!---->
+<!-- WebsiteISJ is free software: you can redistribute it and/or modify-->
+<!-- it under the terms of the GNU General Public License as published by-->
+<!-- the Free Software Foundation, either version 3 of the License, or-->
+<!-- (at your option) any later version.-->
+<!---->
+<!-- WebsiteISJ is distributed in the hope that it will be useful,-->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of-->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the-->
+<!-- GNU General Public License for more details.-->
+<!---->
+<!-- You should have received a copy of the GNU General Public License-->
+<!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
 {% extends "base.html" %}
+{% block title %}Galerie de Albume{% endblock %}
 {% load staticfiles %}
 {% block content %}
 
@@ -28,7 +45,6 @@
           <!-- start title -->
           <div class="mu-title">
 
-            <p>„O minte educată îți permite să susții un gând fără a-l accepta.” — Aristotel</p>
           <!-- end title -->
           <!-- start gallery content -->
           <div class="mu-gallery-content">
@@ -65,10 +81,11 @@
 
 					</div>
                     <div class="mu-latest-course-single-contbottom">
-                         <h3><a href="/gallery_img/{{ image.slug }}"  >{{ image.name|truncatechars:16 }}</a></h3>
+                         <h3><a href="/gallery/{{ image.slug }}"  >{{ image.name|truncatechars:16|truncatewords:5 }}</a></h3>
 
-                      <a class="mu-course-details" href="gallery_img/{{image.slug}}" style="color: #00acc1">Vizualizați albumul</a>
+                      <a class="mu-course-details" href="gallery/{{image.slug}}" style="color: #00acc1">Vizualizați albumul</a>
                     </div>
+                  <br>
                 </li>
                   {% endfor %}
                   {% endif %}

@@ -1,11 +1,27 @@
+# Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males
+#
+# This file is part of WebsiteISJ
+#
+# WebsiteISJ is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# WebsiteISJ is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, render
 
 from models import Article, Category, SimplePage, Subcategory
 
 
-def category(request, name):
-    category_name = get_object_or_404(Category, title=name)
+def category(request, slug):
+    category_name = get_object_or_404(Category, slug=slug)
     subcat = Subcategory.objects.all().filter(category=category_name)
     simple_page = SimplePage.objects.all().filter(category=category_name)
     return render(request, 'page/category.html',
@@ -13,6 +29,14 @@ def category(request, name):
                       'name': category_name,
                       'subcategories': subcat,
                       'simple_pages': simple_page,
+                  })
+
+
+def category_all(request):
+    categories = Category.objects.all()
+    return render(request, 'page/category_all.html',
+                  {
+                      'categories_all':categories,
                   })
 
 
@@ -30,8 +54,8 @@ def subcategory_article(request, name, slug):
     })
 
 
-def subcategory(request, name):
-    subcat = get_object_or_404(Subcategory, name=name)
+def subcategory(request, slug):
+    subcat = get_object_or_404(Subcategory, slug_sub=slug)
     articles = Article.objects.all().filter(subcategory=subcat)
     paginator = Paginator(articles, 4)
 
@@ -43,12 +67,12 @@ def subcategory(request, name):
     except EmptyPage:
         articles = paginator.page(paginator.num_pages)
     return render(request, 'page/subcategory.html',
-                  {'name': name,
+                  {'name': subcat.name,
                    'articole': articles,
                    })
 
 
-def article_post(request, name, slug):
+def article_post(request, slug):
     article = list(
         Article.objects.values('subcategory', 'name', 'text', 'file',
                                'date').filter(slug=slug))

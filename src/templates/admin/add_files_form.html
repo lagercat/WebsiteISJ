@@ -1,12 +1,27 @@
+<!-- Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males-->
+<!---->
+<!-- This file is part of WebsiteISJ-->
+<!---->
+<!-- WebsiteISJ is free software: you can redistribute it and/or modify-->
+<!-- it under the terms of the GNU General Public License as published by-->
+<!-- the Free Software Foundation, either version 3 of the License, or-->
+<!-- (at your option) any later version.-->
+<!---->
+<!-- WebsiteISJ is distributed in the hope that it will be useful,-->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of-->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the-->
+<!-- GNU General Public License for more details.-->
+<!---->
+<!-- You should have received a copy of the GNU General Public License-->
+<!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls admin_static admin_modify material_form material_admin %}
-
-{% block brand-logo %}{{ title }}{% endblock %}
+{% block brand-logo %}{{ title }} ({% if location == 1 %}{% trans 'External' %}{% else %}{% trans 'Internal' %}{% endif %}){% endblock %}
 
 {% block breadcrumbs_items %}
 <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
 <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
-<a class="active" href="{% url opts|admin_urlname:'changelist' %}">{% if add %}{% trans 'Add' %} {{ opts.verbose_name }}{% elif view %}{% trans 'View' %}{% elif change %}{% trans 'Change' %}{% endif %}</a>
+<a class="active" href="{% url opts|admin_urlname:'changelist' %}">{% if add %}{% trans 'Add' %}{% elif view %}{% trans 'View' %}{% elif change %}{% trans 'Change' %}{% endif %} {{ opts.verbose_name }} ({% if location == 1 %}{% trans 'External' %}{% else %}{% trans 'Internal' %}{% endif %})</a>
 {% endblock %}
 
 
@@ -66,13 +81,13 @@
                 </div>
                 {% endblock %}
             </div>
-        </div>        
+        </div>
         {% endif %}
     </div>
     {% if adminform and add %}
     <script type="text/javascript">
         $('form#{{ opts.model_name }}_form :input:visible:enabled:first').attr('autofocus', true);
-        $('form#{{ opts.model_name }}_form :input:visible:enabled:first').focus();  
+        $('form#{{ opts.model_name }}_form :input:visible:enabled:first').focus();
     </script>
     {% endif %}
     {% if adminform.form.show_files %}

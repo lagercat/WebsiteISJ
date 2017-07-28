@@ -1,3 +1,19 @@
+# Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males
+#
+# This file is part of WebsiteISJ
+#
+# WebsiteISJ is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# WebsiteISJ is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
@@ -34,23 +50,4 @@ def login_view(request):
     return render(request, 'authentication/login.html', {
         'errors': errors,
         'form': form
-    })
-
-
-@login_required
-def reset_password_view(request):
-    form = ResetPasswordForm(request.POST or None, user=request.user)
-    confirms = []
-    if request.method == "POST":
-        if form.is_valid():
-            password_new = form.cleaned_data["new_password"]
-            request.user.set_password(password_new)
-            request.user.save()
-            user = authenticate(username=request.user.username,
-                                password=password_new)
-            login(request, user)
-            confirms.append("Parola a fost schimbata")
-    return render(request, "authentication/password_form.html", {
-        "form": form,
-        "confirms": confirms
     })

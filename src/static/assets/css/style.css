@@ -132,7 +132,6 @@ img {
 #mu-header .mu-header-area .mu-header-top-left {
   display: inline;
   float: left;
-  width: 100%;
 }
 #mu-header .mu-header-area .mu-header-top-left .mu-top-email {
   display: inline;
@@ -143,12 +142,9 @@ img {
   margin-right: 5px;
 }
 #mu-header .mu-header-area .mu-header-top-left .mu-top-phone {
-  border-left: 1px solid #ddd;
-  display: inline;
+
   font-size: 14px;
   float: left;
-  margin-left: 15px;
-  padding-left: 15px;
 }
 #mu-header .mu-header-area .mu-header-top-left .mu-top-phone i {
   margin-right: 5px;
@@ -157,7 +153,7 @@ img {
   display: inline;
   float: left;
   text-align: right;
-  width: 100%;
+  max-width: 100%;
 }
 #mu-header .mu-header-area .mu-header-top-right .mu-top-social-nav {
   display: inline-block;
@@ -716,12 +712,21 @@ img {
   display: inline;
   float: left;
   width: 100%;
+  height: 300px;
+  background-color: black;
+  text-align: center;
+  vertical-align: middle;
+  display:flex;
+  align-items: center;
+  justify-content: center;
 }
 .mu-latest-course-single .mu-latest-course-img a {
-  display: block;
+  display: inline-block;
+  vertical-align: middle;
 }
 .mu-latest-course-single .mu-latest-course-img a img {
-  width: 100%;
+  max-height: 300px !important;
+  max-width: 100% !important;
 }
 .mu-latest-course-single .mu-latest-course-img .mu-latest-course-imgcaption {
   background-color: #f8f8f8;
@@ -730,6 +735,16 @@ img {
   padding: 10px 15px;
   width: 100%;
 }
+
+.mu-latest-course-imgcaption {
+  text-align: center;
+  padding-top: 310px;
+}
+
+.mu-latest-course-imgcaption > a {
+  vertical-align: middle;
+}
+
 .mu-latest-course-single .mu-latest-course-img .mu-latest-course-imgcaption a {
   display: inline-block;
   float: left;
@@ -749,7 +764,8 @@ img {
   display: inline;
   float: left;
   width: 100%;
-  padding: 15px;
+  padding: 0px 15px 15px 15px;
+  word-wrap: break-word;
 }
 .mu-latest-course-single .mu-latest-course-single-content h4 {
   color: #333;
@@ -1040,15 +1056,26 @@ img {
   display: inline;
   float: left;
   width: 100%;
+  height: 300px;
+  background-color: black;
+  text-align: center;
+  vertical-align: middle;
+  display:flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .mu-blog-single-item .mu-blog-single-img a {
   display: block;
+  vertical-align: middle;
+  text-align: center;
 }
 .mu-blog-single-item .mu-blog-single-img a img {
-  width: 100%;
+  max-height: 300px !important;
+  max-width: 100% !important;
 }
 .mu-blog-single-item .mu-blog-single-img .mu-blog-caption {
-  display: inline;
+  display: block;
   float: left;
   width: 100%;
 }
@@ -1714,6 +1741,7 @@ img {
   width: 100%;
   position: relative;
 }
+
 #mu-gallery .mu-gallery-area .mu-gallery-content .mu-gallery-body ul li .mu-single-gallery .mu-single-gallery-item:hover .mu-single-gallery-img img {
   transform: scale(1.3);
 }
@@ -1728,19 +1756,25 @@ img {
 #mu-gallery .mu-gallery-area .mu-gallery-content .mu-gallery-body ul li .mu-single-gallery .mu-single-gallery-item .mu-single-gallery-img {
   display: inline;
   float: left;
-  height: 220px;
   overflow: hidden;
   width: 100%;
+  height: 300px;
+  background-color: black;
+  text-align: center;
+  vertical-align: middle;
+  display:flex;
+  align-items: center;
+  justify-content: center;
 }
 #mu-gallery .mu-gallery-area .mu-gallery-content .mu-gallery-body ul li .mu-single-gallery .mu-single-gallery-item .mu-single-gallery-img img {
-  width: 100%;
-  height: 100%;
   transform: scale(1);
   -webkit-transition: all 0.8s;
   -moz-transition: all 0.8s;
   -ms-transition: all 0.8s;
   -o-transition: all 0.8s;
   transition: all 0.8s;
+  max-height: 300px !important;
+  max-width: 100% !important;
 }
 #mu-gallery .mu-gallery-area .mu-gallery-content .mu-gallery-body ul li .mu-single-gallery .mu-single-gallery-item .mu-single-gallery-info {
   background-color: rgba(0, 0, 0, 0.2);
@@ -1806,8 +1840,8 @@ img {
 
 .portfolio-detail{
 	display: none;
-	float: left;	
-	text-align: center;	
+	float: left;
+	text-align: center;
 	width: 100%;
 }
 
@@ -1869,7 +1903,7 @@ display: flex;
 .portfolio-popup-inner h2{
 	color: #000;
 	margin-bottom: 10px;
-	margin-top: 15px;	
+	margin-top: 15px;
 }
 
 .modal-close-btn{
@@ -1917,7 +1951,7 @@ display: flex;
 	border-color: #000;
 	color: #000;
 	text-decoration: none;
-	
+
 }
 
 /*==================
@@ -2149,7 +2183,7 @@ display: flex;
     top: 13%;
   }
  	 /*   portfolio plugin */
-	
+
 	.portfolio-popup-area {
 		padding: 20px 5%;
 	}
@@ -2408,7 +2442,7 @@ display: flex;
     line-height: 1.5;
   }
 }
-@media (max-width: 640px) {
+@media (max-width: 480px) {
   #mu-header .mu-header-area .mu-header-top-left .mu-top-phone {
     display: none;
   }
@@ -2446,13 +2480,13 @@ display: flex;
     padding: 5px 10px;
     margin-bottom: 5px;
   }
-  
+
   	/* 	portfolio plugin */
-	
+
 	#portfolio-popup.portfolio-popup-show{
 		display: block;
 	}
-	
+
 	.portfolio-popup-inner img {
 		max-width: 80%;
 	}
@@ -2580,11 +2614,11 @@ display: flex;
 		max-width: 80%;
 		padding-top: 50px;
 	}
-	
+
 	.portfolio-popup-inner h2{
-		font-size: 20px;	
+		font-size: 20px;
 	}
-	
+
 	.portfolio-popup-inner p{
 		font-size: 14px;
 	}
@@ -2638,4 +2672,53 @@ display: flex;
   #mu-error .mu-error-area h2 {
     font-size: 100px;
   }
+}
+
+@media (max-width: 560px) {
+  .mu-header-top-right nav a .btn{
+    font-size: 0px !important;
+    padding: 6px 15px 6px 15px;
+  }
+
+  .mu-header-top-right nav a .btn i {
+    font-size: 14px !important;
+    line-height: 20px;
+   }
+}
+
+@media (max-width: 360px) {
+  .mu-header-top-right nav a .btn{
+    font-size: 0px !important;
+    padding: 4px 10px 4px 10px;
+  }
+
+  .mu-header-top-right nav a .btn i {
+    font-size: 14px !important;
+    line-height: 20px;
+   }
+}
+
+.mu-slider-content {
+  padding-left: 65px !important;
+  padding-right: 65px !important;
+}
+
+@media (max-width: 480px){
+  .mu-slider-content
+  {
+    padding-left: 45px !important;
+    padding-right: 45px !important;
+  }
+}
+
+.mu-latest-course-single{
+  margin-bottom: 15px;
+}
+
+.mu-blog-single-item{
+  text-align: center;
+}
+
+#mu-course-content{
+  padding: 50px 0 50px 0 !important;
 }

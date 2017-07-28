@@ -1,24 +1,53 @@
+<!-- Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males-->
+<!---->
+<!-- This file is part of WebsiteISJ-->
+<!---->
+<!-- WebsiteISJ is free software: you can redistribute it and/or modify-->
+<!-- it under the terms of the GNU General Public License as published by-->
+<!-- the Free Software Foundation, either version 3 of the License, or-->
+<!-- (at your option) any later version.-->
+<!---->
+<!-- WebsiteISJ is distributed in the hope that it will be useful,-->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of-->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the-->
+<!-- GNU General Public License for more details.-->
+<!---->
+<!-- You should have received a copy of the GNU General Public License-->
+<!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
 {% extends "base.html" %}
+{% block title %}{{ name }}{% endblock %}
 {% load staticfiles %}
 {% block content %}
 
+    {# This is for img responsive in text rich start#}
+<style>
+img {
+    max-width:100% !important;
+    height:auto !important;
+}
+</style>
+{#  end  #}
  <!-- Page breadcrumb -->
  <section id="mu-page-breadcrumb">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-
-         <div class="mu-page-breadcrumb-area">
-             <a href="/subject/{{ name_subject }}">
-           <h2>{{ name_subject }}</h2>
-             </a>
-
-         </div>
-       
-       </div>
-     </div>
-   </div>
- </section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="mu-page-breadcrumb-area">
+          <h2>{{ name }}</h2>
+          <ol class="breadcrumb">
+           <li><a href="/">Acasă</a></li>
+            <li><a href="/subject_page_all">Specializari</a></li>
+           <li><a href="/subject/{{ subject_name }}">{{ subject_name }}</a></li>
+           {% if subcategory %}
+             <li><a href="/subject/{{ subject_name }}/{{ subcategory }}">{{ subcategory }}</a></li>   
+           {% endif %}
+           <li class="active">{{ name }}</li>
+         </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
  <!-- End breadcrumb -->
  <section id="mu-course-content">
    <div class="container">
@@ -30,14 +59,14 @@
                 <!-- start course content container -->
                 <div class="mu-course-container mu-blog-single">
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="word-break: break-all;">
                       <article class="mu-blog-single-item">
                         <figure class="mu-blog-single-img">
-                          <a ><img alt="img" style="width: 850px;height: 440px" src= '{{thumbnail}}'></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="#">{{ name|truncatechars:90 }}</a></h3>
-                          </figcaption>
+                          <a ><img alt="img" src= '{{thumbnail}}'></a>
                         </figure>
+                          <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                            <h3><a href="#">{{ name }}</a></h3>
+                          </figcaption>
                         <div class="mu-blog-meta">
 
 
@@ -80,16 +109,11 @@
                           <div class="col-md-6">
                             <article class="mu-blog-single-item">
                               <figure class="mu-blog-single-img">
-                                <a href="/news/{{ news.slug }}"><img style=" max-height: 160px" alt="img" src= '{{ news.file.url }}'></a>
-                                <figcaption class="mu-blog-caption">
-                                  <h3><a href="/news/{{ news.slug }}">{{ news.name|truncatechars:18 }}</a></h3>
-                                </figcaption>                      
+                                <a href="/news/{{ news.slug }}"><img style=" max-height: 160px" alt="img" src= '{{ news.file.url }}'></a>                
                               </figure>
-                              <div class="mu-blog-meta">
-
-                                <a >{{ news.date }}</a>
-
-                              </div>
+                                <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                                  <h3><a href="/news/{{ news.slug }}" title="{{news.name}}">{{ news.name|truncatechars:18|truncatewords:5 }}</a></h3>
+                                </figcaption>      
                               <div class="mu-blog-description">
                                   <a href="/news/{{ news.slug }}" class="mu-read-more-btn">Citeşte mai mult</a>
                               </div>
@@ -114,7 +138,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Specializări</h3>
+                    
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
