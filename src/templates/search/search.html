@@ -65,7 +65,7 @@
                             <img style="width: 400px;height: 200px" src='/media/{{ result.file }}' alt="img"></a>
                                 </figure>
                                   <figcaption class="mu-blog-caption" style="padding-top:305px">
-                                    <h3><a href="/gallery/{{ result.slug }}">{{ result.name }}</a></h3>
+                                    <h3><a href="/gallery/{{ result.slug }}">{{ result.name|truncatewords:5| truncatechars:20 }}</a></h3>
                                   </figcaption>
                                 <div class="mu-blog-description">
 
@@ -84,7 +84,7 @@
                             <img style="width: 400px;height: 200px" src='/media/{{ result.file }}' alt="img"></a>
                                 </figure>
                                   <figcaption class="mu-blog-caption" style="padding-top:305px">
-                                    <h3><a href="/event/{{ result.slug }}">{{ result.name }}</a></h3>
+                                    <h3><a href="/event/{{ result.slug }}">{{ result.name|truncatewords:5| truncatechars:20 }}</a></h3>
                                   </figcaption>
                                 <div class="mu-blog-description">
 
@@ -102,7 +102,7 @@
                             <img style="width: 400px;height: 200px" src='/media/{{ result.file }}' alt="img"></a>
                                 </figure>
                                   <figcaption class="mu-blog-caption" style="padding-top:305px">
-                                    <h3><a href="/news/{{ result.slug }}">{{ result.name }}</a></h3>
+                                    <h3><a href="/news/{{ result.slug }}">{{ result.name|truncatewords:5| truncatechars:20 }}</a></h3>
                                   </figcaption>
                                 <div class="mu-blog-description">
 
@@ -140,7 +140,7 @@
                                 <a href="/subcategory/{{ result.slug_sub }}"><img style="width: 400px;height: 200px" src= '/static/assets/img/category.jpeg' alt="img"></a>
                                 </figure>
                                   <figcaption class="mu-blog-caption" style="padding-top:305px">
-                                    <h3><a href="/subcategory/{{ result.slug }}">{{ result.name }}</a></h3>
+                                    <h3><a href="/subcategory/{{ result.slug }}">{{ result.name|truncatewords:5| truncatechars:20 }}</a></h3>
                                   </figcaption>
                                 <div class="mu-blog-description">
 
@@ -159,7 +159,7 @@
                                 <a href="/article/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
                                 </figure>
                                   <figcaption class="mu-blog-caption" style="padding-top:305px">
-                                    <h3><a href="/article/{{ result.slug }}">{{ result.name }}</a></h3>
+                                    <h3><a href="/article/{{ result.slug }}">{{ result.name|truncatewords:5| truncatechars:20 }}</a></h3>
                                   </figcaption>
                                 <div class="mu-blog-description">
 
@@ -179,7 +179,7 @@
                                 <a href="/simple/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
                                 </figure>
                                   <figcaption class="mu-blog-caption" style="padding-top:305px">
-                                    <h3><a href="/simple/{{ result.slug }}">{{ result.name }}</a></h3>
+                                    <h3><a href="/simple/{{ result.slug }}">{{ result.name|truncatewords:5| truncatechars:20 }}</a></h3>
                                   </figcaption>
                                 <div class="mu-blog-description">
 
@@ -202,7 +202,7 @@
                                         {% endif %}
                                 </figure>
                                   <figcaption class="mu-blog-caption" style="padding-top:305px">
-                                    <h3><a href="/schools/{{ result.slug }}">{{ result.name }}</a></h3>
+                                    <h3><a href="/schools/{{ result.slug }}">{{ result.name|truncatewords:5| truncatechars:20 }}</a></h3>
                                   </figcaption>
                                 <div class="mu-blog-description">
 
@@ -221,7 +221,7 @@
                                 <a href="/subject/{{ result.subject }}/{{ result.name }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
                                 </figure>
                                   <figcaption class="mu-blog-caption" style="padding-top:305px">
-                                    <h3><a href="/subject/{{ result.subject }}/{{ result.name }}">{{ result.name }}</a></h3>
+                                    <h3><a href="/subject/{{ result.subject }}/{{ result.name }}">{{ result.name|truncatewords:5| truncatechars:20 }}</a></h3>
                                   </figcaption>
                                 <div class="mu-blog-description">
 
@@ -241,7 +241,7 @@
                                 </a>
                                 </figure>
                                   <figcaption class="mu-blog-caption" style="padding-top:305px">
-                                    <h3><a href="/simple/{{ result.subject }}/{{ result.slug }}">{{ result.name }}</a></h3>
+                                    <h3><a href="/simple/{{ result.subject }}/{{ result.slug }}">{{ result.name|truncatewords:5| truncatechars:20 }}</a></h3>
                                   </figcaption>
                                 <div class="mu-blog-description">
 
@@ -303,7 +303,7 @@
                         
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
-                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
+                      <li><a href="/subject/{{ subject.name }}">{{ subject.name|truncatewords:5| truncatechars:20 }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
