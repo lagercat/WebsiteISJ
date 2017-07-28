@@ -33,6 +33,7 @@
      </div>
    </div>
  </section>
+
  <!-- End breadcrumb -->
  <section id="mu-course-content">
    <div class="container">
@@ -48,127 +49,216 @@
                     <h4>Încercați și varianta <i>{{ suggestion }}</i></h4>
                   </a>
                 {% endif %}
+
+
                   <div class="row">
-                    {% if query and page_obj.object_list %}
+
+                   {% if query and page_obj.object_list %}
                     {% for result in page_obj.object_list %}
-                    <div class="col-md-6 col-sm-6">
-                      <article class="mu-blog-single-item">
-                        <figure class="mu-blog-single-img">
-                        {% if result.content_type == "gallery.gallery" %} 
-                            <a href="/gallery/{{ result.slug }}">
+
+
+                        {% if result.content_type == "gallery.gallery" %}
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                 <a href="/gallery/{{ result.slug }}">
                             <img style="width: 400px;height: 200px" src='/media/{{ result.file }}' alt="img"></a>
-                            <figcaption class="mu-blog-caption">
-                              <h3><a href="/gallery/{{ result.slug }}">{{ result.name }}</a></h3>
-                            </figcaption>
-                          </figure>
-                          <div class="mu-blog-description">
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/gallery/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
 
-                            <a class="mu-read-more-btn" href="/gallery/{{ result.slug }}">Citeşte mai mult</a> 
-                                                      </div>
-                          {% endif %}
+                                  <a class="mu-read-more-btn" href="/gallery/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
+
+
                         {% if result.content_type == "event.event" %}
-                          <a href="/event/{{ result.slug }}">
-                          <img style="width: 400px;height: 200px" src='/media/{{ result.file }}' alt="img">
-                          </a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/event/{{ result.slug }}">{{ result.name }}</a></h3>
-                          </figcaption>
-                        </figure>
-                        <div class="mu-blog-description">
-                          <a class="mu-read-more-btn" href="/event/{{ result.slug }}">Citeşte mai mult</a>                             </div>                     
-                          {% endif %}
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                 <a href="/event/{{ result.slug }}">
+                            <img style="width: 400px;height: 200px" src='/media/{{ result.file }}' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/event/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
+
+                                  <a class="mu-read-more-btn" href="/event/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
+
                         {% if result.content_type == "news.news" %}
-                          <a href="/news/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/news/{{ result.slug }}">{{ result.name }}</a></h3>
-                          </figcaption>
-                        </figure>
-                        <div class="mu-blog-description">
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                 <a href="/news/{{ result.slug }}">
+                            <img style="width: 400px;height: 200px" src='/media/{{ result.file }}' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/news/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/news/{{ result.slug }}">Citeşte mai mult</a>                              </div>                    
-                          {% endif %}
-                        {% if result.content_type == "page.category" %}
-                          <a href="/category/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/static/assets/img/category.jpeg' alt="img"></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/category/{{ result.slug }}">{{ result.title }}</a></h3>
-                          </figcaption>
-                        </figure>
-                        <div class="mu-blog-description">
+                                  <a class="mu-read-more-btn" href="/news/{{ result.slug }}}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
 
-                          <a class="mu-read-more-btn" href="/category/{{ result.slug }}">Citeşte mai mult</a>                              </div>                    
-                          {% endif %}
+
+                         {% if result.content_type == "page.category" %}
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                 <a href="/category/{{ result.slug }}">
+                            <img style="width: 400px;height: 200px" src= '/static/assets/img/category.jpeg' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/category/{{ result.slug }}">{{ result.title }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
+
+                                  <a class="mu-read-more-btn" href="/category/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
+
+
+
                         {% if result.content_type == "page.subcategory" %}
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                <a href="/subcategory/{{ result.slug_sub }}"><img style="width: 400px;height: 200px" src= '/static/assets/img/category.jpeg' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/subcategory/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
 
-                          <a href="/subcategory/{{ result.slug_sub }}"><img style="width: 400px;height: 200px" src= '/static/assets/img/category.jpeg' alt="img"></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/subcategory/{{ result.slug_sub }}">{{ result.name }}</a></h3>
-                          </figcaption>
-                        </figure>
-                        <div class="mu-blog-description">
-
-                          <a class="mu-read-more-btn" href="/subcategory/{{ result.slug_sub }}">Citeşte mai mult</a>                          </div>                        
+                                  <a class="mu-read-more-btn" href="/subcategory/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
                         {% endif %}
+
+
+
                         {% if result.content_type == "page.article" %}
-                          <a href="/article/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/article/{{ result.slug }}">{{ result.name }}</a></h3>
-                          </figcaption>
-                        </figure>
-                        <div class="mu-blog-description">
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                <a href="/article/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/article/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/article/{{ result.slug }}">Citeşte mai mult</a>
-                          </div>
-                          {% endif %}
+                                  <a class="mu-read-more-btn" href="/article/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
+                        {% endif %}
+
+
+
+
                         {% if result.content_type == "page.simplepage" %}
-                          <a href="/simple/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/simple/{{ result.slug }}">{{ result.name }}</a></h3>
-                          </figcaption>
-                        </figure>
-                        <div class="mu-blog-description">
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                <a href="/simple/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/simple/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/simple/{{ result.slug }}">Citeşte mai mult</a>
+                                  <a class="mu-read-more-btn" href="/simple/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
                         {% endif %}
+
+
+
                         {% if result.content_type == "school.school" %}
-                        {% if result.file %}
-                          <a href="/schools/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
-                          {% else %}
-                          <a href="/schools/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/static/assets/img/school.jpg' alt="img"></a>
-                        
-                        {% endif %}
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/schools/{{ result.slug }}">{{ result.name }}</a></h3>
-                          </figcaption>
-                        </figure>
-                        <div class="mu-blog-description">
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                    {% if result.file %}
+                                                <a href="/schools/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
+                                        {% else %}
+                                                <a href="/schools/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/static/assets/img/school.jpg' alt="img"></a>
+                                        {% endif %}
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/schools/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/schools/{{ result.slug }}">Citeşte mai mult</a>
+                                  <a class="mu-read-more-btn" href="/schools/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
                         {% endif %}
+
+
+
                         {% if result.content_type == "subject.subcategory" %}
-                          <a href="/subject/{{ result.subject }}/{{ result.name }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/subject/{{ result.subject }}/{{ result.name }}">{{ result.name }}</a></h3>
-                          </figcaption>
-                        </figure>
-                        <div class="mu-blog-description">
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                <a href="/subject/{{ result.subject }}/{{ result.name }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/subject/{{ result.subject }}/{{ result.name }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/subject/{{ result.subject }}/{{ result.name }}">Citeşte mai mult</a>
+                                  <a class="mu-read-more-btn" href="/subject/{{ result.subject }}/{{ result.name }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
                         {% endif %}
+
+
                         {% if result.content_type == "subject.subjectpost" %}
-                          <a href="/simple/{{ result.subject }}/{{ result.slug }}"><img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img"></a>
-                          <figcaption class="mu-blog-caption">
-                            <h3><a href="/simple/{{ result.subject }}/{{ result.slug }}">{{ result.name }}</a></h3>
-                          </figcaption>
-                        </figure>
-                        <div class="mu-blog-description">
+                            <div class="col-md-6 col-sm-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                <a href="/simple/{{ result.subject }}/{{ result.slug }}">
+                                    <img style="width: 400px;height: 200px" src= '/media/{{ result.file }}' alt="img">
+                                </a>
+                                </figure>
+                                  <figcaption class="mu-blog-caption" style="padding-top:305px">
+                                    <h3><a href="/simple/{{ result.subject }}/{{ result.slug }}">{{ result.name }}</a></h3>
+                                  </figcaption>
+                                <div class="mu-blog-description">
 
-                          <a class="mu-read-more-btn" href="/simple/{{ result.subject }}/{{ result.slug }}">Citeşte mai mult</a>
+                                  <a class="mu-read-more-btn" href="/simple/{{ result.subject }}/{{ result.slug }}">Citeşte mai mult</a>
+                                </div>
+                              </article>
+                            </div>
                         {% endif %}
-                      </article>
-                    </div>
+
+
+
+
+
+
                     {% endfor %}
                     {% else %}
-                    <h3>Nu am găsit nimic!</h3>
+                    <h3>Nu sunt informaţii de afişat ! </h3>
                     {% endif %}
                   </div>
                 </div>
@@ -208,7 +298,9 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Specializări</h3>
+                    
+                    <h3><a href="/subject_page_all">Specializări</a></h3>
+                        
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>

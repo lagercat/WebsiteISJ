@@ -20,7 +20,7 @@ from haystack.query import SearchQuerySet
 
 
 class CustomSearchView(SearchView):
-    template_name = 'search/search2.html'
+    template_name = 'search/search.html'
     queryset = SearchQuerySet()
     form_class = SearchForm
 
