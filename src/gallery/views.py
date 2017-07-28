@@ -132,5 +132,5 @@ def gallery_img(request, slug):
     ).order_by('order')
     return render(request, 'gallery/imagini.html', {
         'photos': photos,
-         'album_name': instance.name,
+        'album_name': instance.name,
     })
