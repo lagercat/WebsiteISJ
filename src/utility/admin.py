@@ -80,9 +80,9 @@ class AdminChangeMixin(admin.ModelAdmin):
         for field in self.model._meta.fields:
             # TODO in Django 1.8 use ModelAdmin.get_fields()
             if not field.auto_created \
-                    and (not hasattr(field, 'auto_now_add') or not field.auto_now_add) \
-                    and (not hasattr(field, 'auto_now') or not field.auto_now) \
-                    :
+                    and (not hasattr(field, 'auto_now_add') or
+                         not field.auto_now_add) \
+                    and (not hasattr(field, 'auto_now') or not field.auto_now):
                 all_model_fields.append(field.name)
 
         return self.readonly_fields
@@ -94,17 +94,22 @@ class AdminChangeMixin(admin.ModelAdmin):
         extra_context = extra_context or {}
         extra_context['change'] = True
         extra_context['google_maps_api_key'] = settings.GOOGLE_MAPS_API_KEY
-        return admin.ModelAdmin.change_view(self, request, object_id, extra_context=extra_context)
+        return admin.ModelAdmin.change_view(self, request,
+                                            object_id,
+                                            extra_context=extra_context)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
         extra_context['title'] = self.get_form(
             request, None).Meta.model._meta.verbose_name_plural
-        if self.has_perm(request.user, 'change_own') and self.can_change_own and not self.has_perm(request.user, 'change'):
+        if self.has_perm(request.user, 'change_own') and self.can_change_own \
+                and not self.has_perm(request.user, 'change'):
             extra_context['title'] = "Owned " + \
                 self.get_form(
                     request, None).Meta.model._meta.verbose_name_plural
-        return admin.ModelAdmin.changelist_view(self, request, extra_context=extra_context)
+        return admin.ModelAdmin.changelist_view(self,
+                                                request,
+                                                extra_context=extra_context)
 
     def get_actions(self, request):
         actions = super(AdminChangeMixin, self).get_actions(request)
@@ -112,15 +117,18 @@ class AdminChangeMixin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         queryset = admin.ModelAdmin.get_queryset(self, request)
-        if self.has_perm(request.user, 'change_own') and self.can_change_own and not self.has_perm(request.user, 'change'):
+        if self.has_perm(request.user, 'change_own') and self.can_change_own \
+                and not self.has_perm(request.user, 'change'):
             if self.change_own_field is None:
                 raise "change_own_field must be set."
             if self.change_own_owner_field is None:
                 raise "change_own_owner_field must be set."
-            print getattr(request.user, self.change_own_owner_field)
             kwargs = {
-                self.change_own_field: getattr(request.user, self.change_own_owner_field).id if self.change_own_field is 'id' else
-                getattr(request.user, self.change_own_owner_field).all() if self.change_own_field[-4:] == "__in" else
+                self.change_own_field: getattr(request.user,
+                                               self.change_own_owner_field).id
+                if self.change_own_field is 'id' else
+                getattr(request.user, self.change_own_owner_field).all()
+                if self.change_own_field[-4:] == "__in" else
                 getattr(request.user, self.change_own_owner_field),
             }
             return queryset.filter(**kwargs)
@@ -134,14 +142,16 @@ class AdminViewMixin(admin.ModelAdmin):
         Return empty perms dict thus hiding the model from admin index.
         """
         return {
-            "view": self.has_perm(request.user, "view") and not self.has_perm(request.user, "change"),
+            "view": self.has_perm(request.user, "view")
+            and not self.has_perm(request.user, "change"),
         }
 
     def has_perm(self, user, permission):
         """
             Usefull shortcut for `user.has_perm()`
         """
-        if user.has_perm("%s.%s_%s" % (self.model._meta.app_label, permission, self.model.__name__.lower(),)):
+        if user.has_perm("%s.%s_%s" % (self.model._meta.app_label, permission,
+                                       self.model.__name__.lower(),)):
             return True
         return False
 
@@ -150,7 +160,8 @@ class AdminViewMixin(admin.ModelAdmin):
 
     def has_change_permission(self, request, obj=None):
         """
-            Necessary permission check to let Django show change_form for `view` permissions
+            Necessary permission check to let
+            Django show change_form for `view` permissions
         """
         if self.has_perm(request.user, 'view'):
             return True
@@ -170,9 +181,10 @@ class AdminViewMixin(admin.ModelAdmin):
         for field in self.model._meta.fields:
             # TODO in Django 1.8 use ModelAdmin.get_fields()
             if not field.auto_created \
-                    and (not hasattr(field, 'auto_now_add') or not field.auto_now_add) \
-                    and (not hasattr(field, 'auto_now') or not field.auto_now) \
-                    :
+                    and (not hasattr(field, 'auto_now_add')
+                         or not field.auto_now_add) \
+                    and (not hasattr(field, 'auto_now')
+                         or not field.auto_now):
                 all_model_fields.append(field.name)
 
         return all_model_fields
@@ -181,7 +193,9 @@ class AdminViewMixin(admin.ModelAdmin):
         extra_context = extra_context or {}
         extra_context['title'] = self.get_form(
             request, None).Meta.model._meta.verbose_name_plural
-        return admin.ModelAdmin.changelist_view(self, request, extra_context=extra_context)
+        return admin.ModelAdmin.changelist_view(self,
+                                                request,
+                                                extra_context=extra_context)
 
     def change_view(self, request, object_id, extra_context=None):
         """
@@ -197,7 +211,9 @@ class AdminViewMixin(admin.ModelAdmin):
         extra_context['title'] = "View " + \
             self.get_form(request, object_id).Meta.model._meta.verbose_name
         extra_context['google_maps_api_key'] = settings.GOOGLE_MAPS_API_KEY
-        return admin.ModelAdmin.change_view(self, request, object_id, extra_context=extra_context)
+        return admin.ModelAdmin.change_view(self,
+                                            request, object_id,
+                                            extra_context=extra_context)
 
     def get_actions(self, request):
         actions = super(AdminViewMixin, self).get_actions(request)
@@ -210,7 +226,8 @@ class AdminViewMixin(admin.ModelAdmin):
         if self.has_perm(request.user, 'view'):
             kwargs = {
                 self.change_own_field: getattr(request.user,
-                                               self.change_own_owner_field).id if self.change_own_field is 'id' else getattr(
+                                               self.change_own_owner_field).id
+                if self.change_own_field is 'id' else getattr(
                     request.user, self.change_own_owner_field),
             }
             return queryset.exclude(**kwargs)
@@ -230,5 +247,4 @@ def register_model_admin(model, model_admin):
 
 
 def register_module_admin():
-    print ModuleProxy.__name__
     admin.site.register(ModuleProxy, make_view_admin(ModuleAdmin))

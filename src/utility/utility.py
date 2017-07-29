@@ -80,8 +80,12 @@ def clean_file(file, image=False):
 
         if filetype.startswith("image/"):
             pass
-        elif image and any(filetype.startswith(mime) for mime in mime_documents_types):
-            return "Fisierul nu se incadreaza in mime type-urile acceptate. Se poate ca fisierul sa fie corupt."
-        elif not any(filetype.startswith(mime) for mime in mime_documents_types):
-            return "Fisierul nu se incadreaza in mime type-urile acceptate. Se poate ca fisierul sa fie corupt."
+        elif image and any(filetype.startswith(mime)
+                           for mime in mime_documents_types):
+            return "Fisierul nu se incadreaza in mime type-urile "
+            "acceptate. Se poate ca fisierul sa fie corupt."
+        elif not any(filetype.startswith(mime)
+                     for mime in mime_documents_types):
+            return "Fisierul nu se incadreaza in mime type-urile acceptate."
+            "Se poate ca fisierul sa fie corupt."
         return ""
