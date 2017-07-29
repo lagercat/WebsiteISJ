@@ -43,12 +43,19 @@ class EventCreationFormAdmin(forms.ModelForm):
             geoloc = cleaned_data['geolocation']
             addr = cleaned_data['address']
             if geoloc == "Invalid address or no results":
+                cleaned_data['geolocation'] = "0,0"
+                cleaned_data['address'] = ""
                 self.add_error("address", forms.ValidationError("The address is invalid"))
             if addr == "Invalid geolocation":
-                self.add_error("geolocation", forms.ValidationError("The geolocation is invalid"))
+                cleaned_data['geolocation'] = "0,0"
+                cleaned_data['address'] = ""
+                self.add_error("address", forms.ValidationError("The geolocation is invalid"))
         except:
+            cleaned_data['geolocation'] = "0,0"
+            cleaned_data['address'] = ""
             self.add_error("address", forms.ValidationError("The address is invalid"))
-
+        if self.errors.get("geolocation"):
+            del self.errors["geolocation"]
         return cleaned_data
 
     def clean_file(self):
@@ -82,7 +89,7 @@ class EventChangeFormAdmin(forms.ModelForm):
     date = forms.SplitDateTimeField()
     text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget)
-    geolocation = forms.CharField()
+    geolocation = forms.CharField(widget=forms.HiddenInput(), label='')
 
     show_files = True
     show_preview = True
@@ -104,12 +111,21 @@ class EventChangeFormAdmin(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(EventChangeFormAdmin, self).clean()
-        geoloc = cleaned_data['geolocation']
-        addr = cleaned_data['address']
-        if geoloc == "Invalid address or no results":
+        try:
+            geoloc = cleaned_data['geolocation']
+            addr = cleaned_data['address']
+            if geoloc == "Invalid address or no results":
+                cleaned_data['address'] = self.address_initial
+                cleaned_data['geolocation'] = self.geolocation_initial
+                self.add_error("address", forms.ValidationError("The address is invalid"))
+            if addr == "Invalid geolocation":
+                cleaned_data['address'] = self.address_initial
+                cleaned_data['geolocation'] = self.geolocation_initial
+                self.add_error("geolocation", forms.ValidationError("The geolocation is invalid"))
+        except:
+            cleaned_data['address'] = self.address_initial
+            cleaned_data['geolocation'] = self.geolocation_initial
             self.add_error("address", forms.ValidationError("The address is invalid"))
-        if addr == "Invalid geolocation":
-            self.add_error("geolocation", forms.ValidationError("The geolocation is invalid"))
         return cleaned_data
 
     def clean_file(self):

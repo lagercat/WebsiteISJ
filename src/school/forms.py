@@ -25,7 +25,7 @@ from utility.utility import clean_file
 
 class SchoolCreationFormAdmin(forms.ModelForm):
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget())
-    geolocation = forms.CharField(widget=forms.HiddenInput())
+    geolocation = forms.CharField(widget=forms.HiddenInput(), label='')
     telephone = PhoneNumberField(required=False)
     fax = PhoneNumberField(required=False)
 
@@ -36,14 +36,23 @@ class SchoolCreationFormAdmin(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(SchoolCreationFormAdmin, self).clean()
-        geoloc = cleaned_data['geolocation']
-        addr = cleaned_data['address']
-        if geoloc == "Invalid address or no results":
-            self.add_error("address",
-                           forms.ValidationError("The address is invalid"))
-        if addr == "Invalid geolocation":
-            self.add_error("geolocation",
-                           forms.ValidationError("The geolocation is invalid"))
+        try:
+            geoloc = cleaned_data['geolocation']
+            addr = cleaned_data['address']
+            if geoloc == "Invalid address or no results":
+                cleaned_data['geolocation'] = "0,0"
+                cleaned_data['address'] = ""
+                self.add_error("address", forms.ValidationError("The address is invalid"))
+            if addr == "Invalid geolocation":
+                cleaned_data['geolocation'] = "0,0"
+                cleaned_data['address'] = ""
+                self.add_error("address", forms.ValidationError("The geolocation is invalid"))
+        except:
+            cleaned_data['geolocation'] = "0,0"
+            cleaned_data['address'] = ""
+            self.add_error("address", forms.ValidationError("The address is invalid"))
+        if self.errors.get("geolocation"):
+            del self.errors["geolocation"]
         return cleaned_data
 
     def clean_file(self):
@@ -65,7 +74,7 @@ class SchoolCreationFormAdmin(forms.ModelForm):
 
 class SchoolChangeFormAdmin(forms.ModelForm):
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget)
-    geolocation = forms.CharField()
+    geolocation = forms.CharField(widget=forms.HiddenInput(), label='')
     telephone = PhoneNumberField(required=False)
     fax = PhoneNumberField(required=False)
 
@@ -84,14 +93,21 @@ class SchoolChangeFormAdmin(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(SchoolChangeFormAdmin, self).clean()
-        geoloc = cleaned_data['geolocation']
-        addr = cleaned_data['address']
-        if geoloc == "Invalid address or no results":
-            self.add_error("address",
-                           forms.ValidationError("The address is invalid"))
-        if addr == "Invalid geolocation":
-            self.add_error("geolocation",
-                           forms.ValidationError("The geolocation is invalid"))
+        try:
+            geoloc = cleaned_data['geolocation']
+            addr = cleaned_data['address']
+            if geoloc == "Invalid address or no results":
+                cleaned_data['address'] = self.address_initial
+                cleaned_data['geolocation'] = self.geolocation_initial
+                self.add_error("address", forms.ValidationError("The address is invalid"))
+            if addr == "Invalid geolocation":
+                cleaned_data['address'] = self.address_initial
+                cleaned_data['geolocation'] = self.geolocation_initial
+                self.add_error("geolocation", forms.ValidationError("The geolocation is invalid"))
+        except:
+            cleaned_data['address'] = self.address_initial
+            cleaned_data['geolocation'] = self.geolocation_initial
+            self.add_error("address", forms.ValidationError("The address is invalid"))
         return cleaned_data
 
     def clean_file(self):
