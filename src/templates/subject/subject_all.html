@@ -18,67 +18,64 @@
 {% block title %}{{ name }}{% endblock %}
 {% load staticfiles %}
 {% block content %}
-
- <!-- Page breadcrumb -->
- <section id="mu-page-breadcrumb">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-page-breadcrumb-area">
-           <h2>{{  name  }}</h2>
-           <ol class="breadcrumb">
-            <li><a href="/">Acasă</a></li>
-            <li><a href="/subject_page_all">Specializari</a></li>
-            <li class="active">{{ name }}</li>
-          </ol>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
- <!-- End breadcrumb -->
- <section id="mu-course-content">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-course-content-area">
+  <!-- Page breadcrumb -->
+  <section id="mu-page-breadcrumb">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-page-breadcrumb-area">
+            <h2>{{  name  }}</h2>
+            <ol class="breadcrumb">
+              <li><a href="/">Acasă</a></li>
+              <li><a href="/subject_page_all">Specializari</a></li>
+              <li class="active">{{ name }}</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End breadcrumb -->
+  <section id="mu-course-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-course-content-area">
             <div class="row">
               <div class="col-md-9">
                 <!-- start course content container -->
                 <div class="mu-course-container mu-blog-archive">
                   <div class="row">
                     {% if posts %}
-                    {% for post in posts %}
-                    <div class="col-md-6 col-sm-6">
-                      <article class="mu-blog-single-item">
-                        <figure class="mu-blog-single-img">
-                          {% if post.get_type == "Subcategory" %}
-                          <a href="{{ post.name }}"><img  src= '{{ post.file.url }}'alt="img"></a>
-                          {% else %}
-                          <a href="/simple/{{ name }}/{{ post.slug }}" ><img  src= '{{ post.file.url }}'alt="img"></a>
-                          {% endif %}
-                        </figure>
-
-                          <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                      {% for post in posts %}
+                        <div class="col-md-6 col-sm-6">
+                          <article class="mu-blog-single-item">
+                            <figure class="mu-blog-single-img">
+                              {% if post.get_type == "Subcategory" %}
+                                <a href="{{ post.name }}"><img  src= '{{ post.file.url }}'alt="img"></a>
+                              {% else %}
+                                <a href="/simple/{{ name }}/{{ post.slug }}" ><img  src= '{{ post.file.url }}'alt="img"></a>
+                              {% endif %}
+                            </figure>
+                            <figcaption class="mu-blog-caption" style="padding-top: 305px;">
                             {% if post.get_type == "Subcategory" %}
-                            <h3><a href="{{post.name}}" title="{{post.name}}">{{ post.name|truncatechars:17 }}</a></h3>
+                              <h3><a href="{{post.name}}" title="{{post.name}}">{{ post.name|truncatechars:17 }}</a></h3>
                             {% else %}
-                            <h3><a href="/simple/{{ name }}/{{ post.slug }}" title="{{post.name}}">{{ post.name|truncatechars:17 }}</a></h3>
+                              <h3><a href="/simple/{{ name }}/{{ post.slug }}" title="{{post.name}}">{{ post.name|truncatechars:17 }}</a></h3>
                             {% endif %}
-                          </figcaption>
-                        <div class="mu-blog-description" style="font-family: 'Source Sans Pro', sans-serif;!important;">
-                        {% if post.get_type == "Subcategory" %}
-                          <a class="mu-read-more-btn" href="{{ post.name }}">Citeşte mai mult</a>
-                        {% else %}
-                          <a class="mu-read-more-btn" href="/simple/{{ name }}/{{ post.slug }}">Citeşte mai mult</a>
-                        {% endif %}
+                            </figcaption>
+                            <div class="mu-blog-description" style="font-family: 'Source Sans Pro', sans-serif;!important;">
+                              {% if post.get_type == "Subcategory" %}
+                                <a class="mu-read-more-btn" href="{{ post.name }}">Citeşte mai mult</a>
+                              {% else %}
+                                <a class="mu-read-more-btn" href="/simple/{{ name }}/{{ post.slug }}">Citeşte mai mult</a>
+                              {% endif %}
+                            </div>
+                          </article>
                         </div>
-                      </article>
-                    </div>
-                    {% endfor %}
-
+                      {% endfor %}
                     {% else %}
-                    <h3>Nu sunt informaţii de afişat </h3>
+                      <h3>Nu sunt informaţii de afişat </h3>
                     {% endif %}
                   </div>
                 </div>
@@ -88,11 +85,11 @@
                   <nav>
                     <ul class="pagination">
                       {% if posts.has_previous %}
-                      <li>
-                        <a href="?page={{ posts.previous_page_number }}" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Înapoi
-                        </a>
-                      </li>
+                        <li>
+                          <a href="?page={{ posts.previous_page_number }}" aria-label="Previous">
+                            <span class="fa fa-angle-left"></span> Înapoi
+                          </a>
+                        </li>
                       {% endif %}
                       {% for num in posts.paginator.page_range %}
                         {% if num == posts.number %}
@@ -102,16 +99,16 @@
                         {% endif %}
                       {% endfor %}
                       {% if posts.has_next %}
-                      <li>
-                        <a href="?page={{ posts.next_page_number }}" aria-label="Next">
-                         Înainte <span class="fa fa-angle-right"></span>
-                        </a>
-                      </li>
+                        <li>
+                          <a href="?page={{ posts.next_page_number }}" aria-label="Next">
+                            Înainte <span class="fa fa-angle-right"></span>
+                          </a>
+                        </li>
                       {% endif %}
                     </ul>
                   </nav>
                 </div>
-      <!-- end course pagination -->
+                <!-- end course pagination -->
               </div>
               <div class="col-md-3">
                 <!-- start sidebar -->
@@ -120,22 +117,21 @@
                   <div class="mu-single-sidebar">
                     
                     <h3><a href="/subject_page_all">Specializări</a></h3>
-                        
+                    
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
-                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
+                        <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
                   <!-- end single sidebar -->
                 </aside>
                 <!-- / end sidebar -->
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
-
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}
