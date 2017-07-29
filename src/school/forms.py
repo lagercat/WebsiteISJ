@@ -34,6 +34,11 @@ class SchoolCreationFormAdmin(forms.ModelForm):
         fields = ('name', 'telephone', 'fax', 'email', 'website', 'address',
                   'geolocation', 'file',)
 
+    def __init__(self, *args, **kwargs):
+        super(SchoolCreationFormAdmin, self).__init__(*args, **kwargs)
+        self.fields['telephone'].widget.attrs['placeholder'] = "+40735122139"
+        self.fields['fax'].widget.attrs['placeholder'] = "+40735122139"
+
     def clean(self):
         cleaned_data = super(SchoolCreationFormAdmin, self).clean()
         try:
@@ -42,15 +47,18 @@ class SchoolCreationFormAdmin(forms.ModelForm):
             if geoloc == "Invalid address or no results":
                 cleaned_data['geolocation'] = "0,0"
                 cleaned_data['address'] = ""
-                self.add_error("address", forms.ValidationError("The address is invalid"))
+                self.add_error("address", forms.ValidationError(
+                    "The address is invalid"))
             if addr == "Invalid geolocation":
                 cleaned_data['geolocation'] = "0,0"
                 cleaned_data['address'] = ""
-                self.add_error("address", forms.ValidationError("The geolocation is invalid"))
+                self.add_error("address", forms.ValidationError(
+                    "The geolocation is invalid"))
         except:
             cleaned_data['geolocation'] = "0,0"
             cleaned_data['address'] = ""
-            self.add_error("address", forms.ValidationError("The address is invalid"))
+            self.add_error("address", forms.ValidationError(
+                "The address is invalid"))
         if self.errors.get("geolocation"):
             del self.errors["geolocation"]
         return cleaned_data
@@ -90,6 +98,8 @@ class SchoolChangeFormAdmin(forms.ModelForm):
         }
         kwargs['initial'] = initial
         super(SchoolChangeFormAdmin, self).__init__(*args, **kwargs)
+        self.fields['telephone'].widget.attrs['placeholder'] = "+40735122139"
+        self.fields['fax'].widget.attrs['placeholder'] = "+40735122139"
 
     def clean(self):
         cleaned_data = super(SchoolChangeFormAdmin, self).clean()
@@ -99,15 +109,18 @@ class SchoolChangeFormAdmin(forms.ModelForm):
             if geoloc == "Invalid address or no results":
                 cleaned_data['address'] = self.address_initial
                 cleaned_data['geolocation'] = self.geolocation_initial
-                self.add_error("address", forms.ValidationError("The address is invalid"))
+                self.add_error("address", forms.ValidationError(
+                    "The address is invalid"))
             if addr == "Invalid geolocation":
                 cleaned_data['address'] = self.address_initial
                 cleaned_data['geolocation'] = self.geolocation_initial
-                self.add_error("geolocation", forms.ValidationError("The geolocation is invalid"))
+                self.add_error("geolocation", forms.ValidationError(
+                    "The geolocation is invalid"))
         except:
             cleaned_data['address'] = self.address_initial
             cleaned_data['geolocation'] = self.geolocation_initial
-            self.add_error("address", forms.ValidationError("The address is invalid"))
+            self.add_error("address", forms.ValidationError(
+                "The address is invalid"))
         return cleaned_data
 
     def clean_file(self):
