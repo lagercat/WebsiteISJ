@@ -14,13 +14,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
-from django.shortcuts import render, render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 
 from event.models import Event
 from gallery.models import Gallery
 from news.models import News
-from page.models import Category, Subcategory
 from school.models import School
 from subject.models import Subject
 
@@ -37,5 +35,5 @@ def home(request):
         'events': events,
         'subjects': subjects,
         'album': album,
-        'schools':schools,
+        'schools': schools,
     })

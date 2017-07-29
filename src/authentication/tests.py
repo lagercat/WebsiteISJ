@@ -24,7 +24,7 @@ from django.test import TestCase, Client
 from django.contrib.auth.models import User
 
 from authentication.models import ExtendedUser
-from authentication.forms import (LoginForm, ResetPasswordForm,
+from authentication.forms import (LoginForm,
                                   ExtendedUserCreationFormAdmin)
 from school.models import School
 from subject.models import Subject
@@ -96,7 +96,7 @@ class ExtendedUserTestCase(TestCase):
         self.assertTrue(
             self.admin.has_perm(r''.join(
                 random.choice(string.ascii_uppercase +
-                string.digits) for _ in range(20))))
+                              string.digits) for _ in range(20))))
 
 
 class LoginFormTestCase(TestCase):
@@ -310,7 +310,7 @@ class AuthenticationViewsTestCase(TestCase):
             "username": self.user.username,
             "password": self.user_unecrypt_pass,
             "g-recaptcha-response": "PASSED"
-            })
+        })
         self.assertEqual(login_response.wsgi_request.user, self.user)
 
     def test_wrong_login_view(self):
@@ -320,7 +320,7 @@ class AuthenticationViewsTestCase(TestCase):
             "username": self.user.username + "rand",
             "password": self.user_unecrypt_pass,
             "g-recaptcha-response": "PASSED"
-            })
+        })
         self.assertNotEqual(login_response.wsgi_request.user, self.user)
 
     def test_login_view_captcha(self):
@@ -330,7 +330,7 @@ class AuthenticationViewsTestCase(TestCase):
             "username": self.user.username,
             "password": self.user_unecrypt_pass,
             "g-recaptcha-response": "PASED"
-            })
+        })
         self.assertNotEqual(login_response.wsgi_request.user, self.user)
 
     def test_wrong_login_view_captcha(self):
@@ -340,5 +340,5 @@ class AuthenticationViewsTestCase(TestCase):
             "username": self.user.username + "rand",
             "password": self.user_unecrypt_pass,
             "g-recaptcha-response": "PASED"
-            })
+        })
         self.assertNotEqual(login_response.wsgi_request.user, self.user)

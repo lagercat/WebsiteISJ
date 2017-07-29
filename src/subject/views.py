@@ -45,7 +45,8 @@ def create_subject_post(request):
 def subject(request, name):
     current_subject = get_object_or_404(Subject, name=name)
     results = sorted(list(
-        chain(current_subject.get_subcategory(), current_subject.get_simple_subject_post())),
+        chain(current_subject.get_subcategory(),
+              current_subject.get_simple_subject_post())),
         key=lambda instance: instance.date, reverse=True)
     paginator = Paginator(results, 4)
 
@@ -110,7 +111,7 @@ def subject_news(request, name, slug):
     return render(request, 'subject/subject_news.html', {
 
         'name': articol[0].get('name'),
-        'subject_name':name,
+        'subject_name': name,
         'text': articol[0].get('text'),
         'other_news': other_news,
         'thumbnail': "/media/" + articol[0].get('file'),

@@ -18,114 +18,100 @@
 {% block title %}Galerie de Albume{% endblock %}
 {% load staticfiles %}
 {% block content %}
-
- <!-- Page breadcrumb -->
- <section id="mu-page-breadcrumb">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-page-breadcrumb-area">
-           <h2>Galerie de Albume</h2>
-           <ol class="breadcrumb">
-            <li><a href="/">Acasă</a></li>
-            <li class="active">Albume</li>
-          </ol>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
- <!-- End breadcrumb -->
- <!-- Start gallery  -->
-<section id="mu-gallery">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-gallery-area">
-          <!-- start title -->
-          <div class="mu-title">
-
-          <!-- end title -->
-          <!-- start gallery content -->
-          <div class="mu-gallery-content">
-            <div class="mu-gallery-body">
-              <ul class="row">
-                  {% if gallery %}
-                  {% for image in gallery %}
-                <li class="col-md-4 col-sm-6 col-xs-12">
-                 	<div class="mu-single-gallery">
-                    	<div class="mu-single-gallery-item">
-		                    <div class="mu-single-gallery-img">
-		                        <a href="#"><img alt="img" src="{{ image.file.url }}"></a>
-		                    </div>
-							<div class="mu-single-gallery-info">
-                        		<div  class="mu-single-gallery-info-inner">
-
-
-
-		                          	<a href="#" class="mu-view-btn"><span class="fa fa-search"></span></a>
-
-
-
-								  	<!-- Iteam detail view -->
-								  	<div class="portfolio-detail">
-					                    <a href="#" class="modal-close-btn"><span class="fa fa-times"></span></a>
-					                    <img src="{{ image.file.url }}" alt="img-9"/>
-
-
-				                	</div>
-
-								</div>
-							</div>
-						</div>
-
-					</div>
-                    <div class="mu-latest-course-single-contbottom">
-                         <h3><a href="/gallery/{{ image.slug }}"  >{{ image.name|truncatechars:16|truncatewords:5 }}</a></h3>
-
-                      <a class="mu-course-details" href="gallery/{{image.slug}}" style="color: #00acc1">Vizualizați albumul</a>
-                    </div>
-                  <br>
-                </li>
-                  {% endfor %}
-                  {% endif %}
-              </ul>
+  <!-- Page breadcrumb -->
+  <section id="mu-page-breadcrumb">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-page-breadcrumb-area">
+            <h2>Galerie de Albume</h2>
+            <ol class="breadcrumb">
+              <li><a href="/">Acasă</a></li>
+              <li class="active">Albume</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End breadcrumb -->
+  <!-- Start gallery  -->
+  <section id="mu-gallery">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-gallery-area">
+            <!-- start title -->
+            <div class="mu-title">
+              <!-- end title -->
+              <!-- start gallery content -->
+              <div class="mu-gallery-content">
+                <div class="mu-gallery-body">
+                  <ul class="row">
+                    {% if gallery %}
+                      {% for image in gallery %}
+                        <li class="col-md-4 col-sm-6 col-xs-12">
+                          <div class="mu-single-gallery">
+                            <div class="mu-single-gallery-item">
+                              <div class="mu-single-gallery-img">
+                                <a href="#"><img alt="img" src="{{ image.file.url }}"></a>
+                              </div>
+                              <div class="mu-single-gallery-info">
+                                <div  class="mu-single-gallery-info-inner">
+                                  <a href="#" class="mu-view-btn"><span class="fa fa-search"></span></a>
+                                  <!-- Iteam detail view -->
+                                  <div class="portfolio-detail">
+                                    <a href="#" class="modal-close-btn"><span class="fa fa-times"></span></a>
+                                    <img src="{{ image.file.url }}" alt="img-9"/>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mu-latest-course-single-contbottom">
+                            <h3><a href="/gallery/{{ image.slug }}"  >{{ image.name|truncatechars:16|truncatewords:5 }}</a></h3>
+                            <a class="mu-course-details" href="gallery/{{image.slug}}" style="color: #00acc1">Vizualizați albumul</a>
+                          </div>
+                          <br>
+                        </li>
+                      {% endfor %}
+                    {% endif %}
+                  </ul>
+                </div>
+              </div>
+              <!-- end gallery content -->
+              <!-- start course pagination -->
+              <div class="mu-pagination">
+                <nav>
+                  <ul class="pagination">
+                    {% if gallery.has_previous %}
+                      <li>
+                        <a href="?page={{ gallery.previous_page_number }}" aria-label="Previous">
+                          <span class="fa fa-angle-left"></span> Înapoi
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% for num in gallery.paginator.page_range %}
+                      {% if num == gallery.number %}
+                        <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
+                      {% else %}
+                        <li><a href="?page={{ num }}">{{ num }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if gallery.has_next %}
+                      <li>
+                        <a href="?page={{ gallery.next_page_number }}" aria-label="Next">
+                          Înainte <span class="fa fa-angle-right"></span>
+                        </a>
+                      </li>
+                    {% endif %}
+                  </ul>
+                </nav>
+              </div>
+              <!-- end course pagination -->
             </div>
           </div>
-          <!-- end gallery content -->
-          <!-- start course pagination -->
-          <div class="mu-pagination">
-            <nav>
-              <ul class="pagination">
-                {% if gallery.has_previous %}
-                <li>
-                  <a href="?page={{ gallery.previous_page_number }}" aria-label="Previous">
-                    <span class="fa fa-angle-left"></span> Înapoi
-                  </a>
-                </li>
-                {% endif %}
-                {% for num in gallery.paginator.page_range %}
-                  {% if num == gallery.number %}
-                    <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
-                  {% else %}
-                    <li><a href="?page={{ num }}">{{ num }}</a></li>
-                  {% endif %}
-                {% endfor %}
-                {% if gallery.has_next %}
-                <li>
-                  <a href="?page={{ gallery.next_page_number }}" aria-label="Next">
-                   Înainte <span class="fa fa-angle-right"></span>
-                  </a>
-                </li>
-                {% endif %}
-              </ul>
-            </nav>
-          </div>
-          <!-- end course pagination -->
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
-
- {% endblock %}
+        </div>
+      </div>
+    </section>
+  {% endblock %}

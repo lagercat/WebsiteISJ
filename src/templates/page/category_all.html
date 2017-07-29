@@ -18,79 +18,69 @@
 {% block title %}Toate categoriile {% endblock %}
 {% load staticfiles %}
 {% block content %}
-
- <!-- Page breadcrumb -->
- <section id="mu-page-breadcrumb">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-page-breadcrumb-area">
-           <h2>{{ name }}</h2>
-           <ol class="breadcrumb">
-            <li><a href="/">Acasă</a></li>
-            <li class="active">Toate categoriile</li>
-          </ol>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
- <!-- End breadcrumb -->
- <section id="mu-course-content">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-course-content-area">
+  <!-- Page breadcrumb -->
+  <section id="mu-page-breadcrumb">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-page-breadcrumb-area">
+            <h2>{{ name }}</h2>
+            <ol class="breadcrumb">
+              <li><a href="/">Acasă</a></li>
+              <li class="active">Toate categoriile</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End breadcrumb -->
+  <section id="mu-course-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-course-content-area">
             <div class="row">
               <div class="col-md-9">
                 <!-- start course content container -->
                 <div class="mu-course-container mu-blog-archive">
                   <div class="row">
                     <div class="list-group">
-                        <a href="#" class="list-group-item active">Toate categoriile</a>
-
-
-
-                    {% if categories_all %}
-
-                          {% for category  in categories_all %}
-                            <a href="/category/{{ category.slug }}" class="list-group-item act">{{ category.title }}</a>
-
-                          {% endfor %}
-
+                      <a href="#" class="list-group-item active">Toate categoriile</a>
+                      {% if categories_all %}
+                        {% for category  in categories_all %}
+                          <a href="/category/{{ category.slug }}" class="list-group-item act">{{ category.title }}</a>
+                        {% endfor %}
                       {% else %}
-                      <a  class="list-group-item list-group-item-danger">Nu sunt informații de afișat </a>
-                    {%endif%}
-
-
+                        <a  class="list-group-item list-group-item-danger">Nu sunt informații de afișat </a>
+                        {%endif%}
                       </div>
+                    </div>
                   </div>
+                  <!-- end course content container -->
                 </div>
-                <!-- end course content container -->
+                <div class="col-md-3">
+                  <!-- start sidebar -->
+                  <aside class="mu-sidebar">
+                    <!-- start single sidebar -->
+                    <div class="mu-single-sidebar">
+                      
+                      <h3><a href="/subject_page_all">Specializări</a></h3>
+                      
+                      <ul class="mu-sidebar-catg">
+                        {% for subject in left_subjects %}
+                          <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                    <!-- end single sidebar -->
+                  </aside>
+                  <!-- / end sidebar -->
+                </div>
               </div>
-              <div class="col-md-3">
-                <!-- start sidebar -->
-                <aside class="mu-sidebar">
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    
-                    <h3><a href="/subject_page_all">Specializări</a></h3>
-                        
-                    <ul class="mu-sidebar-catg">
-                      {% for subject in left_subjects %}
-                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                  <!-- end single sidebar -->
-                </aside>
-                <!-- / end sidebar -->
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
-
-{% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endblock %}

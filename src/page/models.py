@@ -34,13 +34,14 @@ def user_directory_path(instance, filename):
 
 
 class Category(CustomPermissionsMixin):
+
     class Meta(CustomPermissionsMixin.Meta):
         get_latest_by = 'title'
         abstract = False
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
         index_text = "Manage"
-        
+
     title = models.CharField(max_length=20, blank=False, null=True,
                              unique=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
@@ -76,6 +77,7 @@ class Subcategory(CustomPermissionsMixin):
 
 
 class Article(File):
+
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "thumbnails/Article"
         self._meta.get_field('file').label = "Thumbnail"
@@ -101,6 +103,7 @@ class Article(File):
 
 
 class SimplePage(File):
+
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "thumbnails/Article"
         self._meta.get_field('file').label = "Thumbnail"

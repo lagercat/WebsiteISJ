@@ -22,10 +22,10 @@ from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 
 from post.models import File
-from utility.models import CustomPermissionsMixin
 
 
 class Gallery(File):
+
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "gallery/thumbnails"
         super(Gallery, self).__init__(*args, **kwargs)
@@ -43,11 +43,13 @@ class Gallery(File):
 
 
 class GalleryPhoto(File):
+
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "gallery/placeholder"
         super(GalleryPhoto, self).__init__(*args, **kwargs)
 
-    gallery = ForeignKey(Gallery, null=False, blank=False, on_delete=models.CASCADE)
+    gallery = ForeignKey(Gallery, null=False, blank=False,
+                         on_delete=models.CASCADE)
 
     REQUIRED = ['gallery', 'name', 'file']
 

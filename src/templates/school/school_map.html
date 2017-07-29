@@ -156,36 +156,34 @@
           $("#list").children
         }
         </script>
-    </head>
-    <body onload="initialize()">
-        <header>
-            <ul id="slide-out" class="side-nav fixed">
-                <li>
-                    <ul id='list' class="collapsible collapsible-accordion">
-
-                    </ul>
-                </li>
+</head>
+<body onload="initialize()">
+<header>
+    <ul id="slide-out" class="side-nav fixed">
+        <li>
+            <ul id='list' class="collapsible collapsible-accordion">
             </ul>
-        </header>
-        <main style="height:100%">
-            <nav class="topbar">
-                <div class="nav-wrapper" style=" display: flex;">
-                  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-                  <form class="green lighten-3" style="max-width:100%; margin-left:auto;">
-                    <div class="input-field" style="max-width: 80%">
-                      <input id="search" />
-                      <label for="search">
+        </li>
+    </ul>
+</header>
+<main style="height:100%">
+    <nav class="topbar">
+        <div class="nav-wrapper" style=" display: flex;">
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+            <form class="green lighten-3" style="max-width:100%; margin-left:auto;">
+                <div class="input-field" style="max-width: 80%">
+                    <input id="search" />
+                    <label for="search">
                         <i class="material-icons" style="padding-left: 5px;">search</i>
-                      </label>
-
-                    </div>
-                  </form>
+                    </label>
                 </div>
-            </nav>
-            <div id="map_canvas" class="content" style="width:100%; height:100%"></div>
-        </main>
-        <script>
-            $(".button-collapse").sideNav();
-        </script>
-    </body>
+            </form>
+        </div>
+    </nav>
+    <div id="map_canvas" class="content" style="width:100%; height:100%"></div>
+</main>
+<script>
+$(".button-collapse").sideNav();
+</script>
+</body>
 </html>

@@ -39,14 +39,16 @@ def news_all(request):
 
 
 def news(request, slug):
-    articol = list(News.objects.values('name', 'text', 'author__first_name', 'author__last_name', 'file', 'date',
+    articol = list(News.objects.values('name', 'text', 'author__first_name',
+                                       'author__last_name', 'file', 'date',
                                        'slug').filter(slug=slug))
     other_news = News.objects.all().exclude(slug=slug)[:4]
     return render(request, 'news/news.html', {
 
         'name': articol[0].get('name'),
         'text': articol[0].get('text'),
-        'author': articol[0].get('author__first_name') + " " + articol[0].get('author__last_name'),
+        'author': articol[0].get(
+            'author__first_name') + " " + articol[0].get('author__last_name'),
         'date': articol[0].get('date'),
         'other_news': other_news,
         'thumbnail': "/media/" + articol[0].get('file'),

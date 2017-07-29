@@ -18,31 +18,30 @@
 {% block title %}{{ name }}{% endblock %}
 {% load staticfiles %}
 {% block content %}
-
- <!-- Page breadcrumb -->
- <section id="mu-page-breadcrumb">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-page-breadcrumb-area">
-             <a href="/events_all">
-                 <h2>Evenimente</h2>
-             </a>
-           <ol class="breadcrumb">
-            <li><a href="/">Acasă</a></li>
-            <li class="active">Eveniment</li>
-          </ol>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
- <!-- End breadcrumb -->
- <section id="mu-course-content">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-course-content-area">
+  <!-- Page breadcrumb -->
+  <section id="mu-page-breadcrumb">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-page-breadcrumb-area">
+            <a href="/events_all">
+              <h2>Evenimente</h2>
+            </a>
+            <ol class="breadcrumb">
+              <li><a href="/">Acasă</a></li>
+              <li class="active">Eveniment</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End breadcrumb -->
+  <section id="mu-course-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-course-content-area">
             <div class="row">
               <div class="col-md-9">
                 <!-- start course content container -->
@@ -59,15 +58,15 @@
                           <ul>
                             <li> <span>Data & ora : </span> <span> {{ date }}</span></li>
                             <li> <span>Locaţia :</span> <span>{{ location }}</span></li>
-                              <div align="center">
-                            <input id="id_address" name="address" type="hidden" value="{{ location }}">
-                            <input id="id_geolocation" name="geolocation" type="hidden" value="{{ geolocation }}">
-                            <div id='map_container' class='row ' style="width: 100% ">
-                                    <div class='col s12' >
-                                        <div id='map_canvas' style='padding-top: 56.25%; width: 100%'></div>
-                                    </div>
+                            <div align="center">
+                              <input id="id_address" name="address" type="hidden" value="{{ location }}">
+                              <input id="id_geolocation" name="geolocation" type="hidden" value="{{ geolocation }}">
+                              <div id='map_container' class='row ' style="width: 100% ">
+                                <div class='col s12' >
+                                  <div id='map_canvas' style='padding-top: 56.25%; width: 100%'></div>
                                 </div>
                               </div>
+                            </div>
                           </ul>
                           <p style="word-break: break-all;"> {{ text|safe }}</p>
                         </div>
@@ -78,37 +77,36 @@
                 <!-- end course content container -->
                 <!-- start related course item -->
                 {% if other_event %}
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="mu-related-item">
-                  <h3>Alte evenimente</h3>
-                  <div class="mu-related-item-area">
-                    <div id="mu-related-item-slide">
-                      {% for event in other_event %}
-                      <div class="col-md-6">
-                        <div class="mu-latest-course-single">
-                          <figure class="mu-latest-course-img">
-                            <a href="/event/{{ event.slug }}"><img style=" max-height: 160px" alt="img" src= '{{ event.file.url }}'></a>
-                          </figure>
-                            <figcaption class="mu-latest-course-imgcaption" style="padding-top:305px;">
-                              <a href="/event/{{ event.slug }}">{{ event.name|truncatewords:5| truncatechars:25 }}</a>
-                            </figcaption>
-                          <div class="mu-latest-course-single-content">
-                              <div class="mu-latest-course-single-contbottom">
-                              <a href="/event/{{ event.slug }}" class="mu-course-details">Mai mult</a>
-
-                            </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="mu-related-item">
+                        <h3>Alte evenimente</h3>
+                        <div class="mu-related-item-area">
+                          <div id="mu-related-item-slide">
+                            {% for event in other_event %}
+                              <div class="col-md-6">
+                                <div class="mu-latest-course-single">
+                                  <figure class="mu-latest-course-img">
+                                    <a href="/event/{{ event.slug }}"><img style=" max-height: 160px" alt="img" src= '{{ event.file.url }}'></a>
+                                  </figure>
+                                  <figcaption class="mu-latest-course-imgcaption" style="padding-top:305px;">
+                                  <a href="/event/{{ event.slug }}">{{ event.name|truncatewords:5| truncatechars:25 }}</a>
+                                  </figcaption>
+                                  <div class="mu-latest-course-single-content">
+                                    <div class="mu-latest-course-single-contbottom">
+                                      <a href="/event/{{ event.slug }}" class="mu-course-details">Mai mult</a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}
                           </div>
                         </div>
                       </div>
-                      {% endfor %}
                     </div>
                   </div>
-                </div>
-                  </div>
-                </div>
-                <!-- end start related course item -->
-                                      {% endif %}
+                  <!-- end start related course item -->
+                {% endif %}
               </div>
               <div class="col-md-3">
                 <!-- start sidebar -->
@@ -117,44 +115,43 @@
                   <div class="mu-single-sidebar">
                     
                     <h3><a href="/subject_page_all">Specializări</a></h3>
-                        
+                    
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
-                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
+                        <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
                   <!-- end single sidebar -->
                   <!-- start single sidebar -->
                   {% if other_news %}
-                  <div class="mu-single-sidebar">
-                    <h3>Articole Populare</h3>
-                    {% for news in other_news %}
-                    <div class="mu-sidebar-popular-courses">
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="/news/{{ news.slug }}">
-                            <img class="media-object" src= '{{ news.file.url }}' alt="img">
-                          </a>
+                    <div class="mu-single-sidebar">
+                      <h3>Articole Populare</h3>
+                      {% for news in other_news %}
+                        <div class="mu-sidebar-popular-courses">
+                          <div class="media">
+                            <div class="media-left">
+                              <a href="/news/{{ news.slug }}">
+                                <img class="media-object" src= '{{ news.file.url }}' alt="img">
+                              </a>
+                            </div>
+                            <div class="media-body">
+                              <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.name }}</a></h4>
+                              <span class="popular-course-price">{{ news.date }}</span>
+                            </div>
+                          </div>
                         </div>
-                        <div class="media-body">
-                          <h4 class="media-heading"><a href="/news/{{ news.slug }}">{{ news.name }}</a></h4>
-                          <span class="popular-course-price">{{ news.date }}</span>
-                        </div>
-                      </div>
+                      {% endfor %}
                     </div>
-                    {% endfor %}
-                  </div>
                   {% endif %}
                   <!-- end single sidebar -->
                 </aside>
                 <!-- / end sidebar -->
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
-
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}
