@@ -20,7 +20,6 @@ from django.contrib.admin.filters import (ChoicesFieldListFilter,
 from models import Post
 from post.forms import (PageChangeFormAdmin, PageCreationFormAdmin,
                         PostChangeFormAdmin, PostCreationFormAdmin)
-from post.models import Page
 from utility.admin import AdminChangeMixin, register_model_admin
 
 
@@ -34,7 +33,8 @@ class PostAdmin(AdminChangeMixin):
 
     icon = '<i class="material-icons">description</i>'
 
-    list_display = ('short_name', 'author', 'fileLink','see_file_link', 'location', 'date', )
+    list_display = ('short_name', 'author', 'fileLink', 'see_file_link',
+                    'location', 'date', )
     list_filter = (
         ('date', DateFieldListFilter),
         ('author__status', ChoicesFieldListFilter),
@@ -51,7 +51,8 @@ class PostAdmin(AdminChangeMixin):
         ('File', {'fields': ('name', 'file')}),
     )
 
-    search_fields = ('author__first_name', 'author__last_name', 'name', 'date', 'slug',)
+    search_fields = ('author__first_name', 'author__last_name',
+                     'name', 'date', 'slug',)
 
     ordering = ['date']
     filter_horizontal = ()
@@ -78,12 +79,16 @@ class PostAdmin(AdminChangeMixin):
         obj = Post.objects.all().filter(pk=object_id)[0]
         extra_context = extra_context or {}
         extra_context['location'] = int(obj.location == "exterior") or 2
-        return super(PostAdmin, self).change_view(request, object_id, extra_context=extra_context)
+        return super(PostAdmin, self).change_view(request, object_id,
+                                                  extra_context=extra_context)
 
     def add_view(self, request, extra_context=None):
         extra_context = extra_context or {}
         extra_context['location'] = int(request.GET.get('_exterior', 2))
-        return super(PostAdmin, self).add_view(request, extra_context=extra_context)
+        return super(PostAdmin, self).add_view(request,
+
+                                               extra_context=extra_context)
+
 
 class PageAdmin(AdminChangeMixin):
     change_form = PageChangeFormAdmin
@@ -110,7 +115,8 @@ class PageAdmin(AdminChangeMixin):
         ('Page content', {'fields': ('text', 'file')})
     )
 
-    search_fields = ('author__first_name', 'author__last_name', 'name', 'date', 'slug',)
+    search_fields = ('author__first_name', 'author__last_name',
+                     'name', 'date', 'slug',)
 
     ordering = ['date']
     filter_horizontal = ()
@@ -130,4 +136,3 @@ class PageAdmin(AdminChangeMixin):
     pass
 
 register_model_admin(Post, PostAdmin)
-

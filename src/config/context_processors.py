@@ -22,6 +22,6 @@ def template_context(request):
 
     return {
         'categories': Category.objects.all()[:6],
-        'categories_number':Category.objects.all().count(),
+        'categories_number': Category.objects.all().count(),
         'left_subjects': Subject.objects.all()
     }

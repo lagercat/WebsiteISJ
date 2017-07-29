@@ -39,7 +39,8 @@ class File(CustomPermissionsMixin):
     author = models.ForeignKey("authentication.ExtendedUser", blank=False)
     name = models.CharField(max_length=100, blank=False, null=True)
     file = models.FileField(upload_to=user_directory_path, null=True)
-    date = models.DateTimeField(default=datetime.now, blank=False, null=True, editable=True)
+    date = models.DateTimeField(default=datetime.now, blank=False, null=True,
+                                editable=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
     location = models.CharField(max_length=50, default="abstract")
 
@@ -49,7 +50,8 @@ class File(CustomPermissionsMixin):
 
     def fileLink(self):
         if self.file:
-            return '<a href="' + "/download/" + str(self.slug) + '">' + "Download file" + '</a>'
+            return '<a href="' + "/download/" + str(self.slug) + '">'
+            "Download file" + '</a>'
         else:
             return '<a href="''"></a>'
 
@@ -75,6 +77,7 @@ class File(CustomPermissionsMixin):
 
 
 class Post(File):
+
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "interior"
         super(Post, self).__init__(*args, **kwargs)
@@ -90,6 +93,7 @@ class Post(File):
 
 
 class Page(File):
+
     def __init__(self, *args, **kwargs):
         self._meta.get_field('location').default = "thumbails/pages"
         self._meta.get_field('file').label = "Thumbnail"
