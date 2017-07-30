@@ -33,12 +33,12 @@ back-end developer
 * Bootstrap
 * Materialize CSS
 ### Baze de date:
-* postgresQL
+* PostgreSQL
 ### Search engine:
 * Elasticsearch
 ### Deployment tool:
 * Docker
-### Integration tool:
+### Integration tool: 
 * Jenkins
 
 ## Pachete folosite de la  Django
