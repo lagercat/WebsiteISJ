@@ -19,7 +19,8 @@ from operator import or_
 from django import forms
 from django.db.models.query_utils import Q
 
-from models import Subcategory, SubjectPost
+from models import Subcategory
+from models import SubjectPost
 from tinymce.widgets import AdminTinyMCE
 from utility.utility import clean_file
 

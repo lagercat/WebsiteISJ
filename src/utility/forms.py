@@ -16,7 +16,8 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django.forms.widgets import Select
 from django.utils.encoding import force_unicode
-from django.utils.html import escape, conditional_escape
+from django.utils.html import conditional_escape
+from django.utils.html import escape
 
 
 class SelectWithDisabled(Select):

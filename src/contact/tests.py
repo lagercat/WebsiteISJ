@@ -15,13 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 import os
+
 from random import choice
 from string import ascii_uppercase
 
 from django.test import TestCase
 
-from contact.models import Contact
 from contact.forms import CreateContactForm
+from contact.models import Contact
 
 
 class ContactModelTestCase(TestCase):

@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django.contrib.admin.views.decorators import staff_member_required
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
+from django.core.paginator import Paginator
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import render
 

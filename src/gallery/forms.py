@@ -16,7 +16,8 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django import forms
 
-from gallery.models import Gallery, GalleryPhoto
+from gallery.models import Gallery
+from gallery.models import GalleryPhoto
 from utility.utility import clean_file
 
 

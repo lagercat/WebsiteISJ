@@ -16,8 +16,10 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django.contrib.admin.filters import DateFieldListFilter
 
-from gallery.forms import GalleryChangeFormAdmin, GalleryCreationFormAdmin
-from utility.admin import AdminChangeMixin, register_model_admin
+from gallery.forms import GalleryChangeFormAdmin
+from gallery.forms import GalleryCreationFormAdmin
+from utility.admin import AdminChangeMixin
+from utility.admin import register_model_admin
 
 from .models import Gallery
 

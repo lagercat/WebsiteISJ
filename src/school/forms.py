@@ -16,8 +16,8 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django import forms
 
-from phonenumber_field.formfields import PhoneNumberField
 from django_google_maps import widgets as map_widgets
+from phonenumber_field.formfields import PhoneNumberField
 
 from models import School
 from utility.utility import clean_file

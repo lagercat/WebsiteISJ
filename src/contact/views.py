@@ -16,7 +16,7 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django.shortcuts import render
 
-from .forms import CreateContactForm
+from contact.forms import CreateContactForm
 
 
 def contact(request):

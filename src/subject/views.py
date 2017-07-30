@@ -18,12 +18,17 @@ from itertools import chain
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
+from django.core.paginator import Paginator
 from django.http import HttpResponseForbidden
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
 
 from forms import SubjectPostCreationFormAdmin
-from models import Subcategory, Subject, SubjectPost
+from models import Subcategory
+from models import Subject
+from models import SubjectPost
 from news.models import News
 
 

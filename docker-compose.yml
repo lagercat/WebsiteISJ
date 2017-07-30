@@ -1,7 +1,14 @@
 version: '2'
 services:
     db:
-      image: postgres
+      image: postgres:latest
+    elasticsearch:
+      image: elasticsearch:2.4
+      hostname: elasticsearch
+      ports:
+        - "9200:9200"
+      environment:
+        ES_JAVA_OPTS: "-Xms1g -Xmx1g"
     web:
       build: .
       env_file: docker-compose.env
@@ -12,3 +19,6 @@ services:
         - "8000:8000"
       depends_on:
         - db
+        - elasticsearch
+      links:
+        - "elasticsearch: elasticsearch"
