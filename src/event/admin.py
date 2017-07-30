@@ -36,7 +36,7 @@ class EventAdmin(AdminChangeMixin):
     readonly_fields = ['author']
 
     search_fields = (
-    'name', 'author__first_name', 'author__last_name', 'address', 'date',)
+        'name', 'author__first_name', 'author__last_name', 'address', 'date',)
 
     ordering = ['date']
     filter_horizontal = ()

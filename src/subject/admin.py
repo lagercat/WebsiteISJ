@@ -62,7 +62,8 @@ class SubcategoryAdmin(AdminChangeMixin):
     )
 
     search_fields = (
-        'author__first_name', 'author__last_name', 'name', 'date', 'slug', 'subject')
+        'author__first_name', 'author__last_name',
+        'name', 'date', 'slug', 'subject')
 
     ordering = ['date']
     filter_horizontal = ()

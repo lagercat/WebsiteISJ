@@ -36,7 +36,7 @@ def category_all(request):
     categories = Category.objects.all()
     return render(request, 'page/category_all.html',
                   {
-                      'categories_all':categories,
+                      'categories_all': categories,
                   })
 
 

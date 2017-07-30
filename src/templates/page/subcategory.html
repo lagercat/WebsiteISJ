@@ -18,56 +18,51 @@
 {% block title %}{{ name }}{% endblock %}
 {% load staticfiles %}
 {% block content %}
-
- <!-- Page breadcrumb -->
- <section id="mu-page-breadcrumb">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-page-breadcrumb-area">
-           <h2>{{ name }}</h2>
-           <ol class="breadcrumb">
-            <li><a href="/">Acasă</a></li>
-            <li class="active">{{ name }}</li>
-          </ol>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
- <!-- End breadcrumb -->
- <section id="mu-course-content">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-course-content-area">
+  <!-- Page breadcrumb -->
+  <section id="mu-page-breadcrumb">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-page-breadcrumb-area">
+            <h2>{{ name }}</h2>
+            <ol class="breadcrumb">
+              <li><a href="/">Acasă</a></li>
+              <li class="active">{{ name }}</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End breadcrumb -->
+  <section id="mu-course-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-course-content-area">
             <div class="row">
               <div class="col-md-9">
                 <!-- start course content container -->
                 <div class="mu-course-container mu-blog-archive">
                   <div class="row">
-
                     {% if articole %}
-                    {% for articol in articole %}
-                    <div class="col-md-6 col-sm-6">
-                      <article class="mu-blog-single-item">
-                        <figure class="mu-blog-single-img">
-                          <a href="/article/{{articol.slug}}"><img  src= '{{ articol.file.url }}'alt="img"></a>
-                        </figure>
-                          <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                      {% for articol in articole %}
+                        <div class="col-md-6 col-sm-6">
+                          <article class="mu-blog-single-item">
+                            <figure class="mu-blog-single-img">
+                              <a href="/article/{{articol.slug}}"><img  src= '{{ articol.file.url }}'alt="img"></a>
+                            </figure>
+                            <figcaption class="mu-blog-caption" style="padding-top: 305px;">
                             <h3><a href="{{articol.slug}}">{{ articol.name|truncatechars:18 }}</a></h3>
-                          </figcaption>
-
-
-                        <div class="mu-blog-description" style="font-family: 'Source Sans Pro', sans-serif;!important;">
-
-                          <a class="mu-read-more-btn" href="/article/{{articol.slug}}">Citeşte mai mult</a>
+                            </figcaption>
+                            <div class="mu-blog-description" style="font-family: 'Source Sans Pro', sans-serif;!important;">
+                              <a class="mu-read-more-btn" href="/article/{{articol.slug}}">Citeşte mai mult</a>
+                            </div>
+                          </article>
                         </div>
-                      </article>
-                    </div>
-                    {% endfor %}
+                      {% endfor %}
                     {% else %}
-                    <h3>Nu sunt informații de afișat </h3>
+                      <h3>Nu sunt informații de afișat </h3>
                     {% endif %}
                   </div>
                 </div>
@@ -77,11 +72,11 @@
                   <nav>
                     <ul class="pagination">
                       {% if articole.has_previous %}
-                      <li>
-                        <a href="?page={{ articole.previous_page_number }}" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Înapoi
-                        </a>
-                      </li>
+                        <li>
+                          <a href="?page={{ articole.previous_page_number }}" aria-label="Previous">
+                            <span class="fa fa-angle-left"></span> Înapoi
+                          </a>
+                        </li>
                       {% endif %}
                       {% for num in articole.paginator.page_range %}
                         {% if num == articole.number %}
@@ -91,11 +86,11 @@
                         {% endif %}
                       {% endfor %}
                       {% if articole.has_next %}
-                      <li>
-                        <a href="?page={{ articole.next_page_number }}" aria-label="Next">
-                         Înainte <span class="fa fa-angle-right"></span>
-                        </a>
-                      </li>
+                        <li>
+                          <a href="?page={{ articole.next_page_number }}" aria-label="Next">
+                            Înainte <span class="fa fa-angle-right"></span>
+                          </a>
+                        </li>
                       {% endif %}
                     </ul>
                   </nav>
@@ -109,44 +104,43 @@
                   <div class="mu-single-sidebar">
                     
                     <h3><a href="/subject_page_all">Specializări</a></h3>
-                        
+                    
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
-                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
+                        <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
                   <!-- end single sidebar -->
                   <!-- start single sidebar -->
-                   {% if articol_all %}
-                  <div class="mu-single-sidebar">
-                    <h3>Popular articol</h3>
-                    {% for articol in articol_all %}
-                    <div class="mu-sidebar-popular-courses">
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="/articol/{{ articol.slug }}">
-                            <img class="media-object" src= '{{ articol.file.url }}' alt="img">
-                          </a>
+                  {% if articol_all %}
+                    <div class="mu-single-sidebar">
+                      <h3>Popular articol</h3>
+                      {% for articol in articol_all %}
+                        <div class="mu-sidebar-popular-courses">
+                          <div class="media">
+                            <div class="media-left">
+                              <a href="/articol/{{ articol.slug }}">
+                                <img class="media-object" src= '{{ articol.file.url }}' alt="img">
+                              </a>
+                            </div>
+                            <div class="media-body">
+                              <h4 class="media-heading"><a href="/articol/{{ articol.slug }}">{{ articol.name }}</a></h4>
+                              <span class="popular-course-price">{{ articol.date }}</span>
+                            </div>
+                          </div>
                         </div>
-                        <div class="media-body">
-                          <h4 class="media-heading"><a href="/articol/{{ articol.slug }}">{{ articol.name }}</a></h4>
-                          <span class="popular-course-price">{{ articol.date }}</span>
-                        </div>
-                      </div>
+                      {% endfor %}
                     </div>
-                    {% endfor %}
-                  </div>
                   {% endif %}
                   <!-- end single sidebar -->
                 </aside>
                 <!-- / end sidebar -->
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
-
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}

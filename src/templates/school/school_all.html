@@ -18,61 +18,57 @@
 {% block title %}Şcolile din Timiş {% endblock %}
 {% load staticfiles %}
 {% block content %}
-
- <!-- Page breadcrumb -->
- <section id="mu-page-breadcrumb">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-page-breadcrumb-area">
-             <a href="/school_map">
-           <h2 >Şcolile din Judeţul Timiş</h2>
-             </a>
-           <ol class="breadcrumb">
-            <li><a href="/">Acasă</a></li>
-            <li class="active"><a href="/school_map" style="color: dodgerblue">Şcoli</a></li>
-          </ol>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
- <!-- End breadcrumb -->
- <section id="mu-course-content">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-course-content-area">
-
+  <!-- Page breadcrumb -->
+  <section id="mu-page-breadcrumb">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-page-breadcrumb-area">
+            <a href="/school_map">
+              <h2 >Şcolile din Judeţul Timiş</h2>
+            </a>
+            <ol class="breadcrumb">
+              <li><a href="/">Acasă</a></li>
+              <li class="active"><a href="/school_map" style="color: dodgerblue">Şcoli</a></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End breadcrumb -->
+  <section id="mu-course-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-course-content-area">
             <div class="row">
               <div class="col-md-9">
                 <!-- start course content container -->
                 <div class="mu-course-container mu-blog-archive">
                   <div class="row">
-
                     {% if schools %}
-                    {% for school in schools %}
-                    <div class="col-md-6 col-sm-6">
-                      <article class="mu-blog-single-item">
-                        <figure class="mu-blog-single-img">
-                            {% if school.file %}
-                          <a href="#"><img  src= '{{ school.file.url }}'alt="img"></a>
-                          {% else %}
-                            <a href="#"><img style="width: 300px;height: 200px" src= "{% static "assets/img/school.jpg" %}"alt="img"></a>
-                            {% endif %}
-                        </figure>
+                      {% for school in schools %}
+                        <div class="col-md-6 col-sm-6">
+                          <article class="mu-blog-single-item">
+                            <figure class="mu-blog-single-img">
+                              {% if school.file %}
+                                <a href="#"><img  src= '{{ school.file.url }}'alt="img"></a>
+                              {% else %}
+                                <a href="#"><img style="width: 300px;height: 200px" src= "{% static "assets/img/school.jpg" %}"alt="img"></a>
+                              {% endif %}
+                            </figure>
                             <figcaption class="mu-blog-caption" style="padding-top: 305px;">
                             <h5><a href="/schools/{{ school.slug }}">{{ school.name }}</a></h5>
-                          </figcaption>
-                        <div class="mu-blog-description">
-
-                          <a class="mu-read-more-btn" href="/schools/{{ school.slug }}">Mai mult</a>
+                            </figcaption>
+                            <div class="mu-blog-description">
+                              <a class="mu-read-more-btn" href="/schools/{{ school.slug }}">Mai mult</a>
+                            </div>
+                          </article>
                         </div>
-                      </article>
-                    </div>
-                    {% endfor %}
+                      {% endfor %}
                     {% else %}
-                    <h3>Nu sunt informaţii de afişat ! </h3>
+                      <h3>Nu sunt informaţii de afişat ! </h3>
                     {% endif %}
                   </div>
                 </div>
@@ -82,11 +78,11 @@
                   <nav>
                     <ul class="pagination">
                       {% if schools.has_previous %}
-                      <li>
-                        <a href="?page={{ schools.previous_page_number }}" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Înapoi
-                        </a>
-                      </li>
+                        <li>
+                          <a href="?page={{ schools.previous_page_number }}" aria-label="Previous">
+                            <span class="fa fa-angle-left"></span> Înapoi
+                          </a>
+                        </li>
                       {% endif %}
                       {% for num in schools.paginator.page_range %}
                         {% if num == schools.number %}
@@ -96,11 +92,11 @@
                         {% endif %}
                       {% endfor %}
                       {% if schools.has_next %}
-                      <li>
-                        <a href="?page={{ schools.next_page_number }}" aria-label="Next">
-                         Înainte <span class="fa fa-angle-right"></span>
-                        </a>
-                      </li>
+                        <li>
+                          <a href="?page={{ schools.next_page_number }}" aria-label="Next">
+                            Înainte <span class="fa fa-angle-right"></span>
+                          </a>
+                        </li>
                       {% endif %}
                     </ul>
                   </nav>
@@ -112,26 +108,22 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-
                     <h3><a href="/subject_page_all">Specializări</a></h3>
-
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
-                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
+                        <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
                   <!-- end single sidebar -->
                   <!-- start single sidebar -->
-
                 </aside>
                 <!-- / end sidebar -->
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
-
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}

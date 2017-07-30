@@ -14,7 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import BaseUserManager
 from django.db import models
 from django.db.models.fields.related import ForeignKey
 
@@ -23,6 +24,7 @@ from subject.models import Subject
 
 
 class ExtendedUserManager(BaseUserManager):
+
     def create_user(self, username, first_name, last_name, password, status=0):
         if not username:
             raise ValueError('Users must have an username')
@@ -56,6 +58,7 @@ class ExtendedUserManager(BaseUserManager):
 
 
 class ExtendedUser(AbstractBaseUser):
+
     class Meta:
         index_text = "Manage"
         verbose_name = 'User'
@@ -84,37 +87,37 @@ class ExtendedUser(AbstractBaseUser):
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['first_name', 'last_name']
-    
+
     perms = {
-      0: [
-        "post.view_post",
-        "post.change_own_post",
-        "post.add_own_post"
-      ],
-      1: [
-        "school.change_own_school",
-        "post.view_post",
-        "post.change_own_post",
-        "post.add_own_post"
-      ],
-      2: [
-        "post.view_post",
-        "post.change_own_post",
-        "post.add_own_post",
-        "event.change_own_event",
-        "event.add_own_event",
-        "news.change_own_news",
-        "news.add_own_news",
-        "subject.change_own_subjectpost",
-        "subject.add_own_subjectpost",
-        "subject.change_own_subcategory",
-        "subject.add_own_subcategory",
-        "gallery.change_own_gallery",
-        "gallery.add_own_gallery",
-      ],
-      3: [
-        "all"
-      ],
+        0: [
+            "post.view_post",
+            "post.change_own_post",
+            "post.add_own_post"
+        ],
+        1: [
+            "school.change_own_school",
+            "post.view_post",
+            "post.change_own_post",
+            "post.add_own_post"
+        ],
+        2: [
+            "post.view_post",
+            "post.change_own_post",
+            "post.add_own_post",
+            "event.change_own_event",
+            "event.add_own_event",
+            "news.change_own_news",
+            "news.add_own_news",
+            "subject.change_own_subjectpost",
+            "subject.add_own_subjectpost",
+            "subject.change_own_subcategory",
+            "subject.add_own_subcategory",
+            "gallery.change_own_gallery",
+            "gallery.add_own_gallery",
+        ],
+        3: [
+            "all"
+        ],
     }
 
     def get_full_name(self):
