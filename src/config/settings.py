@@ -144,11 +144,12 @@ HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.elasticsearch_backend'
         '.ElasticsearchSearchEngine',
-        'URL': 'http://127.0.0.1:9200/',
+        'URL': os.environ.get('HAYSTACK_URL') + ":9200",
         'INDEX_NAME': 'haystack',
         'INCLUDE_SPELLING': True,
     },
 }
+
 
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 4
 
