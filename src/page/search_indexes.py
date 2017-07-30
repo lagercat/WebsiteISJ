@@ -16,7 +16,10 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from haystack import indexes
 
-from page.models import Category, Subcategory, Article, SimplePage
+from page.models import Article
+from page.models import Category
+from page.models import SimplePage
+from page.models import Subcategory
 from search.search_indexes import BaseIndex
 
 

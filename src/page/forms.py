@@ -15,7 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django import forms
-from page.models import Article, SimplePage
+from page.models import Article
+from page.models import SimplePage
 from tinymce.widgets import AdminTinyMCE
 from utility.utility import clean_file
 

@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 
-from forms import ExtendedUserChangeFormAdmin, ExtendedUserCreationFormAdmin
+from forms import ExtendedUserChangeFormAdmin
+from forms import ExtendedUserCreationFormAdmin
 from material.frontend import models
 from models import ExtendedUser
 from utility.admin import register_module_admin

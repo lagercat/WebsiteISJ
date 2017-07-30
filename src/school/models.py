@@ -23,8 +23,8 @@ from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 
-from phonenumber_field.modelfields import PhoneNumberField
 from django_google_maps import fields as map_fields
+from phonenumber_field.modelfields import PhoneNumberField
 
 from utility.models import CustomPermissionsMixin
 

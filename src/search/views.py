@@ -14,8 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
-from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
+from haystack.generic_views import SearchView
 from haystack.query import SearchQuerySet
 
 

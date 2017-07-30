@@ -21,9 +21,6 @@ from django.db import models
 from material.frontend.models import Module
 
 
-# Create your models here.
-
-
 class CustomPermissionsMixin(models.Model):
     """
         Mixin adds view permission to model.
@@ -48,6 +45,7 @@ def make_view_proxy(model):
 
 
 class ModuleProxy(Module, CustomPermissionsMixin):
+
     class Meta(CustomPermissionsMixin.Meta):
         verbose_name = "Module"
         verbose_name_plural = "Modules"

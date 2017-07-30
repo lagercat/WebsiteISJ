@@ -17,18 +17,22 @@
 import json
 import os
 
+from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseForbidden, Http404
+from django.http import Http404
+from django.http import HttpResponse
+from django.http import HttpResponseForbidden
 from django.http.response import JsonResponse
-from django.conf import settings
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 from django.views.static import serve
+
+import config.settings
 
 from models import Post
 from post.forms import PostFormSet
 from post.models import Page
-import config.settings
 
 
 def show_page(request, slug):
