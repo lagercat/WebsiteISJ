@@ -17,10 +17,10 @@ cls XII-a, Liceul Teoretic "G.Moisil" Timisoara :
 back-end developer
 
 ## Licenta 
-* Proiectul e protejat de [..]
+* Proiectul e protejat de GNU General Public License V3
 
 ## Documentatie
-* Documentatia proiectului poate fi accesata aici http://bit.ly/2vSjmeR 
+* Documentatia proiectului poate fi accesata aici  http://bit.ly/2w8v4SM
 
 ## Tehnologi folosite
 ### Back-end:
