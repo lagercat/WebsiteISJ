@@ -92,13 +92,15 @@ def subcategory_subject(request, name, kind):
 def subcategory_subject_news(request, name, kind, slug):
     articol = list(
         SubjectPost.objects.values('name', 'text', 'subject', 'file',
-                                   'slug').filter(slug=slug,
-                                                  subcategory__name=kind))
+                                   'slug', 'date').filter(
+            slug=slug,
+            subcategory__name=kind))
     other_news = News.objects.all()[:4]
     return render(request, 'subject/subject_news.html', {
 
         'name': articol[0].get('name'),
         'text': articol[0].get('text'),
+        'date': articol[0].get('date'),
         'other_news': other_news,
         'thumbnail': "/media/" + articol[0].get('file'),
         'subject_name': name,
@@ -110,13 +112,15 @@ def subcategory_subject_news(request, name, kind, slug):
 def subject_news(request, name, slug):
     articol = list(
         SubjectPost.objects.values('name', 'text', 'subject', 'file',
-                                   'slug').filter(slug=slug,
-                                                  subject__name=name))
+                                   'slug', 'date').filter(
+            slug=slug,
+            subject__name=name))
     other_news = News.objects.all()[:4]
     return render(request, 'subject/subject_news.html', {
 
         'name': articol[0].get('name'),
         'subject_name': name,
+        'date': articol[0].get('date'),
         'text': articol[0].get('text'),
         'other_news': other_news,
         'thumbnail': "/media/" + articol[0].get('file'),

@@ -53,7 +53,8 @@ class EventCreationFormAdminTestCase(TestCase):
         self.post_dict = {
             "name": "Testing event",
             "text": "Such text much wow",
-            "date_0": datetime.datetime.today().strftime('%Y-%m-%d'),
+            "date_0": (datetime.datetime.today() +
+                    datetime.timedelta(days=1)).strftime('%Y-%m-%d'),
             "date_1": (datetime.datetime.now() +
                        datetime.timedelta(hours=9)).strftime('%H:%M:%S'),
             "address": "Dayton, OH, USA",
@@ -82,8 +83,8 @@ class EventCreationFormAdminTestCase(TestCase):
 
     def test_wrong_date(self):
         inp = self.post_dict
-        inp["date_1"] = (datetime.datetime.now() +
-                         datetime.timedelta(hours=-1)).strftime('%H:%M:%S')
+        inp["date_0"] = (datetime.datetime.now() +
+                         datetime.timedelta(days=-2)).strftime('%Y-%m-%d')
         form = EventCreationFormAdmin(
             inp, self.get_file("/static/assets/counter-bg.jpg"))
         self.assertFalse(form.is_valid())
@@ -92,4 +93,6 @@ class EventCreationFormAdminTestCase(TestCase):
         """Tests if form is valid with correct info"""
         form = EventCreationFormAdmin(
             self.post_dict, self.get_file("/static/assets/counter-bg.jpg"))
+        print self.post_dict
+        print form.errors
         self.assertTrue(form.is_valid())
