@@ -400,6 +400,7 @@
               today: 'Today',
               clear: 'Clear',
               close: 'Ok',
+              format: 'yyyy-mm-dd',
               closeOnSelect: false // Close upon selecting a date,
             });
             $('#id_date_1').pickatime({
@@ -408,6 +409,10 @@
               twelvehour: false, // Use AM/PM or 24-hour format
               donetext: 'OK', // text for done-button
               cleartext: 'Clear', // text for clear-button
+              format: 'HH:i:s',
+              formatSubmit: 'HH:i:00',
+              hiddenPrefix: '',
+              hiddenSuffix: '',
               canceltext: 'Cancel', // Text for cancel-button
               autoclose: false, // automatic close timepicker
               ampmclickable: true, // make AM PM clickable
