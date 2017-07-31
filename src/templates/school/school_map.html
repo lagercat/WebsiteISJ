@@ -37,8 +37,9 @@
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script> -->
         <!--Google Maps-->
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+        <script type="text/javascript" src="{% static 'admin_site/materialize.min.js' %}"></script>
         <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ google_maps_api_key }}&libraries=places"></script>
+        <script type="text/javascript" src=""></script>
         <script type="text/javascript">
         var locations = [
             {% for school in schools %}
@@ -55,6 +56,7 @@
         var markerList = [];
 
         var bounds = new google.maps.LatLngBounds();
+        var map;
         function initialize() {
             var minZoomLevel = 8;
             var myOptions = {
@@ -63,7 +65,7 @@
               mapTypeId: google.maps.MapTypeId.ROADMAP
 
             };
-            var map = new google.maps.Map(document.getElementById("map_canvas"),
+            map = new google.maps.Map(document.getElementById("map_canvas"),
                 myOptions);
 
             setMarkers(map,locations);
@@ -80,6 +82,8 @@
                 $(liObj).on("click", (function(m){
                     return function(e) {
                         map.setCenter(markerList[$(this).find("input").val()][1].position);
+                        google.maps.event.trigger(markerList[$(this).find("input").val()][1],'mouseover');
+                        $('.button-collapse').sideNav('hide');
                     };
                 })(marker[1]));
             });
@@ -151,10 +155,11 @@
                 markerList[i] = [name, marker];
             }
         }
-
-        function search(str){
-          $("#list").children
-        }
+        var search_dict = {}
+        $.each(locations, function(i, val){
+          search_dict[val[0]] = null;
+        });
+        console.log(search_dict);
         </script>
 </head>
 <body onload="initialize()">
@@ -170,20 +175,38 @@
     <nav class="topbar">
         <div class="nav-wrapper" style=" display: flex;">
             <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-            <form class="green lighten-3" style="max-width:100%; margin-left:auto;">
+            <div id="search-container" class="green lighten-3" style="max-width:100%; margin-left:auto;">
                 <div class="input-field" style="max-width: 80%">
-                    <input id="search" />
+                    <input type="text" id="search" class="autocomplete" autocomplete="off"/>
                     <label for="search">
                         <i class="material-icons" style="padding-left: 5px;">search</i>
                     </label>
                 </div>
-            </form>
+            </div>
         </div>
     </nav>
     <div id="map_canvas" class="content" style="width:100%; height:100%"></div>
 </main>
 <script>
 $(".button-collapse").sideNav();
+
+
+
+$(function() {
+  $("input.autocomplete").autocomplete({
+    data: search_dict,
+    limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
+    onAutocomplete: function(val) {
+        function find_by_name(arr){
+          return arr[0] == val
+        }
+        map.setCenter(markerList.find(find_by_name)[1].position);
+        google.maps.event.trigger(markerList.find(find_by_name)[1],'mouseover');
+    },
+    minLength: 1,
+  });
+  $(".autocomplete-content").css({"z-index": "99", "position": "absolute", "top": "70px", "left": "0", "width": $("#search-container").width() + "px"})
+});
 </script>
 </body>
 </html>
