@@ -16,9 +16,11 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django.contrib.admin.filters import DateFieldListFilter
 
-from event.forms import EventChangeFormAdmin, EventCreationFormAdmin
+from event.forms import EventChangeFormAdmin
+from event.forms import EventCreationFormAdmin
 from models import Event
-from utility.admin import AdminChangeMixin, register_model_admin
+from utility.admin import AdminChangeMixin
+from utility.admin import register_model_admin
 
 
 class EventAdmin(AdminChangeMixin):
@@ -36,7 +38,7 @@ class EventAdmin(AdminChangeMixin):
     readonly_fields = ['author']
 
     search_fields = (
-    'name', 'author__first_name', 'author__last_name', 'address', 'date',)
+        'name', 'author__first_name', 'author__last_name', 'address', 'date',)
 
     ordering = ['date']
     filter_horizontal = ()

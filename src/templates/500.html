@@ -17,41 +17,38 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
-
- <!-- Page breadcrumb -->
- <section id="mu-page-breadcrumb">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-page-breadcrumb-area">
-           <h2>500</h2>
-           <ol class="breadcrumb">
-            <li><a href="/">Acasă</a></li>
-            <li class="active">500</li>
-          </ol>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
- <!-- End breadcrumb -->
-
-  <!-- Start error section  -->
-  <section id="mu-error">
+  <!-- Page breadcrumb -->
+  <section id="mu-page-breadcrumb">
     <div class="container">
       <div class="row">
-       <div class="col-md-12">
-          <div class="mu-error-area">
-            <p>Oops! INTERNAL SERVER ERROR !</p>
-            <span>Something went wrong </span>
+        <div class="col-md-12">
+          <div class="mu-page-breadcrumb-area">
             <h2>500</h2>
-            <a class="mu-post-btn" href="/">GO TO HOME</a>
+            <ol class="breadcrumb">
+              <li><a href="/">Acasă</a></li>
+              <li class="active">500</li>
+            </ol>
           </div>
         </div>
       </div>
     </div>
   </section>
- <!-- End error section  -->
- 
-
+  <!-- End breadcrumb -->
+  <!-- Start error section  -->
+  <section id="mu-error">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-error-area">
+            <p>Oops! A apărut o eroare internă!</p>
+            <span>Echipa tehnică lucrează la remedierea problemei!</span>
+            <h2>500</h2>
+            <a class="mu-post-btn" href="/">Către pagina principală</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End error section  -->
+  
 {% endblock %}

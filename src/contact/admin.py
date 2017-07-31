@@ -18,7 +18,7 @@ from django.contrib import admin
 
 from utility.admin import AdminChangeMixin
 
-from .models import Contact
+from contact.models import Contact
 
 
 class ContactAdmin(AdminChangeMixin):

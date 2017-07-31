@@ -19,7 +19,8 @@ from operator import or_
 from django import forms
 from django.db.models.query_utils import Q
 
-from models import Subcategory, SubjectPost
+from models import Subcategory
+from models import SubjectPost
 from tinymce.widgets import AdminTinyMCE
 from utility.utility import clean_file
 
@@ -55,8 +56,10 @@ class SubjectPostCreationFormAdmin(forms.ModelForm):
     def clean_subject(self):
         subject = self.cleaned_data.get("subject")
         subcategory = self.cleaned_data.get("subcategory")
-        if subcategory is not None and subject is not None and subject != subcategory.subject:
-            raise forms.ValidationError("This should be empty or same subject as the subcategory")
+        if (subcategory is not None and subject is not None
+                and subject != subcategory.subject):
+            raise forms.ValidationError(
+                "This should be empty or same subject as the subcategory")
         if subcategory is None and subject is None:
             raise forms.ValidationError("This should be not be empty")
         return self.cleaned_data.get("subject")
@@ -65,7 +68,8 @@ class SubjectPostCreationFormAdmin(forms.ModelForm):
         post = super(SubjectPostCreationFormAdmin, self).save(commit=False)
         post.author = self.current_user
         post.text = self.cleaned_data['text']
-        post.subject = self.cleaned_data["subject"] or self.cleaned_data["subcategory"].subject
+        post.subject = self.cleaned_data[
+            "subject"] or self.cleaned_data["subcategory"].subject
         if commit:
             post.save()
         return post
@@ -103,11 +107,13 @@ class SubjectPostChangeFormAdmin(forms.ModelForm):
         return uploaded_file
 
     def clean_subject(self):
-        subject = self.cleaned_data.get("subject") if "subject" in self.changed_data else self.instance.subject
+        subject = self.cleaned_data.get(
+            "subject") if "subject" in self.changed_data else self.instance.subject
         subcategory = self.cleaned_data.get(
             "subcategory") if "subcategory" in self.changed_data else self.instance.subcategory
         if subcategory is not None and subject is not None and subject is not subcategory.subject:
-            raise forms.ValidationError("This should be empty or same subject as the subcategory")
+            raise forms.ValidationError(
+                "This should be empty or same subject as the subcategory")
         if subcategory is None and subject is None:
             raise forms.ValidationError("This should be not be empty")
         return self.cleaned_data.get("subject")
@@ -115,13 +121,15 @@ class SubjectPostChangeFormAdmin(forms.ModelForm):
     def save(self, commit=True):
         post = super(SubjectPostChangeFormAdmin, self).save(commit=False)
         post.text = self.cleaned_data['text']
-        post.subject = self.cleaned_data["subject"] or self.cleaned_data["subcategory"].subject
+        post.subject = self.cleaned_data[
+            "subject"] or self.cleaned_data["subcategory"].subject
         if commit:
             post.save()
         return post
 
 
 class SubcategoryCreationFormAdmin(forms.ModelForm):
+
     class Meta:
         model = Subcategory
         fields = ('name', 'file', 'subject',)
@@ -140,7 +148,8 @@ class SubcategoryCreationFormAdmin(forms.ModelForm):
         return uploaded_file
 
     def save(self, commit=True):
-        uploaded_file = super(SubcategoryCreationFormAdmin, self).save(commit=False)
+        uploaded_file = super(SubcategoryCreationFormAdmin,
+                              self).save(commit=False)
         uploaded_file.author = self.current_user
         if commit:
             uploaded_file.save()
@@ -148,6 +157,7 @@ class SubcategoryCreationFormAdmin(forms.ModelForm):
 
 
 class SubcategoryChangeFormAdmin(forms.ModelForm):
+
     class Meta:
         model = Subcategory
         fields = ('name', 'file', 'subject')
@@ -166,7 +176,8 @@ class SubcategoryChangeFormAdmin(forms.ModelForm):
         return uploaded_file
 
     def save(self, commit=True):
-        uploaded_file = super(SubcategoryChangeFormAdmin, self).save(commit=False)
+        uploaded_file = super(SubcategoryChangeFormAdmin,
+                              self).save(commit=False)
         if commit:
             uploaded_file.save()
         return uploaded_file

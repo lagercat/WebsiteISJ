@@ -16,20 +16,16 @@
 <!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls admin_static admin_modify material_form material_admin %}
-
 {% block brand-logo %}{{ title }} {% if location %}({% if location == 1 %}{% trans 'External' %}{% else %}{% trans 'Internal' %}{% endif %}){% endif %}{% endblock %}
-
 {% block breadcrumbs_items %}
-<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
-<a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
-<a class="active" href="{% url opts|admin_urlname:'changelist' %}">{% if add %}{% trans 'Add' %}{% elif view %}{% trans 'View' %}{% elif change %}{% trans 'Change' %}{% endif %} {{ opts.verbose_name }} {% if location %}({% if location == 1 %}{% trans 'External' %}{% else %}{% trans 'Internal' %}{% endif %}){% endif %}</a>
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+    <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+    <a class="active" href="{% url opts|admin_urlname:'changelist' %}">{% if add %}{% trans 'Add' %}{% elif view %}{% trans 'View' %}{% elif change %}{% trans 'Change' %}{% endif %} {{ opts.verbose_name }} {% if location %}({% if location == 1 %}{% trans 'External' %}{% else %}{% trans 'Internal' %}{% endif %}){% endif %}</a>
 {% endblock %}
-
-
 {% block content %}
-<div class="row change-form">
-    <div class="col s12 m12 l9">
-        <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form">
+    <div class="row change-form">
+        <div class="col s12 m12 l9">
+            <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form">
             <div class="card">
                 <div class="card-content">
                     {% csrf_token %}
@@ -41,52 +37,51 @@
                         </div>
                     </div>
                     {% if errors %}
-                    <div class="row">
-                        <div class="col s12">
-                            <small class="errornote">
+                        <div class="row">
+                            <div class="col s12">
+                                <small class="errornote">
                                 {% if errors|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
                                 <br/><br/>
-                            </small>
+                                </small>
+                            </div>
                         </div>
-                    </div>
                     {% endif %}
-
                     {% block change_form %}
                         {% fieldset_layout adminform inline_admin_formsets as layout %}
-                        {% form form=adminform.form layout=layout %}{% endform %}
-                        {% prepopulated_fields_js %}
-                    {% endblock %}
-                    {% block after_related_objects %}{% endblock %}
-                </div>
-                <div class="card-action">
-                    {% submit_row %}
-                </div>
+                    {% form form=adminform.form layout=layout %}{% endform %}
+                    {% prepopulated_fields_js %}
+                {% endblock %}
+                {% block after_related_objects %}{% endblock %}
             </div>
-        </form>
-    </div>
-    <div class="col s12 m12 l3">
-        {% if not is_popup and change %}
+            <div class="card-action">
+                {% submit_row %}
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col s12 m12 l3">
+    {% if not is_popup and change %}
         <div class="card actions-card">
             <div class="card-content">
                 <span class="card-title black-text">{% trans "Action" %}</span>
                 {% block object-tools %}
-                <div class="row">
-                    <div class="col s12">
-                        <ul class="object-tools col s12">
-                            {% block object-tools-items %}
-                            <li>
-                                {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
-                                <a href="{% add_preserved_filters history_url %}" class="historylink">{% trans "History" %}</a>
-                            </li>
-                            {% if has_absolute_url %}<li><a href="{{ absolute_url }}" class="viewsitelink">{% trans "View on site" %}</a></li>{% endif %}
-                            {% endblock %}
-                        </ul>
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="object-tools col s12">
+                                {% block object-tools-items %}
+                                    <li>
+                                        {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
+                                        <a href="{% add_preserved_filters history_url %}" class="historylink">{% trans "History" %}</a>
+                                    </li>
+                                    {% if has_absolute_url %}<li><a href="{{ absolute_url }}" class="viewsitelink">{% trans "View on site" %}</a></li>{% endif %}
+                                {% endblock %}
+                            </ul>
+                        </div>
                     </div>
-                </div>
                 {% endblock %}
             </div>
         </div>
-        {% endif %}
+    {% endif %}
         {% if adminform.form.show_files %}
         {% load view_extra %}
         {% load static %}
@@ -149,65 +144,65 @@
                 };
             }
         </script>
-        <div class="card filters-card">
-            <div class="card-content">
-                <span class="card-title black-text">{% trans "Files" %}</span>
-                <div class="row" style="margin-top:-10px">
-                    <div class="input-field col s12">
-                        <input type="text" id="searchbar" onkeypress="enter_press(event)"/>
-                        <label for="searchbar">Search files</label>
-                        <a id="changelist-search-button" style=""><i class="material-icons">search</i></a>
+<div class="card filters-card">
+    <div class="card-content">
+        <span class="card-title black-text">{% trans "Files" %}</span>
+        <div class="row" style="margin-top:-10px">
+            <div class="input-field col s12">
+                <input type="text" id="searchbar" onkeypress="enter_press(event)"/>
+                <label for="searchbar">Search files</label>
+                <a id="changelist-search-button" style=""><i class="material-icons">search</i></a>
+            </div>
+        </div>
+    </div>
+    <div class="card-actions" >
+        <ul id="file-list" class="collapsible" style="width: 100%; max-height: 300px; overflow: auto; border-left: none; border-right: none; border-bottom: none;">
+            {% for f in files %}
+                <li>
+                    <div class="collapsible-header" >
+                        <div class="truncate"><i class="material-icons">description</i>{{ f.name }}</div>
+                        <div class="truncate"><i class="material-icons">account</i>by {{ f.author.get_full_name }}</div>
                     </div>
-                </div>
-            </div>
-            <div class="card-actions" >
-                <ul id="file-list" class="collapsible" style="width: 100%; max-height: 300px; overflow: auto; border-left: none; border-right: none; border-bottom: none;">
-                    {% for f in files %}
-                    <li>
-                        <div class="collapsible-header" >
-                            <div class="truncate"><i class="material-icons">description</i>{{ f.name }}</div>
-                            <div class="truncate"><i class="material-icons">account</i>by {{ f.author.get_full_name }}</div>
+                    <div class="collapsible-body card-action" style="border-top: none;">
+                        <div class="right-align">
+                            <a class="cpy accent-color-text" data-clipboard-text="{{ f.file.url }}">
+                                Copy Link
+                            </a>
+                            <a class="accent-color-text" href="{{ f.file.url }}" target="_blank">
+                                See File
+                            </a>
                         </div>
-                        <div class="collapsible-body card-action" style="border-top: none;">
-                            <div class="right-align">
-                                <a class="cpy accent-color-text" data-clipboard-text="{{ f.file.url }}">
-                                    Copy Link
-                                </a>
-                                <a class="accent-color-text" href="{{ f.file.url }}" target="_blank">
-                                    See File
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
-            <a class="btn-floating btn-large waves-effect waves-light z-depth-2 halfway-fab" onclick="create_file()">
-                <i class="large material-icons">add</i>
-            </a>
-            </div>
-        </div>
-        <br>
-        {% endif %}
-        {% if adminform.form.show_preview %}
-        <div class="card actions-card">
-            <div class="card-content">
-                <span class="card-title black-text">{% trans "Page Preview" %}</span>
-                <div id="preview-wrap" style="overflow: hidden;">
-                    <iframe sandbox="allow-same-origin allow-scripts
-                    " class="card frame" id="preview" frameborder="0" >
-                    </iframe>
-                    <div id="preview-overlay" onclick="preview()" style="top:0; left:0;">
                     </div>
-                </div>
-            </div>
-            <div class="card-action">
-                <div class="right-align">
-                    <a class="accent-color-text" onclick="preview()">Preview</a>
-                </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <a class="btn-floating btn-large waves-effect waves-light z-depth-2 halfway-fab" onclick="create_file()">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
+</div>
+<br>
+{% endif %}
+{% if adminform.form.show_preview %}
+<div class="card actions-card">
+    <div class="card-content">
+        <span class="card-title black-text">{% trans "Page Preview" %}</span>
+        <div id="preview-wrap" style="overflow: hidden;">
+            <iframe sandbox="allow-same-origin allow-scripts
+            " class="card frame" id="preview" frameborder="0" >
+            </iframe>
+            <div id="preview-overlay" onclick="preview()" style="top:0; left:0;">
             </div>
         </div>
-        <div id="preview-big" class="blur-everything" onclick="close_preview()">
+    </div>
+    <div class="card-action">
+        <div class="right-align">
+            <a class="accent-color-text" onclick="preview()">Preview</a>
         </div>
+    </div>
+</div>
+<div id="preview-big" class="blur-everything" onclick="close_preview()">
+</div>
         <style>
             .frame {
                 overflow: hidden;

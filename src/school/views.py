@@ -16,7 +16,9 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from config import settings
 
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
+from django.core.paginator import Paginator
 from django.shortcuts import render
 
 from models import School

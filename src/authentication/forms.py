@@ -52,7 +52,8 @@ class ResetPasswordForm(forms.Form):
                                        'placeholder': 'Parola noua'
                                    }))
     new_password_check = forms.CharField(max_length=100,
-                                         label="Introdu inca o data parola nou",
+                                         label="Introdu inca o"
+                                         " data parola nou",
                                          widget=forms.PasswordInput(attrs={
                                              'required': 'required',
                                              'placeholder':
@@ -72,7 +73,8 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
         (1, "Director"),
         (2, "Inspector"),
         (3, {"label": "Admin", "disabled": True}),
-    ), required=True, label="User status", widget=SelectWithDisabled, initial=0)
+    ), required=True, label="User status", widget=SelectWithDisabled,
+        initial=0)
 
     class Meta:
         model = ExtendedUser

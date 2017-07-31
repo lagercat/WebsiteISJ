@@ -130,7 +130,8 @@ class SubjectPost(File):
     @property
     def url_link(self):
         if self.subcategory is not None:
-            return "/subject/" + self.subject.name + "/" + self.subcategory.name \
+            return "/subject/" + self.subject.name + "/" \
+                   + self.subcategory.name \
                    + "/" + self.slug
         else:
             return "/simple/" + self.subject.name + "/" + self.slug

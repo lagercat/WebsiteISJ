@@ -16,13 +16,13 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 import datetime
 
-from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import TestCase
 
 from authentication.tests import ExtendedUser
-from event.models import Event
 from config.settings import BASE_DIR
 from event.forms import EventCreationFormAdmin
+from event.models import Event
 
 
 class EventTestCase(TestCase):

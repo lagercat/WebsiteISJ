@@ -16,11 +16,13 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django import forms
 
-from gallery.models import Gallery, GalleryPhoto
+from gallery.models import Gallery
+from gallery.models import GalleryPhoto
 from utility.utility import clean_file
 
 
 class GalleryCreationFormAdmin(forms.ModelForm):
+
     class Meta:
         model = Gallery
         fields = ('name', 'file')
@@ -33,7 +35,8 @@ class GalleryCreationFormAdmin(forms.ModelForm):
         return uploaded_file
 
     def save(self, commit=True):
-        uploaded_file = super(GalleryPhotoCreationForm, self).save(commit=False)
+        uploaded_file = super(GalleryPhotoCreationForm,
+                              self).save(commit=False)
         uploaded_file.author = self.current_author
         if commit:
             uploaded_file.save()
@@ -41,9 +44,12 @@ class GalleryCreationFormAdmin(forms.ModelForm):
 
 
 class GalleryChangeFormAdmin(forms.ModelForm):
-    gallery_photos = forms.CharField(label='', widget=forms.TextInput(attrs={"type": "hidden"}))
-    gallery_photos_urls = forms.CharField(label='', widget=forms.TextInput(attrs={"type": "hidden"}))
-    id = forms.CharField(label='', widget=forms.TextInput(attrs={"type": "hidden"}))
+    gallery_photos = forms.CharField(
+        label='', widget=forms.TextInput(attrs={"type": "hidden"}))
+    gallery_photos_urls = forms.CharField(
+        label='', widget=forms.TextInput(attrs={"type": "hidden"}))
+    id = forms.CharField(
+        label='', widget=forms.TextInput(attrs={"type": "hidden"}))
 
     class Meta:
         model = Gallery
@@ -61,8 +67,10 @@ class GalleryChangeFormAdmin(forms.ModelForm):
             select={'order': 'CAST(name AS INTEGER)'}
         ).order_by('order')
         initial = {
-            'gallery_photos': " ".join(list(str(gallery["id"]) for gallery in q.values("id"))),
-            'gallery_photos_urls': " ".join(list(str(gallery["file"]) for gallery in q.values("file"))),
+            'gallery_photos': " ".join(
+                list(str(gallery["id"]) for gallery in q.values("id"))),
+            'gallery_photos_urls': " ".join(
+                list(str(gallery["file"]) for gallery in q.values("file"))),
             'id': kwargs["instance"].id,
         }
         kwargs['initial'] = initial
@@ -85,7 +93,8 @@ class GalleryPhotoCreationForm(forms.ModelForm):
         return uploaded_file
 
     def save(self, commit=True):
-        uploaded_file = super(GalleryPhotoCreationForm, self).save(commit=False)
+        uploaded_file = super(GalleryPhotoCreationForm,
+                              self).save(commit=False)
         uploaded_file.file = self.cleaned_data['file']
         uploaded_file.name = self.cleaned_data['name']
         uploaded_file.gallery = self.gallery

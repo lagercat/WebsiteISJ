@@ -93,15 +93,18 @@
 #
 # action.destructive_requires_name: true
 
-
-# Unicast Discovery (disable multicast)
 discovery.zen.ping.multicast.enabled: false
 discovery.zen.ping.unicast.hosts: ["127.0.0.1"]
 
-# Name your cluster here to whatever.
-# My machine is called "Venus", so...
+node.name: "WebNode"
+index.number_of_shards: 1
+index.number_of_replicas: 0
+network.bind_host: localhost
+script.inline: on
+script.indexed: on
+
 cluster:
-  name: venus
+  name: "ISJ"
 
 network:
   host: 127.0.0.1
@@ -109,3 +112,4 @@ network:
 path:
   logs: /usr/local/var/log
   data: /usr/local/var/data
+

@@ -14,10 +14,16 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.shortcuts import get_object_or_404, render
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
+from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
 
-from models import Article, Category, SimplePage, Subcategory
+from models import Article
+from models import Category
+from models import SimplePage
+from models import Subcategory
 
 
 def category(request, slug):
@@ -36,7 +42,7 @@ def category_all(request):
     categories = Category.objects.all()
     return render(request, 'page/category_all.html',
                   {
-                      'categories_all':categories,
+                      'categories_all': categories,
                   })
 
 

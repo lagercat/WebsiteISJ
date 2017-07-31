@@ -20,7 +20,8 @@ from django.views import generic
 from . import views
 
 urlpatterns = [
-  url('^$', generic.RedirectView.as_view(url='./customers/', permanent=False), name="index"),
-  url(r'^logout/$', views.logout_view, name='logout'),
-  url(r'^login/', views.login_view, name='login')
+    url('^$', generic.RedirectView.as_view(
+        url='./customers/', permanent=False), name="index"),
+    url(r'^logout/$', views.logout_view, name='logout'),
+    url(r'^login/', views.login_view, name='login')
 ]

@@ -14,9 +14,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
-from forms import SchoolChangeFormAdmin, SchoolCreationFormAdmin
+from forms import SchoolChangeFormAdmin
+from forms import SchoolCreationFormAdmin
 from models import School
-from utility.admin import AdminChangeMixin, register_model_admin
+from utility.admin import AdminChangeMixin
+from utility.admin import register_model_admin
 
 
 class SchoolAdmin(AdminChangeMixin):
@@ -27,8 +29,8 @@ class SchoolAdmin(AdminChangeMixin):
 
     icon = '<i class="material-icons">room</i>'
 
-    list_display = ('name', 'telephone', 'fax', 'email', 'website', 'address',
-                    'geolocation', 'my_url_link',)
+    list_display = ('name', 'telephone', 'fax', 'email',
+                    'website', 'address', 'my_url_link',)
 
     search_fields = (
         'name', 'address',)

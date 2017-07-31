@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
+from config import settings
 from page.models import Category
 from subject.models import Subject
 
@@ -22,6 +23,7 @@ def template_context(request):
 
     return {
         'categories': Category.objects.all()[:6],
-        'categories_number':Category.objects.all().count(),
-        'left_subjects': Subject.objects.all()
+        'categories_number': Category.objects.all().count(),
+        'left_subjects': Subject.objects.all(),
+        'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY
     }

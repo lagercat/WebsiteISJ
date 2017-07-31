@@ -14,13 +14,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
-'''
-Created on Feb 13, 2017
-
-@author: roadd
-'''
-import os
-
 import magic
 
 mime_documents_types = [
@@ -31,7 +24,8 @@ mime_documents_types = [
     'application/vnd.openxmlformats-officedocument.presentationml.template',
     'application/vnd.openxmlformats-officedocument.presentationml.slideshow',
     'application/vnd.ms-powerpointtd',
-    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    'application/vnd.openxmlformats-officedocument.'
+    'presentationml.presentation',
     'application/vnd.openxmlformats-officedocument.presentationml.slide',
     'application/x-tar',
     'text/plain',
@@ -81,12 +75,17 @@ def clean_file(file, image=False):
         filetype = magic.from_buffer(file.read(), mime=True)
 
         if file.size > max_size:
-            return "Fisierul trece de dimensiunea maxima de %d MB." % (max_size / 1000000)
+            return "Fisierul trece de dimensiunea "
+            "maxima de %d MB." % (max_size / 1000000)
 
         if filetype.startswith("image/"):
             pass
-        elif image and any(filetype.startswith(mime) for mime in mime_documents_types):
-            return "Fisierul nu se incadreaza in mime type-urile acceptate. Se poate ca fisierul sa fie corupt."
-        elif not any(filetype.startswith(mime) for mime in mime_documents_types):
-            return "Fisierul nu se incadreaza in mime type-urile acceptate. Se poate ca fisierul sa fie corupt."
+        elif image and any(filetype.startswith(mime)
+                           for mime in mime_documents_types):
+            return "Fisierul nu se incadreaza in mime type-urile "
+            "acceptate. Se poate ca fisierul sa fie corupt."
+        elif not any(filetype.startswith(mime)
+                     for mime in mime_documents_types):
+            return "Fisierul nu se incadreaza in mime type-urile acceptate."
+            "Se poate ca fisierul sa fie corupt."
         return ""

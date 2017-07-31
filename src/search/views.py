@@ -14,13 +14,13 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
-from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
+from haystack.generic_views import SearchView
 from haystack.query import SearchQuerySet
 
 
 class CustomSearchView(SearchView):
-    template_name = 'search/search2.html'
+    template_name = 'search/search.html'
     queryset = SearchQuerySet()
     form_class = SearchForm
 

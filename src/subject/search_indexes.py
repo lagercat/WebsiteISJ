@@ -16,8 +16,9 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from haystack import indexes
 
-from subject.models import Subcategory, SubjectPost
 from search.search_indexes import BaseIndex
+from subject.models import Subcategory
+from subject.models import SubjectPost
 
 
 class SubcategoryIndex(BaseIndex, indexes.Indexable):

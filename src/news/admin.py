@@ -16,8 +16,10 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django.contrib.admin.filters import DateFieldListFilter
 
-from news.forms import NewsChangeFormAdmin, NewsCreationFormAdmin
-from utility.admin import AdminChangeMixin, register_model_admin
+from news.forms import NewsChangeFormAdmin
+from news.forms import NewsCreationFormAdmin
+from utility.admin import AdminChangeMixin
+from utility.admin import register_model_admin
 
 from .models import News
 

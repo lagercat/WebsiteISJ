@@ -17,12 +17,14 @@
 from django import forms
 from django.forms import modelformset_factory
 
-from models import Page, Post
+from models import Page
+from models import Post
 from tinymce.widgets import AdminTinyMCE
 from utility.utility import clean_file
 
 
 class PostCreationFormAdmin(forms.ModelForm):
+
     class Meta:
         model = Post
         fields = ('name', 'file',)
@@ -33,7 +35,7 @@ class PostCreationFormAdmin(forms.ModelForm):
         if error:
             raise forms.ValidationError(error)
         return uploaded_file
-      
+
     def save(self, commit=True):
         uploaded_file = super(PostCreationFormAdmin, self).save(commit=False)
         if commit:
@@ -42,6 +44,7 @@ class PostCreationFormAdmin(forms.ModelForm):
 
 
 class PostChangeFormAdmin(forms.ModelForm):
+
     class Meta:
         model = Post
         fields = ('name', 'file')
@@ -55,15 +58,16 @@ class PostChangeFormAdmin(forms.ModelForm):
 
 
 class PageCreationFormAdmin(forms.ModelForm):
-    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
+    text = forms.CharField(widget=AdminTinyMCE(
+        attrs={'cols': 80, 'rows': 30}), label='')
     show_files = True
     show_preview = True
     preview_url = "/preview_page/"
-    
+
     class Meta:
         model = Page
         fields = ('name', 'file',)
-        
+
     def clean_file(self):
         uploaded_file = self.cleaned_data['file']
         error = clean_file(uploaded_file, image=True)
@@ -81,29 +85,30 @@ class PageCreationFormAdmin(forms.ModelForm):
 
 
 class PageChangeFormAdmin(forms.ModelForm):
-    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), label='')
+    text = forms.CharField(widget=AdminTinyMCE(
+        attrs={'cols': 80, 'rows': 30}), label='')
     show_files = True
     show_preview = True
     preview_url = "/preview_page/"
-    
+
     class Meta:
         model = Page
         fields = ('name', 'file')
-        
+
     def __init__(self, *args, **kwargs):
         initial = {
-          'text': self.text_initial
+            'text': self.text_initial
         }
         kwargs['initial'] = initial
         super(PageChangeFormAdmin, self).__init__(*args, **kwargs)
-        
+
     def clean_file(self):
         uploaded_file = self.cleaned_data['file']
         error = clean_file(uploaded_file, image=True)
         if error:
             raise forms.ValidationError(error)
         return uploaded_file
-      
+
     def save(self, commit=True):
         uploaded_file = super(PageChangeFormAdmin, self).save(commit=False)
         uploaded_file.text = self.cleaned_data['text']

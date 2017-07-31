@@ -18,54 +18,51 @@
 {% block title %}Noutati{% endblock %}
 {% load staticfiles %}
 {% block content %}
-
- <!-- Page breadcrumb -->
- <section id="mu-page-breadcrumb">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-page-breadcrumb-area">
-           <h2>Noutăţi</h2>
-           <ol class="breadcrumb">
-            <li><a href="/">Acasă</a></li>
-            <li class="active">Noutăţi</li>
-          </ol>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
- <!-- End breadcrumb -->
- <section id="mu-course-content">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-course-content-area">
+  <!-- Page breadcrumb -->
+  <section id="mu-page-breadcrumb">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-page-breadcrumb-area">
+            <h2>Noutăţi</h2>
+            <ol class="breadcrumb">
+              <li><a href="/">Acasă</a></li>
+              <li class="active">Noutăţi</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End breadcrumb -->
+  <section id="mu-course-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-course-content-area">
             <div class="row">
               <div class="col-md-9">
                 <!-- start course content container -->
                 <div class="mu-course-container mu-blog-archive">
                   <div class="row">
-
                     {% if news_all %}
-                    {% for news in news_all %}
-                    <div class="col-md-6 col-sm-6">
-                      <article class="mu-blog-single-item">
-                        <figure class="mu-blog-single-img">
-                          <a href="#"><img  src= '{{ news.file.url }}'alt="img"></a>
-                        </figure>
-                          <figcaption class="mu-blog-caption" style="padding-top:305px">
+                      {% for news in news_all %}
+                        <div class="col-md-6 col-sm-6">
+                          <article class="mu-blog-single-item">
+                            <figure class="mu-blog-single-img">
+                              <a href="#"><img  src= '{{ news.file.url }}'alt="img"></a>
+                            </figure>
+                            <figcaption class="mu-blog-caption" style="padding-top:305px">
                             <h3><a href="/news/{{ news.slug }}" title="{{ news.name }}">{{ news.name|truncatechars:20 }}</a></h3>
-                          </figcaption>
-                        <div class="mu-blog-description">
-
-                          <a class="mu-read-more-btn" href="/news/{{ news.slug }}">Citeşte mai mult</a>
+                            </figcaption>
+                            <div class="mu-blog-description">
+                              <a class="mu-read-more-btn" href="/news/{{ news.slug }}">Citeşte mai mult</a>
+                            </div>
+                          </article>
                         </div>
-                      </article>
-                    </div>
-                    {% endfor %}
+                      {% endfor %}
                     {% else %}
-                    <h3>Nu sunt informaţii de afişat ! </h3>
+                      <h3>Nu sunt informaţii de afişat ! </h3>
                     {% endif %}
                   </div>
                 </div>
@@ -75,11 +72,11 @@
                   <nav>
                     <ul class="pagination">
                       {% if news_all.has_previous %}
-                      <li>
-                        <a href="?page={{ news_all.previous_page_number }}" aria-label="Previous">
-                          <span class="fa fa-angle-left"></span> Înapoi
-                        </a>
-                      </li>
+                        <li>
+                          <a href="?page={{ news_all.previous_page_number }}" aria-label="Previous">
+                            <span class="fa fa-angle-left"></span> Înapoi
+                          </a>
+                        </li>
                       {% endif %}
                       {% for num in news_all.paginator.page_range %}
                         {% if num == news_all.number %}
@@ -89,11 +86,11 @@
                         {% endif %}
                       {% endfor %}
                       {% if news_all.has_next %}
-                      <li>
-                        <a href="?page={{ news_all.next_page_number }}" aria-label="Next">
-                         Înainte <span class="fa fa-angle-right"></span>
-                        </a>
-                      </li>
+                        <li>
+                          <a href="?page={{ news_all.next_page_number }}" aria-label="Next">
+                            Înainte <span class="fa fa-angle-right"></span>
+                          </a>
+                        </li>
                       {% endif %}
                     </ul>
                   </nav>
@@ -107,22 +104,21 @@
                   <div class="mu-single-sidebar">
                     
                     <h3><a href="/subject_page_all">Specializări</a></h3>
-                        
+                    
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
-                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
+                        <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
                   <!-- end single sidebar -->
                 </aside>
                 <!-- / end sidebar -->
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
-
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}

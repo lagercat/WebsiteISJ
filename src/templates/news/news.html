@@ -27,131 +27,119 @@ img {
 </style>
 {#  end  #}
  <!-- Page breadcrumb -->
- <section id="mu-page-breadcrumb">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-       <a href="/news_all">
-         <div class="mu-page-breadcrumb-area">
-           <h2>Noutăţi</h2>
-
-         </div>
-       </a>
-       </div>
-     </div>
-   </div>
- </section>
- <!-- End breadcrumb -->
- <section id="mu-course-content">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-course-content-area">
-            <div class="row">
-              <div class="col-md-9">
-                <!-- start course content container -->
-                <div class="mu-course-container mu-blog-single">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <article class="mu-blog-single-item">
-                        <figure class="mu-blog-single-img">
-                          <a ><img alt="img" src= '{{ thumbnail }}'></a>
-                        </figure>
-                          <figcaption class="mu-blog-caption" style="padding-top: 305px;">
-                            <h3><a href="#">{{ name }}</a></h3>
-                          </figcaption>
-                        <div class="mu-blog-meta">
-                          <a href="#"><i class="fa fa-clock-o"></i> {{ date }}</a>
-                        </div>
-                        <div class="mu-blog-description">
-                            <p>{{ text|safe }}</p>
-                          <!--<blockquote>-->
-                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas numquam quis obcaecati, a sed ad aut totam fugiat, cumque quasi!</p>-->
-                          <!--</blockquote>-->
-                          <!--<h1>Lorem ipsum dolor sit amet.</h1>-->
-                          <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam distinctio voluptatibus sequi sint, in. Soluta alias sunt, voluptates necessitatibus neque, perspiciatis, quos doloribus quae non tempore ut qui facere nulla.</p>-->
-                          <!--<h2>Lorem ipsum dolor sit amet, consectetur.</h2>-->
-                          <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus dolor totam architecto voluptatum, unde non ipsum officia adipisci, eos error, expedita corporis laudantium esse. Mollitia minus, molestias doloremque! Earum, fuga!</p>-->
-                          <!--<h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3>-->
-                          <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus omnis laudantium magni ut voluptatum, asperiores consequatur ducimus tempore enim possimus aliquid eius aliquam nam quasi itaque officiis debitis ad minima.</p>-->
-                          <!---->
-
-                        </div>
-
-
-                      </article>
-                    </div>
+<section id="mu-page-breadcrumb">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="/news_all">
+          <div class="mu-page-breadcrumb-area">
+            <h2>Noutăţi</h2>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End breadcrumb -->
+<section id="mu-course-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="mu-course-content-area">
+          <div class="row">
+            <div class="col-md-9">
+              <!-- start course content container -->
+              <div class="mu-course-container mu-blog-single">
+                <div class="row">
+                  <div class="col-md-12">
+                    <article class="mu-blog-single-item">
+                      <figure class="mu-blog-single-img">
+                        <a ><img alt="img" src= '{{ thumbnail }}'></a>
+                      </figure>
+                      <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                      <h3><a href="#">{{ name }}</a></h3>
+                      </figcaption>
+                      <div class="mu-blog-meta">
+                        <a href="#"><i class="fa fa-clock-o"></i> {{ date }}</a>
+                      </div>
+                      <div class="mu-blog-description">
+                        <p>{{ text|safe }}</p>
+                        <!--<blockquote>-->
+                        <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas numquam quis obcaecati, a sed ad aut totam fugiat, cumque quasi!</p>-->
+                        <!--</blockquote>-->
+                        <!--<h1>Lorem ipsum dolor sit amet.</h1>-->
+                        <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam distinctio voluptatibus sequi sint, in. Soluta alias sunt, voluptates necessitatibus neque, perspiciatis, quos doloribus quae non tempore ut qui facere nulla.</p>-->
+                        <!--<h2>Lorem ipsum dolor sit amet, consectetur.</h2>-->
+                        <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus dolor totam architecto voluptatum, unde non ipsum officia adipisci, eos error, expedita corporis laudantium esse. Mollitia minus, molestias doloremque! Earum, fuga!</p>-->
+                        <!--<h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3>-->
+                        <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus omnis laudantium magni ut voluptatum, asperiores consequatur ducimus tempore enim possimus aliquid eius aliquam nam quasi itaque officiis debitis ad minima.</p>-->
+                        <!---->
+                      </div>
+                    </article>
                   </div>
                 </div>
-                <!-- end course content container -->
-                <!-- start blog navigation -->
-
-                <!-- end blog navigation -->
-                <!-- start related course item -->
-                {% if other_news %}
+              </div>
+              <!-- end course content container -->
+              <!-- start blog navigation -->
+              <!-- end blog navigation -->
+              <!-- start related course item -->
+              {% if other_news %}
                 <div class="row">
                   <div class="col-md-12">
                     <div class="mu-related-item">
                       <h3>Alte noutăţi</h3>
                       <div class="mu-related-item-area">
                         <div id="mu-related-item-slide">
-
                           {% for news in other_news %}
-                          <div class="col-md-6">
-                            <article class="mu-blog-single-item">
-                              <figure class="mu-blog-single-img">
-                                <a href="/news/{{ news.slug }}"><img style=" max-height: 160px" alt="img" src='{{ news.file.url }}'></a>
-                              </figure>
+                            <div class="col-md-6">
+                              <article class="mu-blog-single-item">
+                                <figure class="mu-blog-single-img">
+                                  <a href="/news/{{ news.slug }}"><img style=" max-height: 160px" alt="img" src='{{ news.file.url }}'></a>
+                                </figure>
                                 <figcaption class="mu-blog-caption" style="padding-top: 305px;">
-                                  <h3><a href="/news/{{ news.slug }}" title="{{ news.name }}">{{ news.name|truncatechars:20 }}</a></h3>
-                                </figcaption>                      
-                              <div class="mu-blog-meta">
-                                <a >{{ news.author.get_full_name }}</a>
-                                <a >{{ news.date }}</a>
-
-                              </div>
-                              <div class="mu-blog-description">
+                                <h3><a href="/news/{{ news.slug }}" title="{{ news.name }}">{{ news.name|truncatechars:20 }}</a></h3>
+                                </figcaption>
+                                <div class="mu-blog-meta">
+                                  <a >{{ news.author.get_full_name }}</a>
+                                  <a >{{ news.date }}</a>
+                                </div>
+                                <div class="mu-blog-description">
                                   <a href="/news/{{ news.slug }}" class="mu-read-more-btn">Citeşte mai mult</a>
-                              </div>
-                            </article>
-                          </div>
+                                </div>
+                              </article>
+                            </div>
                           {% endfor %}
-
-
-
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                {% endif %}
-                <!-- end start related course item -->
-
-
-              </div>
-              <div class="col-md-3">
-                <!-- start sidebar -->
-                <aside class="mu-sidebar">
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    
-                    <h3><a href="/subject_page_all">Specializări</a></h3>
-                        
-                    <ul class="mu-sidebar-catg">
-                      {% for subject in left_subjects %}
+              {% endif %}
+              <!-- end start related course item -->
+            </div>
+            <div class="col-md-3">
+              <!-- start sidebar -->
+              <aside class="mu-sidebar">
+                <!-- start single sidebar -->
+                <div class="mu-single-sidebar">
+                  
+                  <h3><a href="/subject_page_all">Specializări</a></h3>
+                  
+                  <ul class="mu-sidebar-catg">
+                    {% for subject in left_subjects %}
                       <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                  <!-- end single sidebar -->
-                </aside>
-                <!-- / end sidebar -->
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
+                    {% endfor %}
+                  </ul>
+                </div>
+                <!-- end single sidebar -->
+              </aside>
+              <!-- / end sidebar -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
   {% endblock %}

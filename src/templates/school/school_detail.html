@@ -18,30 +18,28 @@
 {% block title %}{{ name }}{% endblock %}
 {% load staticfiles %}
 {% block content %}
-
- <!-- Page breadcrumb -->
- <section id="mu-page-breadcrumb">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-page-breadcrumb-area" style="word-break: break-all;">
-           <h2>{{ name }}</h2>
-           <ol class="breadcrumb">
-            <li><a href="/">Acasă</a></li>
-
-               <li class="active"><a href="/school_map" style="color: dodgerblue">Scoli</a></li>
-          </ol>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
- <!-- End breadcrumb -->
- <section id="mu-course-content">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-course-content-area">
+  <!-- Page breadcrumb -->
+  <section id="mu-page-breadcrumb">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-page-breadcrumb-area" style="word-break: break-all;">
+            <h2>{{ name }}</h2>
+            <ol class="breadcrumb">
+              <li><a href="/">Acasă</a></li>
+              <li class="active"><a href="/school_map" style="color: dodgerblue">Scoli</a></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End breadcrumb -->
+  <section id="mu-course-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-course-content-area">
             <div class="row">
               <div class="col-md-9">
                 <!-- start course content container -->
@@ -50,50 +48,42 @@
                     <div class="col-md-12">
                       <div class="mu-latest-course-single">
                         <figure class="mu-latest-course-img">
-                            {% if  thumbnail.url %}
-                          <a href="#"><img src= '{{ thumbnail }}' alt="img"></a>
-                            {% else %}
-
-                             <a href="#"><img  src= "{% static "assets/img/school.jpg" %}" alt="img"></a>
-                            {% endif %}
+                          {% if  thumbnail.url %}
+                            <a href="#"><img src= '{{ thumbnail }}' alt="img"></a>
+                          {% else %}
+                            <a href="#"><img  src= "{% static "assets/img/school.jpg" %}" alt="img"></a>
+                          {% endif %}
                         </figure>
                         
                         <div class="mu-latest-course-single-content" style="word-break: break-all;">
-                        <br>
+                          <br>
                           <h4>Înformații despre școală</h4>
                           <ul>
                             {% if telephone %}
-                            <li> <span>Telephone</span> <span> {{ telephone }}</span></li>
+                              <li> <span>Telephone</span> <span> {{ telephone }}</span></li>
                             {% endif %}
-
                             {% if fax %}
-                            <li> <span>Fax</span> <span>{{ fax}}</span></li>
+                              <li> <span>Fax</span> <span>{{ fax}}</span></li>
                             {% endif %}
-
                             {% if email %}
-                            <li> <span>Email</span> <span> {{ email }}</span></li>
+                              <li> <span>Email</span> <span> {{ email }}</span></li>
                             {% endif %}
-
                             {% if website %}
-                            <li> <span>Website</span> <span> {{ website }}</span></li>
+                              <li> <span>Website</span> <span> {{ website }}</span></li>
                             {% endif %}
                             
                             <li> <span>Locație</span> <span>{{ location }}</span></li>
-                           <div align="center">
-                            <input id="id_address" name="address" type="hidden" value="{{ location }}">
-                            <input id="id_geolocation" name="geolocation" type="hidden" value="{{ geolocation }}">
-                            <div id='map_container' class='row ' style="width: 100% ">
-                                    <div class='col s12' >
-                                        <div id='map_canvas' style='padding-top: 56.25%; width: 100%'></div>
-                                    </div>
+                            <div align="center">
+                              <input id="id_address" name="address" type="hidden" value="{{ location }}">
+                              <input id="id_geolocation" name="geolocation" type="hidden" value="{{ geolocation }}">
+                              <div id='map_container' class='row ' style="width: 100% ">
+                                <div class='col s12' >
+                                  <div id='map_canvas' style='padding-top: 56.25%; width: 100%'></div>
                                 </div>
-                           </div>
+                              </div>
+                            </div>
                           </ul>
                           <h4></h4>
-
-
-
-
                         </div>
                       </div>
                     </div>
@@ -102,42 +92,41 @@
                 <!-- end course content container -->
                 <!-- start related course item -->
                 {% if other_news %}
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="mu-related-item">
-                  <h3>Alte școli </h3>
-                  <div class="mu-related-item-area">
-                    <div id="mu-related-item-slide">
-                      {% for event in other_news %}
-                      <div class="col-md-6">
-                        <div class="mu-latest-course-single">
-                          <figure class="mu-latest-course-img">
-                            <a href="/schools/{{ event.slug }}">
-                                {% if event.file %}
-                                <img style=" max-height: 160px" alt="img" src= '{{ event.file.url }}'>
-                                {% else %}
-                                 <img style=" max-height: 160px" alt="img" src= "{% static "assets/img/school.jpg" %}">
-                                {% endif %}
-                            </a>
-                          </figure>
-                          
-                            <figcaption class="mu-latest-course-imgcaption" style="padding-top: 305px;">
-                              <a href="/schools/{{ event.slug }}">{{ event.name|truncatewords:5| truncatechars:25 }}</a>
-                            </figcaption>
-                          <div class="mu-latest-course-single-content">
-                              <div class="mu-latest-course-single-contbottom">
-                              <a href="/schools/{{ event.slug }}" class="mu-course-details">Detalii</a>
-
-                            </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="mu-related-item">
+                        <h3>Alte școli </h3>
+                        <div class="mu-related-item-area">
+                          <div id="mu-related-item-slide">
+                            {% for event in other_news %}
+                              <div class="col-md-6">
+                                <div class="mu-latest-course-single">
+                                  <figure class="mu-latest-course-img">
+                                    <a href="/schools/{{ event.slug }}">
+                                      {% if event.file %}
+                                        <img style=" max-height: 160px" alt="img" src= '{{ event.file.url }}'>
+                                      {% else %}
+                                        <img style=" max-height: 160px" alt="img" src= "{% static "assets/img/school.jpg" %}">
+                                      {% endif %}
+                                    </a>
+                                  </figure>
+                                  
+                                  <figcaption class="mu-latest-course-imgcaption" style="padding-top: 305px;">
+                                  <a href="/schools/{{ event.slug }}">{{ event.name|truncatewords:5| truncatechars:25 }}</a>
+                                  </figcaption>
+                                  <div class="mu-latest-course-single-content">
+                                    <div class="mu-latest-course-single-contbottom">
+                                      <a href="/schools/{{ event.slug }}" class="mu-course-details">Detalii</a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}
                           </div>
                         </div>
                       </div>
-                      {% endfor %}
                     </div>
                   </div>
-                </div>
-                  </div>
-                </div>
                 {% endif %}
                 <!-- end start related course item -->
               </div>
@@ -148,22 +137,21 @@
                   <div class="mu-single-sidebar">
                     
                     <h3><a href="/subject_page_all">Specializări</a></h3>
-                        
+                    
                     <ul class="mu-sidebar-catg">
                       {% for subject in left_subjects %}
-                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
+                        <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
                   <!-- end single sidebar -->
                 </aside>
                 <!-- / end sidebar -->
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
-
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}

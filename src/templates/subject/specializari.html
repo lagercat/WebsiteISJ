@@ -14,42 +14,35 @@
 <!---->
 <!-- You should have received a copy of the GNU General Public License-->
 <!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
-
 {% extends "base.html" %}
 {% block title %}Specializari{% endblock %}
 {% load staticfiles %}
 {% block content %}
-
-<section id="mu-page-breadcrumb">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="mu-page-breadcrumb-area">
-          <h2>Toate specializarile</h2>
-          <ol class="breadcrumb">
-           <li><a href="/">Acasă</a></li>
-           <li class="active">Specializari</li>
-         </ol>
+  <section id="mu-page-breadcrumb">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-page-breadcrumb-area">
+            <h2>Toate specializarile</h2>
+            <ol class="breadcrumb">
+              <li><a href="/">Acasă</a></li>
+              <li class="active">Specializari</li>
+            </ol>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
- <section id="mu-course-content">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="mu-course-content-area">
+  </section>
+  <section id="mu-course-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-course-content-area">
             <div class="row">
               <div class="col-md-9">
                 <!-- start course content container -->
                 <div class="mu-course-container mu-blog-archive">
                   <div class="row">
-
-
-
-
                     <section id="mu-features">
                       <div class="container">
                         <div class="row">
@@ -65,15 +58,15 @@
                               <div class="mu-features-content">
                                 <div class="row">
                                   {% if subjects %}
-                                     {% for subject in subjects %}
-                                  <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <div class="mu-single-feature">
-                                      <span class="glyphicon glyphicon-education"></span>
-                                      <h4>{{ subject.name }}</h4>
-                                    <a href="/subject/{{subject.name}}">Accesați specializarea</a>
-                                    </div>
-                                  </div>
-                                  {% endfor %}
+                                    {% for subject in subjects %}
+                                      <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <div class="mu-single-feature">
+                                          <span class="glyphicon glyphicon-education"></span>
+                                          <h4>{{ subject.name }}</h4>
+                                          <a href="/subject/{{subject.name}}">Accesați specializarea</a>
+                                        </div>
+                                      </div>
+                                    {% endfor %}
                                   {% endif %}
                                 </div>
                               </div>
@@ -83,7 +76,6 @@
                         </div>
                       </div>
                     </section>
-
                   </div>
                 </div>
                 <!-- end course content container -->
@@ -96,12 +88,11 @@
                   <!-- start single sidebar -->
                   <!-- end single sidebar -->
                   <!-- start single sidebar -->
-
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
- {% endblock %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endblock %}

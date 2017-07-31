@@ -17,9 +17,14 @@
 import json
 
 from django.contrib.admin.views.decorators import staff_member_required
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.http.response import HttpResponse, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, redirect, render
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
+from django.core.paginator import Paginator
+from django.http.response import HttpResponse
+from django.http.response import HttpResponseForbidden
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
+from django.shortcuts import render
 from django.utils.html import escape
 
 from gallery.models import GalleryPhoto
@@ -66,7 +71,8 @@ def add_gallery(request):
         if request.POST["change"] == "0" and not file:
             json_dict["file"] = "This field is required. Please select a file."
 
-        elif request.POST["change"] == "0" and clean_file(file, image=True) != "":
+        elif request.POST["change"] == "0" and clean_file(
+                file, image=True) != "":
             json_dict["file"] = clean_file(file, image=True)
 
         for i in range(0, int(request.POST["nr"])):
@@ -112,7 +118,8 @@ def add_gallery(request):
 
             name = request.POST["form-" + str(i) + "-name"]
             if not id:
-                photo = GalleryPhoto(gallery=obj, name=name, file=file, author=request.user,
+                photo = GalleryPhoto(gallery=obj, name=name, file=file,
+                                     author=request.user,
                                      location="gallery/" + str(obj.slug))
                 photo.save()
             else:
@@ -132,5 +139,5 @@ def gallery_img(request, slug):
     ).order_by('order')
     return render(request, 'gallery/imagini.html', {
         'photos': photos,
-         'album_name': instance.name,
+        'album_name': instance.name,
     })

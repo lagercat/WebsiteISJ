@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males
 #
 # This file is part of WebsiteISJ
@@ -14,7 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
-#!/usr/bin/env python
 import os
 import sys
 

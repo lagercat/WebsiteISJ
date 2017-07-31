@@ -16,8 +16,10 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django.contrib.admin.filters import DateFieldListFilter
 
-from gallery.forms import GalleryChangeFormAdmin, GalleryCreationFormAdmin
-from utility.admin import AdminChangeMixin, register_model_admin
+from gallery.forms import GalleryChangeFormAdmin
+from gallery.forms import GalleryCreationFormAdmin
+from utility.admin import AdminChangeMixin
+from utility.admin import register_model_admin
 
 from .models import Gallery
 
@@ -26,28 +28,30 @@ class GalleryAdmin(AdminChangeMixin):
     icon = '<i class="material-icons">photo</i>'
     change_own_field = "author__id"
     change_own_owner_field = "id"
-    
+
     add_form = GalleryCreationFormAdmin
     change_form = GalleryChangeFormAdmin
-    
+
     add_form_template = "admin/gallery_form.html"
     change_form_template = "admin/gallery_form.html"
-    
+
     list_display = ('name', 'author', 'date', 'my_url_link',)
     list_filter = (
         ('date', DateFieldListFilter),
     )
     readonly_fields = ['author']
-    
-    search_fields = ('name', 'author__first_name', 'author__last_name', 'date',)
+
+    search_fields = ('name', 'author__first_name',
+                     'author__last_name', 'date',)
 
     ordering = ['date']
-    
+
     change_fieldsets = (
         ('Gallery', {'fields': ('name', 'file')}),
-        ('Gallery Photos', {'fields': ('gallery_photos', 'gallery_photos_urls', 'id')}),
+        ('Gallery Photos', {
+         'fields': ('gallery_photos', 'gallery_photos_urls', 'id')}),
     )
-    
+
     add_fieldsets = (
         ('Gallery', {'fields': ('name', 'file')}),
         ('Gallery Photos', {'fields': ()}),
@@ -59,7 +63,7 @@ class GalleryAdmin(AdminChangeMixin):
 
     my_url_link.allow_tags = True
     my_url_link.short_description = 'Link to page'
-      
+
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
             self.fieldsets = self.add_fieldsets
@@ -70,7 +74,7 @@ class GalleryAdmin(AdminChangeMixin):
             self.fieldsets = self.change_fieldsets
             form = self.change_form
             return form
-    
+
     pass
 
 register_model_admin(Gallery, GalleryAdmin)
