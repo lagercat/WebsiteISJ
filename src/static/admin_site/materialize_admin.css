@@ -761,10 +761,10 @@
   color: #4db6ac !important; }
 
 .teal.lighten-1 {
-  background-color: #26a69a !important; }
+  background-color: #4CAF50 !important; }
 
 .teal-text.text-lighten-1 {
-  color: #26a69a !important; }
+  color: #4CAF50 !important; }
 
 .teal.darken-1 {
   background-color: #00897b !important; }
@@ -4039,12 +4039,12 @@ button.btn-floating {
   outline: none;
   transition: all .3s; }
   .chips.focus {
-    border-bottom: 1px solid #26a69a;
-    box-shadow: 0 1px 0 0 #26a69a; }
+    border-bottom: 1px solid #4CAF50;
+    box-shadow: 0 1px 0 0 #4CAF50; }
   .chips:hover {
     cursor: text; }
   .chips .chip.selected {
-    background-color: #26a69a;
+    background-color: #4CAF50;
     color: #fff; }
   .chips .input {
     background: none;
@@ -6148,7 +6148,7 @@ input[type=range]:focus::-ms-fill-upper {
   background: #fdf5f4; }
 
 .picker__weekday-display {
-  background-color: #ec332f;
+  background-color: rgba(0,0,0,0);
   padding: 10px;
   font-weight: 200;
   letter-spacing: .5;
@@ -6428,13 +6428,464 @@ a:hover {
 }
 
 @media only screen and (min-width: 993px)
-materialize.admin.min.css:16
 footer, main {
     margin-left: 300px;
 }
 
 @media only screen and (max-width: 992px)
-materialize.admin.min.css:16
 footer, main {
     margin-left: 0px;
+}
+
+
+/* ==========================================================================
+   CUSTOM MATERIALIZE STYLES
+   ========================================================================== */
+/*.picker__box {
+  border-radius: 2px;
+  overflow: hidden;
+}*/
+.picker__date-display {
+  /*text-align: left;*/
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 18px;
+  font-weight: 300;
+}
+
+@media only screen and (min-width: 601px) {
+  .picker__date-display {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+  }
+  /*.picker__weekday-display {
+    display: block;
+  }*/
+  .picker__container__wrapper {
+    -webkit-box-flex: 2;
+    -webkit-flex: 2;
+        -ms-flex: 2;
+            flex: 2;
+  }
+}
+
+.picker__nav--prev:hover,
+.picker__nav--next:hover {
+  cursor: pointer;
+  color: #000000;
+  background: #a1ded8;
+}
+
+.picker__weekday-display {
+  font-weight: 500;
+  font-size: 2.8rem;
+  margin-right: 5px;
+  margin-top: 4px;
+}
+
+.picker__month-display {
+  font-size: 2.8rem;
+  font-weight: 500;
+}
+
+.picker__day-display {
+  font-size: 2.8rem;
+  font-weight: 500;
+  margin-right: 5px;
+}
+
+.picker__year-display {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/*.picker__box {
+  padding: 0;
+}*/
+.picker__calendar-container {
+  padding: 0 1rem;
+}
+
+.picker__calendar-container thead {
+  border: none;
+}
+
+.picker__table {
+  margin-top: 0;
+  margin-bottom: .5em;
+}
+
+.picker__day--infocus {
+  color: rgba(0, 0, 0, 0.87);
+  letter-spacing: -.3px;
+  padding: 0.75rem 0;
+  font-weight: 400;
+  border: 1px solid transparent;
+}
+
+@media only screen and (min-width: 601px) {
+  .picker__day--infocus {
+    padding: 1.1rem 0;
+  }
+}
+
+.picker__day.picker__day--today {
+  color: #4CAF50;
+}
+
+.picker__day.picker__day--today.picker__day--selected {
+  color: #fff;
+}
+
+.picker__weekday {
+  font-size: .9rem;
+}
+
+.picker__day--selected,
+.picker__day--selected:hover,
+.picker--focused .picker__day--selected {
+  border-radius: 50%;
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+  background-color: #4CAF50;
+  color: #ffffff;
+}
+
+.picker__day--selected.picker__day--outfocus,
+.picker__day--selected:hover.picker__day--outfocus,
+.picker--focused .picker__day--selected.picker__day--outfocus {
+  background-color: #a1ded8;
+}
+
+.picker__footer {
+  text-align: right;
+  padding: 5px 10px;
+}
+
+.picker__close, .picker__today, .picker__clear {
+  font-size: 1.1rem;
+  padding: 0 1rem;
+  color: #4CAF50;
+}
+
+.picker__clear {
+  color: #f44336;
+  float: left;
+}
+
+.picker__nav--prev:before,
+.picker__nav--next:before {
+  content: " ";
+  border-top: .5em solid transparent;
+  border-bottom: .5em solid transparent;
+  border-right: 0.75em solid #676767;
+  width: 0;
+  height: 0;
+  display: block;
+  margin: 0 auto;
+}
+
+.picker__nav--next:before {
+  border-right: 0;
+  border-left: 0.75em solid #676767;
+}
+
+button.picker__today:focus, button.picker__clear:focus, button.picker__close:focus {
+  background-color: #a1ded8;
+}
+
+/* ==========================================================================
+   $BASE-TIME-PICKER
+   ========================================================================== */
+/**
+ * The list of times.
+ */
+.picker__list {
+  list-style: none;
+  padding: 0.75em 0 4.2em;
+  margin: 0;
+}
+
+/**
+ * The times on the clock.
+ */
+.picker__list-item {
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  margin-bottom: -1px;
+  position: relative;
+  background: #fff;
+  padding: .75em 1.25em;
+}
+
+@media (min-height: 46.75em) {
+  .picker__list-item {
+    padding: .5em 1em;
+  }
+}
+
+/* Hovered time */
+.picker__list-item:hover {
+  cursor: pointer;
+  color: #000;
+  background: #b1dcfb;
+  border-color: #0089ec;
+  z-index: 10;
+}
+
+/* Highlighted and hovered/focused time */
+.picker__list-item--highlighted {
+  border-color: #0089ec;
+  z-index: 10;
+}
+
+.picker__list-item--highlighted:hover,
+.picker--focused .picker__list-item--highlighted {
+  cursor: pointer;
+  color: #000;
+  background: #b1dcfb;
+}
+
+/* Selected and hovered/focused time */
+.picker__list-item--selected,
+.picker__list-item--selected:hover,
+.picker--focused .picker__list-item--selected {
+  background: #0089ec;
+  color: #fff;
+  z-index: 10;
+}
+
+/* Disabled time */
+.picker__list-item--disabled,
+.picker__list-item--disabled:hover,
+.picker--focused .picker__list-item--disabled {
+  background: #f5f5f5;
+  border-color: #f5f5f5;
+  color: #ddd;
+  cursor: default;
+  border-color: #ddd;
+  z-index: auto;
+}
+
+/**
+ * The clear button
+ */
+.picker--time .picker__button--clear {
+  display: block;
+  width: 80%;
+  margin: 1em auto 0;
+  padding: 1em 1.25em;
+  background: none;
+  border: 0;
+  font-weight: 500;
+  font-size: .67em;
+  text-align: center;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.picker--time .picker__button--clear:hover,
+.picker--time .picker__button--clear:focus {
+  color: #000;
+  background: #b1dcfb;
+  background: #EF5350;
+  border-color: #EF5350;
+  cursor: pointer;
+  color: #fff;
+  outline: none;
+}
+
+.picker--time .picker__button--clear:before {
+  top: -0.25em;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
+.picker--time .picker__button--clear:hover:before,
+.picker--time .picker__button--clear:focus:before {
+  color: #fff;
+}
+
+/* ==========================================================================
+   $DEFAULT-TIME-PICKER
+   ========================================================================== */
+/**
+ * The frame the bounds the time picker.
+ */
+.picker--time .picker__frame {
+  min-width: 256px;
+  max-width: 320px;
+}
+
+/**
+ * The picker box.
+ */
+.picker--time .picker__box {
+  font-size: 1em;
+  background: #f2f2f2;
+  padding: 0;
+}
+
+@media (min-height: 40.125em) {
+  .picker--time .picker__box {
+    margin-bottom: 5em;
+  }
+}
+
+/* ==========================================================================
+   $DEFAULT-TIME-PICKER
+   ========================================================================== */
+.clockpicker-display {
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+  clear: both;
+  position: relative;
+}
+
+.clockpicker-span-am-pm {
+  font-size: 1.3rem;
+  position: absolute;
+  right: 1rem;
+  bottom: 0.3rem;
+  line-height: 2rem;
+  font-weight: 500;
+}
+
+@media only screen and (min-width: 601px) {
+  .clockpicker-display {
+    top: 32%;
+  }
+  .clockpicker-span-am-pm {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    text-align: center;
+    margin-top: 1.2rem;
+  }
+}
+
+.text-primary {
+  color: white;
+}
+
+.clockpicker-span-hours {
+  margin-right: 3px;
+}
+
+.clockpicker-span-minutes {
+  margin-left: 3px;
+}
+
+.clockpicker-span-hours,
+.clockpicker-span-minutes,
+.clockpicker-span-am-pm div {
+  cursor: pointer;
+}
+
+.clockpicker-moving {
+  cursor: move;
+}
+
+.clockpicker-plate {
+  background-color: #eee;
+  border-radius: 50%;
+  width: 270px;
+  height: 270px;
+  overflow: visible;
+  position: relative;
+  margin: auto;
+  margin-top: 25px;
+  margin-bottom: 5px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.clockpicker-canvas,
+.clockpicker-dial {
+  width: 270px;
+  height: 270px;
+  position: absolute;
+  left: -1px;
+  top: -1px;
+}
+
+.clockpicker-minutes {
+  visibility: hidden;
+}
+
+.clockpicker-tick {
+  border-radius: 50%;
+  color: rgba(0, 0, 0, 0.87);
+  line-height: 40px;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.clockpicker-tick.active,
+.clockpicker-tick:hover {
+  background-color: rgba(38, 166, 154, 0.25);
+}
+
+.clockpicker-dial {
+  -webkit-transition: -webkit-transform 350ms, opacity 350ms;
+  -webkit-transition: opacity 350ms, -webkit-transform 350ms;
+  transition: opacity 350ms, -webkit-transform 350ms;
+  transition: transform 350ms, opacity 350ms;
+  transition: transform 350ms, opacity 350ms, -webkit-transform 350ms;
+}
+
+.clockpicker-dial-out {
+  opacity: 0;
+}
+
+.clockpicker-hours.clockpicker-dial-out {
+  -webkit-transform: scale(1.2, 1.2);
+  transform: scale(1.2, 1.2);
+}
+
+.clockpicker-minutes.clockpicker-dial-out {
+  -webkit-transform: scale(0.8, 0.8);
+  transform: scale(0.8, 0.8);
+}
+
+.clockpicker-canvas {
+  -webkit-transition: opacity 175ms;
+  transition: opacity 175ms;
+}
+
+.clockpicker-canvas-out {
+  opacity: 0.25;
+}
+
+.clockpicker-canvas-bearing {
+  stroke: none;
+  fill: #4CAF50;
+}
+
+.clockpicker-canvas-bg {
+  stroke: none;
+  fill: #4CAF50;
+}
+
+.clockpicker-canvas-bg-trans {
+  fill: #4CAF50;
+}
+
+.clockpicker-canvas line {
+  stroke: #4CAF50;
+  stroke-width: 4;
+  stroke-linecap: round;
+  /*shape-rendering: crispEdges;*/
 }

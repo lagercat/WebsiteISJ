@@ -19,218 +19,232 @@
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" class="no-js">
     <head>
         {% block head %}
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
-            {% block favicon %}<link href="{% static 'material/imgs/favicon.png' %}" rel="shortcut icon">{% endblock %}
-            <title>{% block title %}{{ title }}{% endblock %}</title>
-            {% block css %}
-                {% include 'admin/includes/material_css.html' %}
-                {% block extrastyle %}
-                    {% if request.user.status is not 3 %}
-                        <link href="{% static 'admin_site/materialize_inspector.css' %}"  rel="stylesheet">
-                    {% else %}
-                        <link href="{% static 'admin_site/materialize_admin.css' %}"  rel="stylesheet">
-                    {% endif %}
-                {% endblock %}
-            {% endblock css %}
-            {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
-            {% block js %}
-                <script src="{% static 'material/js/jquery-2.2.0.js' %}"></script>
-                <script>
-                // Use same django for material and django admin
-                var django = django || {};
-                django.jQuery = jQuery.noConflict(true);
-                window.jQuery = window.$ = django.jQuery
-                </script>
-                <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-                
-                <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
-                <script type="text/javascript">window.__admin_utc_offset__ = "{% filter escapejs %}{% now "Z" %}{% endfilter %}";</script>
-                {% if user.is_authenticated %}<script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>{% endif %}
-                {{ media.js }}
-            {% endblock js %}
-            {% block extrahead %}{% endblock %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+        {% block favicon %}<link href="{% static 'material/imgs/favicon.png' %}" rel="shortcut icon">{% endblock %}
+        <title>{% block title %}{{ title }}{% endblock %}</title>
+        {% block css %}
+        {% include 'admin/includes/material_css.html' %}
+        {% block extrastyle %}
+            {% if request.user.status is not 3 %}
+                <link href="{% static 'admin_site/materialize_inspector.css' %}"  rel="stylesheet">
+            {% else %}
+                <link href="{% static 'admin_site/materialize_admin.css' %}"  rel="stylesheet">
+            {% endif %}
+        {% endblock %}
+        {% endblock css %}
+        {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+        {% block js %}
+
+
+        <script src="{% static 'material/js/jquery-2.2.0.js' %}"></script>
+        <script>
+            // Use same django for material and django admin
+            var django = django || {};
+            django.jQuery = jQuery.noConflict(true);
+            window.jQuery = window.$ = django.jQuery
+        </script>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+
+        <!-- <script src="{% static 'pickadate.js-3.5.6/lib/picker.js' %}"></script>
+        <script src="{% static 'pickadate.js-3.5.6/lib/picker.date.js' %}"></script>
+        <script src="{% static 'pickadate.js-3.5.6/lib/picker.time.js' %}"></script> -->
+
+        <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
+        <script type="text/javascript">window.__admin_utc_offset__ = "{% filter escapejs %}{% now "Z" %}{% endfilter %}";</script>
+        {% if user.is_authenticated %}<script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>{% endif %}
+        {{ media.js }}
+        {% endblock js %}
+        {% block extrahead %}{% endblock %}
         {% endblock head %}
         <script type="text/javascript" src="{% static 'tinymce/tinymce.min.js' %}"></script>
         {% block tinymceinit %}{% endblock %}
         <script type="text/javascript" src="{% static 'clipboard-js/clipboard.js' %}"></script>
         <link rel="stylesheet" type="text/css" href="{% static 'prism/prism.css' %}">
         <script type="text/javascript" src="{% static 'prism/prism.js' %}"></script>
-        {#        <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ google_maps_api_key }}&libraries=places"></script>#}
+
+        {% include 'admin/includes/material_js.html' %}
+        <script type="text/javascript" src="{% static 'admin_site/materialize.min.js' %}"></script>
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ google_maps_api_key }}&libraries=places"></script>
     </head>
     <body class="{% if is_popup %}popup{% endif %}">
-    <header>
-        {% block header %}
+        <header>
+            {% block header %}
             {% if not is_popup %}
-                <ul id="slide-out" class="side-nav fixed">
-                    {% block sidenav_header %}
-                        <li>
-                            <div class="userView">
-                                {% if request.user.status is 3 %}
-                                    <img class="background"  style="height: 176px; width: 300px" src="{% static 'admin_site/img/sidenav_green2.jpg' %}">
-                                {% else %}
-                                    <img class="background" style="height: 176px; width: 300px" src="{% static 'admin_site/img/sidenav.jpg' %}">
-                                {% endif %}
-                                {% block userphoto %}
-                                    {% if user.photo.url %}
-                                        <a href="#"><img class="circle" src="{{ user.photo.url %}"></a>
-                                    {% else %}
-                                        <a href="#"><img class="circle" src="{% static 'assets/img/logo.png' %}"></a>
-                                    {% endif %}
-                                {% endblock %}
-                                <a href="#"><span class="white-text name">{{ request.user.get_full_name|title }}</span></a>
-                                <a href="#"><span class="white-text email">{{ request.user.email }}</span></a>
-                            </div>
-                        </li>
-                    {% endblock %}
-                    {% block sidenav_items %}
-                        {% if site_url %}
-                            {% block back_link %}<li class="no-padding"><a class="collapsible-header" href="{{ site_url }}"><i class="material-icons">arrow_back</i>{% trans 'View site' %}</a></li>{% endblock %}
+            <ul id="slide-out" class="side-nav fixed">
+                {% block sidenav_header %}
+                <li>
+                    <div class="userView">
+                        {% if request.user.status is 3 %}
+                            <img class="background"  style="height: 176px; width: 300px" src="{% static 'admin_site/img/sidenav_green2.jpg' %}">
+                        {% else %}
+                            <img class="background" style="height: 176px; width: 300px" src="{% static 'admin_site/img/sidenav.jpg' %}">
                         {% endif %}
-                        {% trans get_apps %}
-                        {% get_app_list request as app_list %}
-                        {% for app in app_list %}
-                            <li {% if app.active %}class="active"{% endif %}>
-                            <ul class="collapsible collapsible-accordion">
-                                <li>
-                                    <a class="collapsible-header{% if app.active %} active{% endif %}">{{ app.app_icon }} {{ app.name|truncatechars:23 }}</a>
-                                    <div class="collapsible-body" {% if app.active %}style="display:block"{% endif %}>
-                                    <ul>
-                                        {% for model in app.models %}
-                                            <li class="{% if model.active %}active{% endif %}">
-                                            <a href="{{ model.admin_url }}">{{ model.name }}</a>
-                                        </li>
+                        {% block userphoto %}
+                        {% if user.photo.url %}
+                        <a href="#"><img class="circle" src="{{ user.photo.url %}"></a>
+                        {% else %}
+                        <a href="#"><img class="circle" src="{% static 'assets/img/logo.png' %}"></a>
+                        {% endif %}
+                        {% endblock %}
+                        <a href="#"><span class="white-text name">{{ request.user.get_full_name|title }}</span></a>
+                        <a href="#"><span class="white-text email">{{ request.user.email }}</span></a>
+                    </div>
+                </li>
+                {% endblock %}
+                {% block sidenav_items %}
+                {% if site_url %}
+                    {% block back_link %}<li class="no-padding"><a class="collapsible-header" href="{{ site_url }}"><i class="material-icons">arrow_back</i>{% trans 'View site' %}</a></li>{% endblock %}
+                {% endif %}
+                {% trans get_apps %}
+                {% get_app_list request as app_list %}
+                {% for app in app_list %}
+                <li {% if app.active %}class="active"{% endif %}>
+                    <ul class="collapsible collapsible-accordion">
+                        <li>
+                            <a class="collapsible-header{% if app.active %} active{% endif %}">{{ app.app_icon }} {{ app.name|truncatechars:23 }}</a>
+                            <div class="collapsible-body" {% if app.active %}style="display:block"{% endif %}>
+                                <ul>
+                                    {% for model in app.models %}
+                                    <li class="{% if model.active %}active{% endif %}">
+                                        <a href="{{ model.admin_url }}">{{ model.name }}</a>
+                                    </li>
                                     {% endfor %}
                                 </ul>
                             </div>
                         </li>
                     </ul>
-                {% endfor %}
-            {% endblock sidenav_items %}
-        </ul>
-    {% endif %}
-{% endblock header %}
-</header>
-<main>
-{% block main %}
-    {% block topbar %}
-        <nav class="topbar">
-            <div class="nav-wrapper">
-                {% if not is_popup %}<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>{% endif %}
-                <div class="brand-logo">
-                    {% block page_title %}
-                        <a href="/" class="page-title">{% block brand-logo %}{% trans 'ISJ Website' %}{% endblock %}</a>
-                    {% endblock %}
-                </div>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    {% block userlinks %}
-                        {% if user.is_active and user.is_staff %}
-                            {% url 'django-admindocs-docroot' as docsroot %}
-                            {% if docsroot %}
-                                <li><a href="{{ docsroot }}">{% trans 'Documentation' %}</a></li>
+                    {% endfor %}
+                {% endblock sidenav_items %}
+            </ul>
+            {% endif %}
+            {% endblock header %}
+        </header>
+        <main>
+            {% block main %}
+                {% block topbar %}
+                <nav class="topbar">
+                    <div class="nav-wrapper">
+                        {% if not is_popup %}<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>{% endif %}
+                        <div class="brand-logo">
+                            {% block page_title %}
+                            <a href="/" class="page-title">{% block brand-logo %}{% trans 'ISJ Website' %}{% endblock %}</a>
+                            {% endblock %}
+                        </div>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            {% block userlinks %}
+                            {% if user.is_active and user.is_staff %}
+                                {% url 'django-admindocs-docroot' as docsroot %}
+                                {% if docsroot %}
+                                    <li><a href="{{ docsroot }}">{% trans 'Documentation' %}</a></li>
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                        {% if user.has_usable_password %}
-                            <li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>
-                        {% endif %}
-                        {% if user.is_authenticated %}
+                            {% if user.has_usable_password %}
+                                <li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>
+                            {% endif %}
+                            {% if user.is_authenticated %}
                             <li><a href="{% url 'admin:logout' %}" data-turbolinks="false"><i class="material-icons right">exit_to_app</i>{% trans "Logout" %}</a></li>
-                        {% else %}
+                            {% else %}
                             <li><a href="{% url 'admin:login' %}" data-turbolinks="false"><i class="material-icons right">lock_open</i>{% trans "Login" %}</a></li>
-                        {% endif %}
-                    {% endblock %}
-                </ul>
-            </div>
-        </nav>
-    {% endblock topbar %}
-    {% block breadcrumbs %}
-        {% if not is_popup %}
-            <nav class="breadcrumbs">
-                <div class="nav-wrapper">
-                    {% block breadcrumbs_items %}{% endblock %}
+                            {% endif %}
+                            {% endblock %}
+                        </ul>
+                    </div>
+                </nav>
+                {% endblock topbar %}
+                {% block breadcrumbs %}
+                {% if not is_popup %}
+                <nav class="breadcrumbs">
+                    <div class="nav-wrapper">
+                        {% block breadcrumbs_items %}{% endblock %}
+                    </div>
+                </nav>
+                {% endif %}
+                {% endblock %}
+                <div class="content">
+                    {% block content %}{% endblock %}
+                    <script type="text/javascript">
+                        if($("#id_geolocation_container")){
+                            $("#id_geolocation_container").parent().after("\
+                                <div id='map_container' class='row'>\
+                                    <div class='col s12' >\
+                                        <div id='map_canvas' style='padding-top: 56.25%; width: 100%'></div>\
+                                    </div>\
+                                </div>\
+                            ");
+                        }
+
+                        $(window).on("load", function(){
+                          var selects = $("input.select-dropdown");
+                          $.each(selects, function(i,el){
+                            console.log(el);var da = $(el).attr("data-activates");
+                            var list = $("#"+da);
+                            var list1 = list.next()
+                            console.log(list1.find(':selected'))
+                            console.log(list.find('li.active'))
+                            var v = list.find('li.active').length != 0 || list1.find(':selected').length != 0
+                            if(!v){
+                              $(el).val("---------");
+                            }
+                          });
+                        });
+                    </script>
                 </div>
-            </nav>
-        {% endif %}
-    {% endblock %}
-    <div class="content">
-        {% block content %}{% endblock %}
-        <script type="text/javascript">
-        if($("#id_geolocation_container")){
-        $("#id_geolocation_container").parent().after("\
-        <div id='map_container' class='row'>\
-            <div class='col s12' >\
-                <div id='map_canvas' style='padding-top: 56.25%; width: 100%'></div>\
-            </div>\
-        </div>\
-        ");
-        }
-        
-        $(window).on("load", function(){
-        var selects = $("input.select-dropdown");
-        $.each(selects, function(i,el){
-        console.log(el);var da = $(el).attr("data-activates");
-        var list = $("#"+da);
-        var list1 = list.next()
-        console.log(list1.find(':selected'))
-        console.log(list.find('li.active'))
-        var v = list.find('li.active').length != 0 || list1.find(':selected').length != 0
-        if(!v){
-        $(el).val("---------");
-        }
-        });
-        });
+            {% endblock main %}
+        </main>
+        <footer>
+            {% block footer %}
+            {% endblock footer %}
+        </footer>
+
+        <script>
+            $(".button-collapse").sideNav();
         </script>
-    </div>
-{% endblock main %}
-</main>
-<footer>
-{% block footer %}
-{% endblock footer %}
-</footer>
-{% include 'admin/includes/material_js.html' %}
-<script>
-$(".button-collapse").sideNav();
-</script>
-{% block extrajs %}{% endblock %}
-{% block messages %}
-{% if messages %}
-    <script type="text/javascript">
-    $(document).ready(function() {
-    {% for message in messages %}
-        Materialize.toast('{{ message|capfirst }}', 10000, 'alert-{{ message.tags }}')
-    {% endfor %}
-    });
-    </script>
-{% endif %}
-{% endblock messages %}
-</body>
+        {% block extrajs %}{% endblock %}
+
+        {% block messages %}
+        {% if messages %}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                {% for message in messages %}
+                Materialize.toast('{{ message|capfirst }}', 10000, 'alert-{{ message.tags }}')
+                {% endfor %}
+            });
+        </script>
+        {% endif %}
+        {% endblock messages %}
+    </body>
 </html>
 <!--
-<body>
-<ul id="user-menu" class="dropdown-content">
-</ul>
-{# endif #}
-{# if not is_popup #}
-<header>
-<nav id="header" class="nav-top">
-<div class="nav-wrapper">
-    <a href="/" class="page-title hide-on-med-and-down">{# block brand-logo #}{# trans 'Administration' #}{# endblock #}</a>
-    <a href="#" data-activates="nav-mobile" class="button-collapse full"><i class="material-icons">menu</i></a>
-    <ul class="right">
-        {# if user.is_authenticated #}
-        <li><a class="dropdown-button constrain_width" href="#!" data-activates="user-menu">{{ user.get_full_name }}<i class="material-icons right">arrow_drop_down</i></a></li>
+    <body>
+        <ul id="user-menu" class="dropdown-content">
+        </ul>
         {# endif #}
-    </ul>
-</div>
-<ul id="nav-mobile" class="side-nav fixed module-menu">
-    <li class="logo valign-wrapper">
-        <a href="{# url 'admin:index' #}" class="no-navigation">
-            {# block branding #}{# endblock #}
-        </a>
-    </li>
-</ul>
-</nav>
-</header>
-{# endif #}
+
+        {# if not is_popup #}
+        <header>
+            <nav id="header" class="nav-top">
+                <div class="nav-wrapper">
+                    <a href="/" class="page-title hide-on-med-and-down">{# block brand-logo #}{# trans 'Administration' #}{# endblock #}</a>
+                    <a href="#" data-activates="nav-mobile" class="button-collapse full"><i class="material-icons">menu</i></a>
+
+                    <ul class="right">
+                        {# if user.is_authenticated #}
+                        <li><a class="dropdown-button constrain_width" href="#!" data-activates="user-menu">{{ user.get_full_name }}<i class="material-icons right">arrow_drop_down</i></a></li>
+                        {# endif #}
+                    </ul>
+                </div>
+
+                <ul id="nav-mobile" class="side-nav fixed module-menu">
+                    <li class="logo valign-wrapper">
+                        <a href="{# url 'admin:index' #}" class="no-navigation">
+                            {# block branding #}{# endblock #}
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+        </header>
+        {# endif #}
 -->
