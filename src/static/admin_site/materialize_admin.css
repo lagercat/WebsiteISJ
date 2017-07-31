@@ -761,10 +761,10 @@
   color: #4db6ac !important; }
 
 .teal.lighten-1 {
-  background-color: #26a69a !important; }
+  background-color: #4CAF50 !important; }
 
 .teal-text.text-lighten-1 {
-  color: #26a69a !important; }
+  color: #4CAF50 !important; }
 
 .teal.darken-1 {
   background-color: #00897b !important; }
@@ -4039,12 +4039,12 @@ button.btn-floating {
   outline: none;
   transition: all .3s; }
   .chips.focus {
-    border-bottom: 1px solid #26a69a;
-    box-shadow: 0 1px 0 0 #26a69a; }
+    border-bottom: 1px solid #4CAF50;
+    box-shadow: 0 1px 0 0 #4CAF50; }
   .chips:hover {
     cursor: text; }
   .chips .chip.selected {
-    background-color: #26a69a;
+    background-color: #4CAF50;
     color: #fff; }
   .chips .input {
     background: none;
@@ -6447,7 +6447,7 @@ footer, main {
 }*/
 .picker__date-display {
   /*text-align: left;*/
-  background-color: #26a69a;
+  background-color: #4CAF50;
   color: #fff;
   padding: 18px;
   font-weight: 300;
@@ -6533,7 +6533,7 @@ footer, main {
 }
 
 .picker__day.picker__day--today {
-  color: #26a69a;
+  color: #4CAF50;
 }
 
 .picker__day.picker__day--today.picker__day--selected {
@@ -6550,7 +6550,7 @@ footer, main {
   border-radius: 50%;
   -webkit-transform: scale(0.9);
           transform: scale(0.9);
-  background-color: #26a69a;
+  background-color: #4CAF50;
   color: #ffffff;
 }
 
@@ -6568,7 +6568,7 @@ footer, main {
 .picker__close, .picker__today, .picker__clear {
   font-size: 1.1rem;
   padding: 0 1rem;
-  color: #26a69a;
+  color: #4CAF50;
 }
 
 .picker__clear {
@@ -6871,20 +6871,20 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 
 .clockpicker-canvas-bearing {
   stroke: none;
-  fill: #26a69a;
+  fill: #4CAF50;
 }
 
 .clockpicker-canvas-bg {
   stroke: none;
-  fill: #26a69a;
+  fill: #4CAF50;
 }
 
 .clockpicker-canvas-bg-trans {
-  fill: #26a69a;
+  fill: #4CAF50;
 }
 
 .clockpicker-canvas line {
-  stroke: #26a69a;
+  stroke: #4CAF50;
   stroke-width: 4;
   stroke-linecap: round;
   /*shape-rendering: crispEdges;*/

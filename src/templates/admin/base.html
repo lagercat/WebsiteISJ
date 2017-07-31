@@ -64,6 +64,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'prism/prism.css' %}">
         <script type="text/javascript" src="{% static 'prism/prism.js' %}"></script>
 
+        {% include 'admin/includes/material_js.html' %}
         <script type="text/javascript" src="{% static 'admin_site/materialize.min.js' %}"></script>
         <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ google_maps_api_key }}&libraries=places"></script>
     </head>
