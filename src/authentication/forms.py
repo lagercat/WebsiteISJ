@@ -97,6 +97,12 @@ class ExtendedUserCreationFormAdmin(forms.ModelForm):
                 "Please choose a subject for inspector")
         return data
 
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+        if ExtendedUser.objects.filter(username=username).count():
+            raise forms.ValidationError("This username already exists")
+        return username
+
     def clean_password2(self):
         # Check that the two password entries match
         password1 = self.cleaned_data.get("password1")
@@ -146,6 +152,14 @@ class ExtendedUserChangeFormAdmin(forms.ModelForm):
         }
         kwargs['initial'] = initial
         super(ExtendedUserChangeFormAdmin, self).__init__(*args, **kwargs)
+
+    def clean_username(self):
+        initial_username = self.initial["username"]
+        username = self.cleaned_data.get("username")
+        if ExtendedUser.objects.filter(username=username).count() and \
+           username != initial_username:
+            raise forms.ValidationError("This username already exists")
+        return username
 
     def clean_password2(self):
         # Check that the two password entries match
