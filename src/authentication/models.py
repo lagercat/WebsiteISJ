@@ -92,13 +92,15 @@ class ExtendedUser(AbstractBaseUser):
         0: [
             "post.view_post",
             "post.change_own_post",
-            "post.add_own_post"
+            "post.add_own_post",
+            "post.delete_post"
         ],
         1: [
             "school.change_own_school",
             "post.view_post",
             "post.change_own_post",
-            "post.add_own_post"
+            "post.add_own_post",
+            "post.delete_post"
         ],
         2: [
             "post.view_post",
@@ -114,6 +116,7 @@ class ExtendedUser(AbstractBaseUser):
             "subject.add_own_subcategory",
             "gallery.change_own_gallery",
             "gallery.add_own_gallery",
+            "post.delete_post"
         ],
         3: [
             "all"
