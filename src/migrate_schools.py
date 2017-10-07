@@ -32,14 +32,14 @@ for sheet in wb.get_sheet_names():
         """
         address_partitioned = school_adress.split(",")
         address_partitioned.pop(0)
+        address_partitioned.pop(0)
         address_partitioned.pop(len(address_partitioned) - 1)
         for i in range(0, len(address_partitioned) - 1):
             address_partitioned[i] += " "
         school_adress = "".join(address_partitioned)
         try:
             school_location = geolocator.geocode(school_adress)
-            school_coordinates = str(school_location.latitude)
-            + "," + str(school_location.longitude)
+            school_coordinates = str(school_location.latitude) + "," + str(school_location.longitude)
             School.objects.create(name=school_name,
                                   address=school_location.address,
                                   geolocation=school_coordinates)
