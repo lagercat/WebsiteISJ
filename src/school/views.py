@@ -52,8 +52,14 @@ def schools(request, slug):
     articol = list(
         School.objects.values('name', 'telephone', 'fax', 'email', 'website',
                               'address',
-                              'geolocation', 'file').filter(slug=slug))
+                              'geolocation', 'file','type_school').filter(
+            slug=slug))
     other_schools = School.objects.all().exclude(slug=slug)[:4]
+    school = {
+        0:'Gradinita',
+        1:'Scoala Gimnaziala',
+        2: 'Liceu'
+    }
     return render(request, 'school/school_detail.html', {
         'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY,
         'name': articol[0].get('name'),
@@ -63,6 +69,7 @@ def schools(request, slug):
         'website': articol[0].get('website'),
         'location': articol[0].get('address'),
         'geolocation': articol[0].get('geolocation'),
+        'type': school[articol[0].get('type_school')],
         'other_news': other_schools,
         'thumbnail': "/media/" + articol[0].get('file'),
 
