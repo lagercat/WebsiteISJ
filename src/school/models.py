@@ -52,7 +52,14 @@ class School(CustomPermissionsMixin):
                             blank=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
     location = models.CharField(max_length=50, default="thumbnails/school")
+    STATUS_CHOICES = (
+        (0, "Gradinita"),
+        (1, "Scoala Gimnaziala"),
+        (2, "Liceu"),
 
+    )
+    type_school = models.IntegerField(choices=STATUS_CHOICES,
+                                      verbose_name="Type school", default=0)
     REQUIRED = ['name', 'addrsi ess', 'geolocation']
 
     def __unicode__(self):

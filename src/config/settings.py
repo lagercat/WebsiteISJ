@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'gallery',
     'contact',
     'page',
+    'registration',
     'search',
 ]
 
