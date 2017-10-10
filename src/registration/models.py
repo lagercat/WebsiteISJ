@@ -24,23 +24,27 @@ class Registration(File):
         super(Registration, self).__init__(*args, **kwargs)
 
     school_choices = (
-        ('1','Primar'),
-        ('2','Prescolar'),
+        ('1', 'Primar'),
+        ('2', 'Prescolar'),
     )
     type_registration = models.CharField(
         max_length=2,
         choices=school_choices,
     )
-    REQUIRED = ['name', 'file']
+    REQUIRED = ['name', 'file', 'type_registration']
 
     def __unicode__(self):
         return self.name
 
     class Meta(File.Meta):
         abstract = False
-        verbose_name = "Registration EDU"
-        verbose_name_plural = "Registrations EDU"
+        verbose_name = "Enrollment in education"
+        verbose_name_plural = "Enrollment in education"
         index_text = "Manage"
+
+    @property
+    def url_link(self):
+        return "/media/{0}".format(self.file)
 
 
 @receiver(pre_delete, sender=Registration)
