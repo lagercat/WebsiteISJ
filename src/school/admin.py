@@ -30,7 +30,7 @@ class SchoolAdmin(AdminChangeMixin):
     icon = '<i class="material-icons">room</i>'
 
     list_display = ('name', 'telephone', 'fax', 'email',
-                    'website', 'address', 'my_url_link',)
+                    'website', 'address', 'my_url_link', 'type_school',)
 
     search_fields = (
         'name', 'address',)
@@ -38,14 +38,14 @@ class SchoolAdmin(AdminChangeMixin):
     filter_horizontal = ()
 
     change_fieldsets = (
-        ('School name', {'fields': ('name',)}),
+        ('School name', {'fields': ('name', 'type_school',)}),
         ('School Contact',
          {'fields': ('telephone', 'fax', 'email', 'website', 'file',)}),
         ('Location', {'fields': ('address', 'geolocation',)}),
     )
 
     add_fieldsets = (
-        ('School name', {'fields': ('name',)}),
+        ('School name', {'fields': ('name', 'type_school',)}),
         ('School Contact',
          {'fields': ('telephone', 'fax', 'email', 'website', 'file',)}),
         ('Location', {'fields': ('address', 'geolocation',)}),
