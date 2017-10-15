@@ -1,9 +1,10 @@
 import os
 
 import django
-from openpyxl import load_workbook
-from geopy.geocoders import Nominatim
+import geocoder
+import unicodedata
 
+from openpyxl import load_workbook
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 django.setup()
@@ -11,37 +12,37 @@ django.setup()
 from school.models import School
 
 wb = load_workbook('retea.xlsx')
+count = 0
+total_count = 0
 
 to_eliminate = ['MUN', 'COM', 'ORAS']
 
 for sheet in wb.get_sheet_names():
     for row in range(2, wb[sheet].max_row):
         eliminating_word = ''
-        geolocator = Nominatim()
         name_file_row = 'B' + str(row)
         address_file_row = 'C' + str(row)
         school_name = wb[sheet][name_file_row].value
         school_adress = wb[sheet][address_file_row].value
-        """
-        for word in to_eliminate:
-            if word in school_name:
-                eliminating_word = word
-                break
-        if eliminating_word:
-            school_name = school_name.split(eliminating_word)[0]
-        """
         address_partitioned = school_adress.split(",")
         address_partitioned.pop(0)
-        address_partitioned.pop(0)
+        city = address_partitioned[0]
+        city = unicodedata.normalize("NFKD", city).encode("ascii", "ignore")
         address_partitioned.pop(len(address_partitioned) - 1)
         for i in range(0, len(address_partitioned) - 1):
             address_partitioned[i] += " "
         school_adress = "".join(address_partitioned)
-        try:
-            school_location = geolocator.geocode(school_adress)
-            school_coordinates = str(school_location.latitude) + "," + str(school_location.longitude)
+        school_location = geocoder.google(school_adress)
+        if (not school_location.latlng and "timisoara" not in city.lower()) or "principala" in school_adress.lower():
+            school_location = geocoder.google(city)
+        if school_location.latlng is not None:
+            school_coordinates = str(school_location.latlng[0]) + "," + str(school_location.latlng[1])
             School.objects.create(name=school_name,
                                   address=school_location.address,
                                   geolocation=school_coordinates)
-        except AttributeError:
-            print school_adress + "\n"
+            count += 1
+        else:
+            print school_adress
+        total_count += 1
+    print "Count is " + str(count) + "\n"
+    print "Total count is " + str(total_count)
