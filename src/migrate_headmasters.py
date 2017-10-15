@@ -23,5 +23,20 @@ for sheet in wb.get_sheet_names():
                     headmaster_splitted[len(headmaster_splitted) - 1]).lower()
         username = unicodedata.normalize(
                 "NFKD", username).encode("ascii", "ignore")
-        school = School.objects.get(name=school_name)
-        ExtendedUser.objects.create(name=username)
+        first_name = username.split("_")[1].title()
+        last_name = username.split("_")[0].title()
+        try:
+            school = School.objects.get(name=school_name)
+            if ExtendedUser.objects.filter(username=username).count():
+                headms = ExtendedUser.objects.get(username=username)
+                headms.school = 
+            else:
+                user = ExtendedUser.objects.create(username=username,
+                                                   first_name=first_name,
+                                                   last_name=last_name,
+                                                   status=1,
+                                                   school=school)
+                user.set_password("aloha123")
+                user.save()
+        except School.DoesNotExist:
+            print username
