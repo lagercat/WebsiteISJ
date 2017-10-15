@@ -28,11 +28,15 @@ class SchoolCreationFormAdmin(forms.ModelForm):
     geolocation = forms.CharField(widget=forms.HiddenInput(), label='')
     telephone = PhoneNumberField(required=False)
     fax = PhoneNumberField(required=False)
+    # type_school = forms.ChoiceField(choices=(
+    #     (0, "Gradinita"),
+    #     (1, "Scoala Gimnalizala"),
+    #     (2, "Liceu"),
+    # ), required=True, label="School type", widget=forms.Select)
 
     class Meta:
         model = School
-        fields = ('name', 'telephone', 'fax', 'email', 'website', 'address',
-                  'geolocation', 'file',)
+        fields = ('name', 'email', 'website', 'file', 'type_school')
 
     def __init__(self, *args, **kwargs):
         super(SchoolCreationFormAdmin, self).__init__(*args, **kwargs)
@@ -85,11 +89,15 @@ class SchoolChangeFormAdmin(forms.ModelForm):
     geolocation = forms.CharField(widget=forms.HiddenInput(), label='')
     telephone = PhoneNumberField(required=False)
     fax = PhoneNumberField(required=False)
+    type_school = forms.ChoiceField(choices=(
+        (0, "Gradinita"),
+        (1, "Scoala Gimnalizala"),
+        (2, "Liceu"),
+    ), required=True, label="Type school", widget=forms.Select )
 
     class Meta:
         model = School
-        fields = ('name', 'telephone', 'fax', 'email', 'website', 'address',
-                  'geolocation', 'file',)
+        fields = ('name', 'email', 'website', 'file')
 
     def __init__(self, *args, **kwargs):
         initial = {
