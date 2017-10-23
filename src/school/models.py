@@ -60,7 +60,7 @@ class School(CustomPermissionsMixin):
     )
     type_school = models.IntegerField(choices=STATUS_CHOICES,
                                       verbose_name="Type school", default=0)
-    REQUIRED = ['name', 'addrsi ess', 'geolocation']
+    REQUIRED = ['name', 'address','type_school', 'geolocation']
 
     def __unicode__(self):
         return self.name
