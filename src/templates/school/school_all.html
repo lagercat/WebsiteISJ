@@ -46,31 +46,52 @@
               <div class="col-md-9">
                 <!-- start course content container -->
                 <div class="mu-course-container mu-blog-archive">
+                {% if schools %}
+                {% for school1, school2 in schools %}
                   <div class="row">
-                    {% if schools %}
-                      {% for school in schools %}
+                    {%if school1 %}
                         <div class="col-md-6 col-sm-6">
                           <article class="mu-blog-single-item">
                             <figure class="mu-blog-single-img">
-                              {% if school.file %}
-                                <a href="#"><img  src= '{{ school.file.url }}'alt="img"></a>
+                              {% if school1.file %}
+                                <a href="#"><img  src= '{{ school1.file.url }}'alt="img"></a>
                               {% else %}
                                 <a href="#"><img style="width: 300px;height: 200px" src= "{% static "assets/img/school.jpg" %}"alt="img"></a>
                               {% endif %}
                             </figure>
                             <figcaption class="mu-blog-caption" style="padding-top: 305px;">
-                            <h5><a href="/schools/{{ school.slug }}">{{ school.name }}</a></h5>
+                            <h5><a href="/schools/{{ school1.slug }}">{{ school1.name }}</a></h5>
                             </figcaption>
                             <div class="mu-blog-description">
-                              <a class="mu-read-more-btn" href="/schools/{{ school.slug }}">Mai mult</a>
+                              <a class="mu-read-more-btn" href="/schools/{{school1.slug }}">Mai mult</a>
                             </div>
                           </article>
                         </div>
-                      {% endfor %}
+                    {% endif %}
+                    {%if school2 %}
+                        <div class="col-md-6 col-sm-6">
+                          <article class="mu-blog-single-item">
+                            <figure class="mu-blog-single-img">
+                              {% if school2.file %}
+                                <a href="#"><img  src= '{{ school2.file.url }}'alt="img"></a>
+                              {% else %}
+                                <a href="#"><img style="width: 300px;height: 200px" src= "{% static "assets/img/school.jpg" %}"alt="img"></a>
+                              {% endif %}
+                            </figure>
+                            <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                            <h5><a href="/schools/{{ school2.slug }}">{{ school2.name }}</a></h5>
+                            </figcaption>
+                            <div class="mu-blog-description">
+                              <a class="mu-read-more-btn" href="/schools/{{ school2.slug }}">Mai mult</a>
+                            </div>
+                          </article>
+                        </div>
+                    {% endif %}
+                  </div>
+                    {% endfor %}
                     {% else %}
                       <h3>Nu sunt informaţii de afişat ! </h3>
                     {% endif %}
-                  </div>
                 </div>
                 <!-- end course content container -->
                 <!-- start course pagination -->

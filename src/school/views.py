@@ -14,6 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
+from itertools import izip
+
 from config import settings
 
 from django.core.paginator import EmptyPage
@@ -26,8 +28,10 @@ from models import School
 
 def schools_all(request):
     all_schools = School.objects.all()
-    paginator = Paginator(all_schools, 4)
+    school_pair = iter(all_schools)
+    all_schools = list(izip(school_pair, school_pair))
 
+    paginator = Paginator(all_schools, 4)
     page = request.GET.get('page')
     try:
         all_schools = paginator.page(page)
