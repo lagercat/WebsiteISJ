@@ -40,8 +40,15 @@ def schools_all(request):
         all_schools = paginator.page(1)
     except EmptyPage:
         all_schools = paginator.page(paginator.num_pages)
+
+    index = all_schools.number - 1
+    max_index = len(paginator.page_range)
+    start_index = index - 3 if index >= 3 else 0
+    end_index = index + 3 if index <= max_index - 3 else max_index
+    page_range = list(paginator.page_range)[start_index:end_index]
     return render(request, 'school/school_all.html', {
         'schools': all_schools,
+        'page_range': page_range
     })
 
 
