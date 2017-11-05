@@ -54,7 +54,7 @@ class PostAdmin(AdminChangeMixin):
     search_fields = ('author__first_name', 'author__last_name',
                      'name', 'date', 'slug',)
 
-    ordering = ['date']
+    ordering = ['-date']
     filter_horizontal = ()
 
     def see_file_link(self, obj):
@@ -118,7 +118,7 @@ class PageAdmin(AdminChangeMixin):
     search_fields = ('author__first_name', 'author__last_name',
                      'name', 'date', 'slug',)
 
-    ordering = ['date']
+    ordering = ['-date']
     filter_horizontal = ()
 
     def get_form(self, request, obj=None, **kwargs):
