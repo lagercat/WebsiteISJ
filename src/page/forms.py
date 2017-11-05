@@ -158,9 +158,12 @@ class CategoryCreationFormAdmin(forms.ModelForm):
         if order > number_of_categories or order < 1:
             order = number_of_categories + 1
         else:
-            category_to_swap = Category.objects.get(order=order)
-            category_to_swap.order = number_of_categories + 1
-            category_to_swap.save()
+            try:
+                category_to_swap = Category.objects.get(order=order)
+                category_to_swap.order = number_of_categories + 1
+                category_to_swap.save()
+            except Category.DoesNotExist:
+                pass
         return order
 
 
@@ -184,7 +187,10 @@ class CategoryChangeFormAdmin(forms.ModelForm):
         if order > number_of_categories or order < 1:
             order = initial_order
         else:
-            category_to_swap = Category.objects.get(order=order)
-            category_to_swap.order = initial_order
-            category_to_swap.save()
+            try:
+                category_to_swap = Category.objects.get(order=order)
+                category_to_swap.order = initial_order
+                category_to_swap.save()
+            except Category.DoesNotExist:
+                pass
         return order
