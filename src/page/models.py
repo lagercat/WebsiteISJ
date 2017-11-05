@@ -45,6 +45,7 @@ class Category(CustomPermissionsMixin):
     title = models.CharField(max_length=50, blank=False, null=True,
                              unique=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
+    order = models.IntegerField(default=1)
 
     @property
     def url_link(self):

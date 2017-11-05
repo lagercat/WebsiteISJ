@@ -39,7 +39,7 @@ def category(request, slug):
 
 
 def category_all(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by("order")
     return render(request, 'page/category_all.html',
                   {
                       'categories_all': categories,
