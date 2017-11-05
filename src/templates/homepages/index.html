@@ -30,7 +30,7 @@
       <div class="mu-slider-content">
         <h4>Bine aţi venit !</h4>
         <span></span>
-        <p>Suntem aici pentru a te ajuta Inspectoratul Şcolar Judeţean Timiş, instituţie descentralizată de specialitate a Ministerului Educatiei si Cercetării Stiintifice</p>
+        <p>{{ welcome | safe }}</p>
         <a href="#despre" class="mu-read-more-btn">Află mai multe</a>
       </div>
     </div>
@@ -45,7 +45,7 @@
       <div class="mu-slider-content">
         <h4>Misiune</h4>
         <span></span>
-        <p>Inspectoratul Şcolar Judeţean Timiş promovează si încurajează cresterea calitătii actului educativ prin îmbunătătirea activitătii proprii, dar si  prin crearea unui mediu stimulativ si motivant pentru copii, tineri si cadre didactice,</p>
+        <p>{{ mission | safe }}</p>
         <a href="#despre" class="mu-read-more-btn">Află mai multe</a>
       </div>
     </div>
@@ -104,12 +104,17 @@
                     <h2>Despre noi </h2>
                   </div>
                   <!-- End Title -->
+                <!--
                   <p>
                   Inspectoratul Şcolar Judeţean Timiş, instituţie descentralizată de specialitate a Ministerului Educatiei si Cercetării Stiintifice:  </p>
                   <li>Asigură aplicarea legislaţiei în organizarea, conducerea şi desfăşurarea procesului de învăţământ;</li>
                   <li>Asigură calitatea învăţământului şi respectarea standardelor naţionale prin inspecţia şcolară;</li>
                   <li>Asigură, împreună cu autorităţile administraţiei publice locale, şcolarizarea elevilor pe durata învăţământului obligatoriu;</li>
                   <li>Asigură, împreună cu autorităţile administraţiei publice locale, şcolarizarea elevilor pe durata învăţământului obligatoriu;</li>
+                  -->
+                <p>
+                    {{ about_us | safe }}
+                </p>
                   <div class="container">
                     <div >
                       <div>
@@ -138,7 +143,7 @@
               </div>
               <div class="col-lg-6 col-md-6">
                 <div class="mu-about-us-right">
-                  <a id="mu-abtus-video" href="https://www.youtube.com/embed/1-fjuNmruuM" target="mutube-video">
+                  <a id="mu-abtus-video" href="{{ video_link | safe | striptags }}" target="mutube-video">
                     <img src="{% static "assets/img/aura2.jpg" %}" alt="img">
                   </a>
                 </div>
