@@ -31,10 +31,14 @@ def home(request):
     subjects = Subject.objects.all()[:6]
     album = Gallery.objects.all()[:3]
     schools = School.objects.all()[:3]
-    video_link = Editable.objects.get(editable_type="1").text
-    about_us = Editable.objects.get(editable_type="2").text
-    welcome = Editable.objects.get(editable_type="3").text
-    mission = Editable.objects.get(editable_type="4").text
+    video_link = getattr(
+            Editable.objects.filter(editable_type="1").first(), "text", None)
+    about_us = getattr(
+            Editable.objects.filter(editable_type="2").first(), "text", None)
+    welcome = getattr(
+            Editable.objects.filter(editable_type="3").first(), "text", None)
+    mission = getattr(
+            Editable.objects.filter(editable_type="4").first(), "text", None)
     return render(request, template, {
         'noutati': noutati,
         'events': events,
