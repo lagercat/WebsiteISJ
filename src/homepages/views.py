@@ -21,6 +21,7 @@ from gallery.models import Gallery
 from news.models import News
 from school.models import School
 from subject.models import Subject
+from editables.models import Editable
 
 
 def home(request):
@@ -30,10 +31,18 @@ def home(request):
     subjects = Subject.objects.all()[:6]
     album = Gallery.objects.all()[:3]
     schools = School.objects.all()[:3]
+    video_link = Editable.objects.get(editable_type="1").text
+    about_us = Editable.objects.get(editable_type="2").text
+    welcome = Editable.objects.get(editable_type="3").text
+    mission = Editable.objects.get(editable_type="4").text
     return render(request, template, {
         'noutati': noutati,
         'events': events,
         'subjects': subjects,
         'album': album,
         'schools': schools,
+        "video_link": video_link,
+        "about_us": about_us,
+        "welcome": welcome,
+        "mission": mission
     })

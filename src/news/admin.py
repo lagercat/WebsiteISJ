@@ -52,7 +52,7 @@ class NewsAdmin(AdminChangeMixin):
     search_fields = (
         'author__first_name', 'author__last_name', 'name', 'date', 'slug',)
 
-    ordering = ['date']
+    ordering = ['-date']
     filter_horizontal = ()
 
     def my_url_link(self, obj):

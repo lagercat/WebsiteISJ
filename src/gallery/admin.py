@@ -44,7 +44,7 @@ class GalleryAdmin(AdminChangeMixin):
     search_fields = ('name', 'author__first_name',
                      'author__last_name', 'date',)
 
-    ordering = ['date']
+    ordering = ['-date']
 
     change_fieldsets = (
         ('Gallery', {'fields': ('name', 'file')}),

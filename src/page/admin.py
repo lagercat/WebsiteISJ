@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.contrib.admin.filters import DateFieldListFilter
 
 from forms import (ArticleChangeFormAdmin, ArticleCreationFormAdmin,
-                   SimplePageChangeFormAdmin, SimplePageCreationFormAdmin)
+                   SimplePageChangeFormAdmin, SimplePageCreationFormAdmin,
+                   CategoryChangeFormAdmin, CategoryCreationFormAdmin)
 from utility.admin import AdminChangeMixin, register_model_admin
 
 from .models import Article, Category, SimplePage, Subcategory
@@ -52,7 +53,7 @@ class ArticleAdmin(AdminChangeMixin):
     search_fields = (
         'author__first_name', 'author__last_name', 'name', 'date', 'slug',)
 
-    ordering = ['date']
+    ordering = ['-date']
     filter_horizontal = ()
 
     def my_url_link(self, obj):
@@ -105,7 +106,7 @@ class SimplePageAdmin(AdminChangeMixin):
     search_fields = (
         'author__first_name', 'author__last_name', 'name', 'date', 'slug',)
 
-    ordering = ['date']
+    ordering = ['-date']
     filter_horizontal = ()
 
     def my_url_link(self, obj):
@@ -131,8 +132,21 @@ class SimplePageAdmin(AdminChangeMixin):
 
 
 class PageAdmin(admin.ModelAdmin):
+    change_form = CategoryChangeFormAdmin
+    add_form = CategoryCreationFormAdmin
+
     icon = '<i class="material-icons">chrome_reader_mode</i>'
     list_display = ['title', 'my_url_link']
+
+    def get_form(self, request, obj=None, **kwargs):
+        if obj is None:
+            form = self.add_form
+            form.current_user = request.user
+            return form
+        else:
+            form = self.change_form
+            form.order_initial = obj.order
+            return form
 
     def my_url_link(self, obj):
         return '<a href="%s">%s</a>' % (
