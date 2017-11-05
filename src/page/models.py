@@ -42,7 +42,7 @@ class Category(CustomPermissionsMixin):
         verbose_name_plural = 'Categories'
         index_text = "Manage"
 
-    title = models.CharField(max_length=20, blank=False, null=True,
+    title = models.CharField(max_length=50, blank=False, null=True,
                              unique=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
 
