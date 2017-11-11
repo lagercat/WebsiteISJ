@@ -26,8 +26,8 @@ from editables.models import Editable
 
 def home(request):
     template = 'homepages/index.html'
-    noutati = News.objects.order_by("-date")[:3]
-    events = Event.objects.order_by("-date")[:9]
+    noutati = News.objects.order_by("-date")[:9]
+    events = Event.objects.order_by("-date")[:3]
     subjects = Subject.objects.all()[:6]
     album = Gallery.objects.order_by("-date")[:3]
     schools = School.objects.all()[:3]
