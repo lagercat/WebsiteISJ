@@ -28,7 +28,6 @@ from models import Event
 
 def event_all(request):
     events = Event.objects.order_by('-date')
-    print events
     paginator = Paginator(events, 4)
 
     page = request.GET.get('page')
