@@ -8,7 +8,7 @@ class Editable(CustomPermissionsMixin):
     editable_choices = (
         ("1", "Link video"),
         ("2", "Despre noi"),
-        ("3", "Banner \"Bine ati veni\""),
+        ("3", "Banner \"Bine ati venit\""),
         ("4", "Banner Misiune"),
     )
 
