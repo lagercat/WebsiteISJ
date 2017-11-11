@@ -33,7 +33,7 @@ from utility.utility import clean_file
 
 
 def gallery(request):
-    images = Gallery.objects.all()
+    images = Gallery.objects.order_by("-date")
     paginator = Paginator(images, 6)
 
     page = request.GET.get('page')

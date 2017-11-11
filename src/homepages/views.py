@@ -26,10 +26,10 @@ from editables.models import Editable
 
 def home(request):
     template = 'homepages/index.html'
-    noutati = News.objects.all()[:3]
-    events = Event.objects.all()[:9]
+    noutati = News.objects.order_by("-date")[:3]
+    events = Event.objects.order_by("-date")[:9]
     subjects = Subject.objects.all()[:6]
-    album = Gallery.objects.all()[:3]
+    album = Gallery.objects.order_by("-date")[:3]
     schools = School.objects.all()[:3]
     video_link = getattr(
             Editable.objects.filter(editable_type="1").first(), "text", None)
