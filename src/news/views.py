@@ -25,7 +25,7 @@ from models import News
 
 
 def news_all(request):
-    all_news = News.objects.all()
+    all_news = News.objects.order_by("-date")
     paginator = Paginator(all_news, 4)
 
     page = request.GET.get('page')

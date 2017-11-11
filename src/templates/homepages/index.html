@@ -197,29 +197,29 @@
           <div class="col-lg-12 col-md-12">
             <div class="mu-latest-courses-area">
               <!-- Start Title -->
-              <a href="events_all">
+              <a href="news_all">
                 <div class="mu-title">
-                  <h2>Evenimete viitoare</h2>
-                  <p>Vă ţinem la curent cu cele mai importante evenimente!</p>
-                  <a href="events_all" class="mu-read-more-btn">Toate evenimentele</a>
+                  <h2>Noutăți</h2>
+                  <p>Vă ţinem la curent cu cele mai noi informații!</p>
+                  <a href="news_all" class="mu-read-more-btn">Toate noutățile</a>
                 </div>
               </a>
               <!-- End Title -->
               <!-- Start latest course content -->
               <div id="mu-latest-course-slide" class="mu-latest-courses-content">
-                {% if events %}
-                  {% for event in events %}
+                {% if noutati %}
+                  {% for news in noutati %}
                     <div class="col-lg-4 col-md-4 col-xs-12">
                       <div class="mu-latest-course-single">
                         <figure class="mu-latest-course-img">
-                          <a ><img src= '{{ event.file.url }}' alt="img"></a>
+                          <a ><img src= '{{ news.file.url }}' alt="img"></a>
                         </figure>
                         <figcaption class="mu-latest-course-imgcaption">
-                        <a href="/event/{{ event.slug }}"  title="{{ event.name }}" >{{ event.name|truncatewords:5| truncatechars:20 }}</a>
+                        <a href="/news/{{ news.slug }}"  title="{{ news.name }}" >{{ news.name|truncatewords:5| truncatechars:20 }}</a>
                         </figcaption>
                         <div class="mu-latest-course-single-content">
                           <div class="mu-latest-course-single-contbottom">
-                            <a class="mu-course-details" href="/event/{{ event.slug }}">Află mai mult</a>
+                            <a class="mu-course-details" href="/news/{{ news.slug }}">Află mai mult</a>
                           </div>
                         </div>
                       </div>
@@ -247,28 +247,28 @@
   <div class="mu-from-blog-area">
     <!-- start title -->
     <div class="mu-title">
-      <a href="/news_all">
-        <h2 >Noutaţi</h2>
-        <p>Vă ţinem la curent cu cele mai noi informaţii</p>
-        <a href="/news_all" class="mu-read-more-btn " style="color: #0f0f0f; border: 1px solid #000;">Toate noutaţiile</a>
+      <a href="/events_all">
+        <h2 >Evenimente</h2>
+        <p>Vă ţinem la curent cu cele mai importante evenimente.</p>
+        <a href="/events_all" class="mu-read-more-btn " style="color: #0f0f0f; border: 1px solid #000;">Toate evenimente</a>
       </a>
     </div>
     <!-- end title -->
     <!-- start from blog content   -->
     <div class="mu-from-blog-content">
       <div class="row">
-        {% if noutati %}
-          {% for news in noutati %}
+        {% if events %}
+          {% for event in events %}
             <div class="col-md-4 col-sm-4">
               <article class="mu-blog-single-item">
                 <figure class="mu-blog-single-img">
-                  <a href="/news/{{ news.slug }}"><img style="max-width: 400px;max-height: 180px" src= '{{ news.file.url }}' alt="img"></a>
+                  <a href="/event/{{ event.slug }}"><img style="max-width:400px;max-height: 180px" src= '{{ event.file.url }}' alt="img"></a>
                 </figure>
                 <figcaption class="mu-blog-caption" style="padding-top: 305px;">
-                <h3><a href="/news/{{ news.slug }}" title="{{ news.name }}">{{ news.name|truncatewords:5| truncatechars:20 }}</a></h3>
+                <h3><a href="/event/{{ event.slug }}" title="{{ event.name }}">{{ event.name|truncatewords:5| truncatechars:20 }}</a></h3>
                 </figcaption>
                 <div class="mu-blog-description" style="font-family: 'Source Sans Pro', sans-serif;!important;">
-                  <a href="/news/{{ news.slug }}" class="mu-read-more-btn">Citeşte mai mult</a>
+                  <a href="/event/{{ event.slug }}" class="mu-read-more-btn">Citeşte mai mult</a>
                 </div>
               </article>
             </div>
