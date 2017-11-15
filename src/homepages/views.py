@@ -21,19 +21,32 @@ from gallery.models import Gallery
 from news.models import News
 from school.models import School
 from subject.models import Subject
+from editables.models import Editable
 
 
 def home(request):
     template = 'homepages/index.html'
-    noutati = News.objects.all()[:3]
-    events = Event.objects.all()[:9]
+    noutati = News.objects.order_by("-date")[:9]
+    events = Event.objects.order_by("-date")[:3]
     subjects = Subject.objects.all()[:6]
-    album = Gallery.objects.all()[:3]
+    album = Gallery.objects.order_by("-date")[:3]
     schools = School.objects.all()[:3]
+    video_link = getattr(
+            Editable.objects.filter(editable_type="1").first(), "text", None)
+    about_us = getattr(
+            Editable.objects.filter(editable_type="2").first(), "text", None)
+    welcome = getattr(
+            Editable.objects.filter(editable_type="3").first(), "text", None)
+    mission = getattr(
+            Editable.objects.filter(editable_type="4").first(), "text", None)
     return render(request, template, {
         'noutati': noutati,
         'events': events,
         'subjects': subjects,
         'album': album,
         'schools': schools,
+        "video_link": video_link,
+        "about_us": about_us,
+        "welcome": welcome,
+        "mission": mission
     })

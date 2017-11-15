@@ -38,6 +38,8 @@ ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "isj.tm.edu.ro", "isj.tm.edu.ro:8080",
                  "217.73.174.42", "217.73.174.42:8080",
                  "isj.website", "www.isj.website", "46.101.150.229"]
 
+ALLOWED_HOSTS = ["*"]
+
 INSTALLED_APPS = [
     # admin theme
     'material',
@@ -78,6 +80,7 @@ INSTALLED_APPS = [
     'page',
     'registration',
     'search',
+    'editables'
 ]
 
 

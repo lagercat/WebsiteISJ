@@ -38,7 +38,10 @@
                     {% csrf_token %}
                     <div class="box__input">
                         <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
-                        <label for="file"><strong>Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
+                        <label for="file"><strong>Alege un
+                            fișier</strong><span class="box__dragndrop"> sau
+                            trage-l aici.</span>
+                          <br> <strong> Dimensiune maximă: 10MB</strong></label>
                         <button class="box__button" type="submit" name="drag_n_drop">Upload</button>
                     </div>
                     <div class="box__uploading">Uploading&hellip;</div>

@@ -40,7 +40,7 @@ class EventAdmin(AdminChangeMixin):
     search_fields = (
         'name', 'author__first_name', 'author__last_name', 'address', 'date',)
 
-    ordering = ['date']
+    ordering = ['-date']
     filter_horizontal = ()
 
     change_fieldsets = (

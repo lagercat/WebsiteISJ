@@ -59,9 +59,9 @@ class SubjectPostCreationFormAdmin(forms.ModelForm):
         if (subcategory is not None and subject is not None
                 and subject != subcategory.subject):
             raise forms.ValidationError(
-                "This should be empty or same subject as the subcategory")
+                "This should be the same subject as the subcategory")
         if subcategory is None and subject is None:
-            raise forms.ValidationError("This should be not be empty")
+            raise forms.ValidationError("This should not be empty")
         return self.cleaned_data.get("subject")
 
     def save(self, commit=True):
@@ -111,11 +111,11 @@ class SubjectPostChangeFormAdmin(forms.ModelForm):
             "subject") if "subject" in self.changed_data else self.instance.subject
         subcategory = self.cleaned_data.get(
             "subcategory") if "subcategory" in self.changed_data else self.instance.subcategory
-        if subcategory is not None and subject is not None and subject is not subcategory.subject:
+        if subcategory is not None and subject is not None and subject != subcategory.subject:
             raise forms.ValidationError(
-                "This should be empty or same subject as the subcategory")
+                "This should be the same subject as the subcategory")
         if subcategory is None and subject is None:
-            raise forms.ValidationError("This should be not be empty")
+            raise forms.ValidationError("This should not be empty")
         return self.cleaned_data.get("subject")
 
     def save(self, commit=True):

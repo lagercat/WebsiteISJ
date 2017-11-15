@@ -62,10 +62,18 @@ def subject(request, name):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
+
+    index = posts.number - 1
+    max_index = len(paginator.page_range)
+    start_index = index - 3 if index >= 3 else 0
+    end_index = index + 3 if index <= max_index - 3 else max_index
+    page_range = list(paginator.page_range)[start_index:end_index]
+
     return render(request, 'subject/subject_all.html',
                   {
                       'name': name,
-                      'posts': posts
+                      'posts': posts,
+                      'page_range': page_range
                   })
 
 
@@ -81,11 +89,19 @@ def subcategory_subject(request, name, kind):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
+
+    index = posts.number - 1
+    max_index = len(paginator.page_range)
+    start_index = index - 3 if index >= 3 else 0
+    end_index = index + 3 if index <= max_index - 3 else max_index
+    page_range = list(paginator.page_range)[start_index:end_index]
+
     return render(request, 'subject/subcategory_post.html',
                   {
                       'subcategory_article': posts,
                       'name': name,
-                      'kind': kind
+                      'kind': kind,
+                      'page_range': page_range
                   })
 
 

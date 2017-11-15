@@ -26,8 +26,13 @@ from models import School
 
 def schools_all(request):
     all_schools = School.objects.all()
-    paginator = Paginator(all_schools, 4)
+    school_first = all_schools[:len(all_schools) / 2]
+    school_second = all_schools[len(all_schools) / 2:]
+    school_pair = zip(school_first, school_second)
+    if len(all_schools) % 2 == 1:
+        school_pair.append((school_second[-1], None))
 
+    paginator = Paginator(school_pair, 4)
     page = request.GET.get('page')
     try:
         all_schools = paginator.page(page)
@@ -35,8 +40,15 @@ def schools_all(request):
         all_schools = paginator.page(1)
     except EmptyPage:
         all_schools = paginator.page(paginator.num_pages)
+
+    index = all_schools.number - 1
+    max_index = len(paginator.page_range)
+    start_index = index - 3 if index >= 3 else 0
+    end_index = index + 3 if index <= max_index - 3 else max_index
+    page_range = list(paginator.page_range)[start_index:end_index]
     return render(request, 'school/school_all.html', {
         'schools': all_schools,
+        'page_range': page_range
     })
 
 

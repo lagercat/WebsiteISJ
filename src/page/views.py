@@ -39,7 +39,7 @@ def category(request, slug):
 
 
 def category_all(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by("order")
     return render(request, 'page/category_all.html',
                   {
                       'categories_all': categories,
@@ -72,9 +72,17 @@ def subcategory(request, slug):
         articles = paginator.page(1)
     except EmptyPage:
         articles = paginator.page(paginator.num_pages)
+
+    index = articles.number - 1
+    max_index = len(paginator.page_range)
+    start_index = index - 3 if index >= 3 else 0
+    end_index = index + 3 if index <= max_index - 3 else max_index
+    page_range = list(paginator.page_range)[start_index:end_index]
+
     return render(request, 'page/subcategory.html',
                   {'name': subcat.name,
                    'articole': articles,
+                   'page_range': page_range
                    })
 
 

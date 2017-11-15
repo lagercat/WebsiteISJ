@@ -24,6 +24,19 @@ for sheet in wb.get_sheet_names():
         address_file_row = 'C' + str(row)
         school_name = wb[sheet][name_file_row].value
         school_adress = wb[sheet][address_file_row].value
+        if sheet == "Licee":
+            status = 2
+        elif sheet == "Gimnazii":
+            status = 1
+        elif sheet == "Gradinite":
+            status = 0
+        else:
+            if "LICEUL" in school_name or "COLEGIUL" in school_name or "POSTLICEALA" in school_name:
+                status = 2
+            elif "GIMNAZIALA" in school_name or "PRIMARA" in school_name or "ANTIM" in school_name:
+                status = 1
+            elif "GRADINITA" in school_name:
+                status = 0
         address_partitioned = school_adress.split(",")
         address_partitioned.pop(0)
         city = address_partitioned[0]
@@ -38,6 +51,7 @@ for sheet in wb.get_sheet_names():
         if school_location.latlng is not None:
             school_coordinates = str(school_location.latlng[0]) + "," + str(school_location.latlng[1])
             School.objects.create(name=school_name,
+                                  type_school=status,
                                   address=school_location.address,
                                   geolocation=school_coordinates)
             count += 1

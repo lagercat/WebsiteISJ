@@ -17,6 +17,7 @@
 from django import forms
 from page.models import Article
 from page.models import SimplePage
+from page.models import Category
 from tinymce.widgets import AdminTinyMCE
 from utility.utility import clean_file
 
@@ -143,3 +144,53 @@ class SimplePageChangeFormAdmin(forms.ModelForm):
         if commit:
             uploaded_file.save()
         return uploaded_file
+
+
+class CategoryCreationFormAdmin(forms.ModelForm):
+
+    class Meta:
+        model = Category
+        fields = ('title', 'order')
+
+    def clean_order(self):
+        order = self.cleaned_data['order']
+        number_of_categories = Category.objects.all().count()
+        if order > number_of_categories or order < 1:
+            order = number_of_categories + 1
+        else:
+            try:
+                category_to_swap = Category.objects.get(order=order)
+                category_to_swap.order = number_of_categories + 1
+                category_to_swap.save()
+            except Category.DoesNotExist:
+                pass
+        return order
+
+
+class CategoryChangeFormAdmin(forms.ModelForm):
+
+    class Meta:
+        model = Category
+        fields = ('title', 'order')
+
+    def __init__(self, *args, **kwargs):
+        initial = {
+            'order': self.order_initial
+        }
+        kwargs['initial'] = initial
+        super(CategoryChangeFormAdmin, self).__init__(*args, **kwargs)
+
+    def clean_order(self):
+        order = self.cleaned_data['order']
+        initial_order = self.order_initial
+        number_of_categories = Category.objects.all().count()
+        if order > number_of_categories or order < 1:
+            order = initial_order
+        else:
+            try:
+                category_to_swap = Category.objects.get(order=order)
+                category_to_swap.order = initial_order
+                category_to_swap.save()
+            except Category.DoesNotExist:
+                pass
+        return order

@@ -82,7 +82,7 @@
                           </a>
                         </li>
                       {% endif %}
-                      {% for num in subcategory_article.paginator.page_range %}
+                      {% for num in page_range %}
                         {% if num == subcategory_article.number %}
                           <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
                         {% else %}

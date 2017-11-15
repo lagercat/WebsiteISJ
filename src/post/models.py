@@ -70,6 +70,7 @@ class File(CustomPermissionsMixin):
         get_latest_by = 'date'
         verbose_name = 'File'
         verbose_name_plural = 'Files'
+        ordering = ['-date']
 
     @property
     def see_file(self):
@@ -90,6 +91,7 @@ class Post(File):
         verbose_name = 'File'
         verbose_name_plural = 'Files'
         index_text = "Manage"
+        ordering = ['-date']
 
 
 class Page(File):
