@@ -36,6 +36,7 @@ class SchoolAdmin(AdminChangeMixin):
         'name', 'address',)
 
     filter_horizontal = ()
+    list_filter = ['type_school']
 
     change_fieldsets = (
         ('School name', {'fields': ('name', 'type_school',)}),
