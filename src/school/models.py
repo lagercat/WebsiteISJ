@@ -56,6 +56,10 @@ class School(CustomPermissionsMixin):
         (0, "Gradinita"),
         (1, "Scoala Gimnaziala"),
         (2, "Liceu"),
+        (3, "Invatamant Special"),
+        (4, "Palate si cluburi ale copiilor"),
+        (5, "Cluburi sportive scolare"),
+        (6, "Centru Judetean de Excelenta")
 
     )
     type_school = models.IntegerField(choices=STATUS_CHOICES,
