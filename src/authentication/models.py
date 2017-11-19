@@ -116,7 +116,12 @@ class ExtendedUser(AbstractBaseUser):
             "subject.add_own_subcategory",
             "gallery.change_own_gallery",
             "gallery.add_own_gallery",
-            "post.delete_post"
+            "post.delete_post",
+            "event.delete_event",
+            "news.delete_news",
+            "subject.delete_subjectpost",
+            "subject.delete_subcategory",
+            "gallery.delete_gallery"
         ],
         3: [
             "all"
