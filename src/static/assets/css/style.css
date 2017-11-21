@@ -1123,7 +1123,7 @@ img {
 }
 .mu-blog-single-item .mu-blog-description a {
   border-color: #555;
-  color: #555;
+  color: initial !important;
   font-size: 14px;
   margin-top: 15px;
 }
