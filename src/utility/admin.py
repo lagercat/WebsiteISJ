@@ -223,6 +223,7 @@ class AdminViewMixin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         queryset = admin.ModelAdmin.get_queryset(self, request)
+        """
         if self.has_perm(request.user, 'view'):
             kwargs = {
                 self.change_own_field: getattr(request.user,
@@ -230,7 +231,8 @@ class AdminViewMixin(admin.ModelAdmin):
                 if self.change_own_field is 'id' else getattr(
                     request.user, self.change_own_owner_field),
             }
-            return queryset.exclude(**kwargs)
+            return queryset
+        """
         return queryset
 
 
