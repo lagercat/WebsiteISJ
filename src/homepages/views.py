@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django.shortcuts import render
+from django.utils.safestring import mark_safe
+
 
 from event.models import Event
 from gallery.models import Gallery
@@ -33,8 +35,8 @@ def home(request):
     schools = School.objects.all()[:3]
     video_link = getattr(
             Editable.objects.filter(editable_type="1").first(), "text", None)
-    about_us = getattr(
-            Editable.objects.filter(editable_type="2").first(), "text", None)
+    about_us = mark_safe(getattr(
+            Editable.objects.filter(editable_type="2").first(), "text", None))
     welcome = getattr(
             Editable.objects.filter(editable_type="3").first(), "text", None)
     mission = getattr(
@@ -47,6 +49,7 @@ def home(request):
         'schools': schools,
         "video_link": video_link,
         "about_us": about_us,
+        "about_len": len(about_us),
         "welcome": welcome,
         "mission": mission
     })
