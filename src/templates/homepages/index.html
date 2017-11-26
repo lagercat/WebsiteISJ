@@ -113,8 +113,11 @@
                   <li>Asigură, împreună cu autorităţile administraţiei publice locale, şcolarizarea elevilor pe durata învăţământului obligatoriu;</li>
                   -->
                 <p>
-                    {{ about_us | safe }}
+                    {{ about_us | truncatechars:440 }}
                 </p>
+                  {% if about_len > 440 %}
+                  <a href="/about"> Citește mai mult</a>
+                  {% endif %}
                   <div class="container">
                     <div >
                       <div>

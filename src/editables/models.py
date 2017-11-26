@@ -12,7 +12,7 @@ class Editable(CustomPermissionsMixin):
         ("4", "Banner Misiune"),
     )
 
-    text = models.TextField(max_length=1000)
+    text = models.TextField(max_length=5000)
     editable_type = models.CharField(
         max_length=3,
         choices=editable_choices,
