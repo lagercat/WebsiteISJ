@@ -21,6 +21,7 @@ from models import Post
 from post.forms import (PageChangeFormAdmin, PageCreationFormAdmin,
                         PostChangeFormAdmin, PostCreationFormAdmin)
 from utility.admin import AdminChangeMixin, register_model_admin
+from post.filters import FileLocationFilter
 
 
 class PostAdmin(AdminChangeMixin):
@@ -38,7 +39,7 @@ class PostAdmin(AdminChangeMixin):
     list_filter = (
         ('date', DateFieldListFilter),
         ('author__status', ChoicesFieldListFilter),
-        ('location', AllValuesFieldListFilter),
+        ('location', FileLocationFilter),
     )
     readonly_fields = ['fileLink', 'author', 'location']
 
