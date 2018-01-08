@@ -59,12 +59,12 @@ class School(CustomPermissionsMixin):
         (3, "Invatamant Special"),
         (4, "Palate si cluburi ale copiilor"),
         (5, "Cluburi sportive scolare"),
-        (6, "Centru Judetean de Excelenta")
-
+        (6, "Centru Judetean de Excelenta"),
+        (7, "Altele")
     )
     type_school = models.IntegerField(choices=STATUS_CHOICES,
                                       verbose_name="Type school", default=0)
-    REQUIRED = ['name', 'address','type_school', 'geolocation']
+    REQUIRED = ['name', 'address', 'type_school', 'geolocation']
 
     def __unicode__(self):
         return self.name
