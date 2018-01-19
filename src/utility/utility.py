@@ -70,7 +70,7 @@ mime_documents_types = [
 
 
 def clean_file(file, image=False):
-    max_size = 10000000  # 10 MB
+    max_size = 25000000  # 25 MB
     if file:
         filetype = magic.from_buffer(file.read(), mime=True)
 
