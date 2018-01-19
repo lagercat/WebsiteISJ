@@ -34,7 +34,7 @@ class ExtendedUserAdmin(BaseUserAdmin):
     list_display = ('username', 'first_name', 'last_name', 'school',
                     'get_subjects', 'status', 'is_active')
 
-    list_filter = ('is_admin',)
+    list_filter = ('is_admin', 'status')
     fieldsets = (
         ('Login Information', {
          'fields': ('username', ('password1', 'password2'))}),
@@ -70,6 +70,7 @@ class ExtendedUserAdmin(BaseUserAdmin):
         if obj is not None:
             form.status_initial = obj.status
         return form
+
 
 admin.site.register(ExtendedUser, ExtendedUserAdmin)
 admin.site.unregister(Group)

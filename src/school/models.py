@@ -44,7 +44,7 @@ class School(CustomPermissionsMixin):
     name = models.CharField(max_length=100, null=True)
     telephone = PhoneNumberField(blank=True)
     fax = PhoneNumberField(blank=True)
-    email = models.EmailField(max_length=20, blank=True)
+    email = models.EmailField(max_length=50, blank=True)
     website = models.CharField(max_length=100, blank=True)
     address = map_fields.AddressField(max_length=200)
     geolocation = map_fields.GeoLocationField(max_length=100)
@@ -56,11 +56,16 @@ class School(CustomPermissionsMixin):
         (0, "Gradinita"),
         (1, "Scoala Gimnaziala"),
         (2, "Liceu"),
-
+        (3, "Invatamant Special"),
+        (4, "Palate si cluburi ale copiilor"),
+        (5, "Cluburi sportive scolare"),
+        (6, "Centru Judetean de Excelenta"),
+        (7, "Scoala Primara"),
+        (8, "Altele")
     )
     type_school = models.IntegerField(choices=STATUS_CHOICES,
                                       verbose_name="Type school", default=0)
-    REQUIRED = ['name', 'address','type_school', 'geolocation']
+    REQUIRED = ['name', 'address', 'type_school', 'geolocation']
 
     def __unicode__(self):
         return self.name

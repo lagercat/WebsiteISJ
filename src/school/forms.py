@@ -17,7 +17,6 @@
 from django import forms
 
 from django_google_maps import widgets as map_widgets
-from phonenumber_field.formfields import PhoneNumberField
 
 from models import School
 from utility.utility import clean_file
@@ -26,11 +25,11 @@ from utility.utility import clean_file
 class SchoolCreationFormAdmin(forms.ModelForm):
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget())
     geolocation = forms.CharField(widget=forms.HiddenInput(), label='')
-    telephone = PhoneNumberField(required=False)
-    fax = PhoneNumberField(required=False)
+
     class Meta:
         model = School
-        fields = ('name', 'email', 'website', 'file', 'type_school')
+        fields = ('name', 'email', 'website', 'file', 'type_school',
+                  'telephone', 'fax')
 
     def __init__(self, *args, **kwargs):
         super(SchoolCreationFormAdmin, self).__init__(*args, **kwargs)
@@ -81,12 +80,11 @@ class SchoolCreationFormAdmin(forms.ModelForm):
 class SchoolChangeFormAdmin(forms.ModelForm):
     address = forms.CharField(widget=map_widgets.GoogleMapsAddressWidget)
     geolocation = forms.CharField(widget=forms.HiddenInput(), label='')
-    telephone = PhoneNumberField(required=False)
-    fax = PhoneNumberField(required=False)
 
     class Meta:
         model = School
-        fields = ('name', 'email', 'website', 'type_school','file')
+        fields = ('name', 'email', 'website', 'file', 'type_school',
+                  'telephone', 'fax')
 
     def __init__(self, *args, **kwargs):
         initial = {

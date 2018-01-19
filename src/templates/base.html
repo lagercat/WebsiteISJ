@@ -146,7 +146,7 @@
                   </ul>
                 </li>
               {% endfor %}
-              {% if categories_number > 5 %}
+              {% if categories_number > 4 %}
                 <li ><a href="/category_all">Altele</a></li>
               {% endif %}
               <li><a href="#" id="mu-search-icon" style="display:block;!important;"><i
@@ -186,7 +186,14 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 text-center">
                   <input id="id_address" name="address" type="hidden" value="Bulevardul Constantin Diaconovici Loga 3, Timișoara 300020, România">
                   <input id="id_geolocation" name="geolocation" type="hidden" value="45.7509109,21.2280849">
-                  <iframe   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2784.0117254224856!2d21.225890850636254!3d45.75091087900282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47455d819bdae2db%3A0xa19c4c02eafe567b!2sInspectoratul+%C8%98colar+Jude%C8%9Bean+Timi%C8%99!5e0!3m2!1sro!2sro!4v1487670159192" allowfullscreen></iframe>
+                  <!--
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2784.0117254224856!2d21.225890850636254!3d45.75091087900282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47455d819bdae2db%3A0xa19c4c02eafe567b!2sInspectoratul+%C8%98colar+Jude%C8%9Bean+Timi%C8%99!5e0!3m2!1sro!2sro!4v1487670159192&hl=ro" allowfullscreen></iframe>
+                  -->
+                <iframe
+                  src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ2-Lam4FdRUcRe1b-6gJMnKE&key=AIzaSyBQEElsB0Z58ew_aZfdyb5__qRn_oE9qXc&language=ro"
+                  >
+                </iframe>
                 </div>
                 <div class="col-md-3 col-sm-5 col-xs-12 text-center" >
                   <img src="{% static "assets/img/logo.png" %}" alt="logo"
@@ -215,7 +222,7 @@
               <p>Copyright © 2017 Toate drepturile rezervate. Dezvoltat de
                 <a href="https://github.com/emanuelcovaci">Emanuel Covaci, </a>
                 <a href="https://github.com/adriangaro"> Adrian Garovat, </a>
-                <a href="https://github.com/MalesSebastian"> Sebastian Males </a>
+                <a href="https://github.com/MalesSebastian"> Sebastian Males.</a>
               </a></p>
             </div>
           </div>

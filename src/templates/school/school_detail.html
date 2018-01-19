@@ -48,7 +48,7 @@
                     <div class="col-md-12">
                       <div class="mu-latest-course-single">
                         <figure class="mu-latest-course-img">
-                          {% if  thumbnail.url %}
+                          {% if thumbnail  != "/media/" %}
                             <a href="#"><img src= '{{ thumbnail }}' alt="img"></a>
                           {% else %}
                             <a href="#"><img  src= "{% static "assets/img/school.jpg" %}" alt="img"></a>

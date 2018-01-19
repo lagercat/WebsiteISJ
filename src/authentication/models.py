@@ -93,7 +93,19 @@ class ExtendedUser(AbstractBaseUser):
             "post.view_post",
             "post.change_own_post",
             "post.add_own_post",
-            "post.delete_post"
+            "post.delete_post",
+            "page.change_category",
+            "page.add_category",
+            "page.delete_category",
+            "page.change_subcategory",
+            "page.add_subcategory",
+            "page.delete_subcategory",
+            "page.change_article",
+            "page.add_article",
+            "page.delete_article",
+            "page.change_simplepage",
+            "page.add_simplepage",
+            "page.delete_simplepage"
         ],
         1: [
             "school.change_own_school",
@@ -116,7 +128,12 @@ class ExtendedUser(AbstractBaseUser):
             "subject.add_own_subcategory",
             "gallery.change_own_gallery",
             "gallery.add_own_gallery",
-            "post.delete_post"
+            "post.delete_post",
+            "event.delete_event",
+            "news.delete_news",
+            "subject.delete_subjectpost",
+            "subject.delete_subcategory",
+            "gallery.delete_gallery"
         ],
         3: [
             "all"

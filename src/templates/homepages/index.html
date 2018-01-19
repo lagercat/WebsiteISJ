@@ -24,7 +24,7 @@
     <div class="mu-slider-single">
       <div class="mu-slider-img">
         <figure>
-          <img src="{% static "assets/img/slider/p1.jpg" %}"alt="img">
+          <img src="{% static "assets/img/slider/main_img.jpg" %}"alt="img">
         </figure>
       </div>
       <div class="mu-slider-content">
@@ -39,7 +39,7 @@
     <div class="mu-slider-single">
       <div class="mu-slider-img">
         <figure>
-          <img src="{% static "assets/img/slider/p2.jpg" %}" alt="img">
+           <img src="{% static "assets/img/slider/main_img.jpg" %}"alt="img">
         </figure>
       </div>
       <div class="mu-slider-content">
@@ -113,8 +113,11 @@
                   <li>Asigură, împreună cu autorităţile administraţiei publice locale, şcolarizarea elevilor pe durata învăţământului obligatoriu;</li>
                   -->
                 <p>
-                    {{ about_us | safe }}
+                    {{ about_us | truncatechars:440 }}
                 </p>
+                  {% if about_len > 440 %}
+                  <a href="/about"> Citește mai mult</a>
+                  {% endif %}
                   <div class="container">
                     <div >
                       <div>
@@ -248,7 +251,7 @@
     <!-- start title -->
     <div class="mu-title">
       <a href="/events_all">
-        <h2 >Evenimente</h2>
+        <h2 >Proiecte şi Evenimente</h2>
         <p>Vă ţinem la curent cu cele mai importante evenimente.</p>
         <a href="/events_all" class="mu-read-more-btn " style="color: #0f0f0f; border: 1px solid #000;">Toate evenimente</a>
       </a>
@@ -344,7 +347,7 @@
 <!-- start title -->
 <div class="mu-title">
 <a href="/school_all">
-<h2 >Şcolile din judeţul Timiş </h2>
+<h2>Rețea Școlară Județul Timiș</h2>
 <p>"Educaţia înseamnă învăţarea a ceea ce nu ai ştiut vreodată că nu ştii."</p>
 <a href="/school_all" class="mu-read-more-btn " style="color: #0f0f0f;border:
   1px solid #000;">Toate școlile</a>

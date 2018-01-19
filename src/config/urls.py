@@ -34,5 +34,6 @@ urlpatterns = [
     url(r'^', include('contact.urls')),
     url(r'^', include('school.urls')),
     url(r'^', include('registration.urls')),
-    url(r'^', include('page.urls'))
+    url(r'^', include('page.urls')),
+    url(r'^', include('editables.urls'))
 ]
