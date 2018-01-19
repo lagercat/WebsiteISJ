@@ -37,7 +37,7 @@ def user_directory_path(self, filename):
 
 class File(CustomPermissionsMixin):
     author = models.ForeignKey("authentication.ExtendedUser", blank=False)
-    name = models.CharField(max_length=100, blank=False, null=True)
+    name = models.CharField(max_length=250, blank=False, null=True)
     file = models.FileField(upload_to=user_directory_path, null=True)
     date = models.DateTimeField(default=datetime.now, blank=False, null=True,
                                 editable=True)
