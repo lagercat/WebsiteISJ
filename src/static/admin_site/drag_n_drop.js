@@ -78,7 +78,7 @@ var template = '\
                 <h5>File</h5>\
                 <div class="row">\
                     <div class="input-field col s12 required" id="id_name_container-{0}">\
-                        <input id="id_form-{0}-name" maxlength="100" name="form-{0}-name" autofocus="autofocus" type="text" value="{1}">\
+                        <input id="id_form-{0}-name" maxlength="200" name="form-{0}-name" autofocus="autofocus" type="text" value="{1}">\
                         <label for="id_form-{0}-name" class="{2}">Name</label>\
                     </div>\
                 </div>\

@@ -15,8 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django.contrib.admin.filters import (ChoicesFieldListFilter,
-                                          DateFieldListFilter,
-                                          AllValuesFieldListFilter)
+                                          DateFieldListFilter)
 from models import Post
 from post.forms import (PageChangeFormAdmin, PageCreationFormAdmin,
                         PostChangeFormAdmin, PostCreationFormAdmin)
@@ -34,14 +33,14 @@ class PostAdmin(AdminChangeMixin):
 
     icon = '<i class="material-icons">description</i>'
 
-    list_display = ('short_name', 'author', 'fileLink', 'see_file_link',
+    list_display = ('short_name', 'author', 'see_file_link',
                     'location', 'date', )
     list_filter = (
         ('date', DateFieldListFilter),
         ('author__status', ChoicesFieldListFilter),
         ('location', FileLocationFilter),
     )
-    readonly_fields = ['fileLink', 'author', 'location']
+    readonly_fields = ['author', 'location']
 
     fieldsets = ()
     change_fieldsets = (
@@ -87,7 +86,6 @@ class PostAdmin(AdminChangeMixin):
         extra_context = extra_context or {}
         extra_context['location'] = int(request.GET.get('_exterior', 2))
         return super(PostAdmin, self).add_view(request,
-
                                                extra_context=extra_context)
 
 
