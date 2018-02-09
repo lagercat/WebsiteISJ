@@ -42,7 +42,7 @@ class Category(CustomPermissionsMixin):
         verbose_name_plural = 'Categories'
         index_text = "Manage"
 
-    title = models.CharField(max_length=50, blank=False, null=True,
+    title = models.CharField(max_length=200, blank=False, null=True,
                              unique=True)
     slug = models.SlugField(default=uuid.uuid1, unique=True, editable=False)
     order = models.IntegerField(default=1)
@@ -58,7 +58,8 @@ class Category(CustomPermissionsMixin):
 class Subcategory(CustomPermissionsMixin):
     category = models.ForeignKey(Category, related_name='subcategories',
                                  null=True)
-    name = models.CharField(max_length=25, blank=False, null=True, unique=True)
+    name = models.CharField(max_length=200, blank=False, null=True,
+                            unique=True)
     slug_sub = models.SlugField(default=uuid.uuid1, unique=True,
                                 editable=False)
 

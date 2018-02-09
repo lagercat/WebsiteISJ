@@ -28,7 +28,7 @@ from models import Event
 
 def event_all(request):
     events = Event.objects.order_by('-date')
-    paginator = Paginator(events, 4)
+    paginator = Paginator(events, 6)
 
     page = request.GET.get('page')
     try:
@@ -40,8 +40,8 @@ def event_all(request):
 
     index = events.number - 1
     max_index = len(paginator.page_range)
-    start_index = index - 3 if index >= 3 else 0
-    end_index = index + 3 if index <= max_index - 3 else max_index
+    start_index = index - 5 if index >= 5 else 0
+    end_index = index + 5 if index <= max_index - 5 else max_index
     page_range = list(paginator.page_range)[start_index:end_index]
 
     return render(request, 'event/events.html', {
