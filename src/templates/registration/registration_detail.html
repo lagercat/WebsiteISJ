@@ -71,6 +71,38 @@ img {
                 </div>
               </div>
               <!-- end course content container -->
+              <!-- start blog navigation -->
+              <!-- end blog navigation -->
+              <!-- start related course item -->
+                {% if other_news %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mu-related-item">
+                                <h3>Alte noutăţi</h3>
+                                <div class="mu-related-item-area">
+                                    <div id="mu-related-item-slide">
+                                        {% for news in other_news %}
+                                            <div class="col-md-6">
+                                                <article class="mu-blog-single-item">
+                                                    <figure class="mu-blog-single-img">
+                                                        <a href="/news/{{ news.slug }}"><img style=" max-height: 160px" alt="img" src='{{ news.file.url }}'></a>
+                                                    </figure>
+                                                    <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                                                        <h3><a href="/news/{{ news.slug }}" title="{{ news.name }}">{{ news.name|truncatechars:20 }}</a></h3>
+                                                    </figcaption>
+                                                    <div class="mu-blog-description">
+                                                        <a href="/news/{{ news.slug }}" class="mu-read-more-btn">Citeşte mai mult</a>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+              <!-- end start related course item -->
             </div>
             <div class="col-md-3">
               <!-- start sidebar -->

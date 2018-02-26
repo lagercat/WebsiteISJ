@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from news.models import News
 from .models import Registration
 
 
@@ -19,6 +20,7 @@ def school_registration_detail(request,slug):
     detail = list(Registration.objects.values('name', 'text', 'author__first_name',
                                        'author__last_name', 'file',
                                        'slug').filter(slug=slug))
+    other_news = News.objects.all()[:4]
     return render(request, 'registration/registration_detail.html', {
 
         'name': detail[0].get('name'),
@@ -26,6 +28,7 @@ def school_registration_detail(request,slug):
         'author': detail[0].get(
             'author__first_name') + " " + detail[0].get('author__last_name'),
         'date': detail[0].get('date'),
+        'other_news': other_news,
         'thumbnail': "/media/" + detail[0].get('file'),
 
     })
