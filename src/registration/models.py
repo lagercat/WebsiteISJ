@@ -2,12 +2,11 @@
 from __future__ import unicode_literals
 
 import os
-
+from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
-from django.db import models
-
 from post.models import File
+from tinymce.models import HTMLField
 
 
 def user_directory_path(instance, filename):
@@ -31,7 +30,11 @@ class Registration(File):
         max_length=2,
         choices=school_choices,
     )
-    REQUIRED = ['name', 'file', 'type_registration']
+
+    text = HTMLField()
+    file = models.FileField(upload_to=user_directory_path, null=True,
+                            blank=True)
+    REQUIRED = ['name', 'text', 'type_registration']
 
     def __unicode__(self):
         return self.name

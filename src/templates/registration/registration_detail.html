@@ -1,0 +1,100 @@
+<!-- Copyright 2017 Adrian-Ioan Garovat, Emanuel Covaci, Sebastian-Valeriu Males-->
+<!---->
+<!-- This file is part of WebsiteISJ-->
+<!---->
+<!-- WebsiteISJ is free software: you can redistribute it and/or modify-->
+<!-- it under the terms of the GNU General Public License as published by-->
+<!-- the Free Software Foundation, either version 3 of the License, or-->
+<!-- (at your option) any later version.-->
+<!---->
+<!-- WebsiteISJ is distributed in the hope that it will be useful,-->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of-->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the-->
+<!-- GNU General Public License for more details.-->
+<!---->
+<!-- You should have received a copy of the GNU General Public License-->
+<!-- along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.-->
+{% extends "base.html" %}
+{% block title %}{{ name }}{% endblock %}
+{% load staticfiles %}
+{% block content %}
+        {# This is for img responsive in text rich start#}
+<style>
+img {
+    max-width:100% !important;
+    height:auto !important;
+}
+</style>
+{#  end  #}
+ <!-- Page breadcrumb -->
+<section id="mu-page-breadcrumb">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="/news_all">
+          <div class="mu-page-breadcrumb-area">
+            <h2>Înscrierea în învățământ</h2>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End breadcrumb -->
+<section id="mu-course-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="mu-course-content-area">
+          <div class="row">
+            <div class="col-md-9">
+              <!-- start course content container -->
+              <div class="mu-course-container mu-blog-single">
+                <div class="row">
+                  <div class="col-md-12">
+                    <article class="mu-blog-single-item">
+                      <figure class="mu-blog-single-img">
+                          {% if thumbnail  != "/media/" %}
+                              <a href="#"><img src= '{{ thumbnail }}' alt="img"></a>
+                          {% else %}
+                              <a href="#"><img  src= "{% static "assets/img/men.jpg" %}" alt="img"></a>
+                          {% endif %}
+                      </figure>
+                      <figcaption class="mu-blog-caption" style="padding-top: 305px;">
+                      <h3><a href="#">{{ name }}</a></h3>
+                      </figcaption>
+                      <div class="mu-blog-description">
+                        <p>{{ text|safe }}</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+              <!-- end course content container -->
+            </div>
+            <div class="col-md-3">
+              <!-- start sidebar -->
+              <aside class="mu-sidebar">
+                <!-- start single sidebar -->
+                <div class="mu-single-sidebar">
+                  
+                  <h3><a href="/subject_page_all">Specializări</a></h3>
+                  
+                  <ul class="mu-sidebar-catg">
+                    {% for subject in left_subjects %}
+                      <li><a href="/subject/{{ subject.name }}">{{ subject.name }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                <!-- end single sidebar -->
+              </aside>
+              <!-- / end sidebar -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  {% endblock %}

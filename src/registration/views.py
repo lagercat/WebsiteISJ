@@ -15,6 +15,22 @@ def primary_school(request):
         'title':'Invatamant primar'
     })
 
+def school_registration_detail(request,slug):
+    detail = list(Registration.objects.values('name', 'text', 'author__first_name',
+                                       'author__last_name', 'file',
+                                       'slug').filter(slug=slug))
+    return render(request, 'registration/registration_detail.html', {
+
+        'name': detail[0].get('name'),
+        'text': detail[0].get('text'),
+        'author': detail[0].get(
+            'author__first_name') + " " + detail[0].get('author__last_name'),
+        'date': detail[0].get('date'),
+        'thumbnail': "/media/" + detail[0].get('file'),
+
+    })
+
+
 
 def pre_school(request):
     documents_all = list(Registration.objects.filter(

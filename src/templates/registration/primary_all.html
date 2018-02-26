@@ -50,7 +50,7 @@
                           {{ title }}</a>
                       {% if documents_all %}
                         {% for document  in documents_all %}
-  <a href="/media/{{ document.file }}"
+  <a href="/school_registration_detail/{{ document.slug }}"
                              class="list-group-item act">{{ document.name }}
   {{ document.date }}</a>
                         {% endfor %}

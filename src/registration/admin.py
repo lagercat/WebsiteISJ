@@ -26,17 +26,17 @@ class RegistrationAdmin(AdminChangeMixin):
     fieldsets = ()
     change_fieldsets = (
         ('Page', {'fields': ('name',)}),
-        ('Registration content', {'fields': ('type_registration', 'file')})
+        ('Registration content', {'fields': ('type_registration','text', 'file')})
     )
 
     add_fieldsets = (
         ('Page', {'fields': ('name',)}),
-        ('Registration content', {'fields': ('type_registration', 'file')})
+        ('Registration content', {'fields': ('type_registration','text', 'file')})
     )
 
     search_fields = (
         'author__first_name', 'author__last_name', 'name', 'date',
-        'type_registration', 'slug',)
+        'type_registration','text', 'slug',)
 
     ordering = ['date']
     filter_horizontal = ()

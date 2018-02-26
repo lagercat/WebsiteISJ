@@ -17,16 +17,19 @@
 
 from django import forms
 from .models import Registration
+from tinymce.widgets import AdminTinyMCE
 from utility.utility import clean_file
 
 
 class RegistrationCreationFormAdmin(forms.ModelForm):
-    show_files = False
+    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}),
+                           label='')
+    show_files = True
     show_preview = False
 
     class Meta:
         model = Registration
-        fields = ('name', 'file', 'type_registration')
+        fields = ('name', 'text','file', 'type_registration')
 
     def clean_file(self):
         uploaded_file = self.cleaned_data['file']
@@ -39,18 +42,21 @@ class RegistrationCreationFormAdmin(forms.ModelForm):
         uploaded_file = super(RegistrationCreationFormAdmin, self).save(
             commit=False)
         uploaded_file.author = self.current_user
+        uploaded_file.text = self.cleaned_data['text']
         if commit:
             uploaded_file.save()
         return uploaded_file
 
 
 class RegistrationChangeFormAdmin(forms.ModelForm):
+    text = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}),
+                           label='')
     show_files = False
     show_preview = False
 
     class Meta:
         model = Registration
-        fields = ('name', 'file', 'type_registration')
+        fields = ('name','text','file', 'type_registration')
 
     def __init__(self, *args, **kwargs):
         super(RegistrationChangeFormAdmin, self).__init__(*args, **kwargs)
@@ -64,6 +70,7 @@ class RegistrationChangeFormAdmin(forms.ModelForm):
 
     def save(self, commit=True):
         uploaded_file = super(RegistrationChangeFormAdmin, self).save(commit=False)
+        uploaded_file.text = self.cleaned_data['text']
         if commit:
             uploaded_file.save()
         return uploaded_file
