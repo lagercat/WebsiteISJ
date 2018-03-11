@@ -17,12 +17,15 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.utils.datetime_safe import datetime
 
 
 class Contact(models.Model):
     first_name = models.CharField(max_length=20, default='')
     last_name = models.CharField(max_length=20, default='')
     email = models.CharField(max_length=30)
+    date = models.DateTimeField(default=datetime.now, blank=False, null=True,
+                                editable=False)
     subject = models.CharField(max_length=50)
     message = models.TextField()
 
