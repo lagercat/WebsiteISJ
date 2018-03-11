@@ -25,6 +25,9 @@ class ContactAdmin(AdminChangeMixin):
     can_change_own = False
     add_form = Contact
     icon = '<i class="material-icons">contact_mail</i>'
-    list_display = ['first_name', 'last_name', 'email', 'subject']
+    readonly_fields = ('date',)
+    fields = ('first_name', 'last_name', 'date', 'email', 'subject', 'message')
+    list_display = ['first_name', 'last_name', 'email', 'subject', 'date']
+
 
 admin.site.register(Contact, ContactAdmin)

@@ -16,6 +16,7 @@
 # along with WebsiteISJ.   If not, see <http://www.gnu.org/licenses/>.
 from django import forms
 from django.core.validators import validate_email
+from django.utils.datetime_safe import datetime
 
 from captcha.fields import ReCaptchaField
 
@@ -55,9 +56,13 @@ class CreateContactForm(forms.ModelForm):
         return last_name
 
     def clean_message(self):
+        email = self.cleaned_data['email']
+        date = datetime.now().strftime('%d/%m/%Y')
         message = self.cleaned_data['message']
         if len(message) < 50:
             raise forms.ValidationError(
                 "Mesajul tau e prea scurt "
                 "Trebuie sa contina minim 50 de caractere")
+        message = email + ' ' + date + '\n' + message
+        print message
         return message

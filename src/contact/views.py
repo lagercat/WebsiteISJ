@@ -26,7 +26,7 @@ def contact(request):
         if form.is_valid():
             form.save()
             confirm.append(
-                'Your message has been successfully sent!\nThank you!')
+                'Mesajul tau a fost trimis cu succes! Multumim!')
             form = CreateContactForm(None)
     return render(request, 'contact/contact.html',
                   {'form': form,
