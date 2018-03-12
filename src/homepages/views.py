@@ -28,11 +28,19 @@ from editables.models import Editable
 
 def home(request):
     template = 'homepages/index.html'
+    manage_name = "Managementul Resurselor Umane"
     noutati = News.objects.order_by("-date")[:9]
     events = Event.objects.order_by("-date")[:3]
-    subjects = Subject.objects.all()[:6]
+    subjects = Subject.objects.exclude(name=manage_name)[:6]
     album = Gallery.objects.order_by("-date")[:3]
     schools = School.objects.all()[:3]
+    try:
+        management_subject = Subject.objects.get(
+                name=manage_name)
+        subjects = subjects[:5]
+    except Subject.DoesNotExist:
+        management_subject = None
+    print management_subject
     video_link = getattr(
             Editable.objects.filter(editable_type="1").first(), "text", None)
     about_us = mark_safe(getattr(
@@ -51,5 +59,6 @@ def home(request):
         "about_us": about_us,
         "about_len": len(about_us),
         "welcome": welcome,
-        "mission": mission
+        "mission": mission,
+        "manage": management_subject
     })
