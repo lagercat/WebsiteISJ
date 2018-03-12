@@ -164,6 +164,15 @@
               <!-- Start features content -->
               <div class="mu-features-content">
                 <div class="row">
+                  {% if manage %}
+                      <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="mu-single-feature">
+                          <span class="glyphicon glyphicon-education"></span>
+                          <h4>{{ manage.name }}</h4>
+                          <a href="/subject/{{manage.name}}">Accesați specializarea</a>
+                        </div>
+                      </div>
+                  {% endif %}
                   {% if subjects %}
                     {% for subject in subjects %}
                       <div class="col-lg-2 col-md-4 col-sm-6">
