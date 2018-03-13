@@ -40,7 +40,6 @@ def home(request):
         subjects = subjects[:5]
     except Subject.DoesNotExist:
         management_subject = None
-    print management_subject
     video_link = getattr(
             Editable.objects.filter(editable_type="1").first(), "text", None)
     about_us = mark_safe(getattr(
