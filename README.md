@@ -2,7 +2,7 @@
 
 #### http://www.isj.tm.edu.ro
 
-# Componenta Echipei
+# Our team
 
 Emanuel Covaci
 back-end developer
@@ -56,7 +56,7 @@ back-end developer
 * elasticsearch==2.4.1
 
 
-## Running the project with docker
+## Running the project with Docker
 ```sh
 $ docker-compose build
 ```
