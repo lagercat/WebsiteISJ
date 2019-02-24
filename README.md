@@ -1,28 +1,22 @@
-# Inspectoratul Școlar Județean Timiș
+# County Scholar Inspectorate Timiș
 
 #### http://www.isj.tm.edu.ro
 
 # Componenta Echipei
 
 Emanuel Covaci
-cls XII-a, Liceul Teoretic "G.Moisil" Timisoara : 
 back-end developer
 
 Males Sebastian
-cls X-a, Liceul Teoretic "G.Moisil" Timisoara : 
 back-end developer
 
 Adrian Garovat 
-cls XII-a, Liceul Teoretic "G.Moisil" Timisoara : 
 back-end developer
 
-## Licenta 
-* Proiectul e protejat de GNU General Public License V3
+## License
+* The project is protected by GNU General Public License V3
 
-## Documentatie
-* Documentatia proiectului poate fi accesata aici  http://bit.ly/2w8v4SM
-
-## Tehnologi folosite
+## Technology stack
 ### Back-end:
 * Django Framework
 ### Front-end:
@@ -32,7 +26,7 @@ back-end developer
 * JQuery
 * Bootstrap
 * Materialize CSS
-### Baze de date:
+### Database:
 * PostgreSQL
 ### Search engine:
 * Elasticsearch
@@ -41,7 +35,7 @@ back-end developer
 ### Integration tool: 
 * Jenkins
 
-## Pachete folosite de la  Django
+## Django packages
 
 * Django==1.10.3
 * django-haystack==2.6.1
@@ -61,14 +55,8 @@ back-end developer
 * django-nose
 * elasticsearch==2.4.1
 
-## Editoare folosite
-* Emacs
-* Vim
-* PyCharm
-* Atom
-* Sublime
 
-## Pentru a rula proiectul se executa urmatoarea comanda in terminal 
+## Running the project with docker
 ```sh
 $ docker-compose build
 ```
@@ -76,9 +64,3 @@ $ docker-compose build
 $ docker-compose up
 ```
 
-## Resurse folosite: 
-* Python http://learnpythonthehardway.org/book/
-* Django https://docs.djangoproject.com/en/1.9/
-* Docker https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-getting-started
-* JavaScript http://www.w3schools.com/js/
-* Stack Overflow http://stackoverflow.com/
