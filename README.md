@@ -5,7 +5,7 @@
 Emanuel Covaci
 back-end developer
 
-Males Sebastian
+Sebastian Males
 back-end developer
 
 Adrian Garovat 
