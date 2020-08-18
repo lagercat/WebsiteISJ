@@ -1,8 +1,6 @@
 # County Scholar Inspectorate Timiș
 
-#### http://www.isj.tm.edu.ro
-
-# Our team
+## Our team
 
 Emanuel Covaci
 back-end developer
