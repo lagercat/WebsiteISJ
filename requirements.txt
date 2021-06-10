@@ -1,4 +1,4 @@
-Django==1.10.3
+Django==2.2.24
 django-haystack==2.6.1
 django-widget-tweaks==1.4.1
 django-recaptcha==1.0.5
